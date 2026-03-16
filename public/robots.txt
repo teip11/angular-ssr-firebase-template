@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# TODO: Block any admin or staging paths
+# Disallow: /admin/
+
+# TODO: Update with your real domain
+Sitemap: https://YOUR_DOMAIN.com/sitemap.xml

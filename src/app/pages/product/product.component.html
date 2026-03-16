@@ -1,0 +1,63 @@
+<!-- Product Detail Page — TODO: Wire up to real product data by slug -->
+<section class="section--sm product-hero" style="background:var(--color-dark-2)">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a routerLink="/">Home</a>
+      <span aria-hidden="true"> / </span>
+      <a routerLink="/shop">Shop</a>
+      <span aria-hidden="true"> / </span>
+      <span>{{ slug }}</span>
+    </nav>
+  </div>
+</section>
+
+<section class="section product-layout">
+  <div class="container product-layout__inner">
+
+    <!-- Product Images — TODO: Replace with real images -->
+    <div class="product-gallery">
+      <div class="product-gallery__main">
+        <div class="product-img-placeholder">🌿</div>
+      </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="product-info">
+      <!-- TODO: Populate from ProductService -->
+      <span class="product-info__brand">TODO: Brand Name</span>
+      <h1 class="product-info__name">Product Name — {{ slug }}</h1>
+      <p class="product-info__price">$XX.XX</p>
+
+      <div class="product-info__badges">
+        <span class="badge badge--primary">Serum</span>
+        <span class="badge badge--success">In Stock</span>
+      </div>
+
+      <p class="product-info__desc">
+        TODO: Add product description here. Include key ingredients, benefits,
+        skin type suitability, and how to use.
+      </p>
+
+      <!-- Skin Type Tags -->
+      <div class="product-skin-types">
+        <span class="section-label" style="margin-bottom:var(--space-2);display:block">Best For</span>
+        <!-- TODO: Map real skin types -->
+        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap">
+          <span class="badge badge--accent">Dry Skin</span>
+          <span class="badge badge--accent">Sensitive</span>
+        </div>
+      </div>
+
+      <div class="product-actions">
+        <!-- TODO: Wire up to cart / checkout -->
+        <button class="btn btn--primary btn--lg" style="flex:1">Add to Cart</button>
+        <button class="btn btn--ghost btn--lg">♡</button>
+      </div>
+
+      <p class="product-shipping">
+        ✈️ Free shipping on orders over $50 &nbsp;·&nbsp; Ships in 2-5 business days
+        <!-- TODO: Update shipping info -->
+      </p>
+    </div>
+  </div>
+</section>

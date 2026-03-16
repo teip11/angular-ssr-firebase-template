@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Your Site — Tagline Here</title>
+  <!-- TODO: Update the title above for your brand -->
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ── Default SEO — overridden per-page by SeoService ───────────────────── -->
+  <!-- TODO: Update description, og:image, og:url, canonical with your real domain -->
+  <meta name="description" content="TODO: Your default site description goes here. Around 150-160 characters.">
+  <meta name="robots" content="index, follow">
+  <!-- TODO: Replace YOUR_DOMAIN.com everywhere in this file -->
+  <link rel="canonical" href="https://YOUR_DOMAIN.com">
+
+  <!-- ── Open Graph ─────────────────────────────────────────────────────────── -->
+  <meta property="og:site_name"   content="Your Site Name">
+  <!-- TODO: Update og:site_name above -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Your Site — Tagline Here">
+  <meta property="og:description" content="TODO: Your default OG description.">
+  <meta property="og:image"       content="https://YOUR_DOMAIN.com/og-default.jpg">
+  <meta property="og:url"         content="https://YOUR_DOMAIN.com">
+
+  <!-- ── Twitter / X Card ─────────────────────────────────────────────────── -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Your Site — Tagline Here">
+  <meta name="twitter:description" content="TODO: Your default Twitter description.">
+  <meta name="twitter:image"       content="https://YOUR_DOMAIN.com/og-default.jpg">
+  <!-- TODO: Add your Twitter/X handle -->
+  <!-- <meta name="twitter:site" content="@YOUR_HANDLE"> -->
+
+  <!-- ── Theme color (PWA / browser chrome) ─────────────────────────────────── -->
+  <!-- TODO: Set to your primary brand color -->
+  <meta name="theme-color" content="#000000">
+
+  <!-- ── Favicons ─────────────────────────────────────────────────────────── -->
+  <!-- Generate at: https://realfavicongenerator.net — replace these placeholders -->
+  <link rel="icon"             type="image/x-icon"  href="favicon.ico">
+  <link rel="icon"             type="image/svg+xml" href="favicon.svg">
+  <link rel="icon"             type="image/png" sizes="96x96" href="favicon-96x96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest"         href="site.webmanifest">
+
+  <!-- ── Performance: Preconnect ───────────────────────────────────────────── -->
+  <!-- fonts.gstatic.com: woff2 files are fetched from here even when CSS is inlined.
+       crossorigin is required because font files use CORS. -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <!-- TODO: Add preconnect for any CDNs or image hosts you use -->
+
+  <!-- ── Critical inline CSS: Inter Fallback with size-adjusted metrics ────── -->
+  <!-- Eliminates CLS during font swap by calibrating Arial to match Inter's
+       exact ascent/descent/size so text never reflows when Inter loads.
+       These values were calculated using: https://screenspan.net/fallback -->
+  <style>
+    @font-face {
+      font-family: 'Inter Fallback';
+      src: local('Arial'), local('Helvetica Neue');
+      ascent-override: 90.20%;
+      descent-override: 22.48%;
+      line-gap-override: 0.00%;
+      size-adjust: 107.40%;
+    }
+  </style>
+
+  <!-- ── Google Fonts: Inter ──────────────────────────────────────────────── -->
+  <!-- Angular inlines this at build time (fonts.inline:true in angular.json).
+       No runtime request to fonts.googleapis.com is made in production.
+       Woff2 files are still fetched from fonts.gstatic.com (preconnect above). -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+
+  <!-- ── Google Tag Manager — deferred until first user interaction ────────── -->
+  <!--
+    WHY DEFERRED: GTM's script evaluation costs ~314ms CPU during page load,
+    all of which falls inside the TBT window and tanks your Lighthouse score.
+    Events pushed to dataLayer before GTM loads are queued automatically
+    and replayed once GTM initialises — no events are lost.
+
+    TODO: Replace GTM-XXXXXXX with your real GTM container ID, then uncomment.
+  -->
+  <!--
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    (function(){
+      var _gtmLoaded = false;
+      function loadGTM(){
+        if(_gtmLoaded) return; _gtmLoaded = true;
+        (function(w,d,s,l,i){
+          w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+          var f=d.getElementsByTagName(s)[0],j=d.createElement(s),
+            dl=l!='dataLayer'?'&l='+l:'';
+          j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+          f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-XXXXXXX');
+      }
+      // Trigger on first interaction — maximises TBT savings on mobile
+      ['scroll','click','keydown','touchstart','mousemove'].forEach(function(e){
+        window.addEventListener(e, loadGTM, {once:true, passive:true});
+      });
+      // 10-second fallback — ensures GTM loads even for users who don't interact.
+      // 10s is chosen because on slow 4G, page TTI is ~5-6s. Firing at 5s puts
+      // GTM's CPU work inside the TBT window. 10s guarantees it loads after TTI.
+      setTimeout(loadGTM, 10000);
+    })();
+  </script>
+  -->
+
+  <!-- ── reCAPTCHA v3 — loaded lazily by ContactComponent ─────────────────── -->
+  <!--
+    reCAPTCHA is NOT loaded globally here. Loading it on every page adds ~350 KB.
+    The ContactComponent lazy-loads it only when the user visits /contact.
+    See: src/app/pages/contact/contact.component.ts → ngOnInit()
+  -->
+
+  <!-- ── HubSpot Tracking — deferred until first user interaction ──────────── -->
+  <!--
+    Same deferred pattern as GTM. HubSpot adds ~440ms CPU to TBT if loaded eagerly.
+
+    TODO: Replace 12345678 with your HubSpot portal ID, then uncomment.
+  -->
+  <!--
+  <link rel="dns-prefetch" href="//js.hs-scripts.com">
+  <script>
+    (function(){
+      var _hsLoaded = false;
+      function loadHubSpot(){
+        if(_hsLoaded) return; _hsLoaded = true;
+        var s = document.createElement('script');
+        s.src = '//js.hs-scripts.com/12345678.js';
+        s.async = true; s.defer = true;
+        s.id = 'hs-script-loader';
+        document.head.appendChild(s);
+      }
+      ['scroll','click','keydown','touchstart','mousemove'].forEach(function(e){
+        window.addEventListener(e, loadHubSpot, {once:true, passive:true});
+      });
+      setTimeout(loadHubSpot, 10000);
+    })();
+  </script>
+  -->
+
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) — TODO: uncomment with your real GTM ID -->
+  <!--
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  -->
+
+  <app-root></app-root>
+</body>
+</html>

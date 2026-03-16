@@ -1,0 +1,151 @@
+<!-- Contact Page -->
+<section class="section--sm contact-hero" style="background:var(--color-dark-2)">
+  <div class="container">
+    <span class="section-label">Get in Touch</span>
+    <h1 class="section-title">Contact Us</h1>
+    <p class="section-subtitle">
+      Questions about an order, wholesale inquiry, or brand collaboration?
+      <!-- TODO: Update contact intro copy -->
+      We'd love to hear from you.
+    </p>
+  </div>
+</section>
+
+<section class="section contact-main">
+  <div class="container contact-main__inner">
+
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <h2 class="contact-info__heading">How Can We Help?</h2>
+      <!-- TODO: Update with real contact details -->
+      <div class="contact-info__item">
+        <span class="contact-info__icon">✉️</span>
+        <div>
+          <strong>Email</strong>
+          <p><a href="mailto:hello@YOUR_DOMAIN.com">hello&#64;glowseoul.com</a></p>
+        </div>
+      </div>
+      <div class="contact-info__item">
+        <span class="contact-info__icon">⏱️</span>
+        <div>
+          <strong>Response Time</strong>
+          <p>We reply within 24 hours on business days</p>
+        </div>
+      </div>
+      <div class="contact-info__item">
+        <span class="contact-info__icon">📦</span>
+        <div>
+          <strong>Order Support</strong>
+          <p>Include your order number for fastest help</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form-wrap">
+      @if (state !== 'success') {
+        <form class="contact-form card"
+              #contactForm="ngForm"
+              (ngSubmit)="onSubmit(contactForm)"
+              novalidate>
+
+          <!-- Honeypot — hidden from real users, bots fill it -->
+          <input type="text" name="phone" [(ngModel)]="form.phone"
+                 style="display:none" tabindex="-1" aria-hidden="true" autocomplete="off">
+
+          <div class="form-group">
+            <label for="cf-name" class="form-label">Name <span aria-hidden="true">*</span></label>
+            <input id="cf-name" type="text" name="name" class="form-input"
+                   [(ngModel)]="form.name" required minlength="2"
+                   placeholder="Your name"
+                   (focus)="onFirstInput()"
+                   #nameField="ngModel">
+            @if (nameField.invalid && nameField.touched) {
+              <span class="form-error">Please enter your name</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="cf-email" class="form-label">Email <span aria-hidden="true">*</span></label>
+            <input id="cf-email" type="email" name="email" class="form-input"
+                   [(ngModel)]="form.email" required email
+                   placeholder="your@email.com"
+                   (focus)="onFirstInput()"
+                   #emailField="ngModel">
+            @if (emailField.invalid && emailField.touched) {
+              <span class="form-error">Please enter a valid email</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="cf-subject" class="form-label">Subject <span aria-hidden="true">*</span></label>
+            <select id="cf-subject" name="subject" class="form-input form-select"
+                    [(ngModel)]="form.subject" required
+                    (focus)="onFirstInput()"
+                    #subjectField="ngModel">
+              <option value="" disabled>Select a topic...</option>
+              <!-- TODO: Update contact form topics to match your business -->
+              <option value="order">Order / Shipping Question</option>
+              <option value="product">Product Question</option>
+              <option value="return">Returns &amp; Refunds</option>
+              <option value="wholesale">Wholesale Inquiry</option>
+              <option value="collaboration">Brand Collaboration</option>
+              <option value="other">Other</option>
+            </select>
+            @if (subjectField.invalid && subjectField.touched) {
+              <span class="form-error">Please select a topic</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="cf-message" class="form-label">Message <span aria-hidden="true">*</span></label>
+            <textarea id="cf-message" name="message" class="form-input form-textarea"
+                      [(ngModel)]="form.message" required minlength="20"
+                      rows="5"
+                      placeholder="Tell us how we can help..."
+                      (focus)="onFirstInput()"
+                      #messageField="ngModel"></textarea>
+            @if (messageField.invalid && messageField.touched) {
+              <span class="form-error">Please enter a message (min 20 characters)</span>
+            }
+          </div>
+
+          @if (state === 'error') {
+            <div class="form-alert form-alert--error" role="alert">
+              ⚠️ {{ errorMessage }}
+            </div>
+          }
+
+          <button type="submit" class="btn btn--primary btn--lg"
+                  style="width:100%"
+                  [disabled]="state === 'submitting'">
+            @if (state === 'submitting') {
+              <span>Sending...</span>
+            } @else {
+              <span>Send Message</span>
+            }
+          </button>
+
+          <!-- TODO: Add reCAPTCHA v3 badge note -->
+          <p class="form-recaptcha-note">
+            This site is protected by reCAPTCHA.
+            <!-- Add your reCAPTCHA site key via the script in index.html -->
+          </p>
+        </form>
+
+      } @else {
+        <!-- Success State -->
+        <div class="contact-success card text-center">
+          <div class="contact-success__icon">✅</div>
+          <h2>Message Sent!</h2>
+          <p>Thanks for reaching out. We'll reply to your email within 24 hours on business days.</p>
+          <button class="btn btn--ghost" style="margin-top:var(--space-6)"
+                  (click)="state='idle'">
+            Send Another Message
+          </button>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,41 @@
+# ──────────────────────────────────────────────
+# Glow Seoul — .gitignore
+# ──────────────────────────────────────────────
+
+# Dependencies
+node_modules/
+functions/node_modules/
+functions/lib/
+
+# Build output
+dist/
+.angular/
+
+# Environment / secrets — NEVER commit these
+.env
+.env.local
+.env.*.local
+functions/.env
+functions/.env.local
+**/.env
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+pubsub-debug.log
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# TypeScript
+*.tsbuildinfo

@@ -1,0 +1,176 @@
+<!-- ══════════════════════════════════════════════
+     GLOW SEOUL — BUILD YOUR BUNDLE (5-step wizard)
+══════════════════════════════════════════════ -->
+
+<!-- Hero bar -->
+<div class="gb-hero">
+  <a routerLink="/shop" class="gb-back-link">← Back to Shop</a>
+  <div class="gb-hero-center">
+    <h1>Build Your Routine Bundle</h1>
+    <p>Pick one product per step — <strong>get 20% off</strong> when your 5-step routine is complete</p>
+    @if (quizSkinType()) {
+      <span class="gb-skin-badge">{{ skinLabels[quizSkinType()!] }} products highlighted for you</span>
+    }
+  </div>
+  <!-- Progress bar -->
+  <div class="gb-progress-wrap">
+    <div class="gb-progress-track">
+      <div class="gb-progress-fill" [style.width.%]="progressPct()"></div>
+    </div>
+    <span class="gb-progress-label">{{ completedSteps() }}/5 steps selected</span>
+  </div>
+</div>
+
+<!-- Main layout -->
+<div class="gb-layout">
+
+  <!-- LEFT: Step picker + product grid -->
+  <div class="gb-left">
+
+    <!-- Step navigation tabs -->
+    <nav class="gb-step-nav">
+      @for (bs of bundleSteps; track bs.key) {
+        <button class="gb-step-tab"
+                [class.active]="activeStepKey() === bs.key"
+                [class.done]="getStepStatus(bs.key) === 'selected'"
+                (click)="setActiveStep(bs.key)">
+          <span class="gb-step-tab-num">
+            @if (selections()[bs.key]) { ✓ } @else { {{ $index + 1 }} }
+          </span>
+          <span class="gb-step-tab-emoji">{{ bs.emoji }}</span>
+          <span class="gb-step-tab-label">{{ bs.label.split('—')[1]?.trim() }}</span>
+          @if (selections()[bs.key]) {
+            <span class="gb-step-tab-selected">{{ selections()[bs.key].brand }}</span>
+          }
+        </button>
+      }
+    </nav>
+
+    <!-- Active step info -->
+    @for (bs of bundleSteps; track bs.key) {
+      @if (activeStepKey() === bs.key) {
+        <div class="gb-step-header">
+          <span class="gb-step-header-emoji">{{ bs.emoji }}</span>
+          <div>
+            <h2>{{ bs.label }}</h2>
+            <p>{{ bs.description }}</p>
+          </div>
+        </div>
+
+        <!-- Product grid for this step -->
+        <div class="gb-product-panel">
+          <div class="gb-product-grid">
+            @for (p of productsForStep()[bs.key]; track p.id) {
+              <article class="gb-product-card"
+                       [class.selected]="isSelected(bs.key, p.id)"
+                       (click)="selectProduct(bs.key, p)">
+
+                <div class="gb-product-img-wrap">
+                  <img [src]="p.image" [alt]="p.name" loading="lazy" />
+                  @if (isSelected(bs.key, p.id)) {
+                    <div class="gb-selected-overlay">
+                      <span class="gb-check">✓</span>
+                    </div>
+                  }
+                </div>
+
+                <div class="gb-product-info">
+                  <p class="gb-product-brand">{{ p.brand }}</p>
+                  <h3 class="gb-product-name">{{ p.shortName }}</h3>
+                  <div class="gb-product-price-row">
+                    <span class="gb-product-price">{{ formatPrice(p.sellPrice) }}</span>
+                    @if (p.tag) {
+                      <span class="gb-product-tag">{{ p.tag }}</span>
+                    }
+                  </div>
+                </div>
+
+                <button class="gb-select-btn" [class.selected]="isSelected(bs.key, p.id)"
+                        (click)="selectProduct(bs.key, p); $event.stopPropagation()">
+                  @if (isSelected(bs.key, p.id)) { ✓ Selected } @else { + Select }
+                </button>
+              </article>
+            }
+          </div>
+
+          <!-- Next step nudge -->
+          @if (selections()[bs.key]) {
+            <div class="gb-step-done-nudge">
+              <span>✓ {{ selections()[bs.key].brand }} added</span>
+              @if (completedSteps() < 5) {
+                @for (next of bundleSteps; track next.key) {
+                  @if (!selections()[next.key] && next.key !== bs.key) {
+                    <button class="gb-next-btn" (click)="setActiveStep(next.key)">
+                      Next: {{ next.emoji }} {{ next.label.split('—')[1]?.trim() }} →
+                    </button>
+                  }
+                }
+              }
+            </div>
+          }
+        </div>
+      }
+    }
+
+  </div>
+
+  <!-- RIGHT: Bundle basket -->
+  <aside class="gb-basket">
+
+    <h3 class="gb-basket-title">Your Bundle</h3>
+
+    <!-- Step rows -->
+    @for (bs of bundleSteps; track bs.key) {
+      <div class="gb-basket-row" [attr.data-step]="bs.key"
+           [class.empty]="!selections()[bs.key]"
+           (click)="setActiveStep(bs.key)">
+        <span class="gb-basket-step-emoji">{{ bs.emoji }}</span>
+        <div class="gb-basket-row-info">
+          @if (selections()[bs.key]) {
+            <span class="gb-basket-product-name">{{ selections()[bs.key].shortName }}</span>
+            <span class="gb-basket-product-brand">{{ selections()[bs.key].brand }}</span>
+          } @else {
+            <span class="gb-basket-empty-slot">{{ bs.label.split('—')[1]?.trim() }} — not selected</span>
+          }
+        </div>
+        <div class="gb-basket-row-right">
+          @if (selections()[bs.key]) {
+            <span class="gb-basket-price">{{ formatPrice(selections()[bs.key].sellPrice) }}</span>
+            <button class="gb-remove-btn" (click)="removeProduct(bs.key); $event.stopPropagation()">✕</button>
+          } @else {
+            <span class="gb-basket-add-hint">+ Add</span>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Subtotal / discount / total -->
+    <div class="gb-basket-totals">
+      <div class="gb-totals-row">
+        <span>Subtotal</span>
+        <span>{{ formatPrice(subtotal()) }}</span>
+      </div>
+
+      @if (isBundleComplete()) {
+        <div class="gb-discount-banner">
+          <span class="gb-discount-badge">🎉 20% Bundle Discount</span>
+          <span class="gb-discount-amount">−{{ formatPrice(discountAmount()) }}</span>
+        </div>
+        <div class="gb-totals-row gb-totals-final">
+          <span>Total</span>
+          <span class="gb-bundle-total">{{ formatPrice(bundleTotal()) }}</span>
+        </div>
+        <p class="gb-savings-note">You're saving {{ formatPrice(discountAmount()) }} on your full routine!</p>
+        <button class="gb-checkout-btn">Order This Bundle →</button>
+        <p class="gb-checkout-note">Duties included · Ships from Seoul in 24h</p>
+      } @else {
+        <div class="gb-incomplete-hint">
+          <span>Add {{ 5 - completedSteps() }} more step{{ (5 - completedSteps()) !== 1 ? 's' : '' }} to unlock</span>
+          <span class="gb-incomplete-badge">20% OFF</span>
+        </div>
+      }
+    </div>
+
+  </aside>
+
+</div>

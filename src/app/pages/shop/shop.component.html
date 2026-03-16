@@ -1,0 +1,325 @@
+<!-- ===== GLOW SEOUL — SHOP (v2) ===== -->
+
+<!-- NAV -->
+<nav class="gs-nav">
+  <div class="gs-nav-inner">
+    <a [routerLink]="['/']" class="gs-logo">
+      <span class="gs-logo-mark">✿</span>
+      <span>Glow<strong>Seoul</strong></span>
+    </a>
+    <div class="gs-nav-links">
+      <a [routerLink]="['/']">Home</a>
+      <a [routerLink]="['/shop']" class="active">Shop</a>
+      <a [routerLink]="['/quiz']">Skin Quiz ✨</a>
+      <a [routerLink]="['/bundle']" class="gs-nav-bundle">🧴 Build Bundle</a>
+    </div>
+    <div class="gs-nav-actions">
+      <a [routerLink]="['/bundle']" class="gs-bundle-nav-badge" *ngIf="bundleCount() > 0">
+        🧴 <span>{{ bundleCount() }}</span>
+      </a>
+      <a [routerLink]="['/shop']" class="gs-cart-nav-badge">
+        🛒 <span class="gs-cart-count">{{ cartCount() }}</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- QUIZ BANNER -->
+<div class="gs-quiz-banner" *ngIf="quizSkinType() && !bannerDismissed()">
+  <div class="gs-quiz-banner-inner">
+    <span class="gs-quiz-banner-icon">{{ skinMeta[quizSkinType()!].emoji }}</span>
+    <span>Showing results for your <strong>{{ skinMeta[quizSkinType()!].label }}</strong> skin type</span>
+    <button class="gs-quiz-clear-btn" (click)="setSkinType('all')">Show All</button>
+    <button class="gs-quiz-dismiss-btn" (click)="dismissBanner()">×</button>
+  </div>
+</div>
+
+<!-- SHOP TOPBAR -->
+<div class="gs-shop-topbar">
+  <div class="gs-topbar-inner">
+    <!-- Mobile filter toggle -->
+    <button class="gs-filter-toggle-btn" (click)="toggleSidebar()">
+      <span class="gs-filter-icon">⚙️</span> Filters
+      <span class="gs-filter-badge" *ngIf="hasActiveFilters()">•</span>
+    </button>
+
+    <!-- Search -->
+    <div class="gs-search-wrap">
+      <span class="gs-search-icon">🔍</span>
+      <input
+        class="gs-search-input"
+        type="text"
+        placeholder="Search 500 products..."
+        [ngModel]="searchQuery()"
+        (ngModelChange)="onSearch($event)"
+      />
+      <button class="gs-search-clear" *ngIf="searchQuery()" (click)="onSearch('')">×</button>
+    </div>
+
+    <!-- Results count -->
+    <div class="gs-results-info">
+      <span *ngIf="filteredProducts().length > 0">
+        <strong>{{ showingFrom() }}–{{ showingTo() }}</strong> of
+        <strong>{{ filteredProducts().length }}</strong> products
+      </span>
+      <span *ngIf="filteredProducts().length === 0">No products found</span>
+    </div>
+
+    <!-- Sort -->
+    <div class="gs-sort-wrap">
+      <select class="gs-sort-select" [ngModel]="sortOrder()" (ngModelChange)="setSort($event)">
+        <option *ngFor="let opt of sortOptions" [value]="opt.value">{{ opt.label }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Active filter chips -->
+  <div class="gs-active-chips" *ngIf="hasActiveFilters()">
+    <span class="gs-chip" *ngFor="let chip of activeFilters()">
+      {{ chip.label }}
+      <button class="gs-chip-remove" (click)="removeFilter(chip.key)">×</button>
+    </span>
+    <button class="gs-clear-all-btn" (click)="clearAllFilters()">Clear All</button>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT: sidebar + grid -->
+<div class="gs-shop-layout">
+
+  <!-- SIDEBAR OVERLAY (mobile) -->
+  <div class="gs-sidebar-overlay" *ngIf="sidebarOpen()" (click)="closeSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="gs-sidebar" [class.open]="sidebarOpen()">
+    <div class="gs-sidebar-header">
+      <span class="gs-sidebar-title">Filters</span>
+      <button class="gs-sidebar-close" (click)="closeSidebar()">×</button>
+    </div>
+
+    <!-- Category section -->
+    <div class="gs-sidebar-section">
+      <div class="gs-sidebar-section-title">Category</div>
+      <div class="gs-sidebar-cats">
+        <button
+          *ngFor="let step of steps"
+          class="gs-cat-btn"
+          [class.active]="activeStep() === step"
+          (click)="setStep(step); closeSidebar()"
+        >
+          <span class="gs-cat-icon">{{ stepIcons[step] }}</span>
+          <span class="gs-cat-label">{{ stepLabels[step] }}</span>
+          <span class="gs-cat-count">{{ stepCount()[step] || 0 }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Skin type section -->
+    <div class="gs-sidebar-section">
+      <div class="gs-sidebar-section-title">Skin Type</div>
+      <div class="gs-sidebar-skins">
+        <button
+          class="gs-skin-btn"
+          [class.active]="activeSkinType() === 'all'"
+          (click)="setSkinType('all'); closeSidebar()"
+        >
+          <span>🌍</span> All Types
+        </button>
+        <button
+          *ngFor="let skin of skinTypes.slice(1)"
+          class="gs-skin-btn"
+          [class.active]="activeSkinType() === skin"
+          [style.border-color]="activeSkinType() === skin ? skinMeta[skin].color : 'transparent'"
+          (click)="setSkinType(skin); closeSidebar()"
+        >
+          <span>{{ skinMeta[skin].emoji }}</span> {{ skinMeta[skin].label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Price section -->
+    <div class="gs-sidebar-section">
+      <div class="gs-sidebar-section-title">Max Price: <strong>${{ priceMax() }}</strong></div>
+      <input
+        type="range" class="gs-price-range"
+        min="10" max="300" step="10"
+        [ngModel]="priceMax()"
+        (ngModelChange)="priceMax.set($event); currentPage.set(1)"
+      />
+      <div class="gs-price-range-labels">
+        <span>$10</span><span>$300</span>
+      </div>
+    </div>
+
+    <!-- Clear button -->
+    <button class="gs-sidebar-clear-btn" *ngIf="hasActiveFilters()" (click)="clearAllFilters()">
+      Clear All Filters
+    </button>
+
+    <!-- Bundle CTA in sidebar -->
+    <div class="gs-sidebar-bundle-cta">
+      <p>Build a full routine and save 20%</p>
+      <a [routerLink]="['/bundle']" class="gs-sidebar-bundle-btn">🧴 Build Bundle →</a>
+    </div>
+  </aside>
+
+  <!-- PRODUCT GRID -->
+  <main class="gs-shop-main">
+
+    <!-- Empty state -->
+    <div class="gs-empty-state" *ngIf="filteredProducts().length === 0">
+      <div class="gs-empty-icon">🔍</div>
+      <h3>No products match your filters</h3>
+      <p>Try adjusting your skin type or category filter</p>
+      <button class="gs-btn-primary" (click)="clearAllFilters()">Clear All Filters</button>
+    </div>
+
+    <!-- Products -->
+    <div class="gs-products-grid" *ngIf="filteredProducts().length > 0">
+      <div
+        class="gs-shop-card"
+        *ngFor="let p of pagedProducts(); trackBy: trackById"
+      >
+        <!-- Image zone -->
+        <div class="gs-card-img-zone">
+          <img [src]="p.image" [alt]="p.name" loading="lazy" class="gs-card-img" />
+
+          <!-- Step icon badge -->
+          <div class="gs-card-step-badge">{{ getStepBadge(p) }}</div>
+
+          <!-- Skin match badge -->
+          <div class="gs-card-match-badge" *ngIf="getSkinBadge(p)">
+            {{ getSkinBadge(p) }}
+          </div>
+
+          <!-- Save % badge -->
+          <div class="gs-card-save-badge">
+            -{{ getSavePct(p.sellPrice, p.supplierPrice) }}% vs retail
+          </div>
+
+          <!-- Hover overlay -->
+          <div class="gs-card-overlay">
+            <button
+              class="gs-overlay-cart-btn"
+              #cartBtn
+              (click)="addToCart(p, cartBtn)"
+            >
+              {{ addedProductId() === p.id ? '✓ Added!' : '🛒 Add to Cart' }}
+            </button>
+            <button
+              class="gs-overlay-bundle-btn"
+              #bundleBtn
+              (click)="addToBundle(p, bundleBtn)"
+            >
+              {{ bundleProductId() === p.id ? '✓ Added!' : '🧴 Add to Bundle' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Card body -->
+        <div class="gs-card-body">
+          <div class="gs-card-brand">{{ p.brand }}</div>
+          <div class="gs-card-name">{{ p.name }}</div>
+
+          <!-- Skin type chips -->
+          <div class="gs-card-skin-chips">
+            <span
+              class="gs-skin-chip"
+              *ngFor="let st of p.skinTypes.slice(0, 3)"
+              [style.color]="skinMeta[st]?.color"
+              [style.background]="skinMeta[st]?.bg"
+            >{{ skinMeta[st]?.emoji }} {{ skinMeta[st]?.label }}</span>
+            <span class="gs-skin-chip gs-skin-chip-more" *ngIf="p.skinTypes.length > 3">+{{ p.skinTypes.length - 3 }}</span>
+          </div>
+
+          <!-- Price row -->
+          <div class="gs-card-price-row">
+            <span class="gs-sell-price">${{ p.sellPrice.toFixed(2) }}</span>
+            <span class="gs-cost-price">Cost: ${{ p.supplierPrice.toFixed(2) }}</span>
+          </div>
+
+          <!-- Score bar -->
+          <div class="gs-card-score-bar">
+            <div class="gs-score-fill" [style.width.%]="p.bundleScore * 10"></div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="gs-card-actions">
+            <button
+              class="gs-card-cart-btn"
+              #cardCartBtn
+              [class.added]="addedProductId() === p.id"
+              (click)="addToCart(p, cardCartBtn)"
+            >
+              {{ addedProductId() === p.id ? '✓ Added!' : 'Add to Cart' }}
+            </button>
+            <button
+              class="gs-card-bundle-btn"
+              #cardBundleBtn
+              [class.added]="bundleProductId() === p.id"
+              (click)="addToBundle(p, cardBundleBtn)"
+              title="Add to Bundle"
+            >
+              🧴
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="gs-pagination" *ngIf="totalPages() > 1">
+      <button
+        class="gs-page-btn gs-page-prev"
+        [disabled]="currentPage() === 1"
+        (click)="goToPage(currentPage() - 1)"
+      >← Prev</button>
+
+      <div class="gs-page-numbers">
+        <ng-container *ngFor="let pg of pageNumbers()">
+          <!-- Show first, last, current ±2, and ellipsis -->
+          <button
+            *ngIf="pg === 1 || pg === totalPages() || (pg >= currentPage() - 2 && pg <= currentPage() + 2)"
+            class="gs-page-num"
+            [class.active]="currentPage() === pg"
+            (click)="goToPage(pg)"
+          >{{ pg }}</button>
+          <span
+            *ngIf="(pg === currentPage() - 3 && pg > 2) || (pg === currentPage() + 3 && pg < totalPages() - 1)"
+            class="gs-page-ellipsis"
+          >…</span>
+        </ng-container>
+      </div>
+
+      <button
+        class="gs-page-btn gs-page-next"
+        [disabled]="currentPage() === totalPages()"
+        (click)="goToPage(currentPage() + 1)"
+      >Next →</button>
+    </div>
+
+    <!-- BOTTOM TRUST BAR -->
+    <div class="gs-bottom-trust">
+      <span>🇰🇷 Ships from Korea</span>
+      <span>✈️ Customs included</span>
+      <span>💎 100% Authentic</span>
+      <span>🔒 Secure checkout</span>
+    </div>
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="gs-footer">
+  <div class="gs-container gs-footer-inner">
+    <div class="gs-footer-logo">✿ GlowSeoul</div>
+    <p class="gs-footer-sub">500 curated K-Beauty products · Real Korean brands · 64% gross margin</p>
+    <div class="gs-footer-links">
+      <a [routerLink]="['/']">Home</a>
+      <a [routerLink]="['/shop']">Shop</a>
+      <a [routerLink]="['/bundle']">Build a Bundle</a>
+      <a [routerLink]="['/quiz']">Skin Quiz</a>
+    </div>
+  </div>
+  <div class="gs-footer-bottom">
+    <p>© 2026 Glow Seoul · Authentic K-Beauty · Private Mockup</p>
+  </div>
+</footer>

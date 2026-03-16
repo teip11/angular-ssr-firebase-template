@@ -1,0 +1,220 @@
+/* ── Navbar ───────────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--nav-height);
+  background: rgba(15, 10, 18, 0.88);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  border-bottom: 1px solid rgba(225, 29, 106, 0.08);
+  will-change: backdrop-filter, background;
+}
+
+.navbar__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+/* ── Logo ─────────────────────────────────────────────────── */
+.navbar__logo {
+  text-decoration: none;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.navbar__logo-text {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #fdf2f8;
+  background: linear-gradient(135deg, #f43f8f, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Desktop links ────────────────────────────────────────── */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Spring-physics indicator pill */
+.nav-indicator {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  border-radius: var(--radius-full);
+  opacity: 0;
+  pointer-events: none;
+  /* GSAP controls x, width, opacity */
+}
+
+.navbar__link {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar__link-inner {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: #9d7fb8;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.navbar__link--active .navbar__link-inner {
+  color: #fdf2f8;
+  font-weight: 600;
+}
+
+/* ── CTA button ───────────────────────────────────────────── */
+.navbar__cta {
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  font-size: var(--font-size-sm);
+  padding: var(--space-2) var(--space-5);
+}
+
+.navbar__cta-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.25) 50%, transparent 60%);
+  transform: translateX(-110%);
+  pointer-events: none;
+}
+
+/* ── Hamburger ────────────────────────────────────────────── */
+.navbar__hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  color: #fdf2f8;
+  cursor: pointer;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: background var(--transition-fast);
+}
+
+.navbar__hamburger:hover {
+  background: rgba(225, 29, 106, 0.1);
+}
+
+/* ── Scrim overlay ────────────────────────────────────────── */
+.navbar__scrim {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  background: rgba(15, 10, 18, 0.6);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.navbar__scrim--active {
+  pointer-events: auto;
+}
+
+/* ── Mobile bottom sheet ──────────────────────────────────── */
+.navbar__sheet {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1002;
+  background: var(--color-dark-2);
+  border-top: 1px solid rgba(225, 29, 106, 0.15);
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+  padding: var(--space-4) var(--space-6) calc(var(--space-8) + env(safe-area-inset-bottom));
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.navbar__sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--radius-full);
+  margin: 0 auto var(--space-6);
+}
+
+.navbar__sheet-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.navbar__sheet-item { }
+
+.navbar__sheet-link {
+  display: block;
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  color: #c8a8d8;
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.navbar__sheet-link--active,
+.navbar__sheet-link:hover {
+  color: #fdf2f8;
+  background: rgba(225, 29, 106, 0.08);
+  border-color: rgba(225, 29, 106, 0.15);
+}
+
+.navbar__sheet-footer {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .navbar__links,
+  .navbar__cta {
+    display: none;
+  }
+
+  .navbar__hamburger {
+    display: flex;
+  }
+
+  .navbar__scrim,
+  .navbar__sheet {
+    display: block;
+  }
+}
+
+/* Prevent body scroll when menu is open */
+:global(body.menu-open) {
+  overflow: hidden;
+}

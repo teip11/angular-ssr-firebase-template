@@ -1,0 +1,27 @@
+<section class="section--sm blog-hero" style="background:var(--color-dark-2)">
+  <div class="container">
+    <span class="section-label">K-Beauty Education</span>
+    <h1 class="section-title">Glow Seoul Blog</h1>
+    <p class="section-subtitle">Skincare tips, ingredient deep-dives, and routine guides from K-beauty experts.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="grid-3">
+      @for (post of posts; track post.slug) {
+        <article class="card blog-post-card">
+          <div class="blog-post-card__img">📝</div>
+          <div>
+            <span class="badge badge--primary" style="margin-bottom:var(--space-3)">{{ post.category }}</span>
+            <h2 class="blog-post-card__title">{{ post.title }}</h2>
+            <p class="blog-post-card__excerpt">{{ post.excerpt }}</p>
+            <div class="blog-post-card__meta">
+              <span>{{ post.date }}</span>
+              <a [routerLink]="['/blog', post.slug]" class="btn btn--ghost btn--sm">Read More →</a>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,213 @@
+<!-- ===== GLOW SEOUL — KOREA'S TOP 12 ===== -->
+
+<!-- NAV -->
+<nav class="gs-nav">
+  <div class="gs-nav-inner">
+    <a [routerLink]="['/']" class="gs-logo">
+      <span class="gs-logo-mark">✿</span>
+      <span>Glow<strong>Seoul</strong></span>
+    </a>
+    <div class="gs-nav-links">
+      <a [routerLink]="['/']" class="active">Home</a>
+      <a [routerLink]="['/shop']">Shop</a>
+      <a [routerLink]="['/quiz']">Skin Quiz ✨</a>
+      <a [routerLink]="['/bundle']" class="gs-nav-bundle">🧴 Build Bundle</a>
+    </div>
+    <a [routerLink]="['/shop']" class="gs-btn-nav">Shop Now →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="gs-hero">
+  <div class="gs-hero-left">
+    <div class="gs-live-badge">
+      <span class="gs-live-dot"></span>
+      LIVE RANKINGS — Updated Daily from Olive Young Seoul
+    </div>
+    <h1 class="gs-hero-title">
+      <span class="line">Korea's Top 12</span>
+      <span class="line gs-title-accent">K-Beauty</span>
+      <span class="line">Products</span>
+    </h1>
+    <p class="gs-hero-sub">
+      Real bestseller data from Olive Young — Korea's #1 beauty retailer.
+      These are the exact products flying off shelves in Seoul right now.
+    </p>
+    <div class="gs-hero-ctas">
+      <a [routerLink]="['/shop']" class="gs-btn-primary">Shop All 12 →</a>
+      <a href="#rankings" class="gs-btn-ghost">See the Rankings</a>
+    </div>
+    <div class="gs-hero-stats">
+      <span>🇰🇷 Sourced from Seoul</span>
+      <span>📊 Real Sales Data</span>
+      <span>🔄 Updated Daily</span>
+    </div>
+  </div>
+  <div class="gs-hero-right">
+    <div class="gs-hero-img-wrap">
+      <img [src]="featuredProduct.image" [alt]="featuredProduct.name" class="gs-hero-img" />
+      <div class="gs-hero-rank-badge">#1</div>
+      <div class="gs-hero-brand-tag">{{ featuredProduct.brand }}</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="gs-marquee-wrap">
+  <div class="gs-marquee-track">
+    <span>✿ Authentic K-Beauty</span><span class="dot">·</span>
+    <span>🇰🇷 Direct from Seoul</span><span class="dot">·</span>
+    <span>📊 Real Olive Young Rankings</span><span class="dot">·</span>
+    <span>💎 Top 12 in Korea</span><span class="dot">·</span>
+    <span>✨ Glass Skin Guaranteed</span><span class="dot">·</span>
+    <span>✿ Authentic K-Beauty</span><span class="dot">·</span>
+    <span>🇰🇷 Direct from Seoul</span><span class="dot">·</span>
+    <span>📊 Real Olive Young Rankings</span><span class="dot">·</span>
+    <span>💎 Top 12 in Korea</span><span class="dot">·</span>
+    <span>✨ Glass Skin Guaranteed</span>
+  </div>
+</div>
+
+<!-- RANKINGS -->
+<section class="gs-rankings-section" id="rankings">
+  <div class="gs-container">
+    <div class="gs-section-header">
+      <p class="gs-section-eyebrow">🔥 Live Rankings</p>
+      <h2 class="gs-section-h2">Top 12 Trending in Korea Right Now</h2>
+      <p class="gs-section-sub">Ranked by actual units sold on Olive Young this week</p>
+    </div>
+
+    <div class="gs-products-grid">
+      <div class="gs-prod-card" *ngFor="let p of products">
+        <div class="gs-card-img-wrap">
+          <img [src]="p.image" [alt]="p.name" class="gs-card-img" loading="lazy" />
+          <div class="gs-rank-badge" [class.top3]="p.rank <= 3">#{{ p.rank }}</div>
+          <div *ngIf="p.outOfStock" class="gs-oos-overlay">Out of Stock</div>
+          <div *ngIf="p.tag" class="gs-card-tag">{{ p.tag }}</div>
+          <div *ngIf="p.salePrice" class="gs-save-badge">
+            -{{ getSalePct(p.price, p.salePrice) }}%
+          </div>
+        </div>
+        <div class="gs-card-body">
+          <div class="gs-card-brand">{{ p.brand }}</div>
+          <div class="gs-card-name">{{ p.shortName }}</div>
+          <div class="gs-card-highlight">{{ p.highlight }}</div>
+          <div class="gs-card-stars">
+            <span *ngFor="let s of getStars(p.rating)" class="star">★</span>
+            <span class="gs-rating-num">{{ p.rating }}</span>
+          </div>
+          <div class="gs-card-price-row">
+            <span *ngIf="p.salePrice" class="gs-sale-price">${{ p.salePrice.toFixed(2) }}</span>
+            <span *ngIf="!p.salePrice" class="gs-sale-price">${{ p.price.toFixed(2) }}</span>
+            <span *ngIf="p.salePrice" class="gs-orig-price">${{ p.price.toFixed(2) }}</span>
+          </div>
+          <a [routerLink]="['/shop']"
+             class="gs-card-btn"
+             [class.disabled]="p.outOfStock">
+            {{ p.outOfStock ? 'Notify Me' : 'Add to Cart' }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="gs-trust-section">
+  <div class="gs-container gs-trust-row">
+    <div class="gs-trust-item">
+      <div class="gs-trust-icon">🇰🇷</div>
+      <h3>Real Korean Rankings</h3>
+      <p>Products ranked by actual Olive Young sales data — not paid placements or influencer deals.</p>
+    </div>
+    <div class="gs-trust-item">
+      <div class="gs-trust-icon">✈️</div>
+      <h3>Customs Included</h3>
+      <p>No surprise fees at the door. US duties and taxes are covered in every order.</p>
+    </div>
+    <div class="gs-trust-item">
+      <div class="gs-trust-icon">💎</div>
+      <h3>100% Authentic</h3>
+      <p>Sourced directly from Korean retailers. Every product is genuine, never counterfeit.</p>
+    </div>
+    <div class="gs-trust-item">
+      <div class="gs-trust-icon">🔄</div>
+      <h3>Updated Daily</h3>
+      <p>Rankings refresh every 24 hours based on live sales. What you see is what's hot today.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BUNDLE CTA -->
+<section class="gs-bundle-section">
+  <div class="gs-container">
+    <div class="gs-bundle-inner">
+      <div class="gs-bundle-left">
+        <p class="gs-section-eyebrow">🧴 Personalized Routine</p>
+        <h2 class="gs-bundle-h2">Build Your Own<br><em>5-Step Bundle</em></h2>
+        <p class="gs-bundle-sub">Pick one product per routine step — Cleanse, Tone, Treat, Moisturize & Protect. Complete all 5 and unlock <strong>20% off your entire order</strong>.</p>
+        <div class="gs-bundle-steps-preview">
+          <span>🫧 Cleanse</span>
+          <span class="gs-arrow">→</span>
+          <span>💦 Tone</span>
+          <span class="gs-arrow">→</span>
+          <span>✨ Treat</span>
+          <span class="gs-arrow">→</span>
+          <span>🌸 Moisturize</span>
+          <span class="gs-arrow">→</span>
+          <span>☀️ Protect</span>
+        </div>
+        <div class="gs-bundle-ctas">
+          <a [routerLink]="['/bundle']" class="gs-btn-primary">Build My Bundle →</a>
+          <a [routerLink]="['/quiz']" class="gs-btn-ghost">Take the Skin Quiz first ✨</a>
+        </div>
+      </div>
+      <div class="gs-bundle-right">
+        <div class="gs-bundle-card-preview">
+          <div class="gs-bundle-discount-pill">🎉 20% OFF complete routine</div>
+          <div class="gs-bundle-steps-list">
+            <div class="gs-bundle-step-row">🫧 <span>Cleanser</span><span class="gs-step-empty">+ Add</span></div>
+            <div class="gs-bundle-step-row">💦 <span>Toner</span><span class="gs-step-empty">+ Add</span></div>
+            <div class="gs-bundle-step-row">✨ <span>Serum / Ampoule</span><span class="gs-step-empty">+ Add</span></div>
+            <div class="gs-bundle-step-row">🌸 <span>Moisturizer</span><span class="gs-step-empty">+ Add</span></div>
+            <div class="gs-bundle-step-row">☀️ <span>SPF</span><span class="gs-step-empty">+ Add</span></div>
+          </div>
+          <a [routerLink]="['/bundle']" class="gs-bundle-start-btn">Start Building →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="gs-cta-section">
+  <div class="gs-container">
+    <div class="gs-cta-inner">
+      <p class="gs-cta-eyebrow">Start Your Routine</p>
+      <h2 class="gs-cta-h2">Ready to Try What Korea Loves?</h2>
+      <p class="gs-cta-sub">200 curated K-Beauty products from authentic Korean brands, all with real images and pricing.</p>
+      <div class="gs-cta-btn-row">
+        <a [routerLink]="['/shop']" class="gs-btn-primary gs-btn-lg">Browse the Shop →</a>
+        <a [routerLink]="['/bundle']" class="gs-btn-ghost gs-btn-lg">Build a Bundle</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="gs-footer">
+  <div class="gs-container gs-footer-inner">
+    <div class="gs-footer-logo">✿ GlowSeoul</div>
+    <p class="gs-footer-sub">Authentic K-Beauty ranked by real Korean sales data</p>
+    <div class="gs-footer-links">
+      <a [routerLink]="['/shop']">Shop</a>
+      <a [routerLink]="['/bundle']">Build a Bundle</a>
+      <a [routerLink]="['/quiz']">Skin Quiz</a>
+      <a href="#">Shipping</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="gs-footer-bottom">
+    <p>© 2026 Glow Seoul · Rankings sourced from Olive Young Global · Private Mockup</p>
+  </div>
+</footer>

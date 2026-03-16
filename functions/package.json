@@ -1,0 +1,27 @@
+{
+  "name": "glow-seoul-functions",
+  "description": "Firebase Cloud Functions — contact form backend",
+  "scripts": {
+    "build":  "tsc",
+    "build:watch": "tsc --watch",
+    "serve":  "npm run build && firebase emulators:start --only functions",
+    "shell":  "npm run build && firebase functions:shell",
+    "start":  "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs":   "firebase functions:log"
+  },
+  "engines": { "node": "20" },
+  "main": "lib/index.js",
+  "dependencies": {
+    "axios":              "^1.7.9",
+    "firebase-admin":     "^13.0.1",
+    "firebase-functions": "^6.0.1",
+    "nodemailer":         "^6.10.1"
+  },
+  "devDependencies": {
+    "@types/node":       "^20.0.0",
+    "@types/nodemailer": "^6.4.17",
+    "typescript":        "^5.3.3"
+  },
+  "private": true
+}
