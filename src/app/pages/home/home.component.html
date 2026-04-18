@@ -1,213 +1,427 @@
-<!-- ===== GLOW SEOUL — KOREA'S TOP 12 ===== -->
+<!-- Hero Section -->
+<section class="relative h-screen flex flex-col justify-center items-center overflow-hidden">
 
-<!-- NAV -->
-<nav class="gs-nav">
-  <div class="gs-nav-inner">
-    <a [routerLink]="['/']" class="gs-logo">
-      <span class="gs-logo-mark">✿</span>
-      <span>Glow<strong>Seoul</strong></span>
+<!-- Hero extra glow — strongest section -->
+<div class="absolute inset-0 pointer-events-none z-[1] overflow-hidden">
+  <div class="hero-glow-boost"></div>
+</div>
+
+<!-- Content Canvas -->
+<div class="relative z-10 max-w-5xl px-6 text-center">
+<h1 class="flex flex-col items-center">
+  <!-- Line 1: Word by word reveal -->
+  <span class="font-inter text-3xl md:text-5xl font-medium tracking-normal text-slate-200 mb-1 leading-snug flex flex-wrap justify-center gap-x-[0.3em]">
+    <span class="hero-word" *ngFor="let word of line1Words; let i = index" [style.animation-delay]="wordAnimDelay(i)">{{ word }}</span>
+  </span>
+
+  <!-- Line 2: Fluid letter-by-letter cascade -->
+  <span class="font-accent italic text-6xl md:text-[7.5rem] drop-shadow-[0_0_30px_rgba(77,142,255,0.4)] leading-[1.05] mt-1 block font-medium">
+    <span class="bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff] text-transparent bg-clip-text pb-2 inline-block">
+      <span class="hero-letter" *ngFor="let char of line2Letters; let i = index" [style.animation-delay]="letterAnimDelay(i)" [style.background-position]="letterGradientPos(i)">{{ char }}</span>
+    </span>
+  </span>
+</h1>
+
+<!-- CTA Section -->
+<div class="mt-10 flex flex-col items-center w-full">
+  <div class="hero-cta-buttons flex flex-col sm:flex-row items-center justify-center gap-6">
+    <a class="hero-shimmer-btn relative overflow-hidden px-10 py-4 bg-gradient-to-r from-[#3b7ff6] to-[#5b98ff] text-white font-bold rounded-full shadow-[0_0_40px_rgba(77,142,255,0.2)] hover:shadow-[0_0_60px_rgba(77,142,255,0.3)] hero-cta-rise" routerLink="/demo">
+      Kostenlose Website Vorlage anfordern
     </a>
-    <div class="gs-nav-links">
-      <a [routerLink]="['/']" class="active">Home</a>
-      <a [routerLink]="['/shop']">Shop</a>
-      <a [routerLink]="['/quiz']">Skin Quiz ✨</a>
-      <a [routerLink]="['/bundle']" class="gs-nav-bundle">🧴 Build Bundle</a>
-    </div>
-    <a [routerLink]="['/shop']" class="gs-btn-nav">Shop Now →</a>
+    <a class="group flex items-center gap-2 text-slate-300 font-medium hover:text-white hero-cta-rise py-2" routerLink="/">
+      Projekte ansehen
+      <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+    </a>
   </div>
-</nav>
+  
+  <div class="hero-cta-subheader mt-5 flex items-center justify-center gap-2.5 text-center text-slate-400/75 text-[13px] font-medium tracking-[0.03em]">
+    <span>Individuell erstellt</span>
+    <span class="w-[3px] h-[3px] rounded-full bg-slate-500/40"></span>
+    <span>100% kostenlos</span>
+    <span class="w-[3px] h-[3px] rounded-full bg-slate-500/40"></span>
+    <span>Unverbindlich</span>
+  </div>
+</div>
+</div>
 
-<!-- HERO -->
-<section class="gs-hero">
-  <div class="gs-hero-left">
-    <div class="gs-live-badge">
-      <span class="gs-live-dot"></span>
-      LIVE RANKINGS — Updated Daily from Olive Young Seoul
-    </div>
-    <h1 class="gs-hero-title">
-      <span class="line">Korea's Top 12</span>
-      <span class="line gs-title-accent">K-Beauty</span>
-      <span class="line">Products</span>
-    </h1>
-    <p class="gs-hero-sub">
-      Real bestseller data from Olive Young — Korea's #1 beauty retailer.
-      These are the exact products flying off shelves in Seoul right now.
-    </p>
-    <div class="gs-hero-ctas">
-      <a [routerLink]="['/shop']" class="gs-btn-primary">Shop All 12 →</a>
-      <a href="#rankings" class="gs-btn-ghost">See the Rankings</a>
-    </div>
-    <div class="gs-hero-stats">
-      <span>🇰🇷 Sourced from Seoul</span>
-      <span>📊 Real Sales Data</span>
-      <span>🔄 Updated Daily</span>
-    </div>
-  </div>
-  <div class="gs-hero-right">
-    <div class="gs-hero-img-wrap">
-      <img [src]="featuredProduct.image" [alt]="featuredProduct.name" class="gs-hero-img" />
-      <div class="gs-hero-rank-badge">#1</div>
-      <div class="gs-hero-brand-tag">{{ featuredProduct.brand }}</div>
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center hero-scroll-indicator transition-opacity duration-300"
+       [class.opacity-0]="hasScrolled" 
+       [class.pointer-events-none]="hasScrolled">
+    <span class="text-slate-400/50 text-[10px] uppercase tracking-[0.2em] font-medium mb-3">Mehr erfahren</span>
+    <div class="w-[1px] h-8 bg-slate-500/30 relative overflow-hidden">
+      <div class="scroll-dot absolute top-0 left-0 w-full h-[8px] bg-[#dbe8ff]/70 rounded-full"></div>
     </div>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="gs-marquee-wrap">
-  <div class="gs-marquee-track">
-    <span>✿ Authentic K-Beauty</span><span class="dot">·</span>
-    <span>🇰🇷 Direct from Seoul</span><span class="dot">·</span>
-    <span>📊 Real Olive Young Rankings</span><span class="dot">·</span>
-    <span>💎 Top 12 in Korea</span><span class="dot">·</span>
-    <span>✨ Glass Skin Guaranteed</span><span class="dot">·</span>
-    <span>✿ Authentic K-Beauty</span><span class="dot">·</span>
-    <span>🇰🇷 Direct from Seoul</span><span class="dot">·</span>
-    <span>📊 Real Olive Young Rankings</span><span class="dot">·</span>
-    <span>💎 Top 12 in Korea</span><span class="dot">·</span>
-    <span>✨ Glass Skin Guaranteed</span>
+<!-- Value Statement Section -->
+<section class="value-statement-section relative flex flex-col justify-center items-center overflow-hidden py-28 md:py-40"
+       (mousemove)="onSectionMouseMove($event)">
+  <div class="relative z-10 w-full max-w-5xl text-center px-6 mx-auto">
+
+    <!-- Header -->
+    <h2 class="value-line1 font-inter font-bold text-white leading-[1.1] tracking-[-0.03em]" style="font-size: clamp(1.6rem, 4vw, 3.25rem);">
+      Wir erstellen <span class="value-highlight font-accent italic font-medium drop-shadow-[0_0_24px_rgba(77,142,255,0.3)]"><span class="bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff] text-transparent bg-clip-text">komplette Websites</span></span> für Ihr Unternehmen
+    </h2>
+
+    <!-- Subheader -->
+    <p class="value-supporting font-inter font-normal text-slate-400/65 text-base md:text-lg leading-[1.6] mt-5 max-w-xl mx-auto">
+      Vom Design bis hin zu allem, was nötig ist, damit Sie online Kunden gewinnen.
+    </p>
+
+    <!-- Value Cards -->
+    <div class="value-cards-row mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
+
+      <!-- Card 1 -->
+      <div class="value-card" #valueCard>
+        <div class="value-card-glow"></div>
+        <div class="value-card-inner">
+          <!-- Static center group: always centered, never moves -->
+          <div class="value-card-center">
+            <div class="value-card-icon-wrap">
+              <span class="material-symbols-outlined value-card-icon">trending_up</span>
+            </div>
+            <h3 class="value-card-benefit-title">Mehr Anfragen & Kunden</h3>
+            <p class="value-card-tag">Funnel & Conversion</p>
+          </div>
+          <!-- Hover reveal: fades in below, absolutely positioned -->
+          <div class="value-card-reveal">
+            <div class="value-card-divider-line"></div>
+            <ul class="value-card-details">
+              <li>Funnel Aufbau</li>
+              <li>Conversion Optimierung</li>
+              <li>Copywriting</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="value-card" #valueCard>
+        <div class="value-card-glow"></div>
+        <div class="value-card-inner">
+          <div class="value-card-center">
+            <div class="value-card-icon-wrap">
+              <span class="material-symbols-outlined value-card-icon">settings_suggest</span>
+            </div>
+            <h3 class="value-card-benefit-title">Automatisierte Abläufe</h3>
+            <p class="value-card-tag">Technik & Systeme</p>
+          </div>
+          <div class="value-card-reveal">
+            <div class="value-card-divider-line"></div>
+            <ul class="value-card-details">
+              <li>Backend Entwicklung</li>
+              <li>CRM Integration</li>
+              <li>Automatisierungen</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="value-card" #valueCard>
+        <div class="value-card-glow"></div>
+        <div class="value-card-inner">
+          <div class="value-card-center">
+            <div class="value-card-icon-wrap">
+              <span class="material-symbols-outlined value-card-icon">visibility</span>
+            </div>
+            <h3 class="value-card-benefit-title">Sichtbarkeit & Wachstum</h3>
+            <p class="value-card-tag">Performance & SEO</p>
+          </div>
+          <div class="value-card-reveal">
+            <div class="value-card-divider-line"></div>
+            <ul class="value-card-details">
+              <li>Tracking & Analytics</li>
+              <li>Ladezeit Optimierung</li>
+              <li>SEO Grundlagen</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scroll cue -->
+    <span class="value-scroll-cue block mt-16 font-inter text-sm text-slate-400/50 tracking-wide">
+      So funktioniert's ↓
+    </span>
+  </div>
+</section>
+
+<!-- "How it Works" Section -->
+<div #processScroll class="process-scroll-container">
+  <div class="process-sticky">
+    <div class="process-inner max-w-screen-xl mx-auto px-6 md:px-12">
+
+      <!-- Left column -->
+      <div class="process-left process-intro">
+        <div class="inline-flex items-center gap-2 text-[#7baaf7] font-inter font-semibold tracking-widest uppercase text-xs mb-5">
+          <span class="w-8 h-px bg-[#3b7ff6]/40"></span>
+          SO LÄUFT ES AB
+        </div>
+
+        <h2 class="font-inter font-bold text-white text-3xl md:text-4xl leading-[1.15] tracking-[-0.02em] max-w-sm">
+          Sehen Sie Ihre neue Website, bevor Sie bezahlen
+        </h2>
+
+        <p class="font-inter text-slate-400 text-base leading-7 max-w-xs mt-4">
+          Wir zeigen Ihnen zuerst, wie Ihre Website aussehen könnte – komplett kostenlos. Überzeugt es Sie, machen wir weiter. Wenn nicht, kein Problem.
+        </p>
+
+        <a routerLink="/demo" class="process-cta-btn hero-shimmer-btn relative overflow-hidden mt-8 inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-[#3b7ff6] to-[#5b98ff] text-white font-semibold rounded-full shadow-[0_8px_30px_rgba(59,127,246,0.3)] hover:shadow-[0_12px_40px_rgba(59,127,246,0.45)] hero-cta-rise text-sm">
+          Kostenlose Vorlage anfordern
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+
+        <!-- Trust badges -->
+        <div class="mt-6 flex flex-col gap-2">
+          <span class="process-trust-badge">✓ 100% kostenlos</span>
+          <span class="process-trust-badge">✓ Keine Vertragsbindung</span>
+          <span class="process-trust-badge">✓ Völlig unverbindlich</span>
+          <span class="process-trust-badge">✓ Individuell für Sie</span>
+        </div>
+      </div>
+
+      <!-- Center column: vertical progress bar -->
+      <div class="process-progress-col" aria-hidden="true">
+        <div class="process-progress-track">
+          <div class="process-progress-fill" #progressFill></div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div class="process-right process-right-animate">
+        <div class="process-card-track">
+
+          <!-- Card 1 -->
+          <div class="process-card"
+               [class.card-active]="activeCard === 1"
+               [class.card-exit]="exitCard === 1"
+               [class.card-enter]="enterCard === 1">
+            <div class="process-card-num">01</div>
+            <div>
+              <h3 class="font-inter font-bold text-white text-xl mb-2">Kurz über Ihr Unternehmen berichten</h3>
+              <p class="font-inter text-slate-400 text-base leading-7">Ein paar Fragen zu Ihren Zielen, Ihrer Zielgruppe und Ihrem Stil – das reicht uns als Grundlage.</p>
+            </div>
+          </div>
+
+          <!-- Card 2 — dopamine / glow -->
+          <div class="process-card process-card--highlight"
+               [class.card-active]="activeCard === 2"
+               [class.card-exit]="exitCard === 2"
+               [class.card-enter]="enterCard === 2">
+            <div class="process-card-num process-card-num--highlight">02</div>
+            <div>
+              <h3 class="font-inter font-bold text-white text-xl mb-2">Ihr Website-Konzept – kostenlos</h3>
+              <p class="font-inter text-slate-400 text-base leading-7">Wir entwickeln ein maßgeschneidertes Design für Ihr Unternehmen, damit Sie genau sehen, was möglich ist.</p>
+              <span class="process-free-badge mt-3 inline-block">✦ 100% kostenlos</span>
+            </div>
+          </div>
+
+          <!-- Card 3 — blue progression -->
+          <div class="process-card process-card--blue"
+               [class.card-active]="activeCard === 3"
+               [class.card-exit]="exitCard === 3"
+               [class.card-enter]="enterCard === 3">
+            <div class="process-card-num process-card-num--blue">03</div>
+            <div>
+              <h3 class="font-inter font-bold text-white text-xl mb-2">Gemeinsam durchs Konzept</h3>
+              <p class="font-inter text-slate-400 text-base leading-7">In einem kurzen Gespräch führen wir Sie durch das Design, erklären die Idee dahinter und klären offene Fragen.</p>
+            </div>
+          </div>
+
+          <!-- Card 4 — trust / green -->
+          <div class="process-card process-card--trust"
+               [class.card-active]="activeCard === 4"
+               [class.card-exit]="exitCard === 4"
+               [class.card-enter]="enterCard === 4">
+            <div class="process-card-num process-card-num--trust">04</div>
+            <div>
+              <h3 class="font-inter font-bold text-white text-xl mb-2">Sie entscheiden – ohne Druck</h3>
+              <p class="font-inter text-slate-400 text-base leading-7">Überzeugt das Konzept? Dann legen wir los. Wenn nicht, ist das völlig in Ordnung.</p>
+              <span class="process-trust-pill mt-3 inline-block">Keine Verpflichtung</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Step dots -->
+        <div class="process-dots">
+          <span class="process-dot" [class.dot-active]="activeCard === 1"></span>
+          <span class="process-dot" [class.dot-active]="activeCard === 2"></span>
+          <span class="process-dot" [class.dot-active]="activeCard === 3"></span>
+          <span class="process-dot" [class.dot-active]="activeCard === 4"></span>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
-<!-- RANKINGS -->
-<section class="gs-rankings-section" id="rankings">
-  <div class="gs-container">
-    <div class="gs-section-header">
-      <p class="gs-section-eyebrow">🔥 Live Rankings</p>
-      <h2 class="gs-section-h2">Top 12 Trending in Korea Right Now</h2>
-      <p class="gs-section-sub">Ranked by actual units sold on Olive Young this week</p>
+<!-- Example Websites Showcase -->
+<section class="showcase-section relative px-6 md:px-12 py-28 overflow-hidden">
+  <!-- Subtle local glow for portfolio emphasis -->
+  <div class="showcase-glow-local"></div>
+
+  <div class="max-w-7xl mx-auto grid gap-14 relative z-10">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center justify-center gap-2.5 text-[#adc6ff] font-inter font-semibold tracking-[0.22em] uppercase text-xs mb-6">
+        <span class="w-10 h-px bg-[#adc6ff]/40"></span>
+        Beispiele
+      </div>
+      <h2 class="font-inter font-semibold text-white text-4xl md:text-5xl leading-[1.05] tracking-[-0.02em]">
+        So könnte Ihre Website aussehen
+      </h2>
     </div>
 
-    <div class="gs-products-grid">
-      <div class="gs-prod-card" *ngFor="let p of products">
-        <div class="gs-card-img-wrap">
-          <img [src]="p.image" [alt]="p.name" class="gs-card-img" loading="lazy" />
-          <div class="gs-rank-badge" [class.top3]="p.rank <= 3">#{{ p.rank }}</div>
-          <div *ngIf="p.outOfStock" class="gs-oos-overlay">Out of Stock</div>
-          <div *ngIf="p.tag" class="gs-card-tag">{{ p.tag }}</div>
-          <div *ngIf="p.salePrice" class="gs-save-badge">
-            -{{ getSalePct(p.price, p.salePrice) }}%
-          </div>
+    <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      <article class="showcase-card showcase-card-animate group overflow-hidden" style="--card-delay: 0ms">
+        <div class="h-52 overflow-hidden rounded-t-[1.1rem]">
+          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://via.placeholder.com/560x360?text=Boutique" alt="Boutique Website Beispiel" />
         </div>
-        <div class="gs-card-body">
-          <div class="gs-card-brand">{{ p.brand }}</div>
-          <div class="gs-card-name">{{ p.shortName }}</div>
-          <div class="gs-card-highlight">{{ p.highlight }}</div>
-          <div class="gs-card-stars">
-            <span *ngFor="let s of getStars(p.rating)" class="star">★</span>
-            <span class="gs-rating-num">{{ p.rating }}</span>
-          </div>
-          <div class="gs-card-price-row">
-            <span *ngIf="p.salePrice" class="gs-sale-price">${{ p.salePrice.toFixed(2) }}</span>
-            <span *ngIf="!p.salePrice" class="gs-sale-price">${{ p.price.toFixed(2) }}</span>
-            <span *ngIf="p.salePrice" class="gs-orig-price">${{ p.price.toFixed(2) }}</span>
-          </div>
-          <a [routerLink]="['/shop']"
-             class="gs-card-btn"
-             [class.disabled]="p.outOfStock">
-            {{ p.outOfStock ? 'Notify Me' : 'Add to Cart' }}
-          </a>
+        <div class="p-7">
+          <p class="text-[11px] tracking-[0.24em] uppercase text-[#adc6ff]/70 font-semibold mb-2">Boutique</p>
+          <p class="text-white/80 text-base leading-7">Stilvolle Präsentation für lokale Kundinnen und Kunden.</p>
         </div>
-      </div>
+      </article>
+
+      <article class="showcase-card showcase-card-animate group overflow-hidden" style="--card-delay: 150ms">
+        <div class="h-52 overflow-hidden rounded-t-[1.1rem]">
+          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://via.placeholder.com/560x360?text=Handwerk" alt="Handwerksbetrieb Website Beispiel" />
+        </div>
+        <div class="p-7">
+          <p class="text-[11px] tracking-[0.24em] uppercase text-[#adc6ff]/70 font-semibold mb-2">Handwerk</p>
+          <p class="text-white/80 text-base leading-7">Fokussiert auf Leads, Authentizität und echte Projektanfragen.</p>
+        </div>
+      </article>
+
+      <article class="showcase-card showcase-card-animate group overflow-hidden" style="--card-delay: 300ms">
+        <div class="h-52 overflow-hidden rounded-t-[1.1rem]">
+          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://via.placeholder.com/560x360?text=Beratung" alt="Beratungsfirma Website Beispiel" />
+        </div>
+        <div class="p-7">
+          <p class="text-[11px] tracking-[0.24em] uppercase text-[#adc6ff]/70 font-semibold mb-2">Beratung</p>
+          <p class="text-white/80 text-base leading-7">Professionelle Positionierung für Vertrauen und klare Angebote.</p>
+        </div>
+      </article>
+
+      <article class="showcase-card showcase-card-animate group overflow-hidden" style="--card-delay: 450ms">
+        <div class="h-52 overflow-hidden rounded-t-[1.1rem]">
+          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://via.placeholder.com/560x360?text=E-Commerce" alt="E-Commerce Website Beispiel" />
+        </div>
+        <div class="p-7">
+          <p class="text-[11px] tracking-[0.24em] uppercase text-[#adc6ff]/70 font-semibold mb-2">E-Commerce</p>
+          <p class="text-white/80 text-base leading-7">Produktseiten mit klarem Fokus auf Conversion und Umsatz.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="max-w-3xl mx-auto text-center">
+      <a routerLink="/contact" class="hero-shimmer-btn relative overflow-hidden inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#3b7ff6] to-[#5b98ff] text-white px-8 py-4 text-base font-semibold hero-cta-rise hover:shadow-[0_0_40px_rgba(77,142,255,0.4)] shadow-[0_0_20px_rgba(77,142,255,0.2)]">
+        Kostenlose Website Vorlage anfordern
+      </a>
+      <p class="text-white/40 text-sm mt-4">Individuell für Ihr Unternehmen erstellt</p>
     </div>
   </div>
 </section>
 
-<!-- TRUST -->
-<section class="gs-trust-section">
-  <div class="gs-container gs-trust-row">
-    <div class="gs-trust-item">
-      <div class="gs-trust-icon">🇰🇷</div>
-      <h3>Real Korean Rankings</h3>
-      <p>Products ranked by actual Olive Young sales data — not paid placements or influencer deals.</p>
-    </div>
-    <div class="gs-trust-item">
-      <div class="gs-trust-icon">✈️</div>
-      <h3>Customs Included</h3>
-      <p>No surprise fees at the door. US duties and taxes are covered in every order.</p>
-    </div>
-    <div class="gs-trust-item">
-      <div class="gs-trust-icon">💎</div>
-      <h3>100% Authentic</h3>
-      <p>Sourced directly from Korean retailers. Every product is genuine, never counterfeit.</p>
-    </div>
-    <div class="gs-trust-item">
-      <div class="gs-trust-icon">🔄</div>
-      <h3>Updated Daily</h3>
-      <p>Rankings refresh every 24 hours based on live sales. What you see is what's hot today.</p>
-    </div>
-  </div>
-</section>
+<!-- Testimonials Section -->
+<section class="testimonials-section py-24 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6 md:px-12">
 
-<!-- BUNDLE CTA -->
-<section class="gs-bundle-section">
-  <div class="gs-container">
-    <div class="gs-bundle-inner">
-      <div class="gs-bundle-left">
-        <p class="gs-section-eyebrow">🧴 Personalized Routine</p>
-        <h2 class="gs-bundle-h2">Build Your Own<br><em>5-Step Bundle</em></h2>
-        <p class="gs-bundle-sub">Pick one product per routine step — Cleanse, Tone, Treat, Moisturize & Protect. Complete all 5 and unlock <strong>20% off your entire order</strong>.</p>
-        <div class="gs-bundle-steps-preview">
-          <span>🫧 Cleanse</span>
-          <span class="gs-arrow">→</span>
-          <span>💦 Tone</span>
-          <span class="gs-arrow">→</span>
-          <span>✨ Treat</span>
-          <span class="gs-arrow">→</span>
-          <span>🌸 Moisturize</span>
-          <span class="gs-arrow">→</span>
-          <span>☀️ Protect</span>
-        </div>
-        <div class="gs-bundle-ctas">
-          <a [routerLink]="['/bundle']" class="gs-btn-primary">Build My Bundle →</a>
-          <a [routerLink]="['/quiz']" class="gs-btn-ghost">Take the Skin Quiz first ✨</a>
-        </div>
+    <!-- Header -->
+    <div class="testimonials-header text-center mb-14">
+      <div class="inline-flex items-center gap-2 text-[#7baaf7] font-inter font-semibold tracking-widest uppercase text-xs mb-5">
+        <span class="w-8 h-px bg-[#3b7ff6]/40"></span>
+        Kundenstimmen
+        <span class="w-8 h-px bg-[#3b7ff6]/40"></span>
       </div>
-      <div class="gs-bundle-right">
-        <div class="gs-bundle-card-preview">
-          <div class="gs-bundle-discount-pill">🎉 20% OFF complete routine</div>
-          <div class="gs-bundle-steps-list">
-            <div class="gs-bundle-step-row">🫧 <span>Cleanser</span><span class="gs-step-empty">+ Add</span></div>
-            <div class="gs-bundle-step-row">💦 <span>Toner</span><span class="gs-step-empty">+ Add</span></div>
-            <div class="gs-bundle-step-row">✨ <span>Serum / Ampoule</span><span class="gs-step-empty">+ Add</span></div>
-            <div class="gs-bundle-step-row">🌸 <span>Moisturizer</span><span class="gs-step-empty">+ Add</span></div>
-            <div class="gs-bundle-step-row">☀️ <span>SPF</span><span class="gs-step-empty">+ Add</span></div>
+      <h2 class="font-inter font-bold text-white text-3xl md:text-4xl leading-[1.15] tracking-[-0.02em]">
+        Was unsere Kunden sagen
+      </h2>
+    </div>
+
+    <!-- Testimonial Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Testimonial 1 -->
+      <div class="testimonial-card">
+        <div class="flex gap-1 mb-4">
+          <span class="text-[#7baaf7] text-lg">★★★★★</span>
+        </div>
+        <p class="font-inter text-slate-300/80 text-base leading-7 mb-6">
+          „Wir haben innerhalb von zwei Wochen eine fertige Website bekommen – und das komplett kostenlos als Vorlage. Das Ergebnis hat uns sofort überzeugt."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="testimonial-avatar">M</div>
+          <div>
+            <p class="font-inter font-semibold text-white text-sm">Markus Bauer</p>
+            <p class="font-inter text-slate-500 text-xs">Inhaber, Bauer Haustechnik</p>
           </div>
-          <a [routerLink]="['/bundle']" class="gs-bundle-start-btn">Start Building →</a>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- CTA -->
-<section class="gs-cta-section">
-  <div class="gs-container">
-    <div class="gs-cta-inner">
-      <p class="gs-cta-eyebrow">Start Your Routine</p>
-      <h2 class="gs-cta-h2">Ready to Try What Korea Loves?</h2>
-      <p class="gs-cta-sub">200 curated K-Beauty products from authentic Korean brands, all with real images and pricing.</p>
-      <div class="gs-cta-btn-row">
-        <a [routerLink]="['/shop']" class="gs-btn-primary gs-btn-lg">Browse the Shop →</a>
-        <a [routerLink]="['/bundle']" class="gs-btn-ghost gs-btn-lg">Build a Bundle</a>
+      <!-- Testimonial 2 -->
+      <div class="testimonial-card testimonial-card--featured">
+        <div class="flex gap-1 mb-4">
+          <span class="text-[#7baaf7] text-lg">★★★★★</span>
+        </div>
+        <p class="font-inter text-slate-300/80 text-base leading-7 mb-6">
+          „Endlich eine Agentur, die zeigt was sie kann, bevor man zahlt. Das Design war professioneller als alles, was ich vorher gesehen hatte."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="testimonial-avatar testimonial-avatar--blue">S</div>
+          <div>
+            <p class="font-inter font-semibold text-white text-sm">Sandra Meier</p>
+            <p class="font-inter text-slate-500 text-xs">Geschäftsführerin, Meier Consulting</p>
+          </div>
+        </div>
       </div>
+
+      <!-- Testimonial 3 -->
+      <div class="testimonial-card">
+        <div class="flex gap-1 mb-4">
+          <span class="text-[#7baaf7] text-lg">★★★★★</span>
+        </div>
+        <p class="font-inter text-slate-300/80 text-base leading-7 mb-6">
+          „Die neue Website hat unsere Anfragen verdoppelt. Der Prozess war unkompliziert und das Team hat wirklich mitgedacht."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="testimonial-avatar">T</div>
+          <div>
+            <p class="font-inter font-semibold text-white text-sm">Thomas Klein</p>
+            <p class="font-inter text-slate-500 text-xs">Inhaber, Klein Schreinerei</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="gs-footer">
-  <div class="gs-container gs-footer-inner">
-    <div class="gs-footer-logo">✿ GlowSeoul</div>
-    <p class="gs-footer-sub">Authentic K-Beauty ranked by real Korean sales data</p>
-    <div class="gs-footer-links">
-      <a [routerLink]="['/shop']">Shop</a>
-      <a [routerLink]="['/bundle']">Build a Bundle</a>
-      <a [routerLink]="['/quiz']">Skin Quiz</a>
-      <a href="#">Shipping</a>
-      <a href="#">Contact</a>
+<!-- Offer Section -->
+<section class="offer-section py-40 relative overflow-hidden">
+  <!-- Local glow boost for CTA emphasis -->
+  <div class="offer-glow-local"></div>
+
+  <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
+    <h2 class="font-inter font-semibold text-5xl md:text-[7.5rem] mb-16 leading-[1.2] tracking-[-0.02em] text-slate-200">
+      Bereit für digitale <br class="hidden md:block">
+      <span class="offer-exzellenz font-accent italic font-medium drop-shadow-[0_0_40px_rgba(77,142,255,0.4)]">
+        <span class="bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff] text-transparent bg-clip-text">Exzellenz?</span>
+      </span>
+    </h2>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+      <a routerLink="/demo" class="hero-shimmer-btn relative overflow-hidden px-10 py-4 bg-gradient-to-r from-[#3b7ff6] to-[#5b98ff] text-white font-bold rounded-full shadow-[0_0_40px_rgba(77,142,255,0.2)] hover:shadow-[0_0_60px_rgba(77,142,255,0.3)] hero-cta-rise text-base">
+        Jetzt Ihr Konzept anfordern
+      </a>
+      <a [routerLink]="['/projekte']" class="group flex items-center gap-2 text-slate-400 font-medium hover:text-white transition-colors text-base">
+        Portfolio ansehen
+        <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform duration-300">arrow_forward</span>
+      </a>
     </div>
   </div>
-  <div class="gs-footer-bottom">
-    <p>© 2026 Glow Seoul · Rankings sourced from Olive Young Global · Private Mockup</p>
-  </div>
-</footer>
+</section>

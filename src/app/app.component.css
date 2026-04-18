@@ -1,3 +1,97 @@
-/* AppComponent styles are intentionally minimal.
-   Global styles live in src/styles.css.
-   The app-root flex layout is defined there to prevent footer CLS. */
+/* ─── Global Fixed Animated Background ──────────────────────────────────── */
+
+.global-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.global-bg__base {
+  position: absolute;
+  inset: 0;
+  background: #080b16;
+}
+
+.global-bg__grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.022;
+}
+
+/* Shared glow properties */
+.global-bg__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(130px);
+  opacity: 0.45;
+  mix-blend-mode: plus-lighter;
+  will-change: transform;
+}
+
+/* 1. Deep Blue — large central anchor */
+.global-bg__glow--1 {
+  width: 90vw;
+  height: 80vh;
+  top: -10%;
+  left: 5%;
+  background: radial-gradient(circle at center,
+    rgba(77, 142, 255, 0.55) 0%,
+    rgba(0, 40, 93, 0) 75%
+  );
+  animation: globalDrift1 18s ease-in-out infinite alternate;
+}
+
+/* 2. Soft Light Blue — corner drifter */
+.global-bg__glow--2 {
+  width: 75vw;
+  height: 75vh;
+  bottom: -5%;
+  right: -5%;
+  background: radial-gradient(circle at center,
+    rgba(173, 198, 255, 0.45) 0%,
+    rgba(77, 142, 255, 0) 70%
+  );
+  animation: globalDrift2 14s ease-in-out infinite alternate-reverse;
+  animation-delay: -3s;
+}
+
+/* 3. Subtle Purple Tint — diagonal drifter */
+.global-bg__glow--3 {
+  width: 65vw;
+  height: 65vh;
+  top: 20%;
+  left: -10%;
+  opacity: 0.35;
+  background: radial-gradient(circle at center,
+    rgba(138, 43, 226, 0.35) 0%,
+    rgba(173, 198, 255, 0.12) 30%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  animation: globalDrift3 16s ease-in-out infinite alternate;
+  animation-delay: -5s;
+}
+
+/* Slow, calm, premium drift animations */
+@keyframes globalDrift1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(15%, 20%) scale(1.06); }
+  66%  { transform: translate(-10%, 8%) scale(0.94); }
+  100% { transform: translate(8%, 15%) scale(1.03); }
+}
+
+@keyframes globalDrift2 {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  40%  { transform: translate(-20%, -15%) rotate(6deg); }
+  75%  { transform: translate(10%, -25%) rotate(-3deg); }
+  100% { transform: translate(-8%, -10%) rotate(0deg); }
+}
+
+@keyframes globalDrift3 {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.35; }
+  50%  { transform: translate(25%, -18%) scale(1.15); opacity: 0.45; }
+  100% { transform: translate(-15%, 15%) scale(0.9); opacity: 0.35; }
+}

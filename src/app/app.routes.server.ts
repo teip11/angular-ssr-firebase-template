@@ -11,9 +11,6 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
  * build can't enumerate all possible slug values at compile time.
  */
 export const serverRoutes: ServerRoute[] = [
-  // Dynamic routes — rendered per-request on the server
-  { path: 'shop/:slug', renderMode: RenderMode.Server },
-  { path: 'blog/:slug', renderMode: RenderMode.Server },
   // All static routes — prerendered at build time
   { path: '**',         renderMode: RenderMode.Prerender },
 ];

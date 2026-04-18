@@ -1,0 +1,124 @@
+<div class="max-w-2xl mx-auto">
+<!-- Header Section -->
+<div class="text-center mb-16">
+<h1 class="text-4xl md:text-5xl headline-lg text-on-surface mb-6 leading-tight">
+                    Erzählen Sie uns kurz von Ihrem Unternehmen.
+                </h1>
+<p class="text-on-surface-variant text-lg max-w-lg mx-auto">
+                    Wir erstellen darauf basierend eine <span class="italic font-headline text-primary">kostenlose Demo-Website</span> für Sie.
+                </p>
+</div>
+<!-- Form Card -->
+<div class="surface-container-low rounded-xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+<!-- Subtle Glow behind form -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-container/5 rounded-full blur-3xl"></div>
+<form class="space-y-12 relative z-10">
+<!-- Section 1: Basic Info -->
+<section class="space-y-6">
+<div class="flex items-center gap-3 mb-2">
+<span class="text-primary-container material-symbols-outlined" data-icon="person">person</span>
+<h2 class="text-sm uppercase tracking-widest font-bold text-primary">01 Basis-Informationen</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="group">
+<label class="block text-xs font-semibold text-on-surface-variant mb-2 ml-1" for="name">Vollständiger Name</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 focus:ring-0 focus:border-primary transition-all placeholder:text-outline/50 text-on-surface" id="name" placeholder="Max Mustermann" type="text"/>
+</div>
+<div class="group">
+<label class="block text-xs font-semibold text-on-surface-variant mb-2 ml-1" for="email">E-Mail Adresse</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 focus:ring-0 focus:border-primary transition-all placeholder:text-outline/50 text-on-surface" id="email" placeholder="max&#64;unternehmen.de" type="email"/>
+</div>
+</div>
+<div class="group">
+<label class="block text-xs font-semibold text-on-surface-variant mb-2 ml-1" for="company">Unternehmen</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 focus:ring-0 focus:border-primary transition-all placeholder:text-outline/50 text-on-surface" id="company" placeholder="Gehrke Studio GmbH" type="text"/>
+</div>
+</section>
+<!-- Section 2: Unternehmen Details -->
+<section class="space-y-6">
+<div class="flex items-center gap-3 mb-2">
+<span class="text-primary-container material-symbols-outlined" data-icon="business">business</span>
+<h2 class="text-sm uppercase tracking-widest font-bold text-primary">02 Ihr Unternehmen</h2>
+</div>
+<div>
+<label class="block text-xs font-semibold text-on-surface-variant mb-2 ml-1" for="description">Was genau macht Ihr Unternehmen?</label>
+<textarea class="w-full bg-surface-container-lowest/50 rounded-xl border border-outline-variant/10 p-4 focus:ring-1 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-outline/50 text-on-surface resize-none" id="description" placeholder="Beschreiben Sie kurz Ihre Dienstleistungen oder Produkte..." rows="3"></textarea>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest/30 rounded-xl">
+<span class="text-sm text-on-surface-variant">Haben Sie bereits eine Website?</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</section>
+<!-- Section 3: Goals -->
+<section class="space-y-6">
+<div class="flex items-center gap-3 mb-2">
+<span class="text-primary-container material-symbols-outlined" data-icon="target">track_changes</span>
+<h2 class="text-sm uppercase tracking-widest font-bold text-primary">03 Ihre Ziele</h2>
+</div>
+<div class="space-y-4">
+<label class="block text-xs font-semibold text-on-surface-variant ml-1">Was möchten Sie erreichen? (Mehrfachwahl)</label>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<label class="flex items-center justify-center p-3 rounded-xl border border-outline-variant/10 cursor-pointer bg-surface-container-lowest/50 hover:bg-surface-container-highest transition-all group">
+<input class="hidden peer" type="checkbox"/>
+<span class="text-xs font-medium text-on-surface-variant group-hover:text-on-surface peer-checked:text-primary">Mehr Kunden</span>
+</label>
+<label class="flex items-center justify-center p-3 rounded-xl border border-outline-variant/10 cursor-pointer bg-surface-container-lowest/50 hover:bg-surface-container-highest transition-all group">
+<input class="hidden peer" type="checkbox"/>
+<span class="text-xs font-medium text-on-surface-variant group-hover:text-on-surface peer-checked:text-primary">Mehr Anfragen</span>
+</label>
+<label class="flex items-center justify-center p-3 rounded-xl border border-outline-variant/10 cursor-pointer bg-surface-container-lowest/50 hover:bg-surface-container-highest transition-all group">
+<input class="hidden peer" type="checkbox"/>
+<span class="text-xs font-medium text-on-surface-variant group-hover:text-on-surface peer-checked:text-primary">Online-Präsenz</span>
+</label>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-on-surface-variant mb-2 ml-1" for="goals">Detaillierte Zielsetzung</label>
+<textarea class="w-full bg-surface-container-lowest/50 rounded-xl border border-outline-variant/10 p-4 focus:ring-1 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-outline/50 text-on-surface resize-none" id="goals" placeholder="Gibt es spezifische Kennzahlen oder Ergebnisse, die Sie anstreben?" rows="3"></textarea>
+</div>
+</section>
+<!-- Section 4: Optional -->
+<section class="space-y-6">
+<div class="flex items-center gap-3 mb-2">
+<span class="text-primary-container material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<h2 class="text-sm uppercase tracking-widest font-bold text-primary">04 Design &amp; Wünsche</h2>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<div>
+<label class="block text-xs font-semibold text-on-surface-variant mb-2 ml-1" for="inspiration">Websites, die Ihnen gefallen</label>
+<textarea class="w-full bg-surface-container-lowest/50 rounded-xl border border-outline-variant/10 p-4 focus:ring-1 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-outline/50 text-on-surface resize-none" id="inspiration" placeholder="Links zu Websites oder Marken, deren Stil Ihnen zusagt..." rows="2"></textarea>
+</div>
+<div>
+<label class="block text-xs font-semibold text-on-surface-variant mb-2 ml-1" for="wishes">Sonstige Wünsche oder Anmerkungen</label>
+<textarea class="w-full bg-surface-container-lowest/50 rounded-xl border border-outline-variant/10 p-4 focus:ring-1 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-outline/50 text-on-surface resize-none" id="wishes" placeholder="Gibt es noch etwas, das wir wissen sollten?" rows="2"></textarea>
+</div>
+</div>
+</section>
+<!-- Submit & Trust Indicators -->
+<div class="pt-6 space-y-8">
+<a  class="w-full py-5 px-8 rounded-xl bg-gradient-to-r from-primary-fixed-dim to-primary-container text-on-primary font-extrabold text-lg shadow-xl shadow-primary-container/20 hover:scale-[1.02] active:scale-95 transition-all duration-300" type="submit" routerLink="/demo">Kostenlose Demo anfordern</a>
+<div class="flex flex-wrap justify-center gap-6 md:gap-12">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle">check_circle</span>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Unverbindlich</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="verified_user">verified_user</span>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Keine Verpflichtung</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="schedule">schedule</span>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Antwort innerhalb 24h</span>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- Bottom Graphic Element -->
+<div class="mt-12 opacity-40">
+<img alt="Minimal modern workspace" class="w-full h-32 object-cover rounded-xl" data-alt="abstract blurred background of a minimalist modern workspace with cool blue lighting and architectural lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrpFY-gx5EE5cau8oBqogfdKfPUmp74d6m2QAF3fZoue68GA3eZ2ZV8Fcuyq4H38RNEAO2fCj9A8Yvxc47Lc5CF1Xu0-c5cu2KsTb1XgfGQHJPEw2jn5ERx3N4brBIDePQnH2JYdhbYRKpcG9m_-olVoaKIofRot_zVyT5IjXEBeGgpCx37G3_EtTHgg3wRIR-M5YLgY0iFRgNlG9IDxv4Zlcyy0iKoq5I4saobSE1gUSqg09UA2m2yP3u_sejtrU2TjfGjJ-b7Sc"/>
+</div>
+</div>

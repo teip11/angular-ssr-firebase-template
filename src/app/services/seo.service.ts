@@ -16,7 +16,7 @@ export interface SeoConfig {
   articleMeta?: {
     publishedTime: string;   // ISO 8601 e.g. "2026-03-08"
     modifiedTime?: string;
-    section: string;         // e.g. "Skincare", "K-Beauty", "Tutorial"
+    section: string;         // e.g. "Skincare", "Premium Webdesign", "Tutorial"
     tags?: string[];
     author?: string;
   };
@@ -35,65 +35,65 @@ const DEFAULT_IMAGE = `${BASE_URL}/og-default.jpg`;
 // TODO: Update these dimensions if you use a different OG image
 const DEFAULT_IMAGE_WIDTH  = 1200;
 const DEFAULT_IMAGE_HEIGHT = 627;
-const DEFAULT_IMAGE_ALT    = 'Glow Seoul — Authentic Korean Beauty Delivered';
+const DEFAULT_IMAGE_ALT    = 'Gehrke Studio — Authentic Korean Beauty Delivered';
 
 // TODO: Update site name to your brand
-const SITE_NAME = 'Glow Seoul';
+const SITE_NAME = 'Gehrke Studio';
 
 // ─── Page-level SEO configs — update all TODO values ────────────────────────
 const PAGE_SEO: Record<string, SeoConfig> = {
   home: {
     // TODO: Write compelling title and description for your homepage
-    title: 'Glow Seoul | Authentic Korean Beauty Delivered',
+    title: 'Gehrke Studio | Authentic Korean Beauty Delivered',
     description: 'Discover authentic Korean skincare, makeup, and beauty essentials. Curated K-beauty products for every skin type, shipped worldwide.',
-    keywords: 'Korean beauty, K-beauty, Korean skincare, K-beauty store, Korean cosmetics, glass skin, glow skincare',
+    keywords: 'professionelles Webdesign, K-beauty, Korean skincare, K-beauty store, Korean cosmetics, glass skin, glow skincare',
     url: BASE_URL,
     type: 'website',
-    imageAlt: 'Glow Seoul — Authentic Korean Beauty'
+    imageAlt: 'Gehrke Studio — Authentic Korean Beauty'
   },
   shop: {
-    title: 'Shop K-Beauty | Glow Seoul',
+    title: 'Shop Premium Webdesign | Gehrke Studio',
     description: 'Browse our curated collection of authentic Korean skincare, serums, toners, and makeup. Free shipping on orders over $XX.',
-    keywords: 'shop Korean beauty, K-beauty products, Korean skincare online, buy K-beauty',
+    keywords: 'shop professionelles Webdesign, K-beauty products, Korean skincare online, buy K-beauty',
     url: `${BASE_URL}/shop`,
     type: 'website',
-    imageAlt: 'Shop K-Beauty Products — Glow Seoul'
+    imageAlt: 'Shop Premium Webdesign Products — Gehrke Studio'
   },
   quiz: {
-    title: 'Skin Type Quiz | Find Your K-Beauty Routine | Glow Seoul',
+    title: 'Skin Type Quiz | Find Your Premium Webdesign Routine | Gehrke Studio',
     description: 'Take our 2-minute skin type quiz and get a personalized Korean skincare routine recommendation. Oily, dry, combination, or sensitive — we\'ve got you covered.',
-    keywords: 'skin type quiz, K-beauty quiz, skincare routine quiz, personalized skincare, Korean beauty quiz',
+    keywords: 'skin type quiz, K-beauty quiz, skincare routine quiz, personalized skincare, professionelles Webdesign quiz',
     url: `${BASE_URL}/quiz`,
     type: 'website',
-    imageAlt: 'Skin Type Quiz — Glow Seoul'
+    imageAlt: 'Skin Type Quiz — Gehrke Studio'
   },
   about: {
     // TODO: Personalize for your brand story
-    title: 'About | Our Story | Glow Seoul',
-    description: 'We\'re obsessed with Korean beauty. Glow Seoul sources authentic K-beauty products directly from Korea so you can achieve that coveted glass skin glow.',
-    keywords: 'about Glow Seoul, Korean beauty brand, K-beauty story, authentic Korean cosmetics',
+    title: 'About | Our Story | Gehrke Studio',
+    description: 'We\'re obsessed with professionelles Webdesign. Gehrke Studio sources authentic K-beauty products directly from Korea so you can achieve that coveted glass skin glow.',
+    keywords: 'about Gehrke Studio, professionelles Webdesign brand, K-beauty story, authentic Korean cosmetics',
     url: `${BASE_URL}/about`,
     type: 'website',
-    imageAlt: 'About Glow Seoul — Our K-Beauty Story'
+    imageAlt: 'About Gehrke Studio — Our Premium Webdesign Story'
   },
   contact: {
-    title: 'Contact | Glow Seoul',
+    title: 'Contact | Gehrke Studio',
     description: 'Have a question? We\'d love to hear from you. Reach out about orders, products, collaborations, or wholesale inquiries.',
-    keywords: 'contact Glow Seoul, customer service, K-beauty help, wholesale Korean beauty',
+    keywords: 'contact Gehrke Studio, customer service, K-beauty help, wholesale professionelles Webdesign',
     url: `${BASE_URL}/contact`,
     type: 'website',
-    imageAlt: 'Contact Glow Seoul'
+    imageAlt: 'Contact Gehrke Studio'
   },
   blog: {
-    title: 'K-Beauty Blog | Skincare Tips & Tutorials | Glow Seoul',
+    title: 'Premium Webdesign Blog | Skincare Tips & Tutorials | Gehrke Studio',
     description: 'Expert K-beauty guides, skincare tutorials, ingredient deep-dives, and routines for every skin type. Learn the secrets of Korean glass skin.',
     keywords: 'K-beauty blog, Korean skincare tips, glass skin routine, K-beauty tutorials, skincare ingredients',
     url: `${BASE_URL}/blog`,
     type: 'blog',
-    imageAlt: 'K-Beauty Blog — Glow Seoul'
+    imageAlt: 'Premium Webdesign Blog — Gehrke Studio'
   },
   'not-found': {
-    title: '404 — Page Not Found | Glow Seoul',
+    title: '404 — Page Not Found | Gehrke Studio',
     description: 'The page you were looking for doesn\'t exist. Browse our K-beauty products or return to the homepage.',
     keywords: '',
     url: BASE_URL,
@@ -145,7 +145,7 @@ export class SeoService {
     this.meta.updateTag({ name: 'description', content: config.description });
     this.meta.updateTag({ name: 'keywords',    content: config.keywords });
     // TODO: Update author name
-    this.meta.updateTag({ name: 'author',      content: 'Glow Seoul' });
+    this.meta.updateTag({ name: 'author',      content: 'Gehrke Studio' });
 
     // ── Open Graph ───────────────────────────────────────────────────────────
     this.meta.updateTag({ property: 'og:site_name',     content: SITE_NAME });
@@ -174,7 +174,7 @@ export class SeoService {
         this.meta.updateTag({ property: 'article:modified_time', content: config.articleMeta.modifiedTime });
       }
       this.meta.updateTag({ property: 'article:section', content: config.articleMeta.section });
-      this.meta.updateTag({ property: 'article:author',  content: config.articleMeta.author || 'Glow Seoul' });
+      this.meta.updateTag({ property: 'article:author',  content: config.articleMeta.author || 'Gehrke Studio' });
       if (config.articleMeta.tags?.length) {
         config.articleMeta.tags.forEach(tag =>
           this.meta.addTag({ property: 'article:tag', content: tag })

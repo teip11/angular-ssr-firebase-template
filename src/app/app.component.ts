@@ -1,13 +1,30 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
+  imports: [RouterOutlet, NavbarComponent, FooterComponent],
+  template: `
+    <!-- Global fixed animated gradient background -->
+    <div class="global-bg" aria-hidden="true">
+      <div class="global-bg__base"></div>
+      <div class="global-bg__grain"></div>
+      <div class="global-bg__glow global-bg__glow--1"></div>
+      <div class="global-bg__glow global-bg__glow--2"></div>
+      <div class="global-bg__glow global-bg__glow--3"></div>
+    </div>
+
+    <app-navbar></app-navbar>
+    <main class="relative z-10">
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer></app-footer>
+  `,
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'glow-seoul';
+  title = 'gehrke-studio';
 }

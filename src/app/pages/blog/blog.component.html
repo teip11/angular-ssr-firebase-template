@@ -1,27 +1,131 @@
-<section class="section--sm blog-hero" style="background:var(--color-dark-2)">
-  <div class="container">
-    <span class="section-label">K-Beauty Education</span>
-    <h1 class="section-title">Glow Seoul Blog</h1>
-    <p class="section-subtitle">Skincare tips, ingredient deep-dives, and routine guides from K-beauty experts.</p>
-  </div>
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-12 mb-32 text-center relative">
+<div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/5 blur-[120px] rounded-full"></div>
+<h1 class="text-7xl font-headline font-semibold text-on-background tracking-[-0.02em] mb-8 leading-[1.1]">
+                Insights zu besseren <br/><span class="font-accent italic font-medium text-primary">Websites.</span>
+</h1>
+<p class="text-xl text-outline max-w-2xl mx-auto font-body font-light leading-relaxed">
+                Strategien für Performance, Design und messbaren Erfolg. Kuratierte Gedanken aus dem digitalen Studio.
+            </p>
 </section>
-<section class="section">
-  <div class="container">
-    <div class="grid-3">
-      @for (post of posts; track post.slug) {
-        <article class="card blog-post-card">
-          <div class="blog-post-card__img">📝</div>
-          <div>
-            <span class="badge badge--primary" style="margin-bottom:var(--space-3)">{{ post.category }}</span>
-            <h2 class="blog-post-card__title">{{ post.title }}</h2>
-            <p class="blog-post-card__excerpt">{{ post.excerpt }}</p>
-            <div class="blog-post-card__meta">
-              <span>{{ post.date }}</span>
-              <a [routerLink]="['/blog', post.slug]" class="btn btn--ghost btn--sm">Read More →</a>
-            </div>
-          </div>
-        </article>
-      }
-    </div>
-  </div>
+<!-- Categories/Filters -->
+<section class="max-w-7xl mx-auto px-12 mb-20">
+<div class="flex flex-wrap justify-center gap-4">
+<button class="px-8 py-3 rounded-full bg-primary text-on-primary font-semibold transition-all">Alle</button>
+<button class="px-8 py-3 rounded-full bg-surface-container-low text-outline hover:text-primary transition-all">Webdesign</button>
+<button class="px-8 py-3 rounded-full bg-surface-container-low text-outline hover:text-primary transition-all">SEO</button>
+<button class="px-8 py-3 rounded-full bg-surface-container-low text-outline hover:text-primary transition-all">Performance</button>
+<button class="px-8 py-3 rounded-full bg-surface-container-low text-outline hover:text-primary transition-all">Strategie</button>
+</div>
+</section>
+<!-- Featured Article -->
+<section class="max-w-7xl mx-auto px-12 mb-32">
+<article class="group relative flex flex-col md:flex-row bg-surface-container-low rounded-xl overflow-hidden cursor-pointer editorial-shadow hover:bg-surface-container-high transition-all duration-500">
+<div class="md:w-3/5 overflow-hidden">
+<img alt="Featured UI" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close-up of a premium sleek dark mode dashboard user interface with glowing blue accents and sophisticated data visualization" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtpiSrDNXf0SHQ87l-L3Tcvo8J5JnIOZr1ejVcXK4xtd6Zsm1jo3ZCCyz8NawqV_Rh0AA1mFgSf_Le7qqCs7CRoVF3MSzMba3mGF5rwTQbTylXRRJ83jGc-qpTOI-yEWPu6WclUmUlmNosH1WRrJ2cwuaFq4Tu4bEnjkLeuL-RZT1cV5omDbVarkeruvco5VO6LcaK4QFXCv8IrRMouKEYu6PP92lA_-EO-jpLbNIUC6FpbJ9KFUzOOjtWQ4KFk29qFL0DaczWy-g"/>
+</div>
+<div class="md:w-2/5 p-12 flex flex-col justify-center">
+<span class="text-primary font-bold tracking-widest text-xs uppercase mb-4">Featured Strategy</span>
+<h2 class="text-4xl font-headline font-semibold text-on-background mb-6 leading-[1.1] tracking-[-0.02em]">
+                        Warum Design allein keine Kunden gewinnt: Die Psychologie der Conversion.
+                    </h2>
+<p class="text-outline font-body mb-8 leading-relaxed">
+                        Viele Websites sehen gut aus, aber konvertieren nicht. Wir analysieren die Faktoren, die Besucher wirklich zu Kunden machen.
+                    </p>
+<div class="flex items-center gap-2 text-primary font-semibold">
+<span>Artikel lesen</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</article>
+</section>
+<!-- Article Grid -->
+<section class="max-w-7xl mx-auto px-12 mb-32">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<!-- Article 1 -->
+<article class="group flex flex-col cursor-pointer transition-all">
+<div class="rounded-xl overflow-hidden mb-8 aspect-video bg-surface-container-lowest">
+<img alt="SEO Trends" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Abstract conceptual image representing search engine optimization with floating luminous data points and glowing glass spheres in a dark void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz61IVI3Blz8eBfKlBlm6KnBldC_7Qzcu8qUKVedSPvBpfQxCTWmIH1KSMBQ-ooTE02GBFNZW3fQOq7K101qFcvhvOaXav1KeIWhu-RSATqVLJwWDATTBq6xoOk6LPlJfAJd6s5waOJjcKNZAYV926wU2EXpJyOp-btnpbFdu6PTD1YzbHIGBlh6ihBVfpumaag0fdnoqLpjuo71YhJpOFfibOh1QThhEJTYmmWakV4xhAO3suD-W5oFuNX4KgjZ_GZvlHPMNO4qo"/>
+</div>
+<span class="text-tertiary font-bold tracking-widest text-[10px] uppercase mb-3">SEO</span>
+<h3 class="text-2xl font-headline font-bold text-on-background mb-4 group-hover:text-primary transition-colors">
+                        SEO-Trends 2024: Was Google wirklich von Ihrer Seite erwartet.
+                    </h3>
+<p class="text-outline text-sm leading-relaxed mb-6">
+                        Die Zukunft der Suche ist generativ. Erfahren Sie, wie Sie sich im Zeitalter von SGE positionieren müssen.
+                    </p>
+</article>
+<!-- Article 2 -->
+<article class="group flex flex-col cursor-pointer transition-all">
+<div class="rounded-xl overflow-hidden mb-8 aspect-video bg-surface-container-lowest">
+<img alt="Performance" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Macro photography of a high-speed fiber optic cable glowing with intense blue light in a dark minimalist environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3rPdy_TawKYp0ORAgxPO-v4s7DMrq3eYvpbumNSVrTRYof2jFH4of2NQAHT0ous-rWMDNNohhTbDMJMDO7w_y8nyakpOm9Hs3onUR5GEfasTQbIsjBhh4x7tLP6lroEvzPx2ie5dW18wZ4q7AtJyJBrHhS7IkjwouVr-2L1DW5zSVM8Pp-tUD857UnJjNy9KiBPUul6Xa4zYNhLSekpUZzN7zdmUWaBYUFIBsXcqhaYbWSiPuUFovJAOqCVPrwqsoU9pmcOdas84"/>
+</div>
+<span class="text-tertiary font-bold tracking-widest text-[10px] uppercase mb-3">Performance</span>
+<h3 class="text-2xl font-headline font-bold text-on-background mb-4 group-hover:text-primary transition-colors">
+                        Ladezeiten optimieren: Jede Millisekunde zählt für Ihren Umsatz.
+                    </h3>
+<p class="text-outline text-sm leading-relaxed mb-6">
+                        Geschwindigkeit ist kein Luxus mehr. Technische Tipps für Core Web Vitals, die direkte Auswirkungen auf den ROI haben.
+                    </p>
+</article>
+<!-- Article 3 -->
+<article class="group flex flex-col cursor-pointer transition-all">
+<div class="rounded-xl overflow-hidden mb-8 aspect-video bg-surface-container-lowest">
+<img alt="Identity" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Elegant silver sculptural form twisting in space with soft dramatic shadows and a single beam of light reflecting on polished metal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9RkIcXT3OEKshYPNjBvrb_LJ5jUHZ44JRTyfg2jevAZtn8QehoEVSYHENNLDNzz5EMkjWjnIIOeZ0bLwt6uLDuqLWuJKcwbHGbwwtOq3uk6dAm1W0bs1l3_KtIHfPJV2OX7LEDbTeUomCvlP1vCMrrKL9xjuZ2jdGfoyvu_2fBizd-Hl3Hto3dlxOYnhKgz8wl_b8clRBK-8nINQ8IsLhU8LATJLYapmhanEKOVSuEWyTfIvD2UuhpedTg7GbP3eFsHYSzhHvg1Y"/>
+</div>
+<span class="text-tertiary font-bold tracking-widest text-[10px] uppercase mb-3">Branding</span>
+<h3 class="text-2xl font-headline font-bold text-on-background mb-4 group-hover:text-primary transition-colors">
+                        Brand Identity im digitalen Raum: Mehr als nur ein Logo.
+                    </h3>
+<p class="text-outline text-sm leading-relaxed mb-6">
+                        Wie Markenerlebnisse durch Interaktion, Typografie und Bewegung im Web lebendig werden.
+                    </p>
+</article>
+<!-- Article 4 -->
+<article class="group flex flex-col cursor-pointer transition-all">
+<div class="rounded-xl overflow-hidden mb-8 aspect-video bg-surface-container-lowest">
+<img alt="Mobile First" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Minimalist smartphone mockup displaying a clean editorial layout floating against a dark textured midnight blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYM41OEaAVIdRPCYISsY57rMVwi1P26gdsPuEranqth0pAiItfYBeVU5h0uFAZM9V3mTXgi4Xn377mi1_NwbRZF4nkq5EMSm6RsaOEJ5WlKKLgxC5gqoAf7PyUXSN0bORJds-m2Mu6-X9MRXS3B77kRvmsIzYaTUpF2caprwNd_bAqVjiATUEUMvk9iKMjhsPJ6OmY63NBmxSP452c-2VMC3KK3cwigmqH2zIAbw1GMZV4gI-0acR_-uribOiSa62mGuk9fIJ6q6Y"/>
+</div>
+<span class="text-tertiary font-bold tracking-widest text-[10px] uppercase mb-3">UX Design</span>
+<h3 class="text-2xl font-headline font-bold text-on-background mb-4 group-hover:text-primary transition-colors">
+                        Mobile First: Warum Ihre Desktop-Ansicht zweitrangig ist.
+                    </h3>
+<p class="text-outline text-sm leading-relaxed mb-6">
+                        Über 70% der Nutzer kommen mobil. Warum wir Designprozesse komplett umdenken müssen.
+                    </p>
+</article>
+<!-- Article 5 -->
+<article class="group flex flex-col cursor-pointer transition-all md:col-span-2 md:flex-row gap-12 bg-surface-container-low/50 p-8 rounded-xl items-center">
+<div class="md:w-1/2 rounded-xl overflow-hidden aspect-video">
+<img alt="Content Strategy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Close-up of vintage typewriter keys illuminated by moonlight with a piece of high-quality textured paper" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0utlo8HWyJuI6AMV3h8q9iiuPHYyvuOzu3G7xv6thLFIDO5f-bQ8R4B3zgKcN_pnbyLHFVJl0k2HOGOLiGPCo86imCfQ8ajPgpalQ3qU9UD1ARKlo11bamxrQKRLQ-Ms6nQJLJFg2V7EACg_l9aFAEXRZ4v-lfax87n_9ojH06IRIXDve91UrjDRJNFFbJsrQCVTylqnnPFgGovxrnBNNoS6-oLbJOx2yo7JqrK3L84GJIs7RAAtw7Dy3xuI6CUwFJCCfIYKz3c8"/>
+</div>
+<div class="md:w-1/2">
+<span class="text-tertiary font-bold tracking-widest text-[10px] uppercase mb-3">Content Strategy</span>
+<h3 class="text-2xl font-headline font-bold text-on-background mb-4 group-hover:text-primary transition-colors">
+                            Content Strategie: So schreiben Sie Texte, die verkaufen.
+                        </h3>
+<p class="text-outline text-sm leading-relaxed mb-6">
+                            Worte sind das Fundament jeder Conversion. Wie Sie durch Storytelling und klare Nutzensversprechen Vertrauen aufbauen.
+                        </p>
+<div class="inline-flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-wider">
+<span>Read More</span>
+<span class="material-symbols-outlined text-[14px]">trending_flat</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Newsletter / CTA Section -->
+<section class="max-w-7xl mx-auto px-12 mb-32">
+<div class="bg-primary-container/10 p-24 rounded-xl text-center relative overflow-hidden">
+<div class="absolute top-0 right-0 p-12 text-primary opacity-20">
+<span class="material-symbols-outlined text-9xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<h2 class="text-4xl font-semibold mb-6 font-accent italic text-primary">Nichts mehr verpassen.</h2>
+<p class="text-outline mb-10 max-w-lg mx-auto">Holen Sie sich monatlich kuratierte Insights zu Design, Tech und Strategie direkt in Ihr Postfach.</p>
+<form class="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
+<input class="flex-1 bg-surface-container-lowest border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 text-on-background px-4 py-3 placeholder:text-slate-500 transition-all" placeholder="E-Mail Adresse" type="email"/>
+<button class="bg-primary text-on-primary font-bold px-8 py-3 rounded-xl hover:shadow-[0_0_20px_rgba(173,198,255,0.4)] transition-all">Abonnieren</button>
+</form>
+</div>
 </section>

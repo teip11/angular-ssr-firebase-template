@@ -1,17 +1,12 @@
 import { Routes } from '@angular/router';
 
-/**
- * All routes use lazy-loaded standalone components.
- * This keeps the initial bundle small — each page chunk is only
- * downloaded when the user navigates to that route.
- */
 export const routes: Routes = [
   // ── Main pages ────────────────────────────────────────────────────────────
   {
     path: '',
     loadComponent: () =>
       import('./pages/home/home.component').then(m => m.HomeComponent),
-    title: 'Glow Seoul | Authentic Korean Beauty Delivered'
+    title: 'Home | Gehrke Studio'
   },
   {
     path: 'home',
@@ -19,56 +14,40 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'shop',
+    path: 'projekte',
     loadComponent: () =>
-      import('./pages/shop/shop.component').then(m => m.ShopComponent),
-    title: 'Shop K-Beauty | Glow Seoul'
+      import('./pages/projekte/projekte.component').then(m => m.ProjekteComponent),
+    title: 'Projekte | Gehrke Studio'
   },
   {
-    path: 'shop/:slug',
+    path: 'leistungen',
     loadComponent: () =>
-      import('./pages/product/product.component').then(m => m.ProductComponent),
-    // Title is set dynamically in ProductComponent.ngOnInit() via SeoService
-    title: 'Product | Glow Seoul'
+      import('./pages/leistungen/leistungen.component').then(m => m.LeistungenComponent),
+    title: 'Leistungen | Gehrke Studio'
   },
   {
-    path: 'bundle',
-    loadComponent: () =>
-      import('./pages/bundle/bundle.component').then(m => m.BundleComponent),
-    title: 'Build Your Bundle | Glow Seoul'
-  },
-  {
-    path: 'quiz',
-    loadComponent: () =>
-      import('./pages/quiz/quiz.component').then(m => m.QuizComponent),
-    title: 'Skin Type Quiz | Find Your K-Beauty Routine | Glow Seoul'
-  },
-  {
-    path: 'about',
+    path: 'ueber-uns',
     loadComponent: () =>
       import('./pages/about/about.component').then(m => m.AboutComponent),
-    title: 'About | Our Story | Glow Seoul'
+    title: 'Über uns | Gehrke Studio'
   },
   {
-    path: 'contact',
+    path: 'kontakt',
     loadComponent: () =>
       import('./pages/contact/contact.component').then(m => m.ContactComponent),
-    title: 'Contact | Glow Seoul'
+    title: 'Kontakt | Gehrke Studio'
   },
-
-  // ── Blog ──────────────────────────────────────────────────────────────────
+  {
+    path: 'demo',
+    loadComponent: () =>
+      import('./pages/demo/demo.component').then(m => m.DemoComponent),
+    title: 'Demo anfordern | Gehrke Studio'
+  },
   {
     path: 'blog',
     loadComponent: () =>
       import('./pages/blog/blog.component').then(m => m.BlogComponent),
-    title: 'K-Beauty Blog | Skincare Tips & Tutorials | Glow Seoul'
-  },
-  {
-    path: 'blog/:slug',
-    loadComponent: () =>
-      import('./pages/blog/blog-post/blog-post.component').then(m => m.BlogPostComponent),
-    // Title set dynamically in BlogPostComponent
-    title: 'Blog | Glow Seoul'
+    title: 'Insights & Blog | Gehrke Studio'
   },
 
   // ── 404 ───────────────────────────────────────────────────────────────────
@@ -76,6 +55,6 @@ export const routes: Routes = [
     path: '**',
     loadComponent: () =>
       import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent),
-    title: '404 — Page Not Found | Glow Seoul'
+    title: '404 — Page Not Found | Gehrke Studio'
   }
 ];

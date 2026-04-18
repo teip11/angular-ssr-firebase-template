@@ -60,8 +60,8 @@ export class SchemaService {
       '@type': ['Organization', 'Store'],
       '@id': `${BASE_URL}/#organization`,
       // TODO: Update name, description, email, address
-      'name': 'Glow Seoul',
-      'description': 'Authentic Korean beauty products curated and shipped worldwide. Skincare, makeup, and K-beauty essentials for every skin type.',
+      'name': 'Gehrke Studio',
+      'description': 'Authentic professionelles Webdesign products curated and shipped worldwide. Skincare, makeup, and K-beauty essentials for every skin type.',
       'url': BASE_URL,
       'logo': `${BASE_URL}/assets/images/logo.png`,        // TODO: add logo
       'image': `${BASE_URL}/og-default.jpg`,               // TODO: add OG image
@@ -76,7 +76,7 @@ export class SchemaService {
       'paymentAccepted': 'Credit Card, PayPal',
       'hasOfferCatalog': {
         '@type': 'OfferCatalog',
-        'name': 'K-Beauty Products',
+        'name': 'Premium Webdesign Products',
         'itemListElement': [
           { '@type': 'OfferCatalog', 'name': 'Skincare' },
           { '@type': 'OfferCatalog', 'name': 'Makeup' },
@@ -94,7 +94,7 @@ export class SchemaService {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       '@id': `${BASE_URL}/#website`,
-      'name': 'Glow Seoul',
+      'name': 'Gehrke Studio',
       'url': BASE_URL,
       'publisher': { '@id': `${BASE_URL}/#organization` },
       'potentialAction': {
@@ -138,7 +138,7 @@ export class SchemaService {
       'image': Array.isArray(params.image) ? params.image : [params.image],
       'brand': {
         '@type': 'Brand',
-        'name': params.brand || 'Glow Seoul'
+        'name': params.brand || 'Gehrke Studio'
       },
       'offers': {
         '@type': 'Offer',
@@ -203,7 +203,7 @@ export class SchemaService {
       'author': {
         '@type': 'Organization',
         '@id': `${BASE_URL}/#organization`,
-        'name': params.authorName || 'Glow Seoul'
+        'name': params.authorName || 'Gehrke Studio'
       },
       'publisher': { '@id': `${BASE_URL}/#organization` },
       'url': params.url,
