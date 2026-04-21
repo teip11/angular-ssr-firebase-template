@@ -10,7 +10,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       // Enables anchor (#fragment) scrolling on all routes
-      withInMemoryScrolling({ anchorScrolling: 'enabled' }),
+      withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'top' }),
     ),
     // SSR hydration with event replay — captures events fired before hydration
     // and replays them after Angular bootstraps in the browser
