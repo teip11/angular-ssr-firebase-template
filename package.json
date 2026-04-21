@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "node dist/gehrke-studio/server/server.mjs",
-    "gcp-build": "ng build",
-    "build": "ng build",
+    "gcp-build": "ng build && node postbuild.mjs",
+    "build": "ng build && node postbuild.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:gehrke-studio": "node dist/gehrke-studio/server/server.mjs"
