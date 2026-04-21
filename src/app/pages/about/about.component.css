@@ -1,0 +1,176 @@
+/* Premium Glass Styles for About */
+
+.about-card {
+  background: rgba(15, 23, 45, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 250ms ease-out, box-shadow 250ms ease-out;
+}
+.about-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(59, 127, 246, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.process-step-card {
+  background: rgba(15, 23, 45, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+  transition: transform 200ms ease;
+}
+.process-step-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(59, 127, 246, 0.15);
+}
+
+.cta-glass-panel {
+  background: rgba(20, 35, 65, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(59, 127, 246, 0.15);
+  box-shadow: 0 8px 32px rgba(59, 127, 246, 0.08);
+}
+
+.hero-cta-btn {
+  background: linear-gradient(to right, #3b7ff6, #5b98ff);
+  box-shadow: 0 0 30px rgba(77,142,255,0.2);
+  transition: all 300ms ease;
+}
+.hero-cta-btn:hover {
+  box-shadow: 0 0 50px rgba(77,142,255,0.4);
+  transform: translateY(-2px);
+}
+
+/* =============================================
+   SCROLL & LOAD ANIMATIONS
+   ============================================= */
+
+/* --- Hero Title: fade up + blur --- */
+.abt-hero-title {
+  opacity: 0;
+  transform: translateY(36px);
+  filter: blur(6px);
+  transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.abt-hero-title.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* --- Hero Subtitle: fade up, delayed --- */
+.abt-hero-sub {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.2s,
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+.abt-hero-sub.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Section headers: fade up + blur --- */
+.abt-section-header {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(3px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.abt-section-header.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* --- Philosophy cards: staggered fade up + scale --- */
+.abt-philosophy-card {
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.abt-philosophy-card.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* --- Approach header: slide in from left --- */
+.abt-approach-header {
+  opacity: 0;
+  transform: translateX(-36px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.abt-approach-header.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- Process steps: staggered fade up --- */
+.abt-process-step {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.abt-process-step.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Bio panel: scale up from below --- */
+.abt-bio-panel {
+  opacity: 0;
+  transform: translateY(44px) scale(0.97);
+  filter: blur(3px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.abt-bio-panel.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* --- CTA panel: scale up from below --- */
+.abt-cta-panel {
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.abt-cta-panel.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .abt-hero-title,
+  .abt-hero-sub,
+  .abt-section-header,
+  .abt-philosophy-card,
+  .abt-approach-header,
+  .abt-process-step,
+  .abt-bio-panel,
+  .abt-cta-panel {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}

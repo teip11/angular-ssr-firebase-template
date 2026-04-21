@@ -4,6 +4,82 @@
    Each section differentiates through spacing, glow, and glass intensity.
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* ─── Hero Line 2 — Liquid Gradient Text ───────────────────────────────── */
+
+@keyframes heroTextLiquidFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes heroTextGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(91, 152, 255, 0.5))
+            drop-shadow(0 0 55px rgba(59, 127, 246, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 36px rgba(173, 198, 255, 0.65))
+            drop-shadow(0 0 90px rgba(91, 152, 255, 0.4))
+            drop-shadow(0 0 140px rgba(59, 127, 246, 0.18));
+  }
+}
+
+/* Glow breathes in from nothing — no pop, no flash */
+@keyframes heroTextGlowIn {
+  0%   { filter: drop-shadow(0 0 0px rgba(91, 152, 255, 0)) drop-shadow(0 0 0px rgba(59, 127, 246, 0)); }
+  100% { filter: drop-shadow(0 0 20px rgba(91, 152, 255, 0.5)) drop-shadow(0 0 55px rgba(59, 127, 246, 0.2)); }
+}
+
+/* Shimmer: single diagonal sweep across the text */
+@keyframes heroTextShimmer {
+  0%   { background-position: -300% 0; }
+  100% { background-position: 300% 0; }
+}
+
+.hero-line2-text {
+  background: linear-gradient(
+    270deg,
+    #e8f0ff,
+    #5b98ff,
+    #adc6ff,
+    #3b7ff6,
+    #e8f0ff,
+    #7baaf7,
+    #dbe8ff,
+    #5b98ff,
+    #e8f0ff
+  );
+  background-size: 500% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation:
+    heroTextLiquidFlow 7s ease-in-out 0.85s infinite,
+    heroTextGlowIn 1.2s ease-out 0.85s forwards,
+    heroTextGlow 4s ease-in-out 2.05s infinite;
+  position: relative;
+  display: inline-block;
+}
+
+.hero-line2-text::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 65%
+  );
+  background-size: 300% 100%;
+  animation: heroTextShimmer 6s ease-in-out 1.1s infinite;
+  pointer-events: none;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
 /* ─── Hero Typography Animation ────────────────────────────────────────── */
 
 .hero-word {
@@ -272,39 +348,59 @@
   100% { opacity: 1; filter: blur(0px); transform: translateY(0) scale(1); }
 }
 
-@keyframes cardNumEnter {
-  0%   { opacity: 0; transform: translateX(-32px) scale(0.85); filter: blur(8px); }
-  60%  { filter: blur(2px); }
-  100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0px); }
+/* Enter: card fades and rises — pure opacity + subtle lift, no blur jumps */
+@keyframes cardSlideIn {
+  0%   { opacity: 0; transform: translateY(28px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@keyframes cardTextEnter {
-  0%   { opacity: 0; transform: translateX(24px); filter: blur(4px); }
-  100% { opacity: 1; transform: translateX(0); filter: blur(0px); }
+/* Exit: card fades and lifts away gently */
+@keyframes cardSlideOut {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-20px) scale(0.98); }
+}
+
+/* Number: smooth cross-fade from left */
+@keyframes cardNumEnter {
+  0%   { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes cardNumExit {
-  0%   { opacity: 1; transform: translateX(0) scale(1); filter: blur(0px); }
-  100% { opacity: 0; transform: translateX(32px) scale(1.1); filter: blur(8px); }
+  0%   { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(20px); }
+}
+
+/* Text: smooth fade up */
+@keyframes cardTextEnter {
+  0%   { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes cardTextExit {
-  0%   { opacity: 1; transform: translateX(0); filter: blur(0px); }
-  100% { opacity: 0; transform: translateX(-20px); filter: blur(4px); }
+  0%   { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-12px); }
 }
 
-.process-card.card-enter .process-card-num {
-  animation: cardNumEnter 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.process-card.card-enter {
+  animation: cardSlideIn 800ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
-.process-card.card-enter > div:last-child {
-  animation: cardTextEnter 520ms cubic-bezier(0.22, 1, 0.36, 1) 60ms forwards;
+.process-card.card-enter .process-card-num {
+  animation: cardNumEnter 700ms cubic-bezier(0.25, 1, 0.5, 1) 100ms forwards;
   opacity: 0;
 }
+.process-card.card-enter > div:last-child {
+  animation: cardTextEnter 650ms cubic-bezier(0.25, 1, 0.5, 1) 180ms forwards;
+  opacity: 0;
+}
+.process-card.card-exit {
+  animation: cardSlideOut 550ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
 .process-card.card-exit .process-card-num {
-  animation: cardNumExit 380ms cubic-bezier(0.4, 0, 1, 1) forwards;
+  animation: cardNumExit 450ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 .process-card.card-exit > div:last-child {
-  animation: cardTextExit 380ms cubic-bezier(0.4, 0, 1, 1) forwards;
+  animation: cardTextExit 420ms cubic-bezier(0.25, 1, 0.5, 1) 40ms forwards;
 }
 
 .process-cta-btn { display: inline-flex; }
@@ -349,6 +445,80 @@
   background: linear-gradient(135deg, #5b98ff, #adc6ff);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
+
+/* ─── Process Card 4 CTA Button ───────────────────────────────────────────── */
+
+@keyframes liquidFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 20px rgba(59, 127, 246, 0.22),
+      0 0 48px rgba(91, 152, 255, 0.1),
+      0 4px 16px rgba(59, 127, 246, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 36px rgba(59, 127, 246, 0.42),
+      0 0 72px rgba(91, 152, 255, 0.18),
+      0 6px 24px rgba(59, 127, 246, 0.32);
+  }
+}
+
+@keyframes shimmerSweep {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.process-card4-cta {
+  background: linear-gradient(
+    270deg,
+    #1d65e0,
+    #3b7ff6,
+    #5b98ff,
+    #7ab3ff,
+    #3b7ff6,
+    #1d65e0
+  );
+  background-size: 300% 300%;
+  animation:
+    liquidFlow 6s linear infinite,
+    pulseGlow 4s ease-in-out infinite;
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.process-card4-cta:hover {
+  transform: translateY(-3px) scale(1.015);
+  animation:
+    liquidFlow 3s linear infinite,
+    pulseGlow 2s ease-in-out infinite;
+}
+
+.process-card4-cta:active {
+  transform: translateY(0) scale(0.978);
+}
+
+.process-card4-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    rgba(255,255,255,0) 30%,
+    rgba(255,255,255,0.26) 50%,
+    rgba(255,255,255,0) 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmerSweep 4s linear infinite;
+  pointer-events: none;
+}
+
+/* ─── Trust Badges ─────────────────────────────────────────────────────── */
 
 .process-free-badge {
   font-family: 'Inter', sans-serif;
@@ -483,69 +653,38 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   SERVICES SECTION — calm, informational, flatter glass
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.services-section { /* transparent — global bg shows through */ }
-
-.services-header {
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 500ms ease-out, transform 500ms ease-out;
-  will-change: transform, opacity;
-}
-.services-header.is-visible { opacity: 1; transform: translateY(0); }
-
-.services-card {
-  background: rgba(15, 23, 45, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 1.25rem;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 250ms ease-out, box-shadow 250ms ease-out;
-  will-change: transform, opacity;
-  opacity: 0; transform: translateY(20px);
-}
-.services-card.is-visible { opacity: 1; transform: translateY(0); }
-.services-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(59, 127, 246, 0.06);
-}
-
-.services-card-icon {
-  width: 2.75rem; height: 2.75rem; border-radius: 0.75rem;
-  background: rgba(59, 127, 246, 0.1);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.services-list {
-  list-style: none; padding: 0; margin: 0;
-  display: flex; flex-direction: column; gap: 0.5rem;
-}
-.services-list li {
-  font-family: 'Inter', sans-serif; font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.5);
-  padding-left: 1.1rem; position: relative;
-}
-.services-list li::before {
-  content: '–'; position: absolute; left: 0;
-  color: #7baaf7; font-weight: 600;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
    TESTIMONIALS SECTION — softer, more comfortable glass
    ═══════════════════════════════════════════════════════════════════════════ */
 
 .testimonials-section { /* transparent */ }
 
 .testimonials-header {
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 500ms ease-out, transform 500ms ease-out;
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(3px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
-.testimonials-header.is-visible { opacity: 1; transform: translateY(0); }
+.testimonials-header.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Testimonials headline — separate from header wrapper */
+.testimonials-headline {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.1s,
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+  will-change: transform, opacity;
+}
+.testimonials-headline.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 .testimonial-card {
   background: rgba(15, 23, 45, 0.35);
@@ -556,11 +695,17 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
   display: flex; flex-direction: column;
-  opacity: 0; transform: translateY(24px);
-  transition: opacity 500ms ease-out, transform 500ms ease-out, box-shadow 300ms ease-out;
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 300ms ease-out;
   will-change: transform, opacity;
 }
-.testimonial-card.is-visible { opacity: 1; transform: translateY(0); }
+.testimonial-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 .testimonial-card:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
 }
@@ -608,8 +753,8 @@
 
 .offer-exzellenz {
   display: inline-block;
-  padding: 0.3em 0.4em 0.35em 0.1em;
-  margin: -0.3em -0.4em -0.35em -0.1em;
+  padding: 0.3em 0.5em 0.35em 0.1em;
+  margin: -0.3em -0.5em -0.35em -0.1em;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -623,72 +768,183 @@
 
 /* ─── Staggered Reveal Animations ──────────────────────────────────────── */
 
+/* Hover hint: starts hidden, fades in with the section */
+.hover-hint-animate {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1) 600ms,
+              transform 500ms cubic-bezier(0.22, 1, 0.36, 1) 600ms;
+  will-change: transform, opacity;
+}
+.hover-hint-animate.is-visible {
+  opacity: 0.5;
+  transform: translateY(0);
+}
+
 .value-line1 {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
-              transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(36px);
+  filter: blur(4px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
+}
+.value-line1.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
 }
 
 .value-highlight {
   display: inline-block;
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 550ms cubic-bezier(0.22, 1, 0.36, 1) 120ms,
-              transform 550ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
+  transform: translateY(24px) scale(0.97);
+  filter: blur(3px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
+              filter 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
   will-change: transform, opacity;
   padding: 0.05em 0.1em;
 }
-
-.value-line2 {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) 100ms,
-              transform 600ms cubic-bezier(0.22, 1, 0.36, 1) 100ms;
-  will-change: transform, opacity;
+.value-highlight.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
 }
 
 .value-supporting {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 550ms cubic-bezier(0.22, 1, 0.36, 1) 280ms,
-              transform 550ms cubic-bezier(0.22, 1, 0.36, 1) 280ms;
+  transform: translateY(20px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.3s,
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
   will-change: transform, opacity;
 }
-
-.value-scroll-cue {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 450ms cubic-bezier(0.22, 1, 0.36, 1) 480ms,
-              transform 450ms cubic-bezier(0.22, 1, 0.36, 1) 480ms;
-  will-change: transform, opacity;
-}
-
-/* Visible states */
-.value-line1.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.value-highlight.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.value-line2.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .value-supporting.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+.value-scroll-cue {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.5s,
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
+  will-change: transform, opacity;
+}
 .value-scroll-cue.is-visible {
   opacity: 0.55;
   transform: translateY(0);
+}
+
+/* ─── Showcase Header ───────────────────────────────────────────────────── */
+
+.showcase-header {
+  opacity: 0;
+  transform: translateY(32px);
+  filter: blur(3px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+.showcase-header.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Showcase headline — separate element inside header */
+.showcase-headline {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.1s,
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+  will-change: transform, opacity;
+}
+.showcase-headline.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Showcase CTA ──────────────────────────────────────────────────────── */
+
+.showcase-cta {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+  will-change: transform, opacity;
+}
+.showcase-cta.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Offer Section ─────────────────────────────────────────────────────── */
+
+.offer-headline {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(5px);
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 1s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+.offer-headline.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.offer-buttons {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.2s,
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+  will-change: transform, opacity;
+}
+.offer-buttons.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Hover Hint ────────────────────────────────────────────────────────── */
+
+@keyframes hintNudge {
+  0%, 100% { transform: translateY(0) scale(1);    opacity: 0.45; }
+  40%       { transform: translateY(-3px) scale(1.1); opacity: 0.7; }
+  60%       { transform: translateY(1px) scale(0.95); opacity: 0.55; }
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 0.7; }
+}
+
+.hover-hint {
+  opacity: 0.5;
+  animation: hintPulse 3s ease-in-out infinite;
+  transition: opacity 400ms ease-out;
+  pointer-events: none;
+  z-index: 20;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  color: rgba(148, 163, 184, 0.5);
+}
+
+#hover-hint {
+  opacity: 0.5 !important;
+}
+
+.hover-hint-cursor {
+  display: inline-block;
+  animation: hintNudge 2.2s ease-in-out infinite;
+}
+
+.hover-hint-cursor:last-child {
+  animation-direction: reverse;
 }
 
 /* ─── Value Cards — Premium Rebuild ────────────────────────────────────── */
@@ -723,34 +979,22 @@
   transform: translateY(0);
 }
 
-/* ❌ No hover scale/translate — card stays grounded */
-
 /* ─── Proximity Border Glow ────────────────────────────────────────────── */
-/*
-  The glow element sits on top of the card border.
-  It uses a radial gradient centred at the cursor position (relative to the card).
-  The mask punches out the interior so only the border strip glows.
-  Opacity is driven by JS proximity calculation.
-*/
 
 .value-card-glow {
   position: absolute;
-  /* Sit exactly on the border — inset 0 so it covers the full card area */
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  /* Above card background, below card content */
   z-index: 2;
   opacity: 0;
-  transition: opacity 600ms ease-out;
-  /* Radial gradient centred at cursor position, soft blue matching site palette */
+  transition: opacity 150ms ease-out;
   background: radial-gradient(
     200px circle at var(--glow-x, 50%) var(--glow-y, 50%),
     rgba(91, 152, 255, 0.9) 0%,
     rgba(59, 127, 246, 0.5) 40%,
     transparent 70%
   );
-  /* Mask: show only the border strip (1.5px wide), hide the interior */
   mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -771,7 +1015,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Center the static group; reveal sits absolutely at the bottom */
   justify-content: center;
   padding: 2rem;
   overflow: hidden;
@@ -785,7 +1028,6 @@
   align-items: center;
   gap: 0.85rem;
   width: 100%;
-  /* Slides up on hover to make room for the reveal panel */
   transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
   transform: translateY(0);
   will-change: transform;
@@ -838,10 +1080,11 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 0.25rem;
-  transition: background 400ms ease-out,
+  transition: background 500ms cubic-bezier(0.22, 1, 0.36, 1),
               width 500ms cubic-bezier(0.22, 1, 0.36, 1),
               height 500ms cubic-bezier(0.22, 1, 0.36, 1),
               border-radius 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
 }
 
 .value-card:hover .value-card-icon-wrap {
@@ -855,11 +1098,12 @@
   font-size: 2.5rem !important;
   color: #7baaf7;
   line-height: 1;
-  transition: font-size 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
 .value-card:hover .value-card-icon {
-  font-size: 1.5rem !important;
+  transform: scale(0.6);
 }
 
 /* ─── Title ────────────────────────────────────────────────────────────── */
@@ -871,17 +1115,13 @@
   color: #fff;
   line-height: 1.25;
   letter-spacing: -0.01em;
-  /* Default: two lines, fully readable */
   white-space: normal;
-  /* Transition font-size AND letter-spacing so the text naturally
-     compresses into one line as it shrinks — no hard jump */
   transition: font-size 500ms cubic-bezier(0.22, 1, 0.36, 1),
               letter-spacing 500ms cubic-bezier(0.22, 1, 0.36, 1),
               line-height 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .value-card:hover .value-card-benefit-title {
-  /* Shrink enough that two-line titles naturally collapse to one line */
   font-size: 0.9rem;
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -942,4 +1182,32 @@
   left: 0;
   color: #7baaf7;
   font-weight: 600;
+}
+
+/* ─── Reduced motion ────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .value-line1,
+  .value-highlight,
+  .value-supporting,
+  .value-scroll-cue,
+  .hover-hint-animate,
+  .value-card,
+  .showcase-header,
+  .showcase-headline,
+  .showcase-card-animate,
+  .showcase-cta,
+  .testimonials-header,
+  .testimonials-headline,
+  .testimonial-card,
+  .offer-headline,
+  .offer-buttons,
+  .process-intro,
+  .process-right-animate {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+    animation: none;
+  }
 }

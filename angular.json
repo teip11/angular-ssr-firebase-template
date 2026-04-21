@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "glow-seoul": {
+    "gehrke-studio": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -16,7 +16,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/glow-seoul",
+            "outputPath": "dist/gehrke-studio",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "glow-seoul:build:production"
+              "buildTarget": "gehrke-studio:build:production"
             },
             "development": {
-              "buildTarget": "glow-seoul:build:development"
+              "buildTarget": "gehrke-studio:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -12,14 +12,10 @@ import { RouterLink } from '@angular/router';
 export class HomeComponent implements AfterViewInit {
   hasScrolled = false;
 
-  // Process section state (legacy, kept for safety)
+  // Process section state
   activeCard = 1;
   exitCard = 0;
   enterCard = 0;
-
-  // Concept D: floating cards that land one by one
-  landedCards = 0;
-  private _allLanded = false;
 
   @ViewChild('processScroll', { read: ElementRef }) processScroll!: ElementRef<HTMLElement>;
   @ViewChild('progressFill', { read: ElementRef }) progressFill!: ElementRef<HTMLElement>;
@@ -42,97 +38,128 @@ export class HomeComponent implements AfterViewInit {
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
-        const obs = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting) {
-              e.target.classList.add('is-visible');
-              obs.unobserve(e.target);
-            }
-          });
-        }, { threshold: 0.2 });
-
-        // Value statement section — staggered reveal
-        const valueEls = document.querySelectorAll('.value-line1, .value-highlight, .value-line2, .value-supporting, .value-scroll-cue');
-        const valueCards = Array.from(document.querySelectorAll('.value-card'));
-        const valueObs = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting) {
-              valueObs.disconnect();
-              valueEls.forEach(el => el.classList.add('is-visible'));
-              // Stagger cards left → right after headline
-              valueCards.forEach((card, i) => {
-                setTimeout(() => card.classList.add('is-visible'), 300 + i * 120);
-              });
-            }
-          });
-        }, { threshold: 0.15 });
-        const valueSection = document.querySelector('.value-statement-section');
-        if (valueSection) valueObs.observe(valueSection);
-
-        // Left column intro
-        const introEl = document.querySelector('.process-intro');
-        if (introEl) obs.observe(introEl);
-
-        // Right column slide-in from right
-        const rightEl = document.querySelector('.process-right-animate');
-        if (rightEl) obs.observe(rightEl);
-
-        // Showcase cards — fire one by one with JS timeout stagger
-        const cards = Array.from(document.querySelectorAll('.showcase-card-animate'));
-        const showcaseObs = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting) {
-              showcaseObs.disconnect();
-              cards.forEach((card, i) => {
-                setTimeout(() => card.classList.add('is-visible'), i * 250);
-              });
-            }
-          });
-        }, { threshold: 0.2 });
-        // Observe the grid container (parent of cards)
-        const grid = cards[0]?.closest('.grid');
-        if (grid) showcaseObs.observe(grid);
-
-        // Services section: header + cards staggered
-        const servicesHeader = document.querySelector('.services-header');
-        const servicesCards = Array.from(document.querySelectorAll('.services-card'));
-        const servicesObs = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting) {
-              servicesObs.disconnect();
-              if (servicesHeader) {
-                servicesHeader.classList.add('is-visible');
+        // ── Helper: single-element observer ──────────────────────────────────
+        const observe = (el: Element | null, options: IntersectionObserverInit = {}) => {
+          if (!el) return;
+          const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                obs.unobserve(e.target);
               }
-              servicesCards.forEach((card, i) => {
-                setTimeout(() => card.classList.add('is-visible'), 100 + i * 100);
-              });
-            }
-          });
-        }, { threshold: 0.15 });
-        const servicesSection = document.querySelector('.services-section');
-        if (servicesSection) servicesObs.observe(servicesSection);
+            });
+          }, { threshold: 0, ...options });
+          obs.observe(el);
+        };
 
-        // Testimonials section: header + cards staggered
-        const testimonialsHeader = document.querySelector('.testimonials-header');
-        const testimonialCards = Array.from(document.querySelectorAll('.testimonial-card'));
-        const testimonialsObs = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting) {
-              testimonialsObs.disconnect();
-              if (testimonialsHeader) {
-                testimonialsHeader.classList.add('is-visible');
+        // ── Value statement: each element individually ────────────────────────
+        document.querySelectorAll('.value-line1, .value-highlight, .value-supporting, .value-scroll-cue').forEach(el => {
+          observe(el, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
+        });
+
+        // ── Hover hint ────────────────────────────────────────────────────────
+        observe(document.querySelector('.hover-hint-animate'), { threshold: 0, rootMargin: '0px 0px -60px 0px' });
+
+        // ── Value cards: staggered ────────────────────────────────────────────
+        const valueCards = Array.from(document.querySelectorAll('.value-card')) as HTMLElement[];
+        if (valueCards.length) {
+          const vcObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                const idx = parseInt((e.target as HTMLElement).dataset['vcIdx'] || '0', 10);
+                setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), idx * 130);
+                vcObs.unobserve(e.target);
               }
-              testimonialCards.forEach((card, i) => {
-                setTimeout(() => card.classList.add('is-visible'), 100 + i * 120);
-              });
-            }
+            });
+          }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+          valueCards.forEach((el, i) => {
+            el.dataset['vcIdx'] = String(i);
+            vcObs.observe(el);
           });
-        }, { threshold: 0.15 });
+        }
+
+        // ── Process section ───────────────────────────────────────────────────
+        observe(document.querySelector('.process-intro'), { threshold: 0, rootMargin: '0px 0px -60px 0px' });
+        observe(document.querySelector('.process-right-animate'), { threshold: 0, rootMargin: '0px 0px -60px 0px' });
+
+        // ── Showcase: header label + headline + CTA ───────────────────────────
+        const showcaseSection = document.querySelector('.showcase-section');
+        if (showcaseSection) {
+          const showcaseSectionObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                showcaseSectionObs.disconnect();
+                const header = document.querySelector('.showcase-header');
+                const headline = document.querySelector('.showcase-headline');
+                const cta = document.querySelector('.showcase-cta');
+                if (header) header.classList.add('is-visible');
+                if (headline) setTimeout(() => headline.classList.add('is-visible'), 100);
+                if (cta) setTimeout(() => cta.classList.add('is-visible'), 200);
+              }
+            });
+          }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+          showcaseSectionObs.observe(showcaseSection);
+        }
+
+        // ── Showcase cards: staggered ─────────────────────────────────────────
+        const showcaseCards = Array.from(document.querySelectorAll('.showcase-card-animate'));
+        if (showcaseCards.length) {
+          const grid = showcaseCards[0]?.closest('.grid');
+          if (grid) {
+            const showcaseObs = new IntersectionObserver((entries) => {
+              entries.forEach(e => {
+                if (e.isIntersecting) {
+                  showcaseObs.disconnect();
+                  showcaseCards.forEach((card, i) => {
+                    setTimeout(() => card.classList.add('is-visible'), i * 200);
+                  });
+                }
+              });
+            }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+            showcaseObs.observe(grid);
+          }
+        }
+
+        // ── Testimonials: header + headline + cards staggered ─────────────────
         const testimonialsSection = document.querySelector('.testimonials-section');
-        if (testimonialsSection) testimonialsObs.observe(testimonialsSection);
+        if (testimonialsSection) {
+          const testimonialsObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                testimonialsObs.disconnect();
+                const header = document.querySelector('.testimonials-header');
+                const headline = document.querySelector('.testimonials-headline');
+                const cards = Array.from(document.querySelectorAll('.testimonial-card'));
+                if (header) header.classList.add('is-visible');
+                if (headline) setTimeout(() => headline.classList.add('is-visible'), 80);
+                cards.forEach((card, i) => {
+                  setTimeout(() => card.classList.add('is-visible'), 120 + i * 130);
+                });
+              }
+            });
+          }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+          testimonialsObs.observe(testimonialsSection);
+        }
+
+        // ── Offer section: headline + buttons ────────────────────────────────
+        const offerSection = document.querySelector('.offer-section');
+        if (offerSection) {
+          const offerObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                offerObs.disconnect();
+                const headline = document.querySelector('.offer-headline');
+                const buttons = document.querySelector('.offer-buttons');
+                if (headline) headline.classList.add('is-visible');
+                if (buttons) setTimeout(() => buttons.classList.add('is-visible'), 200);
+              }
+            });
+          }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+          offerObs.observe(offerSection);
+        }
 
         this.updateProcessSection();
-      }, 100);
+      }, 150);
     }
   }
 
@@ -144,14 +171,10 @@ export class HomeComponent implements AfterViewInit {
 
     const el = this.processScroll.nativeElement;
     const rect = el.getBoundingClientRect();
-    // scrollable distance = total section height minus one viewport height
     const totalHeight = el.offsetHeight - window.innerHeight;
 
-    // scrolled: 0 at section entry, 1 at section exit
     const scrolled = Math.max(0, Math.min(1, -rect.top / totalHeight));
 
-    // 4 cards spread across the full scroll range (0→1).
-    // Each card occupies 25%. Bar fills to 100% when card 4 becomes active.
     const barProgress = Math.min(1, scrolled / 0.75);
     this.updateProgressBar(barProgress);
 
@@ -184,17 +207,14 @@ export class HomeComponent implements AfterViewInit {
 
   private updateProgressBar(scrolled: number): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    // Cache the element reference after first lookup
     if (!this._progressFillEl) {
       this._progressFillEl =
         (this.progressFill?.nativeElement as HTMLElement | null) ??
         document.querySelector<HTMLElement>('.process-progress-fill');
     }
     if (!this._progressFillEl) return;
-    // Map scroll progress (0→1) to fill height (0%→100%)
     const pct = Math.min(100, Math.max(0, scrolled * 100));
     this._progressFillEl.style.height = `${pct}%`;
-    // On card 4 (scrolled >= 0.75 → barProgress = 1), switch to full-blue gradient
     if (scrolled >= 1) {
       this._progressFillEl.classList.add('fill-complete');
     } else {
@@ -210,10 +230,9 @@ export class HomeComponent implements AfterViewInit {
     if (!section) return;
     const rect = section.getBoundingClientRect();
     const viewH = window.innerHeight;
-    // Only apply when section is in view
     if (rect.bottom < 0 || rect.top > viewH) return;
     const progress = (viewH - rect.top) / (viewH + rect.height);
-    const offset = (progress - 0.5) * 60; // ±30px range
+    const offset = (progress - 0.5) * 60;
     el.style.transform = `translateY(${offset}px)`;
   }
 
@@ -243,8 +262,6 @@ export class HomeComponent implements AfterViewInit {
   }
 
   // ─── Proximity-based border glow for value cards ──────────────────────
-  // This listens on the entire value section so glow reacts to proximity,
-  // not just direct hover.
 
   onSectionMouseMove(event: MouseEvent): void {
     if (!isPlatformBrowser(this.platformId)) return;
@@ -260,10 +277,6 @@ export class HomeComponent implements AfterViewInit {
 
       const rect = card.getBoundingClientRect();
 
-      // ── Proximity to the nearest border edge ──────────────────────────
-      // Clamp cursor to card bounds, then measure distance to that clamped point.
-      // This means the glow reacts to how close the cursor is to the border,
-      // not the card center — so it lights up the nearest edge.
       const clampedX = Math.max(rect.left, Math.min(mouseX, rect.right));
       const clampedY = Math.max(rect.top, Math.min(mouseY, rect.bottom));
       const distToBorder = Math.sqrt(
@@ -271,18 +284,15 @@ export class HomeComponent implements AfterViewInit {
         Math.pow(mouseY - clampedY, 2)
       );
 
-      // Binary-ish: full glow within 220px of the border, fades only in the last 40px
       const triggerDist = 220;
       const fadeDist = 40;
       let proximity: number;
       if (distToBorder <= triggerDist - fadeDist) {
-        proximity = 1; // full strength
+        proximity = 1;
       } else {
         proximity = Math.max(0, 1 - (distToBorder - (triggerDist - fadeDist)) / fadeDist);
       }
 
-      // Position the gradient at the cursor position relative to the card.
-      // When cursor is outside, clamp to card edge so glow hugs the nearest border.
       const relX = ((clampedX - rect.left) / rect.width) * 100;
       const relY = ((clampedY - rect.top) / rect.height) * 100;
 

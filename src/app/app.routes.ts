@@ -50,11 +50,25 @@ export const routes: Routes = [
     title: 'Insights & Blog | Gehrke Studio'
   },
 
+  // ── Legal pages ─────────────────────────────────────────────────────────────
+  {
+    path: 'impressum',
+    loadComponent: () =>
+      import('./pages/impressum/impressum.component').then(m => m.ImpressumComponent),
+    title: 'Impressum | Gehrke Studio'
+  },
+  {
+    path: 'datenschutz',
+    loadComponent: () =>
+      import('./pages/datenschutz/datenschutz.component').then(m => m.DatenschutzComponent),
+    title: 'Datenschutzerklärung | Gehrke Studio'
+  },
+
   // ── 404 ───────────────────────────────────────────────────────────────────
   {
     path: '**',
     loadComponent: () =>
       import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent),
-    title: '404 — Page Not Found | Gehrke Studio'
+    title: '404 — Seite nicht gefunden | Gehrke Studio'
   }
 ];

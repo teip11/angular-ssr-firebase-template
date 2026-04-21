@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/glow-seoul/browser",
+    "public": "dist/gehrke-studio/browser",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {

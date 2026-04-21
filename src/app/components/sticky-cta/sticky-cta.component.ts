@@ -45,9 +45,9 @@ export class StickyCtaComponent implements OnInit {
 
   onCtaClick(): void {
     this.analytics.trackCtaClick({
-      cta_text:     'Shop Now',       // TODO: update CTA text
+      cta_text:     'Demo anfordern',
       cta_location: 'sticky_bar',
-      destination:  '/shop'           // TODO: update destination
+      destination:  '/demo'
     });
   }
 }

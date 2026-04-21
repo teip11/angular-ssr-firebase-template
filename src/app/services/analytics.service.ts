@@ -95,7 +95,7 @@ export class AnalyticsService {
    */
   trackGenerateLead(params: GenerateLeadParams): void {
     this.dataLayer.push('generate_lead', {
-      currency:      params.currency     || 'USD',
+      currency:      params.currency     || 'EUR',
       value:         params.value        || 0,
       lead_type:     params.lead_type,
       form_id:       params.form_id      || 'contact_form',

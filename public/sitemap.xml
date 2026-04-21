@@ -1,48 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  TODO: Update all <loc> values with your real domain.
-  TODO: Add dynamic product and blog post URLs when those are built.
-  TODO: Set up automated sitemap generation if you have many pages.
--->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://YOUR_DOMAIN.com/</loc>
+    <loc>https://gehrkestudio.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://YOUR_DOMAIN.com/shop</loc>
-    <changefreq>daily</changefreq>
+    <loc>https://gehrkestudio.com/projekte</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://YOUR_DOMAIN.com/quiz</loc>
+    <loc>https://gehrkestudio.com/leistungen</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://YOUR_DOMAIN.com/blog</loc>
+    <loc>https://gehrkestudio.com/ueber-uns</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://gehrkestudio.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://YOUR_DOMAIN.com/about</loc>
+    <loc>https://gehrkestudio.com/kontakt</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://YOUR_DOMAIN.com/contact</loc>
+    <loc>https://gehrkestudio.com/demo</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.8</priority>
   </url>
 
-  <!-- TODO: Add individual product URLs -->
-  <!-- TODO: Add individual blog post URLs -->
+  <url>
+    <loc>https://gehrkestudio.com/impressum</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://gehrkestudio.com/datenschutz</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 
 </urlset>

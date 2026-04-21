@@ -1,0 +1,45 @@
+@if (visible) {
+  <div class="cookie-banner" role="dialog" aria-modal="true" aria-label="Cookie-Einstellungen">
+    <!-- Backdrop blur layer -->
+    <div class="cookie-backdrop" aria-hidden="true"></div>
+
+    <div class="cookie-card">
+      <!-- Icon + Header -->
+      <div class="cookie-header">
+        <div class="cookie-icon-wrap" aria-hidden="true">
+          <span class="material-symbols-outlined cookie-icon">cookie</span>
+        </div>
+        <div>
+          <h2 class="cookie-title">Cookies &amp; Datenschutz</h2>
+          <p class="cookie-subtitle">Wir respektieren Ihre Privatsphäre</p>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="cookie-divider" aria-hidden="true"></div>
+
+      <!-- Body text -->
+      <p class="cookie-body">
+        Wir verwenden Cookies und ähnliche Technologien, um die Nutzung unserer Website zu analysieren
+        und unser Angebot zu verbessern. Dazu setzen wir <strong class="cookie-strong">Google Tag Manager</strong>
+        ein, der Analyse-Cookies (Google Analytics) laden kann.
+      </p>
+      <p class="cookie-body cookie-body--sm">
+        Weitere Informationen finden Sie in unserer
+        <a routerLink="/datenschutz" class="cookie-link">Datenschutzerklärung</a>.
+        Sie können Ihre Einwilligung jederzeit widerrufen.
+      </p>
+
+      <!-- Actions -->
+      <div class="cookie-actions">
+        <button class="cookie-btn cookie-btn--accept" (click)="accept()" type="button">
+          <span class="material-symbols-outlined cookie-btn-icon" aria-hidden="true">check_circle</span>
+          Alle akzeptieren
+        </button>
+        <button class="cookie-btn cookie-btn--decline" (click)="decline()" type="button">
+          Nur notwendige
+        </button>
+      </div>
+    </div>
+  </div>
+}

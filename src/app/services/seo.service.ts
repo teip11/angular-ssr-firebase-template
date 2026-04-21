@@ -12,89 +12,96 @@ export interface SeoConfig {
   imageHeight?: number;
   url?: string;
   type?: string;
-  /** Article-specific OG tags — set when type = 'article' */
   articleMeta?: {
-    publishedTime: string;   // ISO 8601 e.g. "2026-03-08"
+    publishedTime: string;
     modifiedTime?: string;
-    section: string;         // e.g. "Skincare", "Premium Webdesign", "Tutorial"
+    section: string;
     tags?: string[];
     author?: string;
   };
-  /** Product-specific OG tags — set when type = 'product' */
-  productMeta?: {
-    price: string;
-    currency: string;
-    availability: 'instock' | 'oos' | 'pending';
-  };
 }
 
-// TODO: Replace with your production domain
-const BASE_URL      = 'https://YOUR_DOMAIN_HERE.com';
-const DEFAULT_IMAGE = `${BASE_URL}/og-default.jpg`;
-
-// TODO: Update these dimensions if you use a different OG image
-const DEFAULT_IMAGE_WIDTH  = 1200;
-const DEFAULT_IMAGE_HEIGHT = 627;
-const DEFAULT_IMAGE_ALT    = 'Gehrke Studio — Authentic Korean Beauty Delivered';
-
-// TODO: Update site name to your brand
+const BASE_URL      = 'https://gehrkestudio.com';
+const DEFAULT_IMAGE = `${BASE_URL}/OG_image.png`;
+const DEFAULT_IMAGE_WIDTH  = 1024;
+const DEFAULT_IMAGE_HEIGHT = 1024;
+const DEFAULT_IMAGE_ALT    = 'Gehrke Studio — Premium Webdesign aus Hamburg';
 const SITE_NAME = 'Gehrke Studio';
 
-// ─── Page-level SEO configs — update all TODO values ────────────────────────
 const PAGE_SEO: Record<string, SeoConfig> = {
   home: {
-    // TODO: Write compelling title and description for your homepage
-    title: 'Gehrke Studio | Authentic Korean Beauty Delivered',
-    description: 'Discover authentic Korean skincare, makeup, and beauty essentials. Curated K-beauty products for every skin type, shipped worldwide.',
-    keywords: 'professionelles Webdesign, K-beauty, Korean skincare, K-beauty store, Korean cosmetics, glass skin, glow skincare',
+    title: 'Gehrke Studio | Premium Webdesign aus Hamburg',
+    description: 'Professionelles Webdesign für anspruchsvolle Unternehmen. Wir erstellen individuelle Websites, die Kunden gewinnen. Kostenlose Demo anfordern.',
+    keywords: 'professionelles Webdesign, Webdesign Hamburg, Website erstellen lassen, Webentwicklung, Webdesign Agentur',
     url: BASE_URL,
     type: 'website',
-    imageAlt: 'Gehrke Studio — Authentic Korean Beauty'
+    imageAlt: 'Gehrke Studio — Premium Webdesign'
   },
-  shop: {
-    title: 'Shop Premium Webdesign | Gehrke Studio',
-    description: 'Browse our curated collection of authentic Korean skincare, serums, toners, and makeup. Free shipping on orders over $XX.',
-    keywords: 'shop professionelles Webdesign, K-beauty products, Korean skincare online, buy K-beauty',
-    url: `${BASE_URL}/shop`,
+  projekte: {
+    title: 'Projekte | Gehrke Studio',
+    description: 'Unsere ausgewählten Webdesign-Projekte zeigen, wie wir Unternehmen online erfolgreich machen. Vorher-Nachher-Vergleiche inklusive.',
+    keywords: 'Webdesign Portfolio, Website Projekte, Referenzen, Webdesign Beispiele',
+    url: `${BASE_URL}/projekte`,
     type: 'website',
-    imageAlt: 'Shop Premium Webdesign Products — Gehrke Studio'
+    imageAlt: 'Webdesign Projekte — Gehrke Studio'
   },
-  quiz: {
-    title: 'Skin Type Quiz | Find Your Premium Webdesign Routine | Gehrke Studio',
-    description: 'Take our 2-minute skin type quiz and get a personalized Korean skincare routine recommendation. Oily, dry, combination, or sensitive — we\'ve got you covered.',
-    keywords: 'skin type quiz, K-beauty quiz, skincare routine quiz, personalized skincare, professionelles Webdesign quiz',
-    url: `${BASE_URL}/quiz`,
+  leistungen: {
+    title: 'Leistungen | Gehrke Studio',
+    description: 'Von Webdesign über SEO bis hin zur Conversion-Optimierung. Entdecken Sie unsere Leistungen für Ihren digitalen Erfolg.',
+    keywords: 'Webdesign Leistungen, SEO, Conversion Optimierung, Webentwicklung, responsives Design',
+    url: `${BASE_URL}/leistungen`,
     type: 'website',
-    imageAlt: 'Skin Type Quiz — Gehrke Studio'
+    imageAlt: 'Unsere Leistungen — Gehrke Studio'
   },
   about: {
-    // TODO: Personalize for your brand story
-    title: 'About | Our Story | Gehrke Studio',
-    description: 'We\'re obsessed with professionelles Webdesign. Gehrke Studio sources authentic K-beauty products directly from Korea so you can achieve that coveted glass skin glow.',
-    keywords: 'about Gehrke Studio, professionelles Webdesign brand, K-beauty story, authentic Korean cosmetics',
-    url: `${BASE_URL}/about`,
+    title: 'Über uns | Gehrke Studio',
+    description: 'Lernen Sie Gehrke Studio kennen – Ihr Partner für professionelles Webdesign aus Hamburg. Wir verbinden Ästhetik mit Performance.',
+    keywords: 'über Gehrke Studio, Webdesign Hamburg, Webdesign Agentur, Team',
+    url: `${BASE_URL}/ueber-uns`,
     type: 'website',
-    imageAlt: 'About Gehrke Studio — Our Premium Webdesign Story'
+    imageAlt: 'Über uns — Gehrke Studio'
   },
   contact: {
-    title: 'Contact | Gehrke Studio',
-    description: 'Have a question? We\'d love to hear from you. Reach out about orders, products, collaborations, or wholesale inquiries.',
-    keywords: 'contact Gehrke Studio, customer service, K-beauty help, wholesale professionelles Webdesign',
-    url: `${BASE_URL}/contact`,
+    title: 'Kontakt | Gehrke Studio',
+    description: 'Nehmen Sie Kontakt auf. Wir freuen uns auf Ihre Anfrage zu Webdesign, Zusammenarbeit oder Projekten.',
+    keywords: 'Kontakt Gehrke Studio, Webdesign Anfrage, Beratung',
+    url: `${BASE_URL}/kontakt`,
     type: 'website',
-    imageAlt: 'Contact Gehrke Studio'
+    imageAlt: 'Kontakt — Gehrke Studio'
+  },
+  demo: {
+    title: 'Kostenlose Demo anfordern | Gehrke Studio',
+    description: 'Fordern Sie eine kostenlose Website-Demo an. Wir erstellen einen individuellen Entwurf für Ihr Unternehmen – unverbindlich und kostenlos.',
+    keywords: 'kostenlose Website Demo, Website Vorlage, Webdesign kostenlos testen',
+    url: `${BASE_URL}/demo`,
+    type: 'website',
+    imageAlt: 'Kostenlose Demo — Gehrke Studio'
   },
   blog: {
-    title: 'Premium Webdesign Blog | Skincare Tips & Tutorials | Gehrke Studio',
-    description: 'Expert K-beauty guides, skincare tutorials, ingredient deep-dives, and routines for every skin type. Learn the secrets of Korean glass skin.',
-    keywords: 'K-beauty blog, Korean skincare tips, glass skin routine, K-beauty tutorials, skincare ingredients',
+    title: 'Blog & Insights | Gehrke Studio',
+    description: 'Expertenwissen rund um Webdesign, SEO und digitale Strategien. Tipps und Tutorials für Ihren Online-Erfolg.',
+    keywords: 'Webdesign Blog, SEO Tipps, Website Optimierung, digitale Strategien',
     url: `${BASE_URL}/blog`,
     type: 'blog',
-    imageAlt: 'Premium Webdesign Blog — Gehrke Studio'
+    imageAlt: 'Blog — Gehrke Studio'
+  },
+  impressum: {
+    title: 'Impressum | Gehrke Studio',
+    description: 'Impressum von Gehrke Studio – Angaben gemäß § 5 TMG.',
+    keywords: '',
+    url: `${BASE_URL}/impressum`,
+    type: 'website',
+  },
+  datenschutz: {
+    title: 'Datenschutzerklärung | Gehrke Studio',
+    description: 'Datenschutzerklärung von Gehrke Studio – Informationen zum Umgang mit Ihren personenbezogenen Daten.',
+    keywords: '',
+    url: `${BASE_URL}/datenschutz`,
+    type: 'website',
   },
   'not-found': {
-    title: '404 — Page Not Found | Gehrke Studio',
-    description: 'The page you were looking for doesn\'t exist. Browse our K-beauty products or return to the homepage.',
+    title: '404 — Seite nicht gefunden | Gehrke Studio',
+    description: 'Die Seite konnte leider nicht gefunden werden. Zurück zur Startseite oder unsere Projekte ansehen.',
     keywords: '',
     url: BASE_URL,
     type: 'website',
@@ -138,16 +145,12 @@ export class SeoService {
     const imageHeight = config.imageHeight || DEFAULT_IMAGE_HEIGHT;
     const type        = config.type        || 'website';
 
-    // ── Title ────────────────────────────────────────────────────────────────
     this.title.setTitle(config.title);
 
-    // ── Standard meta ────────────────────────────────────────────────────────
     this.meta.updateTag({ name: 'description', content: config.description });
     this.meta.updateTag({ name: 'keywords',    content: config.keywords });
-    // TODO: Update author name
     this.meta.updateTag({ name: 'author',      content: 'Gehrke Studio' });
 
-    // ── Open Graph ───────────────────────────────────────────────────────────
     this.meta.updateTag({ property: 'og:site_name',     content: SITE_NAME });
     this.meta.updateTag({ property: 'og:title',         content: config.title });
     this.meta.updateTag({ property: 'og:description',   content: config.description });
@@ -155,19 +158,17 @@ export class SeoService {
     this.meta.updateTag({ property: 'og:image:alt',     content: imageAlt });
     this.meta.updateTag({ property: 'og:image:width',   content: String(imageWidth) });
     this.meta.updateTag({ property: 'og:image:height',  content: String(imageHeight) });
-    this.meta.updateTag({ property: 'og:image:type',    content: 'image/jpeg' });
+    this.meta.updateTag({ property: 'og:image:type',    content: 'image/png' });
     this.meta.updateTag({ property: 'og:url',           content: url });
     this.meta.updateTag({ property: 'og:type',          content: type });
-    this.meta.updateTag({ property: 'og:locale',        content: 'en_US' });
+    this.meta.updateTag({ property: 'og:locale',        content: 'de_DE' });
 
-    // ── Twitter / X Card ─────────────────────────────────────────────────────
     this.meta.updateTag({ name: 'twitter:card',        content: 'summary_large_image' });
     this.meta.updateTag({ name: 'twitter:title',       content: config.title });
     this.meta.updateTag({ name: 'twitter:description', content: config.description });
     this.meta.updateTag({ name: 'twitter:image',       content: image });
     this.meta.updateTag({ name: 'twitter:image:alt',   content: imageAlt });
 
-    // ── Article-specific OG tags (og:type = "article") ───────────────────────
     if (config.articleMeta) {
       this.meta.updateTag({ property: 'article:published_time', content: config.articleMeta.publishedTime });
       if (config.articleMeta.modifiedTime) {
@@ -187,18 +188,6 @@ export class SeoService {
       this.meta.removeTag('property="article:author"');
     }
 
-    // ── Product-specific OG tags (og:type = "product") ───────────────────────
-    if (config.productMeta) {
-      this.meta.updateTag({ property: 'product:price:amount',   content: config.productMeta.price });
-      this.meta.updateTag({ property: 'product:price:currency', content: config.productMeta.currency });
-      this.meta.updateTag({ property: 'product:availability',   content: config.productMeta.availability });
-    } else {
-      this.meta.removeTag('property="product:price:amount"');
-      this.meta.removeTag('property="product:price:currency"');
-      this.meta.removeTag('property="product:availability"');
-    }
-
-    // ── Canonical ────────────────────────────────────────────────────────────
     this.updateCanonical(url);
   }
 
@@ -211,11 +200,6 @@ export class SeoService {
     this.document.head.appendChild(link);
   }
 
-  /**
-   * Inject arbitrary JSON-LD into the document head.
-   * Works on both server (SSR) and browser — JSON-LD <script> tags are safe
-   * to SSR and are how crawlers discover structured data.
-   */
   addStructuredData(data: any, id: string = 'schema-main'): void {
     if (isPlatformBrowser(this.platformId)) {
       const existing = this.document.getElementById(id);

@@ -15,8 +15,8 @@
   </span>
 
   <!-- Line 2: Fluid letter-by-letter cascade -->
-  <span class="font-accent italic text-6xl md:text-[7.5rem] drop-shadow-[0_0_30px_rgba(77,142,255,0.4)] leading-[1.05] mt-1 block font-medium">
-    <span class="bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff] text-transparent bg-clip-text pb-2 inline-block">
+  <span class="font-accent italic text-6xl md:text-[7.5rem] leading-[1.05] mt-1 block font-medium relative">
+    <span class="hero-line2-text pb-2 inline-block">
       <span class="hero-letter" *ngFor="let char of line2Letters; let i = index" [style.animation-delay]="letterAnimDelay(i)" [style.background-position]="letterGradientPos(i)">{{ char }}</span>
     </span>
   </span>
@@ -28,7 +28,7 @@
     <a class="hero-shimmer-btn relative overflow-hidden px-10 py-4 bg-gradient-to-r from-[#3b7ff6] to-[#5b98ff] text-white font-bold rounded-full shadow-[0_0_40px_rgba(77,142,255,0.2)] hover:shadow-[0_0_60px_rgba(77,142,255,0.3)] hero-cta-rise" routerLink="/demo">
       Kostenlose Website Vorlage anfordern
     </a>
-    <a class="group flex items-center gap-2 text-slate-300 font-medium hover:text-white hero-cta-rise py-2" routerLink="/">
+    <a class="group flex items-center gap-2 text-slate-300 font-medium hover:text-white hero-cta-rise py-2" routerLink="/projekte">
       Projekte ansehen
       <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
     </a>
@@ -71,7 +71,14 @@
     </p>
 
     <!-- Value Cards -->
-    <div class="value-cards-row mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
+    <!-- Hover hint -->
+    <div id="hover-hint" class="hover-hint hover-hint-animate mt-16 mb-6 flex items-center justify-center gap-2 relative z-20">
+      <span class="font-inter text-[10px] uppercase tracking-[0.2em] font-medium text-slate-500">Mehr erfahren</span>
+      <span class="hover-hint-cursor material-symbols-outlined text-[14px] text-[#7baaf7]/50">touch_app</span>
+    </div>
+
+    <!-- Value Cards -->
+    <div class="value-cards-row mt-4 grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
 
       <!-- Card 1 -->
       <div class="value-card" #valueCard>
@@ -241,7 +248,6 @@
             <div>
               <h3 class="font-inter font-bold text-white text-xl mb-2">Sie entscheiden – ohne Druck</h3>
               <p class="font-inter text-slate-400 text-base leading-7">Überzeugt das Konzept? Dann legen wir los. Wenn nicht, ist das völlig in Ordnung.</p>
-              <span class="process-trust-pill mt-3 inline-block">Keine Verpflichtung</span>
             </div>
           </div>
 
@@ -266,12 +272,12 @@
   <div class="showcase-glow-local"></div>
 
   <div class="max-w-7xl mx-auto grid gap-14 relative z-10">
-    <div class="max-w-3xl mx-auto text-center">
+    <div class="max-w-3xl mx-auto text-center showcase-header">
       <div class="inline-flex items-center justify-center gap-2.5 text-[#adc6ff] font-inter font-semibold tracking-[0.22em] uppercase text-xs mb-6">
         <span class="w-10 h-px bg-[#adc6ff]/40"></span>
         Beispiele
       </div>
-      <h2 class="font-inter font-semibold text-white text-4xl md:text-5xl leading-[1.05] tracking-[-0.02em]">
+      <h2 class="showcase-headline font-inter font-semibold text-white text-4xl md:text-5xl leading-[1.05] tracking-[-0.02em]">
         So könnte Ihre Website aussehen
       </h2>
     </div>
@@ -318,8 +324,8 @@
       </article>
     </div>
 
-    <div class="max-w-3xl mx-auto text-center">
-      <a routerLink="/contact" class="hero-shimmer-btn relative overflow-hidden inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#3b7ff6] to-[#5b98ff] text-white px-8 py-4 text-base font-semibold hero-cta-rise hover:shadow-[0_0_40px_rgba(77,142,255,0.4)] shadow-[0_0_20px_rgba(77,142,255,0.2)]">
+    <div class="max-w-3xl mx-auto text-center showcase-cta">
+      <a routerLink="/demo" class="hero-shimmer-btn relative overflow-hidden inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#3b7ff6] to-[#5b98ff] text-white px-8 py-4 text-base font-semibold hero-cta-rise hover:shadow-[0_0_40px_rgba(77,142,255,0.4)] shadow-[0_0_20px_rgba(77,142,255,0.2)]">
         Kostenlose Website Vorlage anfordern
       </a>
       <p class="text-white/40 text-sm mt-4">Individuell für Ihr Unternehmen erstellt</p>
@@ -338,7 +344,7 @@
         Kundenstimmen
         <span class="w-8 h-px bg-[#3b7ff6]/40"></span>
       </div>
-      <h2 class="font-inter font-bold text-white text-3xl md:text-4xl leading-[1.15] tracking-[-0.02em]">
+      <h2 class="testimonials-headline font-inter font-bold text-white text-3xl md:text-4xl leading-[1.15] tracking-[-0.02em]">
         Was unsere Kunden sagen
       </h2>
     </div>
@@ -406,15 +412,15 @@
   <!-- Local glow boost for CTA emphasis -->
   <div class="offer-glow-local"></div>
 
-  <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
-    <h2 class="font-inter font-semibold text-5xl md:text-[7.5rem] mb-16 leading-[1.2] tracking-[-0.02em] text-slate-200">
+  <div class="max-w-5xl mx-auto px-6 relative z-10 text-center overflow-visible">
+    <h2 class="offer-headline font-inter font-semibold text-5xl md:text-[7.5rem] mb-16 leading-[1.2] tracking-[-0.02em] text-slate-200 overflow-visible">
       Bereit für digitale <br class="hidden md:block">
       <span class="offer-exzellenz font-accent italic font-medium drop-shadow-[0_0_40px_rgba(77,142,255,0.4)]">
         <span class="bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff] text-transparent bg-clip-text">Exzellenz?</span>
       </span>
     </h2>
 
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+    <div class="offer-buttons flex flex-col sm:flex-row items-center justify-center gap-6">
       <a routerLink="/demo" class="hero-shimmer-btn relative overflow-hidden px-10 py-4 bg-gradient-to-r from-[#3b7ff6] to-[#5b98ff] text-white font-bold rounded-full shadow-[0_0_40px_rgba(77,142,255,0.2)] hover:shadow-[0_0_60px_rgba(77,142,255,0.3)] hero-cta-rise text-base">
         Jetzt Ihr Konzept anfordern
       </a>

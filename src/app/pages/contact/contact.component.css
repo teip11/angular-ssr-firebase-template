@@ -1,0 +1,99 @@
+/* Premium Glass Styles for Contact Page */
+
+.contact-card {
+  background: rgba(15, 23, 45, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 250ms ease-out, box-shadow 250ms ease-out, border-color 250ms ease-out;
+}
+.contact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(59, 127, 246, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.hero-cta-btn {
+  background: linear-gradient(to right, #3b7ff6, #5b98ff);
+  box-shadow: 0 0 30px rgba(77,142,255,0.2);
+  transition: all 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.hero-cta-btn:hover {
+  box-shadow: 0 0 50px rgba(77,142,255,0.5);
+  transform: translateY(-2px);
+}
+.hero-cta-btn:active {
+  transform: translateY(1px);
+}
+
+/* =============================================
+   SCROLL & LOAD ANIMATIONS
+   ============================================= */
+
+/* --- Hero Title: fade up + blur --- */
+.cnt-hero-title {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(6px);
+  transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cnt-hero-title.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* --- Hero Subtitle: fade up, delayed --- */
+.cnt-hero-sub {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.2s,
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+.cnt-hero-sub.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Form card: scale up from below + blur --- */
+.cnt-form-card {
+  opacity: 0;
+  transform: translateY(48px) scale(0.97);
+  filter: blur(4px);
+  transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cnt-form-card.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* --- Email card: fade up, slightly delayed --- */
+.cnt-email-card {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+}
+.cnt-email-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .cnt-hero-title,
+  .cnt-hero-sub,
+  .cnt-form-card,
+  .cnt-email-card {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
