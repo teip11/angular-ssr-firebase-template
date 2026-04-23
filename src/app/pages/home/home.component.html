@@ -48,10 +48,10 @@
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center hero-scroll-indicator transition-opacity duration-300"
        [class.opacity-0]="hasScrolled" 
        [class.pointer-events-none]="hasScrolled">
-    <span class="text-[10px] uppercase tracking-[0.2em] font-medium mb-3" style="color: var(--color-text-muted)">Mehr erfahren</span>
     <div class="w-[1px] h-8 relative overflow-hidden" style="background: var(--color-border)">
-      <div class="scroll-dot absolute top-0 left-0 w-full h-[8px] rounded-full" style="background: rgba(34,211,238,0.7)"></div>
+      <div class="scroll-dot absolute top-0 left-0 w-full h-[8px] rounded-full" style="background: var(--color-text-muted)"></div>
     </div>
+    <span class="text-[10px] uppercase tracking-[0.2em] font-medium mt-3" style="color: var(--color-text-muted)">Mehr erfahren</span>
   </div>
 </section>
 
