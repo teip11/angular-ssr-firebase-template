@@ -38,8 +38,8 @@
   padding: 2rem;
   box-shadow:
     0 24px 64px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(59, 127, 246, 0.08) inset,
-    0 0 40px rgba(59, 127, 246, 0.06);
+    0 0 0 1px var(--color-accent-primary-glow) inset,
+    0 0 40px var(--color-accent-primary-glow);
   animation: cookieSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -57,8 +57,8 @@
   width: 3rem;
   height: 3rem;
   border-radius: 0.875rem;
-  background: rgba(59, 127, 246, 0.12);
-  border: 1px solid rgba(59, 127, 246, 0.2);
+  background: var(--color-accent-primary-glow);
+  border: 1px solid rgba(34, 211, 238, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,7 +66,7 @@
 
 .cookie-icon {
   font-size: 1.5rem !important;
-  color: #7baaf7;
+  color: var(--color-accent-secondary);
   line-height: 1;
 }
 
@@ -83,7 +83,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #7baaf7;
+  color: var(--color-accent-secondary);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   margin: 0;
@@ -115,19 +115,19 @@
 }
 
 .cookie-strong {
-  color: #dbe8ff;
+  color: var(--color-text-primary);
   font-weight: 600;
 }
 
 .cookie-link {
-  color: #7baaf7;
+  color: var(--color-accent-secondary);
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: color 200ms ease;
 }
 
 .cookie-link:hover {
-  color: #adc6ff;
+  color: var(--color-accent-primary);
 }
 
 /* ─── Action buttons ─────────────────────────────────────────────────────── */
@@ -154,16 +154,16 @@
   white-space: nowrap;
 }
 
-/* Accept — primary blue gradient */
+/* Accept — primary cyan gradient */
 .cookie-btn--accept {
   flex: 1;
-  background: linear-gradient(to right, #3b7ff6, #5b98ff);
+  background: linear-gradient(to right, var(--color-accent-primary), var(--color-accent-secondary));
   color: #fff;
-  box-shadow: 0 0 24px rgba(77, 142, 255, 0.25);
+  box-shadow: 0 0 24px var(--color-accent-primary-glow);
 }
 
 .cookie-btn--accept:hover {
-  box-shadow: 0 0 40px rgba(77, 142, 255, 0.45);
+  box-shadow: 0 0 40px var(--color-accent-primary-glow);
   transform: translateY(-1px);
 }
 

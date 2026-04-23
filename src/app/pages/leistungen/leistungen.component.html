@@ -2,14 +2,14 @@
 <section class="relative pt-44 pb-16 flex flex-col items-center justify-center text-center px-6 overflow-hidden">
   <!-- Subtle glow matching home hero -->
   <div class="absolute inset-0 pointer-events-none z-[1] overflow-hidden">
-    <div class="absolute w-full h-full bg-[radial-gradient(ellipse_80%_70%_at_50%_40%,rgba(77,142,255,0.15)_0%,transparent_70%)]"></div>
+    <div class="absolute w-full h-full bg-[radial-gradient(ellipse_80%_70%_at_50%_40%,var(--color-accent-primary-glow)_0%,transparent_70%)]"></div>
   </div>
 
   <div class="relative z-10 max-w-4xl mx-auto space-y-8">
-    <h1 class="lst-hero-title text-6xl md:text-8xl font-inter font-semibold text-white tracking-[-0.02em] leading-[1.1]">
-      Leistungen, die <span class="inline-block py-[0.35em] pr-[0.4em] pl-[0.1em] -my-[0.35em] -mr-[0.4em] -ml-[0.1em] font-accent italic font-medium drop-shadow-[0_0_24px_rgba(77,142,255,0.3)] text-transparent bg-clip-text bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff]">Ergebnisse</span> liefern.
+    <h1 class="lst-hero-title text-6xl md:text-8xl font-headline font-semibold text-text-primary tracking-[-0.02em] leading-[1.1]">
+      Leistungen, die <span class="inline-block py-[0.35em] pr-[0.4em] pl-[0.1em] -my-[0.35em] -mr-[0.4em] -ml-[0.1em] font-accent italic font-medium drop-shadow-[0_0_24px_var(--color-accent-primary-glow)] text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary">Ergebnisse</span> liefern.
     </h1>
-    <p class="lst-hero-sub text-xl md:text-2xl text-slate-300/80 font-light max-w-2xl mx-auto leading-relaxed">
+    <p class="lst-hero-sub text-xl md:text-2xl text-text-secondary font-light max-w-2xl mx-auto leading-relaxed">
       Wir kombinieren präzises Design mit datengetriebener Strategie, um digitale Erlebnisse zu schaffen, die wachsen.
     </p>
   </div>
@@ -19,28 +19,28 @@
 <section class="px-12 pb-24 pt-8 relative overflow-hidden">
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
     <!-- Card 1 -->
-    <div class="lst-overview-card leistungen-card group">
-      <div class="w-14 h-14 bg-[#3b7ff6]/10 rounded-xl flex items-center justify-center mb-8 transition-colors duration-300 group-hover:bg-[#3b7ff6]/20">
-        <span class="material-symbols-outlined text-[#7baaf7]" data-icon="web">web</span>
+    <div class="lst-overview-card content-card group">
+      <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-8 transition-colors duration-300 group-hover:bg-primary/20">
+        <span class="material-symbols-outlined text-secondary" data-icon="web">web</span>
       </div>
-      <h3 class="text-2xl font-inter font-bold text-white mb-4">Webdesign</h3>
-      <p class="text-slate-400 leading-relaxed font-inter">Ästhetische Benutzeroberflächen, die Ihre Markenidentität perfekt widerspiegeln.</p>
+      <h3 class="text-2xl font-headline font-bold text-text-primary mb-4">Webdesign</h3>
+      <p class="text-text-secondary leading-relaxed font-body">Ästhetische Benutzeroberflächen, die Ihre Markenidentität perfekt widerspiegeln.</p>
     </div>
     <!-- Card 2 -->
-    <div class="lst-overview-card leistungen-card group">
-      <div class="w-14 h-14 bg-[#3b7ff6]/10 rounded-xl flex items-center justify-center mb-8 transition-colors duration-300 group-hover:bg-[#3b7ff6]/20">
-        <span class="material-symbols-outlined text-[#7baaf7]" data-icon="search">search</span>
+    <div class="lst-overview-card content-card group">
+      <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-8 transition-colors duration-300 group-hover:bg-primary/20">
+        <span class="material-symbols-outlined text-secondary" data-icon="search">search</span>
       </div>
-      <h3 class="text-2xl font-inter font-bold text-white mb-4">SEO</h3>
-      <p class="text-slate-400 leading-relaxed font-inter">Maximale Sichtbarkeit in Suchmaschinen durch technische Exzellenz und Content.</p>
+      <h3 class="text-2xl font-headline font-bold text-text-primary mb-4">SEO</h3>
+      <p class="text-text-secondary leading-relaxed font-body">Maximale Sichtbarkeit in Suchmaschinen durch technische Exzellenz und Content.</p>
     </div>
     <!-- Card 3 -->
-    <div class="lst-overview-card leistungen-card group">
-      <div class="w-14 h-14 bg-[#3b7ff6]/10 rounded-xl flex items-center justify-center mb-8 transition-colors duration-300 group-hover:bg-[#3b7ff6]/20">
-        <span class="material-symbols-outlined text-[#7baaf7]" data-icon="bolt">bolt</span>
+    <div class="lst-overview-card content-card group">
+      <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-8 transition-colors duration-300 group-hover:bg-primary/20">
+        <span class="material-symbols-outlined text-secondary" data-icon="bolt">bolt</span>
       </div>
-      <h3 class="text-2xl font-inter font-bold text-white mb-4">Performance</h3>
-      <p class="text-slate-400 leading-relaxed font-inter">Hochgeschwindigkeits-Lösungen für eine optimale User Experience und Conversion.</p>
+      <h3 class="text-2xl font-headline font-bold text-text-primary mb-4">Performance</h3>
+      <p class="text-text-secondary leading-relaxed font-body">Hochgeschwindigkeits-Lösungen für eine optimale User Experience und Conversion.</p>
     </div>
   </div>
 </section>
@@ -49,32 +49,32 @@
 <section class="py-32 relative overflow-hidden">
   <div class="max-w-7xl mx-auto px-12 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
     <div class="lst-detail-text space-y-8 relative z-10">
-      <div class="inline-flex items-center gap-2 text-[#7baaf7] font-inter font-semibold tracking-widest uppercase text-xs mb-2">
-        <span class="w-8 h-px bg-[#3b7ff6]/40"></span>
+      <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-2">
+        <span class="w-8 h-px bg-secondary/40"></span>
         Expertise
       </div>
-      <h2 class="text-5xl font-inter font-semibold text-white tracking-[-0.02em] leading-[1.1]">Webdesign</h2>
-      <p class="text-lg text-slate-400 leading-relaxed font-inter">
+      <h2 class="text-5xl font-headline font-semibold text-text-primary tracking-[-0.02em] leading-[1.1]">Webdesign</h2>
+      <p class="text-lg text-text-secondary leading-relaxed font-body">
           Ein erstklassiges Design ist das Fundament Ihres digitalen Erfolgs. Wir kreieren Interfaces, die nicht nur gut aussehen, sondern Ihre Nutzer intuitiv führen.
       </p>
       <ul class="space-y-4">
         <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-[#7baaf7]" data-icon="check_circle">check_circle</span>
-          <span class="font-medium text-slate-300 font-inter">Klar strukturiert</span>
+          <span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
+          <span class="font-medium text-text-primary font-body">Klar strukturiert</span>
         </li>
         <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-[#7baaf7]" data-icon="check_circle">check_circle</span>
-          <span class="font-medium text-slate-300 font-inter">Conversion-optimiert</span>
+          <span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
+          <span class="font-medium text-text-primary font-body">Conversion-optimiert</span>
         </li>
         <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-[#7baaf7]" data-icon="check_circle">check_circle</span>
-          <span class="font-medium text-slate-300 font-inter">Modernes Design</span>
+          <span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
+          <span class="font-medium text-text-primary font-body">Modernes Design</span>
         </li>
       </ul>
     </div>
     <div class="lst-detail-visual relative z-10">
-      <div class="absolute -inset-4 bg-[#3b7ff6]/20 blur-3xl rounded-full z-0 pointer-events-none"></div>
-      <div class="relative leistungen-card p-2 !rounded-2xl overflow-hidden">
+      <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full z-0 pointer-events-none"></div>
+      <div class="relative content-card p-2 !rounded-2xl overflow-hidden">
         <img class="w-full rounded-xl" data-alt="webdesign preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNjrBVg-_JEvUjMZjF7Fezfv9KCGsoguRAtTZTgRM5ZEn_x4eCvNZujt-OGTkSoyB1c4a3CBGolymhc3uID2PSQnrNWqBNPGdNgw65Bsldqzn1bDzQGoGFxv9SCB0dTXxOpG81AD6emMssGF4oc2UKDEFyOunGl2jNePCittz6qvsR2thHFVeOtsA1zaNW0q4W3RPRR1RgfB0jH-FLtw0zTvYTa6xcghCnwpYU6PSfYWlf5U-psztXGri9y3fNpR-IEYlTBLk1r84"/>
       </div>
     </div>
@@ -85,32 +85,32 @@
 <section class="py-32 relative overflow-hidden">
   <div class="max-w-7xl mx-auto px-12 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
     <div class="lst-detail-visual order-2 md:order-1 relative z-10">
-      <div class="absolute -inset-4 bg-[#3b7ff6]/20 blur-3xl rounded-full z-0 pointer-events-none"></div>
-      <div class="relative leistungen-card p-2 !rounded-2xl overflow-hidden">
+      <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full z-0 pointer-events-none"></div>
+      <div class="relative content-card p-2 !rounded-2xl overflow-hidden">
         <img class="w-full rounded-xl" data-alt="performance preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChrDixdy0RHjA3yOlP4F0g8v910E4VQdnPckjB2ZCdnPaNZaWcW2HmF2xm8Cm7YSboFBX_AhJAXrPnDJC9ykJH7AzcASJO9wHZwbBcfk6rKe8REZltijDt3zLhPp_ZfYItYSf-gQgiDqQHU-2lmwW5XO9oSY1I6MiqRV1p4VHOqVh6fWIB5ux8VaeCUtfetGwoyRTOGf84u2_sobUS4f5x0e6FROnUy5j9eNSFef-4XiztR-d5ywL_7x_5zTjRCKZ2RcVLlTRI04k"/>
       </div>
     </div>
     <div class="lst-detail-text order-1 md:order-2 space-y-8 relative z-10">
-      <div class="inline-flex items-center gap-2 text-[#7baaf7] font-inter font-semibold tracking-widest uppercase text-xs mb-2">
-        <span class="w-8 h-px bg-[#3b7ff6]/40"></span>
+      <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-2">
+        <span class="w-8 h-px bg-secondary/40"></span>
         Optimierung
       </div>
-      <h2 class="text-5xl font-inter font-semibold text-white tracking-[-0.02em] leading-[1.1]">Performance</h2>
-      <p class="text-lg text-slate-400 leading-relaxed font-inter">
+      <h2 class="text-5xl font-headline font-semibold text-text-primary tracking-[-0.02em] leading-[1.1]">Performance</h2>
+      <p class="text-lg text-text-secondary leading-relaxed font-body">
           In der digitalen Welt zählen Millisekunden. Wir optimieren Ihre Website für maximale Ladegeschwindigkeit und technische Perfektion.
       </p>
       <ul class="space-y-4">
         <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-[#7baaf7]" data-icon="speed">speed</span>
-          <span class="font-medium text-slate-300 font-inter">Core Web Vitals Optimierung</span>
+          <span class="material-symbols-outlined text-secondary" data-icon="speed">speed</span>
+          <span class="font-medium text-text-primary font-body">Core Web Vitals Optimierung</span>
         </li>
         <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-[#7baaf7]" data-icon="rocket_launch">rocket_launch</span>
-          <span class="font-medium text-slate-300 font-inter">Skalierbare Infrastruktur</span>
+          <span class="material-symbols-outlined text-secondary" data-icon="rocket_launch">rocket_launch</span>
+          <span class="font-medium text-text-primary font-body">Skalierbare Infrastruktur</span>
         </li>
         <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-[#7baaf7]" data-icon="security">security</span>
-          <span class="font-medium text-slate-300 font-inter">Höchste Sicherheitsstandards</span>
+          <span class="material-symbols-outlined text-secondary" data-icon="security">security</span>
+          <span class="font-medium text-text-primary font-body">Höchste Sicherheitsstandards</span>
         </li>
       </ul>
     </div>
@@ -121,32 +121,32 @@
 <section class="py-32 relative overflow-hidden">
   <div class="max-w-7xl mx-auto px-12 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
     <div class="lst-detail-text space-y-8 relative z-10">
-      <div class="inline-flex items-center gap-2 text-[#7baaf7] font-inter font-semibold tracking-widest uppercase text-xs mb-2">
-        <span class="w-8 h-px bg-[#3b7ff6]/40"></span>
+      <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-2">
+        <span class="w-8 h-px bg-secondary/40"></span>
         Sichtbarkeit
       </div>
-      <h2 class="text-5xl font-inter font-semibold text-white tracking-[-0.02em] leading-[1.1]">SEO</h2>
-      <p class="text-lg text-slate-400 leading-relaxed font-inter">
+      <h2 class="text-5xl font-headline font-semibold text-text-primary tracking-[-0.02em] leading-[1.1]">SEO</h2>
+      <p class="text-lg text-text-secondary leading-relaxed font-body">
           Dauerhafte Präsenz in den Suchmaschinen ist kein Zufall. Wir unterstützen Sie durch technische Exzellenz und eine schlagkräftige Content-Strategie, um genau dort dominant aufzutreten, wo Ihre Kunden suchen.
       </p>
       <ul class="space-y-4">
         <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-[#7baaf7]" data-icon="troubleshoot">troubleshoot</span>
-          <span class="font-medium text-slate-300 font-inter">Technisches SEO &amp; Audits</span>
+          <span class="material-symbols-outlined text-secondary" data-icon="troubleshoot">troubleshoot</span>
+          <span class="font-medium text-text-primary font-body">Technisches SEO &amp; Audits</span>
         </li>
         <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-[#7baaf7]" data-icon="text_snippet">text_snippet</span>
-          <span class="font-medium text-slate-300 font-inter">Content- &amp; Keyword-Strategie</span>
+          <span class="material-symbols-outlined text-secondary" data-icon="text_snippet">text_snippet</span>
+          <span class="font-medium text-text-primary font-body">Content- &amp; Keyword-Strategie</span>
         </li>
         <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-[#7baaf7]" data-icon="auto_graph">auto_graph</span>
-          <span class="font-medium text-slate-300 font-inter">Organisches, planbares Wachstum</span>
+          <span class="material-symbols-outlined text-secondary" data-icon="auto_graph">auto_graph</span>
+          <span class="font-medium text-text-primary font-body">Organisches, planbares Wachstum</span>
         </li>
       </ul>
     </div>
     <div class="lst-detail-visual relative z-10">
-      <div class="absolute -inset-4 bg-[#3b7ff6]/20 blur-3xl rounded-full z-0 pointer-events-none"></div>
-      <div class="relative leistungen-card p-2 !rounded-2xl overflow-hidden">
+      <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full z-0 pointer-events-none"></div>
+      <div class="relative content-card p-2 !rounded-2xl overflow-hidden">
         <img class="w-full rounded-xl grayscale hover:grayscale-0 transition-all duration-700" data-alt="SEO Analytics preview showing dashboard metrics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLCXvg0UHdoy1O6tWOQl001uecbkAiRorHg2raXHf6CGKysTCqJqHHGN7zhy-ur-hYhtv7dnx4vm2K_33NRsB3S6iwnSjxNDCc9vfcWeahQPdlutLNphgL5spca0eB5IV4eYiAwa0ZUZV0FVLL1SHBVkrXkQYKo8si0xdvtnZEf1RFs3eZzflOwX835NVAjTUwiOqNj-nuT9PykRjsA1_88MWPxU40q5-WmAQKGhxLGriDKbQQ1MkEghkJC5V9_Vs2J6zfgkO_Qsc"/>
       </div>
     </div>
@@ -157,37 +157,37 @@
 <section class="py-32 relative overflow-hidden">
   <div class="max-w-7xl mx-auto px-12 relative z-10">
     <div class="lst-process-header text-center mb-20">
-      <div class="inline-flex items-center gap-2 text-[#7baaf7] font-inter font-semibold tracking-widest uppercase text-xs mb-5">
-        <span class="w-8 h-px bg-[#3b7ff6]/40"></span>
+      <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-5">
+        <span class="w-8 h-px bg-secondary/40"></span>
         Unser Prozess
-        <span class="w-8 h-px bg-[#3b7ff6]/40"></span>
+        <span class="w-8 h-px bg-secondary/40"></span>
       </div>
-      <h2 class="text-4xl font-inter font-bold text-white mb-4 tracking-[-0.02em] leading-[1.1]">Vom ersten Konzept bis zur finalen Optimierung.</h2>
+      <h2 class="text-4xl font-headline font-bold text-text-primary mb-4 tracking-[-0.02em] leading-[1.1]">Vom ersten Konzept bis zur finalen Optimierung.</h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
       <!-- Step 1 -->
       <div class="lst-process-step process-step-card space-y-6">
-        <span class="text-4xl font-accent italic font-medium bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff] text-transparent bg-clip-text">01</span>
-        <h4 class="text-xl font-bold font-inter text-white">Analyse</h4>
-        <p class="text-sm text-slate-400 font-inter leading-relaxed">Wir verstehen Ihre Ziele, den Markt und Ihre Zielgruppe bis ins Detail.</p>
+        <span class="text-4xl font-accent italic font-medium bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">01</span>
+        <h4 class="text-xl font-bold font-headline text-text-primary">Analyse</h4>
+        <p class="text-sm text-text-secondary font-body leading-relaxed">Wir verstehen Ihre Ziele, den Markt und Ihre Zielgruppe bis ins Detail.</p>
       </div>
       <!-- Step 2 -->
       <div class="lst-process-step process-step-card space-y-6">
-        <span class="text-4xl font-accent italic font-medium bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff] text-transparent bg-clip-text">02</span>
-        <h4 class="text-xl font-bold font-inter text-white">Strategie</h4>
-        <p class="text-sm text-slate-400 font-inter leading-relaxed">Entwicklung eines maßgeschneiderten Blueprints für Ihr Projekt.</p>
+        <span class="text-4xl font-accent italic font-medium bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">02</span>
+        <h4 class="text-xl font-bold font-headline text-text-primary">Strategie</h4>
+        <p class="text-sm text-text-secondary font-body leading-relaxed">Entwicklung eines maßgeschneiderten Blueprints für Ihr Projekt.</p>
       </div>
       <!-- Step 3 -->
       <div class="lst-process-step process-step-card space-y-6">
-        <span class="text-4xl font-accent italic font-medium bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff] text-transparent bg-clip-text">03</span>
-        <h4 class="text-xl font-bold font-inter text-white">Umsetzung</h4>
-        <p class="text-sm text-slate-400 font-inter leading-relaxed">Präzise Entwicklung und Design mit Fokus auf Perfektion.</p>
+        <span class="text-4xl font-accent italic font-medium bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">03</span>
+        <h4 class="text-xl font-bold font-headline text-text-primary">Umsetzung</h4>
+        <p class="text-sm text-text-secondary font-body leading-relaxed">Präzise Entwicklung und Design mit Fokus auf Perfektion.</p>
       </div>
       <!-- Step 4 -->
       <div class="lst-process-step process-step-card space-y-6">
-        <span class="text-4xl font-accent italic font-medium bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff] text-transparent bg-clip-text">04</span>
-        <h4 class="text-xl font-bold font-inter text-white">Optimierung</h4>
-        <p class="text-sm text-slate-400 font-inter leading-relaxed">Kontinuierliche Verbesserung basierend auf echtem Nutzerfeedback.</p>
+        <span class="text-4xl font-accent italic font-medium bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">04</span>
+        <h4 class="text-xl font-bold font-headline text-text-primary">Optimierung</h4>
+        <p class="text-sm text-text-secondary font-body leading-relaxed">Kontinuierliche Verbesserung basierend auf echtem Nutzerfeedback.</p>
       </div>
     </div>
   </div>
@@ -195,16 +195,16 @@
 
 <!-- CTA Section -->
 <section class="py-32 px-12 relative overflow-hidden">
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(59,127,246,0.1)_0%,transparent_70%)] pointer-events-none z-0"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,var(--color-accent-primary-glow)_0%,transparent_70%)] pointer-events-none z-0"></div>
   <div class="lst-cta-panel cta-glass-panel max-w-5xl mx-auto rounded-[2rem] p-16 text-center space-y-8 relative z-10">
-    <h2 class="text-4xl md:text-5xl font-inter font-bold text-white leading-[1.1] tracking-[-0.02em]">
-      Lassen Sie uns Ihre Website <span class="font-accent italic font-medium drop-shadow-[0_0_24px_rgba(77,142,255,0.3)] text-transparent bg-clip-text bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff]">verbessern.</span>
+    <h2 class="text-4xl md:text-5xl font-headline font-bold text-text-primary leading-[1.1] tracking-[-0.02em]">
+      Lassen Sie uns Ihre Website <span class="font-accent italic font-medium drop-shadow-[0_0_24px_var(--color-accent-primary-glow)] text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary">verbessern.</span>
     </h2>
-    <p class="text-xl text-slate-400 font-inter max-w-xl mx-auto leading-relaxed">
+    <p class="text-xl text-text-secondary font-body max-w-xl mx-auto leading-relaxed">
       Bereit für den nächsten Schritt? Entdecken Sie in einer kostenlosen Demo, wie wir Ihr Projekt auf das nächste Level heben.
     </p>
     <div class="pt-6">
-      <a class="hero-cta-btn inline-flex items-center text-white px-10 py-4 rounded-full font-bold text-lg" routerLink="/demo">Kostenlose Demo anfordern</a>
+      <a class="btn-primary inline-flex items-center px-10 py-4 text-lg" routerLink="/demo">Kostenlose Demo anfordern</a>
     </div>
   </div>
 </section>

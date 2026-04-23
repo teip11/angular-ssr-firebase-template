@@ -1,44 +1,7 @@
-/* Premium Glass Styles for Projekte */
-
-.projekte-card {
-  background: rgba(15, 23, 45, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 250ms ease-out, box-shadow 250ms ease-out;
-}
-.projekte-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(59, 127, 246, 0.06);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.case-study-glass {
-  background: rgba(15, 23, 45, 0.25);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.cta-glass-panel {
-  background: rgba(20, 35, 65, 0.4);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(59, 127, 246, 0.15);
-  box-shadow: 0 8px 32px rgba(59, 127, 246, 0.08);
-}
-
-.hero-cta-btn {
-  background: linear-gradient(to right, #3b7ff6, #5b98ff);
-  box-shadow: 0 0 30px rgba(77,142,255,0.2);
-  transition: all 300ms ease;
-}
-.hero-cta-btn:hover {
-  box-shadow: 0 0 50px rgba(77,142,255,0.4);
-  transform: translateY(-2px);
-}
+/* ─── Projekte Page — Animation Classes Only ────────────────────────────
+   All card/panel/button styles are now in global styles.css:
+   .content-card, .cta-glass-panel, .btn-primary
+   ─────────────────────────────────────────────────────────────────────── */
 
 /* =============================================
    SCROLL & LOAD ANIMATIONS

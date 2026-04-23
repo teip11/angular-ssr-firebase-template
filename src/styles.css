@@ -1,23 +1,194 @@
-/* Gehrke Studio Global Styles */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+/* ─── Design System Tokens ─────────────────────────────────────────────── */
+:root {
+  /* Core Background & Surfaces */
+  --color-bg: #050505;
+  --color-bg-secondary: #0B0B0B;
+  --color-surface: #121212;
+  
+  /* Text */
+  --color-text-primary: #EDEDED;
+  --color-text-secondary: #9CA3AF;
+  --color-text-muted: #6B7280;
+  
+  /* Accents */
+  --color-accent-primary: #22D3EE;   /* Cyan */
+  --color-accent-secondary: #67E8F9; /* Light Cyan */
+  --color-accent-primary-glow: rgba(34, 211, 238, 0.25);
+  --color-accent-secondary-glow: rgba(103, 232, 249, 0.15);
+  /* Alias for convenience */
+  --color-accent-glow: rgba(34, 211, 238, 0.25);
+  
+  /* Borders & Glass */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(5, 5, 5, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  /* Card surface (for non-glass solid-ish cards) */
+  --color-bg-card: rgba(15, 20, 30, 0.4);
+  --color-bg-card-alt: rgba(15, 20, 30, 0.35);
+  --color-bg-card-cta: rgba(15, 20, 30, 0.4);
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  a {
+    @apply transition-colors duration-300;
+    color: var(--color-accent-primary);
+  }
+  a:hover {
+    color: var(--color-accent-secondary);
+  }
+}
+
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
+
 .grain-overlay {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     opacity: 0.025;
 }
-.service-card-shadow {
-    box-shadow: 0 40px 100px rgba(12, 19, 36, 0.12);
+
+@layer components {
+  .btn-primary {
+    @apply relative px-6 py-3 rounded-full font-semibold transition-all duration-300;
+    background: var(--color-accent-primary);
+    color: #000000;
+    border: none;
+  }
+  .btn-primary:hover {
+    @apply -translate-y-0.5;
+    filter: brightness(1.1);
+    box-shadow: 0 0 30px var(--color-accent-primary-glow);
+    color: #000000;
+  }
+
+  .btn-secondary {
+    @apply relative px-6 py-3 rounded-full font-semibold transition-all duration-300;
+    background: transparent;
+    border: 1px solid var(--color-accent-primary);
+    color: var(--color-accent-primary);
+  }
+  .btn-secondary:hover {
+    @apply -translate-y-0.5;
+    background: rgba(34, 211, 238, 0.08);
+  }
+
+  .glass-card {
+    @apply relative overflow-hidden transition-all duration-300;
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--color-border);
+  }
+
+  .text-title {
+    @apply font-headline text-text-primary tracking-tight;
+  }
+  .text-body {
+    @apply font-body text-text-secondary leading-relaxed;
+  }
+
+  /* ─── Shared Card Variants ──────────────────────────────────────────── */
+
+  /* Standard content card (used across leistungen, about, projekte, contact) */
+  .content-card {
+    background: var(--color-bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 1.25rem;
+    padding: 2.5rem;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 250ms ease-out, box-shadow 250ms ease-out, border-color 250ms ease-out;
+  }
+  .content-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3), 0 0 20px var(--color-accent-primary-glow);
+    border-color: var(--color-border);
+  }
+
+  /* Process step card (used in leistungen + about) */
+  .process-step-card {
+    background: var(--color-bg-card-alt);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+    transition: transform 200ms ease, border-color 200ms ease;
+  }
+  .process-step-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-accent-primary-glow);
+  }
+
+  /* CTA glass panel (used in leistungen, about, projekte, blog) */
+  .cta-glass-panel {
+    background: var(--color-bg-card-cta);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--color-accent-primary-glow);
+    box-shadow: 0 8px 32px var(--color-accent-primary-glow);
+  }
+
+  /* Contact / Demo form card */
+  .contact-card {
+    background: var(--color-bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: border-color 300ms ease;
+  }
+  .contact-card:hover {
+    border-color: var(--color-accent-primary-glow);
+  }
+
+  /* Projekte image card */
+  .projekte-card {
+    background: var(--color-bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    transition: box-shadow 300ms ease, border-color 300ms ease;
+  }
+  .projekte-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px var(--color-accent-primary-glow);
+    border-color: var(--color-accent-primary-glow);
+  }
+
+  /* Case study glass section background */
+  .case-study-glass {
+    background: var(--color-bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Shared hero CTA button (used in blog, contact, demo, projekte) */
+  .hero-cta-btn {
+    background: linear-gradient(to right, var(--color-accent-primary), var(--color-accent-secondary));
+    box-shadow: 0 0 30px var(--color-accent-primary-glow);
+    transition: all 300ms ease;
+  }
+  .hero-cta-btn:hover {
+    box-shadow: 0 0 50px var(--color-accent-primary-glow);
+    transform: translateY(-2px);
+  }
 }
 
 html, body {
     margin: 0;
     padding: 0;
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
 }

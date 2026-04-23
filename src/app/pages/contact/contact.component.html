@@ -1,7 +1,7 @@
 <!-- Hero Section -->
 <section class="max-w-4xl mx-auto px-6 pt-44 text-center mb-24 relative z-10">
   <h1 class="cnt-hero-title font-inter text-5xl md:text-7xl font-semibold tracking-[-0.02em] mb-8 text-white leading-[1.1]">
-      Lassen Sie uns <span class="inline-block py-[0.1em] px-[0.1em] -my-[0.1em] -mx-[0.1em] font-accent italic font-medium drop-shadow-[0_0_24px_rgba(77,142,255,0.3)] text-transparent bg-clip-text bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff]">sprechen.</span>
+      Lassen Sie uns <span class="inline-block py-[0.1em] px-[0.1em] -my-[0.1em] -mx-[0.1em] font-accent italic font-medium drop-shadow-[0_0_24px_var(--color-accent-primary-glow)] text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary">sprechen.</span>
   </h1>
   <p class="cnt-hero-sub text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-inter font-light leading-relaxed">
       Haben Sie Fragen oder möchten Ihr Projekt besprechen? Schreiben Sie uns einfach.
@@ -12,12 +12,12 @@
 <section class="max-w-3xl mx-auto px-6 mb-32 relative z-10">
   <div class="cnt-form-card contact-card p-12 md:p-16 !rounded-[2rem] relative overflow-hidden">
     <!-- Subtle Gradient Glow behind form -->
-    <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#3b7ff6]/10 blur-[80px] rounded-full pointer-events-none"></div>
-    <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-[#7baaf7]/5 blur-[80px] rounded-full pointer-events-none"></div>
+    <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none"></div>
+    <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-secondary/5 blur-[80px] rounded-full pointer-events-none"></div>
 
     <!-- ✅ Success state -->
     <div *ngIf="sent" class="relative z-10 flex flex-col items-center text-center py-8 gap-6">
-      <span class="material-symbols-outlined text-[#7baaf7] text-6xl">check_circle</span>
+      <span class="material-symbols-outlined text-secondary text-6xl">check_circle</span>
       <h2 class="text-white font-semibold text-2xl font-inter">Nachricht erhalten!</h2>
       <p class="text-slate-400 font-inter max-w-sm">Vielen Dank für Ihre Nachricht. Wir melden uns so schnell wie möglich bei Ihnen.</p>
     </div>
@@ -25,28 +25,28 @@
     <!-- ❌ Error state -->
     <div *ngIf="error && !sent" class="relative z-10 mb-8 p-4 rounded-xl border border-red-500/20 bg-red-500/5 text-red-400 font-inter text-sm text-center">
       Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an
-      <a href="mailto:piet@gehrkestudio.com" class="text-[#7baaf7] hover:text-white transition-colors ml-1">piet&#64;gehrkestudio.com</a>.
+      <a href="mailto:piet@gehrkestudio.com" class="text-secondary hover:text-white transition-colors ml-1">piet&#64;gehrkestudio.com</a>.
     </div>
 
     <form *ngIf="!sent" class="relative z-10 space-y-12" (ngSubmit)="submit()">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="space-y-2">
-          <label class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">Name</label>
+          <label class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">Name</label>
           <input [(ngModel)]="form.name" name="name" required
-            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-[#3b7ff6] text-white placeholder:text-slate-500 transition-colors font-inter"
+            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-primary text-white placeholder:text-slate-500 transition-colors font-inter"
             placeholder="Ihr voller Name" type="text"/>
         </div>
         <div class="space-y-2">
-          <label class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">E-Mail</label>
+          <label class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">E-Mail</label>
           <input [(ngModel)]="form.email" name="email" required
-            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-[#3b7ff6] text-white placeholder:text-slate-500 transition-colors font-inter"
+            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-primary text-white placeholder:text-slate-500 transition-colors font-inter"
             placeholder="ihre&#64;mail.de" type="email"/>
         </div>
       </div>
       <div class="space-y-2">
-        <label class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">Nachricht</label>
+        <label class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">Nachricht</label>
         <textarea [(ngModel)]="form.message" name="message" required
-          class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-[#3b7ff6] text-white placeholder:text-slate-500 transition-colors resize-none font-inter"
+          class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-primary text-white placeholder:text-slate-500 transition-colors resize-none font-inter"
           placeholder="Wie können wir Ihnen helfen?" rows="4"></textarea>
       </div>
       <div class="pt-8">
@@ -74,7 +74,7 @@
         Senden Sie uns Ihr Anliegen einfach direkt an unser Postfach und wir melden uns zeitnah.
       </p>
     </div>
-    <a class="mt-2 md:mt-0 hero-cta-btn text-white py-4 px-8 rounded-xl font-bold font-inter flex items-center justify-center gap-3 transition-transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#3b7ff6]/20 shrink-0" href="mailto:piet@gehrkestudio.com">
+    <a class="mt-2 md:mt-0 hero-cta-btn text-white py-4 px-8 rounded-xl font-bold font-inter flex items-center justify-center gap-3 transition-transform hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/20 shrink-0" href="mailto:piet@gehrkestudio.com">
       piet&#64;gehrkestudio.com
       <span class="material-symbols-outlined text-[20px]">mail</span>
     </a>

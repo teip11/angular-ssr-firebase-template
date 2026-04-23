@@ -2,7 +2,7 @@ import { Component, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angul
 import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { EmailjsService, TEMPLATE_DEMO } from '../../services/emailjs.service';
+import { EmailjsService, TEMPLATE_DEMO, TEMPLATE_AUTO_REPLY } from '../../services/emailjs.service';
 
 @Component({
   selector: 'app-demo',
@@ -108,16 +108,24 @@ export class DemoComponent implements AfterViewInit, OnDestroy {
 
     try {
       await this.emailjs.send(TEMPLATE_DEMO, {
-        from_name:         this.form.name,
-        from_email:        this.form.email,
-        company:           this.form.company,
-        beschreibung:      this.form.description,
-        hat_website:       this.form.hasWebsite ? 'Ja' : 'Nein',
-        ziele:             goalsList,
+        from_name:          this.form.name,
+        from_email:         this.form.email,
+        company:            this.form.company,
+        beschreibung:       this.form.description,
+        hat_website:        this.form.hasWebsite ? 'Ja' : 'Nein',
+        ziele:              goalsList,
         detaillierte_ziele: this.form.detailedGoals,
-        inspiration:       this.form.inspiration,
-        sonstige_wuensche: this.form.wishes
+        inspiration:        this.form.inspiration,
+        sonstige_wuensche:  this.form.wishes,
+        form_type:          'Demo-Anfrage'
       });
+
+      // Send auto-reply to customer (fire-and-forget — don't block success state)
+      this.emailjs.send(TEMPLATE_AUTO_REPLY, {
+        from_name:  this.form.name,
+        from_email: this.form.email
+      }).catch(() => { /* silently ignore auto-reply failures */ });
+
       this.sent = true;
     } catch {
       this.error = true;

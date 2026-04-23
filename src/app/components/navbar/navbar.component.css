@@ -51,13 +51,13 @@
   max-width: 840px;
   padding: 10px 14px 10px 24px;
   border-radius: 9999px;
-  background: rgba(10, 15, 30, 0.72);
+  background: var(--glass-bg);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--glass-border);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.40),
-    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+    0 12px 48px rgba(0, 0, 0, 0.50),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
 }
 
 /* ─── Logo ──────────────────────────────────────────────────────────────── */
@@ -66,7 +66,7 @@
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: var(--color-text-primary);
   text-decoration: none;
   white-space: nowrap;
   flex-shrink: 0;
@@ -112,7 +112,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   text-decoration: none;
   white-space: nowrap;
   transition: color 350ms ease-out, transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -122,18 +122,18 @@
 }
 
 .navbar-link:hover {
-  color: #ffffff;
+  color: var(--color-text-primary);
   transform: translateY(-3px);
 }
 
 .navbar-link-active {
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 /* ─── CTA Button ────────────────────────────────────────────────────────── */
 .navbar-cta {
   position: relative;
-  overflow: hidden;
+  overflow: hidden !important;
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
@@ -143,8 +143,8 @@
   flex-shrink: 0;
   margin-left: 16px;
   
-  background: linear-gradient(to right, rgba(59, 127, 246, 0.9), rgba(91, 152, 255, 0.9));
-  box-shadow: 0 0 20px rgba(77,142,255,0.15);
+  background: linear-gradient(to right, var(--color-accent-primary), var(--color-accent-secondary));
+  box-shadow: 0 0 20px var(--color-accent-glow);
   border-radius: 9999px;
   padding: 10px 24px;
 
@@ -172,7 +172,7 @@
 }
 
 .navbar-cta:hover {
-  box-shadow: 0 0 30px rgba(77,142,255,0.25);
+  box-shadow: 0 0 30px var(--color-accent-primary-glow);
   transform: translateY(-3px);
 }
 

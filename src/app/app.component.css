@@ -11,7 +11,7 @@
 .global-bg__base {
   position: absolute;
   inset: 0;
-  background: #080b16;
+  background: var(--color-bg);
 }
 
 .global-bg__grain {
@@ -39,8 +39,8 @@
   top: -10%;
   left: 5%;
   background: radial-gradient(circle at center,
-    rgba(77, 142, 255, 0.55) 0%,
-    rgba(0, 40, 93, 0) 75%
+    var(--color-accent-primary-glow) 0%,
+    transparent 75%
   );
   animation: globalDrift1 18s ease-in-out infinite alternate;
 }
@@ -52,8 +52,8 @@
   bottom: -5%;
   right: -5%;
   background: radial-gradient(circle at center,
-    rgba(173, 198, 255, 0.45) 0%,
-    rgba(77, 142, 255, 0) 70%
+    var(--color-accent-primary-glow) 0%,
+    transparent 70%
   );
   animation: globalDrift2 14s ease-in-out infinite alternate-reverse;
   animation-delay: -3s;
@@ -67,9 +67,8 @@
   left: -10%;
   opacity: 0.35;
   background: radial-gradient(circle at center,
-    rgba(138, 43, 226, 0.35) 0%,
-    rgba(173, 198, 255, 0.12) 30%,
-    rgba(0, 0, 0, 0) 70%
+    var(--color-accent-primary-glow) 0%,
+    transparent 70%
   );
   animation: globalDrift3 16s ease-in-out infinite alternate;
   animation-delay: -5s;

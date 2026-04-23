@@ -2,7 +2,7 @@ import { Component, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angul
 import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { EmailjsService, TEMPLATE_CONTACT } from '../../services/emailjs.service';
+import { EmailjsService, TEMPLATE_CONTACT, TEMPLATE_AUTO_REPLY } from '../../services/emailjs.service';
 
 @Component({
   selector: 'app-contact',
@@ -74,8 +74,16 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
       await this.emailjs.send(TEMPLATE_CONTACT, {
         from_name:  this.form.name,
         from_email: this.form.email,
-        message:    this.form.message
+        message:    this.form.message,
+        form_type:  'Kontakt-Anfrage'
       });
+
+      // Send auto-reply to customer (fire-and-forget — don't block success state)
+      this.emailjs.send(TEMPLATE_AUTO_REPLY, {
+        from_name:  this.form.name,
+        from_email: this.form.email
+      }).catch(() => { /* silently ignore auto-reply failures */ });
+
       this.sent = true;
     } catch {
       this.error = true;

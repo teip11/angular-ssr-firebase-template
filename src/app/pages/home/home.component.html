@@ -1,5 +1,5 @@
 <!-- Hero Section -->
-<section class="relative h-screen flex flex-col justify-center items-center overflow-hidden">
+<section class="hero-section relative z-10 h-screen flex flex-col justify-center items-center overflow-hidden">
 
 <!-- Hero extra glow — strongest section -->
 <div class="absolute inset-0 pointer-events-none z-[1] overflow-hidden">
@@ -10,7 +10,7 @@
 <div class="relative z-10 max-w-5xl px-6 text-center">
 <h1 class="flex flex-col items-center">
   <!-- Line 1: Word by word reveal -->
-  <span class="font-inter text-3xl md:text-5xl font-medium tracking-normal text-slate-200 mb-1 leading-snug flex flex-wrap justify-center gap-x-[0.3em]">
+  <span class="text-title text-3xl md:text-5xl font-medium tracking-normal mb-1 leading-snug flex flex-wrap justify-center gap-x-[0.3em]">
     <span class="hero-word" *ngFor="let word of line1Words; let i = index" [style.animation-delay]="wordAnimDelay(i)">{{ word }}</span>
   </span>
 
@@ -25,20 +25,20 @@
 <!-- CTA Section -->
 <div class="mt-10 flex flex-col items-center w-full">
   <div class="hero-cta-buttons flex flex-col sm:flex-row items-center justify-center gap-6">
-    <a class="hero-shimmer-btn relative overflow-hidden px-10 py-4 bg-gradient-to-r from-[#3b7ff6] to-[#5b98ff] text-white font-bold rounded-full shadow-[0_0_40px_rgba(77,142,255,0.2)] hover:shadow-[0_0_60px_rgba(77,142,255,0.3)] hero-cta-rise" routerLink="/demo">
+    <a class="btn-primary hero-shimmer-btn hero-cta-rise px-10 py-4" routerLink="/demo">
       Kostenlose Website Vorlage anfordern
     </a>
-    <a class="group flex items-center gap-2 text-slate-300 font-medium hover:text-white hero-cta-rise py-2" routerLink="/projekte">
+    <a class="btn-secondary flex items-center gap-2 hero-cta-rise" routerLink="/projekte">
       Projekte ansehen
       <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
     </a>
   </div>
   
-  <div class="hero-cta-subheader mt-5 flex items-center justify-center gap-2.5 text-center text-slate-400/75 text-[13px] font-medium tracking-[0.03em]">
+  <div class="hero-cta-subheader mt-5 flex items-center justify-center gap-2.5 text-center text-text-muted text-[13px] font-medium tracking-[0.03em]">
     <span>Individuell erstellt</span>
-    <span class="w-[3px] h-[3px] rounded-full bg-slate-500/40"></span>
+    <span class="w-[3px] h-[3px] rounded-full bg-border-main"></span>
     <span>100% kostenlos</span>
-    <span class="w-[3px] h-[3px] rounded-full bg-slate-500/40"></span>
+    <span class="w-[3px] h-[3px] rounded-full bg-border-main"></span>
     <span>Unverbindlich</span>
   </div>
 </div>
@@ -48,9 +48,9 @@
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center hero-scroll-indicator transition-opacity duration-300"
        [class.opacity-0]="hasScrolled" 
        [class.pointer-events-none]="hasScrolled">
-    <span class="text-slate-400/50 text-[10px] uppercase tracking-[0.2em] font-medium mb-3">Mehr erfahren</span>
-    <div class="w-[1px] h-8 bg-slate-500/30 relative overflow-hidden">
-      <div class="scroll-dot absolute top-0 left-0 w-full h-[8px] bg-[#dbe8ff]/70 rounded-full"></div>
+    <span class="text-[10px] uppercase tracking-[0.2em] font-medium mb-3" style="color: var(--color-text-muted)">Mehr erfahren</span>
+    <div class="w-[1px] h-8 relative overflow-hidden" style="background: var(--color-border)">
+      <div class="scroll-dot absolute top-0 left-0 w-full h-[8px] rounded-full" style="background: rgba(34,211,238,0.7)"></div>
     </div>
   </div>
 </section>
@@ -61,20 +61,20 @@
   <div class="relative z-10 w-full max-w-5xl text-center px-6 mx-auto">
 
     <!-- Header -->
-    <h2 class="value-line1 font-inter font-bold text-white leading-[1.1] tracking-[-0.03em]" style="font-size: clamp(1.6rem, 4vw, 3.25rem);">
-      Wir erstellen <span class="value-highlight font-accent italic font-medium drop-shadow-[0_0_24px_rgba(77,142,255,0.3)]"><span class="bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff] text-transparent bg-clip-text">komplette Websites</span></span> für Ihr Unternehmen
+    <h2 class="value-line1 font-headline font-bold text-text-primary leading-[1.1] tracking-[-0.03em]" style="font-size: clamp(1.6rem, 4vw, 3.25rem);">
+      Wir erstellen <span class="value-highlight font-accent italic font-medium drop-shadow-[0_0_24px_var(--color-accent-primary-glow)]"><span class="bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">komplette Websites</span></span> für Ihr Unternehmen
     </h2>
 
     <!-- Subheader -->
-    <p class="value-supporting font-inter font-normal text-slate-400/65 text-base md:text-lg leading-[1.6] mt-5 max-w-xl mx-auto">
+    <p class="value-supporting text-body text-base md:text-lg mt-5 max-w-xl mx-auto">
       Vom Design bis hin zu allem, was nötig ist, damit Sie online Kunden gewinnen.
     </p>
 
     <!-- Value Cards -->
     <!-- Hover hint -->
     <div id="hover-hint" class="hover-hint hover-hint-animate mt-16 mb-6 flex items-center justify-center gap-2 relative z-20">
-      <span class="font-inter text-[10px] uppercase tracking-[0.2em] font-medium text-slate-500">Mehr erfahren</span>
-      <span class="hover-hint-cursor material-symbols-outlined text-[14px] text-[#7baaf7]/50">touch_app</span>
+      <span class="font-body text-[10px] uppercase tracking-[0.2em] font-medium text-text-muted">Mehr erfahren</span>
+      <span class="hover-hint-cursor material-symbols-outlined text-[14px] text-secondary/50">touch_app</span>
     </div>
 
     <!-- Value Cards -->
@@ -151,7 +151,7 @@
     </div>
 
     <!-- Scroll cue -->
-    <span class="value-scroll-cue block mt-16 font-inter text-sm text-slate-400/50 tracking-wide">
+    <span class="value-scroll-cue block mt-16 font-body text-sm text-text-muted/50 tracking-wide">
       So funktioniert's ↓
     </span>
   </div>
@@ -164,20 +164,20 @@
 
       <!-- Left column -->
       <div class="process-left process-intro">
-        <div class="inline-flex items-center gap-2 text-[#7baaf7] font-inter font-semibold tracking-widest uppercase text-xs mb-5">
-          <span class="w-8 h-px bg-[#3b7ff6]/40"></span>
+        <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-5">
+          <span class="w-8 h-px bg-secondary/40"></span>
           SO LÄUFT ES AB
         </div>
 
-        <h2 class="font-inter font-bold text-white text-3xl md:text-4xl leading-[1.15] tracking-[-0.02em] max-w-sm">
+        <h2 class="font-headline font-bold text-text-primary text-3xl md:text-4xl leading-[1.15] tracking-[-0.02em] max-w-sm">
           Sehen Sie Ihre neue Website, bevor Sie bezahlen
         </h2>
 
-        <p class="font-inter text-slate-400 text-base leading-7 max-w-xs mt-4">
+        <p class="text-body text-base mt-4">
           Wir zeigen Ihnen zuerst, wie Ihre Website aussehen könnte – komplett kostenlos. Überzeugt es Sie, machen wir weiter. Wenn nicht, kein Problem.
         </p>
 
-        <a routerLink="/demo" class="process-cta-btn hero-shimmer-btn relative overflow-hidden mt-8 inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-[#3b7ff6] to-[#5b98ff] text-white font-semibold rounded-full shadow-[0_8px_30px_rgba(59,127,246,0.3)] hover:shadow-[0_12px_40px_rgba(59,127,246,0.45)] hero-cta-rise text-sm">
+        <a routerLink="/demo" class="btn-primary hero-shimmer-btn hero-cta-rise inline-flex items-center gap-2 mt-8 px-7 py-3.5 text-sm">
           Kostenlose Vorlage anfordern
           <span class="material-symbols-outlined text-base">arrow_forward</span>
         </a>
@@ -209,8 +209,8 @@
                [class.card-enter]="enterCard === 1">
             <div class="process-card-num">01</div>
             <div>
-              <h3 class="font-inter font-bold text-white text-xl mb-2">Kurz über Ihr Unternehmen berichten</h3>
-              <p class="font-inter text-slate-400 text-base leading-7">Ein paar Fragen zu Ihren Zielen, Ihrer Zielgruppe und Ihrem Stil – das reicht uns als Grundlage.</p>
+              <h3 class="text-title text-xl mb-2">Kurz über Ihr Unternehmen berichten</h3>
+              <p class="text-body text-base">Ein paar Fragen zu Ihren Zielen, Ihrer Zielgruppe und Ihrem Stil – das reicht uns als Grundlage.</p>
             </div>
           </div>
 
@@ -221,33 +221,33 @@
                [class.card-enter]="enterCard === 2">
             <div class="process-card-num process-card-num--highlight">02</div>
             <div>
-              <h3 class="font-inter font-bold text-white text-xl mb-2">Ihr Website-Konzept – kostenlos</h3>
-              <p class="font-inter text-slate-400 text-base leading-7">Wir entwickeln ein maßgeschneidertes Design für Ihr Unternehmen, damit Sie genau sehen, was möglich ist.</p>
+              <h3 class="text-title text-xl mb-2">Ihr Website-Konzept – kostenlos</h3>
+              <p class="text-body text-base leading-7">Wir entwickeln ein maßgeschneidertes Design für Ihr Unternehmen, damit Sie genau sehen, was möglich ist.</p>
               <span class="process-free-badge mt-3 inline-block">✦ 100% kostenlos</span>
             </div>
           </div>
 
-          <!-- Card 3 — blue progression -->
+          <!-- Card 3 -->
           <div class="process-card process-card--blue"
                [class.card-active]="activeCard === 3"
                [class.card-exit]="exitCard === 3"
                [class.card-enter]="enterCard === 3">
             <div class="process-card-num process-card-num--blue">03</div>
             <div>
-              <h3 class="font-inter font-bold text-white text-xl mb-2">Gemeinsam durchs Konzept</h3>
-              <p class="font-inter text-slate-400 text-base leading-7">In einem kurzen Gespräch führen wir Sie durch das Design, erklären die Idee dahinter und klären offene Fragen.</p>
+              <h3 class="text-title text-xl mb-2">Gemeinsam durchs Konzept</h3>
+              <p class="text-body text-base leading-7">In einem kurzen Gespräch führen wir Sie durch das Design, erklären die Idee dahinter und klären offene Fragen.</p>
             </div>
           </div>
 
-          <!-- Card 4 — trust / green -->
+          <!-- Card 4 -->
           <div class="process-card process-card--trust"
                [class.card-active]="activeCard === 4"
                [class.card-exit]="exitCard === 4"
                [class.card-enter]="enterCard === 4">
             <div class="process-card-num process-card-num--trust">04</div>
             <div>
-              <h3 class="font-inter font-bold text-white text-xl mb-2">Sie entscheiden – ohne Druck</h3>
-              <p class="font-inter text-slate-400 text-base leading-7">Überzeugt das Konzept? Dann legen wir los. Wenn nicht, ist das völlig in Ordnung.</p>
+              <h3 class="text-title text-xl mb-2">Sie entscheiden – ohne Druck</h3>
+              <p class="text-body text-base leading-7">Überzeugt das Konzept? Dann legen wir los. Wenn nicht, ist das völlig in Ordnung.</p>
             </div>
           </div>
 
@@ -273,11 +273,11 @@
 
   <div class="max-w-7xl mx-auto grid gap-14 relative z-10">
     <div class="max-w-3xl mx-auto text-center showcase-header">
-      <div class="inline-flex items-center justify-center gap-2.5 text-[#adc6ff] font-inter font-semibold tracking-[0.22em] uppercase text-xs mb-6">
-        <span class="w-10 h-px bg-[#adc6ff]/40"></span>
+      <div class="inline-flex items-center justify-center gap-2.5 text-secondary font-body font-semibold tracking-[0.22em] uppercase text-xs mb-6">
+        <span class="w-10 h-px bg-secondary/40"></span>
         Beispiele
       </div>
-      <h2 class="showcase-headline font-inter font-semibold text-white text-4xl md:text-5xl leading-[1.05] tracking-[-0.02em]">
+      <h2 class="showcase-headline text-title text-4xl md:text-5xl leading-[1.05]">
         So könnte Ihre Website aussehen
       </h2>
     </div>
@@ -288,8 +288,8 @@
           <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://via.placeholder.com/560x360?text=Boutique" alt="Boutique Website Beispiel" />
         </div>
         <div class="p-7">
-          <p class="text-[11px] tracking-[0.24em] uppercase text-[#adc6ff]/70 font-semibold mb-2">Boutique</p>
-          <p class="text-white/80 text-base leading-7">Stilvolle Präsentation für lokale Kundinnen und Kunden.</p>
+          <p class="text-[11px] tracking-[0.24em] uppercase text-secondary/70 font-semibold mb-2">Boutique</p>
+          <p class="text-text-secondary text-base leading-7">Stilvolle Präsentation für lokale Kundinnen und Kunden.</p>
         </div>
       </article>
 
@@ -298,8 +298,8 @@
           <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://via.placeholder.com/560x360?text=Handwerk" alt="Handwerksbetrieb Website Beispiel" />
         </div>
         <div class="p-7">
-          <p class="text-[11px] tracking-[0.24em] uppercase text-[#adc6ff]/70 font-semibold mb-2">Handwerk</p>
-          <p class="text-white/80 text-base leading-7">Fokussiert auf Leads, Authentizität und echte Projektanfragen.</p>
+          <p class="text-[11px] tracking-[0.24em] uppercase text-secondary/70 font-semibold mb-2">Handwerk</p>
+          <p class="text-text-secondary text-base leading-7">Fokussiert auf Leads, Authentizität und echte Projektanfragen.</p>
         </div>
       </article>
 
@@ -308,8 +308,8 @@
           <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://via.placeholder.com/560x360?text=Beratung" alt="Beratungsfirma Website Beispiel" />
         </div>
         <div class="p-7">
-          <p class="text-[11px] tracking-[0.24em] uppercase text-[#adc6ff]/70 font-semibold mb-2">Beratung</p>
-          <p class="text-white/80 text-base leading-7">Professionelle Positionierung für Vertrauen und klare Angebote.</p>
+          <p class="text-[11px] tracking-[0.24em] uppercase text-secondary/70 font-semibold mb-2">Beratung</p>
+          <p class="text-text-secondary text-base leading-7">Professionelle Positionierung für Vertrauen und klare Angebote.</p>
         </div>
       </article>
 
@@ -318,17 +318,17 @@
           <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://via.placeholder.com/560x360?text=E-Commerce" alt="E-Commerce Website Beispiel" />
         </div>
         <div class="p-7">
-          <p class="text-[11px] tracking-[0.24em] uppercase text-[#adc6ff]/70 font-semibold mb-2">E-Commerce</p>
-          <p class="text-white/80 text-base leading-7">Produktseiten mit klarem Fokus auf Conversion und Umsatz.</p>
+          <p class="text-[11px] tracking-[0.24em] uppercase text-secondary/70 font-semibold mb-2">E-Commerce</p>
+          <p class="text-text-secondary text-base leading-7">Produktseiten mit klarem Fokus auf Conversion und Umsatz.</p>
         </div>
       </article>
     </div>
 
     <div class="max-w-3xl mx-auto text-center showcase-cta">
-      <a routerLink="/demo" class="hero-shimmer-btn relative overflow-hidden inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#3b7ff6] to-[#5b98ff] text-white px-8 py-4 text-base font-semibold hero-cta-rise hover:shadow-[0_0_40px_rgba(77,142,255,0.4)] shadow-[0_0_20px_rgba(77,142,255,0.2)]">
+      <a routerLink="/demo" class="btn-primary hero-shimmer-btn hero-cta-rise inline-flex items-center justify-center px-8 py-4 text-base">
         Kostenlose Website Vorlage anfordern
       </a>
-      <p class="text-white/40 text-sm mt-4">Individuell für Ihr Unternehmen erstellt</p>
+      <p class="text-text-muted text-sm mt-4">Individuell für Ihr Unternehmen erstellt</p>
     </div>
   </div>
 </section>
@@ -339,12 +339,12 @@
 
     <!-- Header -->
     <div class="testimonials-header text-center mb-14">
-      <div class="inline-flex items-center gap-2 text-[#7baaf7] font-inter font-semibold tracking-widest uppercase text-xs mb-5">
-        <span class="w-8 h-px bg-[#3b7ff6]/40"></span>
+      <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-5">
+        <span class="w-8 h-px bg-secondary/40"></span>
         Kundenstimmen
-        <span class="w-8 h-px bg-[#3b7ff6]/40"></span>
+        <span class="w-8 h-px bg-secondary/40"></span>
       </div>
-      <h2 class="testimonials-headline font-inter font-bold text-white text-3xl md:text-4xl leading-[1.15] tracking-[-0.02em]">
+      <h2 class="testimonials-headline font-headline font-bold text-text-primary text-3xl md:text-4xl leading-[1.15] tracking-[-0.02em]">
         Was unsere Kunden sagen
       </h2>
     </div>
@@ -355,16 +355,16 @@
       <!-- Testimonial 1 -->
       <div class="testimonial-card">
         <div class="flex gap-1 mb-4">
-          <span class="text-[#7baaf7] text-lg">★★★★★</span>
+          <span class="text-secondary text-lg">★★★★★</span>
         </div>
-        <p class="font-inter text-slate-300/80 text-base leading-7 mb-6">
+        <p class="text-body text-base mb-6">
           „Wir haben innerhalb von zwei Wochen eine fertige Website bekommen – und das komplett kostenlos als Vorlage. Das Ergebnis hat uns sofort überzeugt."
         </p>
         <div class="flex items-center gap-3">
           <div class="testimonial-avatar">M</div>
           <div>
-            <p class="font-inter font-semibold text-white text-sm">Markus Bauer</p>
-            <p class="font-inter text-slate-500 text-xs">Inhaber, Bauer Haustechnik</p>
+            <p class="font-body font-semibold text-text-primary text-sm">Markus Bauer</p>
+            <p class="font-body text-text-muted text-xs">Inhaber, Bauer Haustechnik</p>
           </div>
         </div>
       </div>
@@ -372,16 +372,16 @@
       <!-- Testimonial 2 -->
       <div class="testimonial-card testimonial-card--featured">
         <div class="flex gap-1 mb-4">
-          <span class="text-[#7baaf7] text-lg">★★★★★</span>
+          <span class="text-secondary text-lg">★★★★★</span>
         </div>
-        <p class="font-inter text-slate-300/80 text-base leading-7 mb-6">
+        <p class="text-body text-base mb-6">
           „Endlich eine Agentur, die zeigt was sie kann, bevor man zahlt. Das Design war professioneller als alles, was ich vorher gesehen hatte."
         </p>
         <div class="flex items-center gap-3">
-          <div class="testimonial-avatar testimonial-avatar--blue">S</div>
+          <div class="testimonial-avatar testimonial-avatar--gold">S</div>
           <div>
-            <p class="font-inter font-semibold text-white text-sm">Sandra Meier</p>
-            <p class="font-inter text-slate-500 text-xs">Geschäftsführerin, Meier Consulting</p>
+            <p class="font-body font-semibold text-text-primary text-sm">Sandra Meier</p>
+            <p class="font-body text-text-muted text-xs">Geschäftsführerin, Meier Consulting</p>
           </div>
         </div>
       </div>
@@ -389,16 +389,16 @@
       <!-- Testimonial 3 -->
       <div class="testimonial-card">
         <div class="flex gap-1 mb-4">
-          <span class="text-[#7baaf7] text-lg">★★★★★</span>
+          <span class="text-secondary text-lg">★★★★★</span>
         </div>
-        <p class="font-inter text-slate-300/80 text-base leading-7 mb-6">
+        <p class="text-body text-base mb-6">
           „Die neue Website hat unsere Anfragen verdoppelt. Der Prozess war unkompliziert und das Team hat wirklich mitgedacht."
         </p>
         <div class="flex items-center gap-3">
           <div class="testimonial-avatar">T</div>
           <div>
-            <p class="font-inter font-semibold text-white text-sm">Thomas Klein</p>
-            <p class="font-inter text-slate-500 text-xs">Inhaber, Klein Schreinerei</p>
+            <p class="font-body font-semibold text-text-primary text-sm">Thomas Klein</p>
+            <p class="font-body text-text-muted text-xs">Inhaber, Klein Schreinerei</p>
           </div>
         </div>
       </div>
@@ -413,18 +413,18 @@
   <div class="offer-glow-local"></div>
 
   <div class="max-w-5xl mx-auto px-6 relative z-10 text-center overflow-visible">
-    <h2 class="offer-headline font-inter font-semibold text-5xl md:text-[7.5rem] mb-16 leading-[1.2] tracking-[-0.02em] text-slate-200 overflow-visible">
+    <h2 class="offer-headline font-headline font-semibold text-5xl md:text-[7.5rem] mb-16 leading-[1.2] tracking-[-0.02em] text-text-primary overflow-visible">
       Bereit für digitale <br class="hidden md:block">
-      <span class="offer-exzellenz font-accent italic font-medium drop-shadow-[0_0_40px_rgba(77,142,255,0.4)]">
-        <span class="bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff] text-transparent bg-clip-text">Exzellenz?</span>
+      <span class="offer-exzellenz font-accent italic font-medium drop-shadow-[0_0_40px_var(--color-accent-primary-glow)]">
+        <span class="bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">Exzellenz?</span>
       </span>
     </h2>
 
     <div class="offer-buttons flex flex-col sm:flex-row items-center justify-center gap-6">
-      <a routerLink="/demo" class="hero-shimmer-btn relative overflow-hidden px-10 py-4 bg-gradient-to-r from-[#3b7ff6] to-[#5b98ff] text-white font-bold rounded-full shadow-[0_0_40px_rgba(77,142,255,0.2)] hover:shadow-[0_0_60px_rgba(77,142,255,0.3)] hero-cta-rise text-base">
+      <a routerLink="/demo" class="btn-primary hero-shimmer-btn hero-cta-rise px-10 py-4 text-base">
         Jetzt Ihr Konzept anfordern
       </a>
-      <a [routerLink]="['/projekte']" class="group flex items-center gap-2 text-slate-400 font-medium hover:text-white transition-colors text-base">
+      <a [routerLink]="['/projekte']" class="btn-secondary flex items-center gap-2 hero-cta-rise">
         Portfolio ansehen
         <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform duration-300">arrow_forward</span>
       </a>

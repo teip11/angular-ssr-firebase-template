@@ -26,6 +26,10 @@ export class HomeComponent implements AfterViewInit {
     private ngZone: NgZone
   ) {}
 
+  // Track last known mouse position (viewport-relative clientX/Y)
+  private _lastMouseClientX = -9999;
+  private _lastMouseClientY = -9999;
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
     if (window.scrollY > 10 && !this.hasScrolled) {
@@ -33,6 +37,9 @@ export class HomeComponent implements AfterViewInit {
     }
     this.updateProcessSection();
     this.updateShowcaseParallax();
+    // Recalculate glow using last viewport-relative mouse position.
+    // getBoundingClientRect() is also viewport-relative so no scroll offset needed.
+    this._updateValueCardGlow(this._lastMouseClientX, this._lastMouseClientY);
   }
 
   ngAfterViewInit() {
@@ -265,20 +272,27 @@ export class HomeComponent implements AfterViewInit {
 
   onSectionMouseMove(event: MouseEvent): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    if (!this.valueCardEls) return;
+    // Store viewport-relative mouse position (clientX/Y)
+    this._lastMouseClientX = event.clientX;
+    this._lastMouseClientY = event.clientY;
+    this._updateValueCardGlow(this._lastMouseClientX, this._lastMouseClientY);
+  }
 
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
+  private _updateValueCardGlow(mouseX: number, mouseY: number): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    if (!this.valueCardEls) return;
+    if (mouseX === -9999) return; // no mouse position yet
 
     this.valueCardEls.forEach(cardRef => {
       const card = cardRef.nativeElement;
       const glow = card.querySelector('.value-card-glow') as HTMLElement | null;
       if (!glow) return;
 
+      // getBoundingClientRect is viewport-relative — same coordinate space as clientX/Y
       const rect = card.getBoundingClientRect();
 
       const clampedX = Math.max(rect.left, Math.min(mouseX, rect.right));
-      const clampedY = Math.max(rect.top, Math.min(mouseY, rect.bottom));
+      const clampedY = Math.max(rect.top,  Math.min(mouseY, rect.bottom));
       const distToBorder = Math.sqrt(
         Math.pow(mouseX - clampedX, 2) +
         Math.pow(mouseY - clampedY, 2)
@@ -293,8 +307,8 @@ export class HomeComponent implements AfterViewInit {
         proximity = Math.max(0, 1 - (distToBorder - (triggerDist - fadeDist)) / fadeDist);
       }
 
-      const relX = ((clampedX - rect.left) / rect.width) * 100;
-      const relY = ((clampedY - rect.top) / rect.height) * 100;
+      const relX = ((clampedX - rect.left) / rect.width)  * 100;
+      const relY = ((clampedY - rect.top)  / rect.height) * 100;
 
       glow.style.setProperty('--glow-x', `${relX}%`);
       glow.style.setProperty('--glow-y', `${relY}%`);

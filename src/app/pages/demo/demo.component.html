@@ -1,9 +1,9 @@
 <!-- Hero Section -->
 <section class="max-w-4xl mx-auto px-6 pt-44 text-center mb-16 relative z-10">
-  <p class="dmo-hero-label text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter mb-5">Kostenlos & unverbindlich</p>
+  <p class="dmo-hero-label text-xs font-bold uppercase tracking-widest text-secondary font-inter mb-5">Kostenlos & unverbindlich</p>
   <h1 class="dmo-hero-title font-inter text-5xl md:text-7xl font-semibold tracking-[-0.02em] mb-8 text-white leading-[1.1]">
     Erzählen Sie uns von
-    <span class="inline-block py-[0.1em] px-[0.1em] -my-[0.1em] -mx-[0.1em] font-accent italic font-medium drop-shadow-[0_0_24px_rgba(77,142,255,0.3)] text-transparent bg-clip-text bg-gradient-to-r from-[#dbe8ff] to-[#6b9fff]">Ihrem Projekt.</span>
+    <span class="inline-block py-[0.1em] px-[0.1em] -my-[0.1em] -mx-[0.1em] font-accent italic font-medium drop-shadow-[0_0_24px_var(--color-accent-primary-glow)] text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary">Ihrem Projekt.</span>
   </h1>
   <p class="dmo-hero-sub text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-inter font-light leading-relaxed">
     Wir erstellen darauf basierend eine kostenlose Demo-Website für Sie — damit Sie sehen, was möglich ist.
@@ -14,12 +14,12 @@
 <section class="max-w-3xl mx-auto px-6 mb-32 relative z-10">
   <div class="dmo-form-card contact-card p-12 md:p-16 !rounded-[2rem] relative overflow-hidden">
     <!-- Subtle Gradient Glows -->
-    <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#3b7ff6]/10 blur-[80px] rounded-full pointer-events-none"></div>
-    <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-[#7baaf7]/5 blur-[80px] rounded-full pointer-events-none"></div>
+    <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none"></div>
+    <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-secondary/5 blur-[80px] rounded-full pointer-events-none"></div>
 
     <!-- ✅ Success state -->
     <div *ngIf="sent" class="relative z-10 flex flex-col items-center text-center py-8 gap-6">
-      <span class="material-symbols-outlined text-[#7baaf7] text-6xl">check_circle</span>
+      <span class="material-symbols-outlined text-secondary text-6xl">check_circle</span>
       <h2 class="text-white font-semibold text-2xl font-inter">Anfrage erhalten!</h2>
       <p class="text-slate-400 font-inter max-w-sm">Vielen Dank! Wir melden uns innerhalb von 72 Stunden mit Ihrem persönlichen Demo-Konzept.</p>
     </div>
@@ -27,7 +27,7 @@
     <!-- ❌ Error state -->
     <div *ngIf="error && !sent" class="relative z-10 mb-8 p-4 rounded-xl border border-red-500/20 bg-red-500/5 text-red-400 font-inter text-sm text-center">
       Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an
-      <a href="mailto:piet@gehrkestudio.com" class="text-[#7baaf7] hover:text-white transition-colors ml-1">piet&#64;gehrkestudio.com</a>.
+      <a href="mailto:piet@gehrkestudio.com" class="text-secondary hover:text-white transition-colors ml-1">piet&#64;gehrkestudio.com</a>.
     </div>
 
     <!-- 📋 Form -->
@@ -36,27 +36,27 @@
       <!-- Step 01: Basis-Informationen -->
       <div class="dmo-form-step space-y-8">
         <div class="flex items-center gap-3 border-b border-white/[0.06] pb-4">
-          <span class="material-symbols-outlined text-[#7baaf7]">person</span>
-          <h2 class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">01 — Basis-Informationen</h2>
+          <span class="material-symbols-outlined text-secondary">person</span>
+          <h2 class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">01 — Basis-Informationen</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div class="space-y-2">
-            <label class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">Vollständiger Name</label>
+            <label class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">Vollständiger Name</label>
             <input [(ngModel)]="form.name" name="name" required
-              class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-[#3b7ff6] text-white placeholder:text-slate-500 transition-colors font-inter"
+              class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-primary text-white placeholder:text-slate-500 transition-colors font-inter"
               placeholder="Max Mustermann" type="text"/>
           </div>
           <div class="space-y-2">
-            <label class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">E-Mail Adresse</label>
+            <label class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">E-Mail Adresse</label>
             <input [(ngModel)]="form.email" name="email" required
-              class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-[#3b7ff6] text-white placeholder:text-slate-500 transition-colors font-inter"
+              class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-primary text-white placeholder:text-slate-500 transition-colors font-inter"
               placeholder="max&#64;unternehmen.de" type="email"/>
           </div>
         </div>
         <div class="space-y-2">
-          <label class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">Unternehmen</label>
+          <label class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">Unternehmen</label>
           <input [(ngModel)]="form.company" name="company"
-            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-[#3b7ff6] text-white placeholder:text-slate-500 transition-colors font-inter"
+            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-primary text-white placeholder:text-slate-500 transition-colors font-inter"
             placeholder="Muster GmbH" type="text"/>
         </div>
       </div>
@@ -64,20 +64,20 @@
       <!-- Step 02: Ihr Unternehmen -->
       <div class="dmo-form-step space-y-8">
         <div class="flex items-center gap-3 border-b border-white/[0.06] pb-4">
-          <span class="material-symbols-outlined text-[#7baaf7]">business</span>
-          <h2 class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">02 — Ihr Unternehmen</h2>
+          <span class="material-symbols-outlined text-secondary">business</span>
+          <h2 class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">02 — Ihr Unternehmen</h2>
         </div>
         <div class="space-y-2">
-          <label class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">Was genau macht Ihr Unternehmen?</label>
+          <label class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">Was genau macht Ihr Unternehmen?</label>
           <textarea [(ngModel)]="form.description" name="description"
-            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-[#3b7ff6] text-white placeholder:text-slate-500 transition-colors resize-none font-inter"
+            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-primary text-white placeholder:text-slate-500 transition-colors resize-none font-inter"
             placeholder="Beschreiben Sie kurz Ihre Dienstleistungen oder Produkte..." rows="3"></textarea>
         </div>
         <div class="flex items-center justify-between py-4 border-b border-white/20">
           <span class="text-sm text-slate-400 font-inter">Haben Sie bereits eine Website?</span>
           <label class="relative inline-flex items-center cursor-pointer">
             <input [(ngModel)]="form.hasWebsite" name="hasWebsite" class="sr-only peer" type="checkbox"/>
-            <div class="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white/60 after:border after:border-white/20 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#3b7ff6]"></div>
+            <div class="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white/60 after:border after:border-white/20 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
           </label>
         </div>
       </div>
@@ -85,36 +85,36 @@
       <!-- Step 03: Ihre Ziele -->
       <div class="dmo-form-step space-y-8">
         <div class="flex items-center gap-3 border-b border-white/[0.06] pb-4">
-          <span class="material-symbols-outlined text-[#7baaf7]">track_changes</span>
-          <h2 class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">03 — Ihre Ziele</h2>
+          <span class="material-symbols-outlined text-secondary">track_changes</span>
+          <h2 class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">03 — Ihre Ziele</h2>
         </div>
         <div class="space-y-4">
-          <label class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">Was möchten Sie erreichen? (Mehrfachwahl)</label>
+          <label class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">Was möchten Sie erreichen? (Mehrfachwahl)</label>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <label class="flex items-center justify-center p-4 rounded-xl border cursor-pointer transition-all"
-              [ngClass]="form.goals.kunden ? 'border-[#3b7ff6] bg-[#3b7ff6]/10' : 'border-white/10'">
+              [ngClass]="form.goals.kunden ? 'border-primary bg-primary/10' : 'border-white/10'">
               <input [(ngModel)]="form.goals.kunden" name="goalKunden" class="hidden" type="checkbox"/>
               <span class="text-xs font-semibold font-inter transition-colors"
-                [class.text-[#7baaf7]]="form.goals.kunden" [class.text-slate-400]="!form.goals.kunden">Mehr Kunden</span>
+                [class.text-secondary]="form.goals.kunden" [class.text-slate-400]="!form.goals.kunden">Mehr Kunden</span>
             </label>
             <label class="flex items-center justify-center p-4 rounded-xl border cursor-pointer transition-all"
-              [ngClass]="form.goals.anfragen ? 'border-[#3b7ff6] bg-[#3b7ff6]/10' : 'border-white/10'">
+              [ngClass]="form.goals.anfragen ? 'border-primary bg-primary/10' : 'border-white/10'">
               <input [(ngModel)]="form.goals.anfragen" name="goalAnfragen" class="hidden" type="checkbox"/>
               <span class="text-xs font-semibold font-inter transition-colors"
-                [class.text-[#7baaf7]]="form.goals.anfragen" [class.text-slate-400]="!form.goals.anfragen">Mehr Anfragen</span>
+                [class.text-secondary]="form.goals.anfragen" [class.text-slate-400]="!form.goals.anfragen">Mehr Anfragen</span>
             </label>
             <label class="flex items-center justify-center p-4 rounded-xl border cursor-pointer transition-all"
-              [ngClass]="form.goals.onlinePraesenz ? 'border-[#3b7ff6] bg-[#3b7ff6]/10' : 'border-white/10'">
+              [ngClass]="form.goals.onlinePraesenz ? 'border-primary bg-primary/10' : 'border-white/10'">
               <input [(ngModel)]="form.goals.onlinePraesenz" name="goalOnline" class="hidden" type="checkbox"/>
               <span class="text-xs font-semibold font-inter transition-colors"
-                [class.text-[#7baaf7]]="form.goals.onlinePraesenz" [class.text-slate-400]="!form.goals.onlinePraesenz">Online-Präsenz</span>
+                [class.text-secondary]="form.goals.onlinePraesenz" [class.text-slate-400]="!form.goals.onlinePraesenz">Online-Präsenz</span>
             </label>
           </div>
         </div>
         <div class="space-y-2">
-          <label class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">Detaillierte Zielsetzung</label>
+          <label class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">Detaillierte Zielsetzung</label>
           <textarea [(ngModel)]="form.detailedGoals" name="detailedGoals"
-            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-[#3b7ff6] text-white placeholder:text-slate-500 transition-colors resize-none font-inter"
+            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-primary text-white placeholder:text-slate-500 transition-colors resize-none font-inter"
             placeholder="Gibt es spezifische Kennzahlen oder Ergebnisse, die Sie anstreben?" rows="3"></textarea>
         </div>
       </div>
@@ -122,19 +122,19 @@
       <!-- Step 04: Design & Wünsche -->
       <div class="dmo-form-step space-y-8">
         <div class="flex items-center gap-3 border-b border-white/[0.06] pb-4">
-          <span class="material-symbols-outlined text-[#7baaf7]">auto_awesome</span>
-          <h2 class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">04 — Design &amp; Wünsche</h2>
+          <span class="material-symbols-outlined text-secondary">auto_awesome</span>
+          <h2 class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">04 — Design &amp; Wünsche</h2>
         </div>
         <div class="space-y-2">
-          <label class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">Websites, die Ihnen gefallen</label>
+          <label class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">Websites, die Ihnen gefallen</label>
           <textarea [(ngModel)]="form.inspiration" name="inspiration"
-            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-[#3b7ff6] text-white placeholder:text-slate-500 transition-colors resize-none font-inter"
+            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-primary text-white placeholder:text-slate-500 transition-colors resize-none font-inter"
             placeholder="Links zu Websites oder Marken, deren Stil Ihnen zusagt..." rows="2"></textarea>
         </div>
         <div class="space-y-2">
-          <label class="text-xs font-bold uppercase tracking-widest text-[#7baaf7] font-inter">Sonstige Wünsche oder Anmerkungen</label>
+          <label class="text-xs font-bold uppercase tracking-widest text-secondary font-inter">Sonstige Wünsche oder Anmerkungen</label>
           <textarea [(ngModel)]="form.wishes" name="wishes"
-            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-[#3b7ff6] text-white placeholder:text-slate-500 transition-colors resize-none font-inter"
+            class="w-full bg-transparent border-0 border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-primary text-white placeholder:text-slate-500 transition-colors resize-none font-inter"
             placeholder="Gibt es noch etwas, das wir wissen sollten?" rows="2"></textarea>
         </div>
       </div>
@@ -159,15 +159,15 @@
         <!-- Trust Badges -->
         <div class="flex flex-wrap justify-center gap-6 md:gap-10 pt-2">
           <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-[#7baaf7] text-[18px]">check_circle</span>
+            <span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
             <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold font-inter">Unverbindlich</span>
           </div>
           <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-[#7baaf7] text-[18px]">verified_user</span>
+            <span class="material-symbols-outlined text-secondary text-[18px]">verified_user</span>
             <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold font-inter">Keine Verpflichtung</span>
           </div>
           <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-[#7baaf7] text-[18px]">schedule</span>
+            <span class="material-symbols-outlined text-secondary text-[18px]">schedule</span>
             <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold font-inter">Antwort innerhalb 72h</span>
           </div>
         </div>

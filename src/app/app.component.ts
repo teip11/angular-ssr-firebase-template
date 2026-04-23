@@ -13,9 +13,6 @@ import { CookieConsentComponent } from './components/cookie-consent/cookie-conse
     <div class="global-bg" aria-hidden="true">
       <div class="global-bg__base"></div>
       <div class="global-bg__grain"></div>
-      <div class="global-bg__glow global-bg__glow--1"></div>
-      <div class="global-bg__glow global-bg__glow--2"></div>
-      <div class="global-bg__glow global-bg__glow--3"></div>
     </div>
 
     <app-navbar></app-navbar>
