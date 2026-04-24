@@ -1,5 +1,5 @@
 <!-- Hero Section -->
-<section class="hero-section relative z-10 h-screen flex flex-col justify-center items-center overflow-hidden">
+<section class="hero-section relative z-10 flex flex-col justify-center items-center overflow-hidden">
 
 <!-- Hero extra glow — strongest section -->
 <div class="absolute inset-0 pointer-events-none z-[1] overflow-hidden">
@@ -7,15 +7,15 @@
 </div>
 
 <!-- Content Canvas -->
-<div class="relative z-10 max-w-5xl px-6 text-center">
+<div class="relative z-10 max-w-5xl px-4 sm:px-6 text-center">
 <h1 class="flex flex-col items-center">
   <!-- Line 1: Word by word reveal -->
-  <span class="text-title text-3xl md:text-5xl font-medium tracking-normal mb-1 leading-snug flex flex-wrap justify-center gap-x-[0.3em]">
+  <span class="text-title text-2xl sm:text-3xl md:text-5xl font-medium tracking-normal mb-1 leading-snug flex flex-wrap justify-center gap-x-[0.3em]">
     <span class="hero-word" *ngFor="let word of line1Words; let i = index" [style.animation-delay]="wordAnimDelay(i)">{{ word }}</span>
   </span>
 
   <!-- Line 2: Fluid letter-by-letter cascade -->
-  <span class="font-accent italic text-6xl md:text-[7.5rem] leading-[1.05] mt-1 block font-medium relative">
+  <span class="font-accent italic text-5xl sm:text-6xl md:text-[7.5rem] leading-[1.05] mt-1 block font-medium relative">
     <span class="hero-line2-text pb-2 inline-block">
       <span class="hero-letter" *ngFor="let char of line2Letters; let i = index" [style.animation-delay]="letterAnimDelay(i)" [style.background-position]="letterGradientPos(i)">{{ char }}</span>
     </span>
@@ -23,12 +23,12 @@
 </h1>
 
 <!-- CTA Section -->
-<div class="mt-10 flex flex-col items-center w-full">
-  <div class="hero-cta-buttons flex flex-col sm:flex-row items-center justify-center gap-6">
-    <a class="btn-primary hero-shimmer-btn hero-cta-rise px-10 py-4" routerLink="/demo">
+<div class="mt-8 sm:mt-10 flex flex-col items-center w-full">
+  <div class="hero-cta-buttons flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full sm:w-auto">
+    <a class="btn-primary hero-shimmer-btn hero-cta-rise px-6 sm:px-10 py-4 w-full sm:w-auto text-center text-sm sm:text-base" routerLink="/demo">
       Kostenlose Website Vorlage anfordern
     </a>
-    <a class="btn-secondary flex items-center gap-2 hero-cta-rise" routerLink="/projekte">
+    <a class="btn-secondary flex items-center justify-center gap-2 hero-cta-rise w-full sm:w-auto" routerLink="/projekte">
       Projekte ansehen
       <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
     </a>
@@ -56,7 +56,7 @@
 </section>
 
 <!-- Value Statement Section -->
-<section class="value-statement-section relative flex flex-col justify-center items-center overflow-hidden py-28 md:py-40"
+<section class="value-statement-section relative flex flex-col justify-center items-center overflow-hidden py-20 md:py-40"
        (mousemove)="onSectionMouseMove($event)">
   <div class="relative z-10 w-full max-w-5xl text-center px-6 mx-auto">
 
@@ -78,7 +78,7 @@
     </div>
 
     <!-- Value Cards -->
-    <div class="value-cards-row mt-4 grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
+    <div class="value-cards-row mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8">
 
       <!-- Card 1 -->
       <div class="value-card" #valueCard>
@@ -160,7 +160,7 @@
 <!-- "How it Works" Section -->
 <div #processScroll class="process-scroll-container">
   <div class="process-sticky">
-    <div class="process-inner max-w-screen-xl mx-auto px-6 md:px-12">
+    <div class="process-inner max-w-screen-xl mx-auto px-4 sm:px-6 md:px-12">
 
       <!-- Left column -->
       <div class="process-left process-intro">
@@ -267,7 +267,7 @@
 </div>
 
 <!-- Example Websites Showcase -->
-<section class="showcase-section relative px-6 md:px-12 py-28 overflow-hidden">
+<section class="showcase-section relative px-4 sm:px-6 md:px-12 py-16 sm:py-28 overflow-hidden">
   <!-- Subtle local glow for portfolio emphasis -->
   <div class="showcase-glow-local"></div>
 
@@ -282,9 +282,9 @@
       </h2>
     </div>
 
-    <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+    <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4">
       <article class="showcase-card showcase-card-animate group overflow-hidden" style="--card-delay: 0ms">
-        <div class="h-52 overflow-hidden rounded-t-[1.1rem]">
+        <div class="h-44 sm:h-52 overflow-hidden rounded-t-[1.1rem]">
           <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://via.placeholder.com/560x360?text=Boutique" alt="Boutique Website Beispiel" />
         </div>
         <div class="p-7">
@@ -294,7 +294,7 @@
       </article>
 
       <article class="showcase-card showcase-card-animate group overflow-hidden" style="--card-delay: 150ms">
-        <div class="h-52 overflow-hidden rounded-t-[1.1rem]">
+        <div class="h-44 sm:h-52 overflow-hidden rounded-t-[1.1rem]">
           <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://via.placeholder.com/560x360?text=Handwerk" alt="Handwerksbetrieb Website Beispiel" />
         </div>
         <div class="p-7">
@@ -304,7 +304,7 @@
       </article>
 
       <article class="showcase-card showcase-card-animate group overflow-hidden" style="--card-delay: 300ms">
-        <div class="h-52 overflow-hidden rounded-t-[1.1rem]">
+        <div class="h-44 sm:h-52 overflow-hidden rounded-t-[1.1rem]">
           <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://via.placeholder.com/560x360?text=Beratung" alt="Beratungsfirma Website Beispiel" />
         </div>
         <div class="p-7">
@@ -314,7 +314,7 @@
       </article>
 
       <article class="showcase-card showcase-card-animate group overflow-hidden" style="--card-delay: 450ms">
-        <div class="h-52 overflow-hidden rounded-t-[1.1rem]">
+        <div class="h-44 sm:h-52 overflow-hidden rounded-t-[1.1rem]">
           <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://via.placeholder.com/560x360?text=E-Commerce" alt="E-Commerce Website Beispiel" />
         </div>
         <div class="p-7">
@@ -334,8 +334,8 @@
 </section>
 
 <!-- Testimonials Section -->
-<section class="testimonials-section py-24 relative overflow-hidden">
-  <div class="max-w-6xl mx-auto px-6 md:px-12">
+<section class="testimonials-section py-16 sm:py-24 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
 
     <!-- Header -->
     <div class="testimonials-header text-center mb-14">
@@ -408,23 +408,23 @@
 </section>
 
 <!-- Offer Section -->
-<section class="offer-section py-40 relative overflow-hidden">
+<section class="offer-section py-20 sm:py-40 relative overflow-hidden">
   <!-- Local glow boost for CTA emphasis -->
   <div class="offer-glow-local"></div>
 
   <div class="max-w-5xl mx-auto px-6 relative z-10 text-center overflow-visible">
-    <h2 class="offer-headline font-headline font-semibold text-5xl md:text-[7.5rem] mb-16 leading-[1.2] tracking-[-0.02em] text-text-primary overflow-visible">
+    <h2 class="offer-headline font-headline font-semibold text-3xl sm:text-5xl md:text-[7.5rem] mb-10 sm:mb-16 leading-[1.2] tracking-[-0.02em] text-text-primary overflow-visible">
       Bereit für digitale <br class="hidden md:block">
       <span class="offer-exzellenz font-accent italic font-medium drop-shadow-[0_0_40px_var(--color-accent-primary-glow)]">
         <span class="bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">Exzellenz?</span>
       </span>
     </h2>
 
-    <div class="offer-buttons flex flex-col sm:flex-row items-center justify-center gap-6">
-      <a routerLink="/demo" class="btn-primary hero-shimmer-btn hero-cta-rise px-10 py-4 text-base">
+    <div class="offer-buttons flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+      <a routerLink="/demo" class="btn-primary hero-shimmer-btn hero-cta-rise px-8 sm:px-10 py-4 text-base w-full sm:w-auto text-center">
         Jetzt Ihr Konzept anfordern
       </a>
-      <a [routerLink]="['/projekte']" class="btn-secondary flex items-center gap-2 hero-cta-rise">
+      <a [routerLink]="['/projekte']" class="btn-secondary flex items-center justify-center gap-2 hero-cta-rise w-full sm:w-auto">
         Portfolio ansehen
         <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform duration-300">arrow_forward</span>
       </a>

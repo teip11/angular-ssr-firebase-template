@@ -44,6 +44,12 @@
   a:hover {
     color: var(--color-accent-secondary);
   }
+
+  /* Ensure all interactive elements meet 44px touch target minimum */
+  button, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
 
 .material-symbols-outlined {
@@ -61,6 +67,10 @@
     background: var(--color-accent-primary);
     color: #000000;
     border: none;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
   .btn-primary:hover {
     @apply -translate-y-0.5;
@@ -68,16 +78,48 @@
     box-shadow: 0 0 30px var(--color-accent-primary-glow);
     color: #000000;
   }
+  .btn-primary:active {
+    transform: scale(0.97) !important;
+    filter: brightness(0.95);
+  }
+  @media (hover: none) {
+    .btn-primary:hover {
+      transform: none;
+      filter: none;
+      box-shadow: none;
+    }
+    .btn-primary:active {
+      transform: scale(0.97) !important;
+      filter: brightness(0.95);
+    }
+  }
 
   .btn-secondary {
     @apply relative px-6 py-3 rounded-full font-semibold transition-all duration-300;
     background: transparent;
     border: 1px solid var(--color-accent-primary);
     color: var(--color-accent-primary);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
   .btn-secondary:hover {
     @apply -translate-y-0.5;
     background: rgba(34, 211, 238, 0.08);
+  }
+  .btn-secondary:active {
+    transform: scale(0.97) !important;
+  }
+  @media (hover: none) {
+    .btn-secondary:hover {
+      transform: none;
+      background: transparent;
+    }
+    .btn-secondary:active {
+      transform: scale(0.97) !important;
+      background: rgba(34, 211, 238, 0.08);
+    }
   }
 
   .glass-card {
@@ -112,6 +154,23 @@
     box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3), 0 0 20px var(--color-accent-primary-glow);
     border-color: var(--color-border);
   }
+  @media (hover: none) {
+    .content-card:hover {
+      transform: none;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    .content-card:active {
+      transform: scale(0.99);
+      border-color: var(--color-accent-primary-glow);
+    }
+  }
+
+  /* Responsive padding for content-card on mobile */
+  @media (max-width: 640px) {
+    .content-card {
+      padding: 1.5rem;
+    }
+  }
 
   /* Process step card (used in leistungen + about) */
   .process-step-card {
@@ -127,6 +186,12 @@
   .process-step-card:hover {
     transform: translateY(-2px);
     border-color: var(--color-accent-primary-glow);
+  }
+  @media (hover: none) {
+    .process-step-card:hover {
+      transform: none;
+      border-color: var(--color-border);
+    }
   }
 
   /* CTA glass panel (used in leistungen, about, projekte, blog) */
@@ -150,6 +215,11 @@
   .contact-card:hover {
     border-color: var(--color-accent-primary-glow);
   }
+  @media (hover: none) {
+    .contact-card:hover {
+      border-color: var(--color-border);
+    }
+  }
 
   /* Projekte image card */
   .projekte-card {
@@ -163,6 +233,12 @@
   .projekte-card:hover {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px var(--color-accent-primary-glow);
     border-color: var(--color-accent-primary-glow);
+  }
+  @media (hover: none) {
+    .projekte-card:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      border-color: var(--color-border);
+    }
   }
 
   /* Case study glass section background */
@@ -179,10 +255,28 @@
     background: linear-gradient(to right, var(--color-accent-primary), var(--color-accent-secondary));
     box-shadow: 0 0 30px var(--color-accent-primary-glow);
     transition: all 300ms ease;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
   .hero-cta-btn:hover {
     box-shadow: 0 0 50px var(--color-accent-primary-glow);
     transform: translateY(-2px);
+  }
+  .hero-cta-btn:active {
+    transform: scale(0.97) !important;
+    box-shadow: 0 0 20px var(--color-accent-primary-glow);
+  }
+  @media (hover: none) {
+    .hero-cta-btn:hover {
+      transform: none;
+      box-shadow: 0 0 30px var(--color-accent-primary-glow);
+    }
+    .hero-cta-btn:active {
+      transform: scale(0.97) !important;
+      box-shadow: 0 0 20px var(--color-accent-primary-glow);
+    }
   }
 }
 
@@ -191,4 +285,36 @@ html, body {
     padding: 0;
     background-color: var(--color-bg);
     color: var(--color-text-primary);
+    /* Prevent horizontal overflow */
+    overflow-x: hidden;
+}
+
+/* ─── Global focus-visible styles ──────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Prevent horizontal scroll globally ───────────────────────────────── */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ─── Reduced motion ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

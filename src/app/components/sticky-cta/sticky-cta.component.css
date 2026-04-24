@@ -1,0 +1,131 @@
+/* ─── Sticky CTA Banner ─────────────────────────────────────────────────── */
+.sticky-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background: rgba(5, 5, 5, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
+  padding: 12px 16px;
+  animation: slideUpIn 400ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes slideUpIn {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.sticky-cta__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sticky-cta__message {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sticky-cta__message strong {
+  color: var(--color-text-primary);
+}
+
+.sticky-cta__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* CTA button */
+.sticky-cta__btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #000;
+  background: linear-gradient(to right, var(--color-accent-primary), var(--color-accent-secondary));
+  border-radius: 9999px;
+  padding: 10px 20px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 0 20px var(--color-accent-primary-glow);
+}
+
+.sticky-cta__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 30px var(--color-accent-primary-glow);
+  color: #000;
+}
+
+.sticky-cta__btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 12px var(--color-accent-primary-glow);
+}
+
+@media (hover: none) {
+  .sticky-cta__btn:hover {
+    transform: none;
+    box-shadow: 0 0 20px var(--color-accent-primary-glow);
+  }
+  .sticky-cta__btn:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Dismiss button */
+.sticky-cta__dismiss {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  border-radius: 8px;
+  transition: background 200ms ease, color 200ms ease;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0;
+}
+
+.sticky-cta__dismiss:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+}
+
+.sticky-cta__dismiss:active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* On very small screens, hide the message text and just show the button */
+@media (max-width: 360px) {
+  .sticky-cta__message {
+    display: none;
+  }
+  .sticky-cta__btn {
+    flex: 1;
+    justify-content: center;
+  }
+}

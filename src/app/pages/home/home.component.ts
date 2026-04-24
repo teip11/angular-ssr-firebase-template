@@ -298,8 +298,8 @@ export class HomeComponent implements AfterViewInit {
         Math.pow(mouseY - clampedY, 2)
       );
 
-      const triggerDist = 220;
-      const fadeDist = 40;
+      const triggerDist = 80;
+      const fadeDist = 30;
       let proximity: number;
       if (distToBorder <= triggerDist - fadeDist) {
         proximity = 1;

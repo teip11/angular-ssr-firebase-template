@@ -1,11 +1,11 @@
-<footer class="relative text-white py-20 overflow-hidden">
+<footer class="relative text-white py-16 sm:py-20 overflow-hidden">
   <!-- Top glow border -->
   <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
   <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[1px] blur-[2px] bg-primary/25"></div>
-  <div class="max-w-screen-2xl mx-auto px-8">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-      <div class="col-span-1 md:col-span-1">
-        <a routerLink="/" class="font-headline text-2xl font-semibold tracking-tight text-text-primary mb-6 block">
+  <div class="max-w-screen-2xl mx-auto px-4 sm:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 mb-12 sm:mb-20">
+      <div class="col-span-2 md:col-span-1">
+        <a routerLink="/" class="font-headline text-2xl font-semibold tracking-tight text-text-primary mb-6 block min-h-[44px] flex items-center">
           Gehrke Studio
         </a>
         <p class="text-text-secondary text-sm leading-relaxed max-w-xs">
@@ -14,34 +14,34 @@
       </div>
       
       <div>
-        <h4 class="font-body font-semibold text-base mb-6 text-text-primary">Seiten</h4>
-        <ul class="space-y-4">
-          <li><a routerLink="/" class="text-text-secondary hover:text-text-primary transition-colors">Home</a></li>
-          <li><a routerLink="/projekte" class="text-text-secondary hover:text-text-primary transition-colors">Projekte</a></li>
-          <li><a routerLink="/leistungen" class="text-text-secondary hover:text-text-primary transition-colors">Leistungen</a></li>
-          <li><a routerLink="/ueber-uns" class="text-text-secondary hover:text-text-primary transition-colors">Über uns</a></li>
+        <h4 class="font-body font-semibold text-base mb-5 sm:mb-6 text-text-primary">Seiten</h4>
+        <ul class="space-y-3 sm:space-y-4">
+          <li><a routerLink="/" class="text-text-secondary hover:text-text-primary active:text-text-primary transition-colors block py-1 min-h-[36px] flex items-center">Home</a></li>
+          <li><a routerLink="/projekte" class="text-text-secondary hover:text-text-primary active:text-text-primary transition-colors block py-1 min-h-[36px] flex items-center">Projekte</a></li>
+          <li><a routerLink="/leistungen" class="text-text-secondary hover:text-text-primary active:text-text-primary transition-colors block py-1 min-h-[36px] flex items-center">Leistungen</a></li>
+          <li><a routerLink="/ueber-uns" class="text-text-secondary hover:text-text-primary active:text-text-primary transition-colors block py-1 min-h-[36px] flex items-center">Über uns</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="font-body font-semibold text-base mb-6 text-text-primary">Studio</h4>
-        <ul class="space-y-4">
-          <li><a routerLink="/blog" class="text-text-secondary hover:text-text-primary transition-colors">Blog</a></li>
-          <li><a routerLink="/kontakt" class="text-text-secondary hover:text-text-primary transition-colors">Kontakt</a></li>
-          <li><a routerLink="/demo" class="text-text-secondary hover:text-text-primary transition-colors">Demo anfordern</a></li>
+        <h4 class="font-body font-semibold text-base mb-5 sm:mb-6 text-text-primary">Studio</h4>
+        <ul class="space-y-3 sm:space-y-4">
+          <li><a routerLink="/blog" class="text-text-secondary hover:text-text-primary active:text-text-primary transition-colors block py-1 min-h-[36px] flex items-center">Blog</a></li>
+          <li><a routerLink="/kontakt" class="text-text-secondary hover:text-text-primary active:text-text-primary transition-colors block py-1 min-h-[36px] flex items-center">Kontakt</a></li>
+          <li><a routerLink="/demo" class="text-text-secondary hover:text-text-primary active:text-text-primary transition-colors block py-1 min-h-[36px] flex items-center">Demo anfordern</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="font-body font-semibold text-base mb-6 text-text-primary">Rechtliches</h4>
-        <ul class="space-y-4">
-          <li><a routerLink="/impressum" class="text-text-secondary hover:text-text-primary transition-colors">Impressum</a></li>
-          <li><a routerLink="/datenschutz" class="text-text-secondary hover:text-text-primary transition-colors">Datenschutz</a></li>
+        <h4 class="font-body font-semibold text-base mb-5 sm:mb-6 text-text-primary">Rechtliches</h4>
+        <ul class="space-y-3 sm:space-y-4">
+          <li><a routerLink="/impressum" class="text-text-secondary hover:text-text-primary active:text-text-primary transition-colors block py-1 min-h-[36px] flex items-center">Impressum</a></li>
+          <li><a routerLink="/datenschutz" class="text-text-secondary hover:text-text-primary active:text-text-primary transition-colors block py-1 min-h-[36px] flex items-center">Datenschutz</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="pt-12 border-t border-border-main flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="pt-8 sm:pt-12 border-t border-border-main flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
       <p class="text-text-muted text-sm">
         &copy; {{ currentYear }} Gehrke Studio. Alle Rechte vorbehalten.
       </p>

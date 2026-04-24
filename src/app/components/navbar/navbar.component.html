@@ -10,7 +10,7 @@
     [class.navbar-inner-scrolled]="scrolled()">
 
     <!-- Logo -->
-    <a routerLink="/" class="navbar-logo">
+    <a routerLink="/" class="navbar-logo" (click)="closeMenu()">
       Gehrke Studio
     </a>
 
@@ -23,10 +23,58 @@
       <a class="navbar-link" routerLink="/kontakt"    routerLinkActive="navbar-link-active">Kontakt</a>
     </div>
 
-    <!-- CTA -->
+    <!-- CTA (desktop) -->
     <a routerLink="/demo" class="navbar-cta" id="navbar-cta-btn">
       Vorlage anfordern
     </a>
 
+    <!-- Hamburger Button (mobile only) -->
+    <button
+      class="navbar-hamburger"
+      [class.is-open]="menuOpen()"
+      (click)="toggleMenu()"
+      aria-label="Menü öffnen/schließen"
+      [attr.aria-expanded]="menuOpen()">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
   </nav>
 </header>
+
+<!-- Mobile Menu Overlay -->
+<div
+  class="mobile-menu-overlay"
+  [class.is-open]="menuOpen()"
+  (click)="closeMenu()"
+  aria-hidden="true">
+</div>
+
+<!-- Mobile Menu Drawer -->
+<div
+  class="mobile-menu-drawer"
+  [class.is-open]="menuOpen()"
+  role="dialog"
+  aria-label="Mobile Navigation"
+  [attr.aria-hidden]="!menuOpen()">
+
+  <div class="mobile-menu-content">
+    <!-- Nav Links -->
+    <nav class="mobile-menu-links">
+      <a class="mobile-menu-link" routerLink="/projekte"   routerLinkActive="mobile-menu-link-active" (click)="closeMenu()">Projekte</a>
+      <a class="mobile-menu-link" routerLink="/leistungen" routerLinkActive="mobile-menu-link-active" (click)="closeMenu()">Leistungen</a>
+      <a class="mobile-menu-link" routerLink="/ueber-uns"  routerLinkActive="mobile-menu-link-active" (click)="closeMenu()">Über uns</a>
+      <a class="mobile-menu-link" routerLink="/blog"       routerLinkActive="mobile-menu-link-active" (click)="closeMenu()">Blog</a>
+      <a class="mobile-menu-link" routerLink="/kontakt"    routerLinkActive="mobile-menu-link-active" (click)="closeMenu()">Kontakt</a>
+    </nav>
+
+    <!-- CTA -->
+    <a routerLink="/demo" class="mobile-menu-cta" (click)="closeMenu()">
+      Kostenlose Vorlage anfordern
+    </a>
+
+    <!-- Trust line -->
+    <p class="mobile-menu-trust">100% kostenlos &amp; unverbindlich</p>
+  </div>
+</div>

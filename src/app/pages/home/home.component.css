@@ -4,6 +4,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  /* Ensure full viewport height on mobile without address bar issues */
+  min-height: 100svh;
 }
 
 /* Brightness layer for the background only */
@@ -208,6 +210,17 @@
 .hero-cta-rise:hover {
   transform: translateY(-3px);
 }
+.hero-cta-rise:active {
+  transform: scale(0.97) !important;
+}
+@media (hover: none) {
+  .hero-cta-rise:hover {
+    transform: none;
+  }
+  .hero-cta-rise:active {
+    transform: scale(0.97) !important;
+  }
+}
 
 /* ─── CTA Shimmer Effect ───────────────────────────────────────────────── */
 
@@ -229,6 +242,11 @@
 }
 .hero-shimmer-btn:hover::after {
   left: 200%;
+}
+@media (hover: none) {
+  .hero-shimmer-btn::after {
+    display: none;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -601,12 +619,54 @@
 /* Mobile: stack vertically */
 @media (max-width: 1023px) {
   .process-scroll-container { height: auto; }
-  .process-sticky { position: relative; height: auto; padding: 4rem 0; }
+  .process-sticky { position: relative; height: auto; padding: 3rem 0; }
   .process-inner { flex-direction: column; gap: 2rem; }
   .process-left { flex: unset; max-width: 100%; width: 100%; padding-right: 0; }
   .process-right { flex: unset; max-width: 100%; width: 100%; transform: none; }
   .process-progress-col { display: none; }
-  .process-card-track { min-height: 260px; }
+  /* On mobile: show all cards stacked, not scroll-driven */
+  .process-card-track {
+    position: static;
+    min-height: unset;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .process-card {
+    position: static;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .process-card.card-active {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border-color: var(--color-accent-primary);
+  }
+  .process-card.card-enter,
+  .process-card.card-exit {
+    animation: none !important;
+  }
+  .process-card.card-enter .process-card-num,
+  .process-card.card-enter > div:last-child,
+  .process-card.card-exit .process-card-num,
+  .process-card.card-exit > div:last-child {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .process-dots { display: none; }
+}
+
+@media (max-width: 640px) {
+  .process-card {
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+  .process-card-num {
+    font-size: 2rem;
+    min-width: 2.5rem;
+  }
 }
 
 /* ─── Process Right Column Animation ───────────────────────────────────── */
@@ -668,6 +728,16 @@
   transform: translateY(-4px);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.40), 0 0 36px var(--color-accent-primary-glow), inset 0 1px 0 var(--color-border);
 }
+@media (hover: none) {
+  .showcase-card:hover {
+    transform: none;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+  .showcase-card:active {
+    transform: scale(0.99);
+    border-color: rgba(34, 211, 238, 0.2);
+  }
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    TESTIMONIALS SECTION — softer, more comfortable glass
@@ -726,6 +796,11 @@
 .testimonial-card:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
 }
+@media (hover: none) {
+  .testimonial-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+}
 
 /* Featured middle card */
 .testimonial-card--featured {
@@ -735,6 +810,11 @@
 }
 .testimonial-card--featured:hover {
   box-shadow: 0 16px 48px var(--color-accent-primary-glow);
+}
+@media (hover: none) {
+  .testimonial-card--featured:hover {
+    box-shadow: 0 12px 48px var(--color-accent-primary-glow);
+  }
 }
 
 /* Avatar circle */
@@ -1052,6 +1132,56 @@
 
 .value-card:hover .value-card-center {
   transform: translateY(-44px);
+}
+
+/* ─── Touch: value cards always show reveal content ─────────────────────── */
+@media (hover: none) {
+  /* Remove square aspect ratio — let card be naturally tall */
+  .value-card {
+    aspect-ratio: unset;
+    min-height: unset;
+  }
+  /* Inner becomes normal flow */
+  .value-card-inner {
+    position: static;
+    padding: 1.75rem;
+    justify-content: flex-start;
+  }
+  /* Center group: no hover transform */
+  .value-card-center {
+    transform: none !important;
+    transition: none;
+    margin-bottom: 1.25rem;
+  }
+  /* Reveal: always visible */
+  .value-card-reveal {
+    position: static;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    transition: none;
+  }
+  /* Icon: no shrink on touch */
+  .value-card-icon-wrap {
+    width: 4rem !important;
+    height: 4rem !important;
+    border-radius: 1rem !important;
+    transition: none;
+  }
+  .value-card-icon {
+    transform: none !important;
+    font-size: 2rem !important;
+    transition: none;
+  }
+  /* Title: no size change */
+  .value-card-benefit-title {
+    font-size: 1.15rem !important;
+    transition: none;
+  }
+  /* Glow: disable proximity effect */
+  .value-card-glow {
+    display: none;
+  }
 }
 
 /* ─── Hover reveal panel — absolutely anchored to bottom of card ────────── */
