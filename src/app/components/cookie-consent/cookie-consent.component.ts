@@ -24,9 +24,14 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    this.sub = this.consent.status$.subscribe((status: ConsentStatus) => {
-      this.visible = status === 'pending';
-    });
+    // Defer past SSR hydration to ensure the banner renders correctly on first visit.
+    // Without this, Angular hydration keeps the server-rendered `visible = false` state
+    // and the BehaviorSubject replay fires before change detection can update the DOM.
+    setTimeout(() => {
+      this.sub = this.consent.status$.subscribe((status: ConsentStatus) => {
+        this.visible = status === 'pending';
+      });
+    }, 0);
   }
 
   ngOnDestroy(): void {
