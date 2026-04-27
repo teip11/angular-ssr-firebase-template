@@ -285,8 +285,8 @@ html, body {
     padding: 0;
     background-color: var(--color-bg);
     color: var(--color-text-primary);
-    /* Prevent horizontal overflow */
-    overflow-x: hidden;
+    /* Prevent horizontal overflow — use clip instead of hidden so position:sticky still works */
+    overflow-x: clip;
 }
 
 /* ─── Global focus-visible styles ──────────────────────────────────────── */

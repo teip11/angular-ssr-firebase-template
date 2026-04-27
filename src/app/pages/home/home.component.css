@@ -266,7 +266,7 @@
   height: 100vh;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  overflow: clip; /* clip instead of hidden so sticky still works */
 }
 
 .process-inner {
@@ -617,7 +617,7 @@
 }
 
 /* Mobile: stack vertically */
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   .process-scroll-container { height: auto; }
   .process-sticky { position: relative; height: auto; padding: 3rem 0; }
   .process-inner { flex-direction: column; gap: 2rem; }
@@ -681,7 +681,7 @@
   opacity: 1;
   transform: translateX(0) translateY(4vh);
 }
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   .process-right-animate { transform: translateX(60px); }
   .process-right-animate.is-visible { transform: translateX(0); }
 }
