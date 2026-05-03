@@ -171,18 +171,23 @@
   transform: translateY(0);
 }
 
-/* Decline — ghost style */
+/* Decline — equal weight ghost style (GDPR: must be as easy to click as accept) */
 .cookie-btn--decline {
-  flex: 0 0 auto;
+  flex: 1;
   background: rgba(255, 255, 255, 0.05);
-  color: rgba(148, 163, 184, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(203, 213, 225, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .cookie-btn--decline:hover {
   background: rgba(255, 255, 255, 0.09);
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.cookie-btn--decline:active {
+  transform: translateY(0);
 }
 
 .cookie-btn-icon {
