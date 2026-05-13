@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trattoria Marconi — Italienische Küche in Hamburg-Eppendorf</title>
+  <meta name="description" content="Trattoria Marconi in Hamburg-Eppendorf. Handgemachte Pasta aus Emilia-Romagna, italienische Weine, warme Gastfreundschaft. Tisch reservieren: 040 47 11 78 02." />
+  <meta name="theme-color" content="#1A1715" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30;0,9..144,300..700,50;1,9..144,300..700,50&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #1A1715;
+      --bg-deep:      #0F0D0C;
+      --bg-warm:      #211D1A;
+      --text:         #F2EDE3;
+      --text-muted:   #A39B8E;
+      --text-faint:   #6B6259;
+      --line:         #2A2522;
+      --line-soft:    #211D1A;
+      --terracotta:   #C46A3F;
+      --terracotta-d: #A65A35;
+      --gold:         #B8A47A;
+
+      --font-serif: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Inter Tight', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+    ::selection { background: var(--terracotta); color: var(--text); }
+
+    /* ─── Grain overlay ────────────────────────────────────────────────────── */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 200;
+      opacity: 0.035;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ─── Reveal animation ─────────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d-1 { transition-delay: 80ms; }
+    .reveal-d-2 { transition-delay: 160ms; }
+    .reveal-d-3 { transition-delay: 240ms; }
+    .reveal-d-4 { transition-delay: 320ms; }
+    .reveal-d-5 { transition-delay: 400ms; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ─── Container ────────────────────────────────────────────────────────── */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .container-wide {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── Eyebrow & labels ─────────────────────────────────────────────────── */
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .eyebrow-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .eyebrow-mark::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--terracotta);
+    }
+
+    .section-label {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .section-label::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--terracotta);
+    }
+
+    /* ─── Buttons ──────────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 14px 24px;
+      border-radius: 2px;
+      transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+                  background 180ms ease,
+                  color 180ms ease,
+                  border-color 180ms ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--terracotta);
+      color: var(--text);
+      border: 1px solid var(--terracotta);
+    }
+    .btn-primary:hover {
+      background: var(--terracotta-d);
+      border-color: var(--terracotta-d);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform: translateY(0) scale(0.98); }
+    .btn-primary .arrow { transition: transform 180ms ease; }
+    .btn-primary:hover .arrow { transform: translateX(3px); }
+
+    .btn-ghost {
+      color: var(--text);
+      border: 1px solid var(--line);
+      background: transparent;
+    }
+    .btn-ghost:hover {
+      border-color: var(--text-muted);
+      background: var(--bg-warm);
+    }
+
+    .link-accent {
+      color: var(--terracotta);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 2px;
+      border-bottom: 1px solid rgba(196, 106, 63, 0.3);
+      transition: border-color 180ms ease, gap 220ms ease;
+    }
+    .link-accent:hover {
+      border-color: var(--terracotta);
+      gap: 12px;
+    }
+
+    .link-muted {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      letter-spacing: 0.01em;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+      transition: color 180ms ease, border-color 180ms ease;
+    }
+    .link-muted:hover {
+      color: var(--text);
+      border-color: var(--text-muted);
+    }
+
+    /* ─── Navbar ───────────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      transition: background 300ms ease, border-color 300ms ease, padding 300ms ease;
+      padding: 22px 0;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(15, 13, 12, 0.82);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border-bottom: 1px solid var(--line);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .nav-wordmark {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+      line-height: 1;
+    }
+    .nav-wordmark em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--terracotta);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8125rem;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      transition: color 200ms ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta-wrap { display: flex; align-items: center; gap: 24px; }
+    .nav-cta {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      padding: 10px 18px;
+      border-radius: 2px;
+      background: var(--terracotta);
+      color: var(--text);
+      transition: background 180ms ease, transform 120ms ease;
+    }
+    .nav-cta:hover { background: var(--terracotta-d); }
+    .nav-cta:active { transform: scale(0.98); }
+
+    .nav-burger {
+      display: none;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      position: relative;
+    }
+    .nav-burger span {
+      position: absolute;
+      left: 4px;
+      right: 4px;
+      height: 1px;
+      background: var(--text);
+      transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease;
+    }
+    .nav-burger span:nth-child(1) { top: 11px; }
+    .nav-burger span:nth-child(2) { top: 16px; }
+    .nav-burger span:nth-child(3) { top: 21px; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg-deep);
+      z-index: 99;
+      padding: 100px 40px 40px;
+      transform: translateY(-100%);
+      transition: transform 380ms cubic-bezier(0.83, 0, 0.17, 1);
+      flex-direction: column;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .mobile-menu.open {
+      transform: translateY(0);
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .mobile-menu ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .mobile-menu a {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--text);
+      padding: 12px 0;
+      display: block;
+      border-bottom: 1px solid var(--line);
+    }
+    .mobile-menu a em { font-style: italic; color: var(--terracotta); }
+    .mobile-menu .mobile-cta {
+      margin-top: 32px;
+      display: inline-flex;
+      align-self: flex-start;
+      background: var(--terracotta);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      padding: 14px 24px;
+      border-bottom: none;
+    }
+    .mobile-menu-meta {
+      margin-top: auto;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      line-height: 1.7;
+    }
+    .mobile-menu-meta strong { color: var(--text); font-weight: 500; }
+
+    /* ─── Hero ─────────────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100dvh;
+      padding-top: 140px;
+      padding-bottom: 80px;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 80px;
+      align-items: center;
+      min-height: calc(100dvh - 220px);
+    }
+    .hero-left {
+      padding-right: 20px;
+    }
+    .hero-eyebrow {
+      margin-bottom: 36px;
+    }
+    .hero-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+      font-weight: 350;
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 36px;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .hero-headline em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--terracotta);
+      display: block;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .hero-headline-sub {
+      display: block;
+      font-size: 0.5em;
+      font-style: normal;
+      color: var(--text-muted);
+      font-weight: 400;
+      letter-spacing: 0;
+      margin-top: 18px;
+      line-height: 1.3;
+    }
+    .hero-body {
+      font-size: 1.0625rem;
+      color: var(--text-muted);
+      max-width: 48ch;
+      line-height: 1.7;
+      margin-bottom: 44px;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hero-meta {
+      margin-top: 56px;
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+    }
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .hero-meta-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+    .hero-meta-value {
+      font-family: var(--font-serif);
+      font-size: 1.0625rem;
+      font-weight: 400;
+      color: var(--text);
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+
+    .hero-image-wrap {
+      position: relative;
+      aspect-ratio: 11 / 13;
+      max-height: 78dvh;
+      overflow: hidden;
+    }
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.05) contrast(1.02);
+    }
+    .hero-image-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, transparent 0%, transparent 40%, rgba(26, 23, 21, 0.5) 90%, var(--bg) 100%),
+                  linear-gradient(to right, rgba(26, 23, 21, 0.5) 0%, transparent 14%, transparent 86%, rgba(26, 23, 21, 0.5) 100%);
+      pointer-events: none;
+    }
+    .hero-image-tag {
+      position: absolute;
+      bottom: 24px;
+      left: 28px;
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+      background: rgba(15, 13, 12, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      border: 1px solid rgba(242, 237, 227, 0.1);
+      z-index: 2;
+    }
+    .hero-image-tag em {
+      color: var(--terracotta);
+      font-style: italic;
+      font-family: var(--font-serif);
+      letter-spacing: 0;
+      text-transform: none;
+      margin-right: 6px;
+    }
+
+    /* Decorative ornament */
+    .hero-ornament {
+      position: absolute;
+      top: 160px;
+      right: 40px;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: var(--text-faint);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      opacity: 0.7;
+      z-index: 1;
+    }
+
+    /* ─── Reservation strip ────────────────────────────────────────────────── */
+    .res-strip {
+      background: var(--bg-deep);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 24px 0;
+    }
+    .res-strip-inner {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr auto;
+      gap: 40px;
+      align-items: center;
+    }
+    .res-strip-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .res-strip-icon {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      color: var(--terracotta);
+    }
+    .res-strip-icon svg { width: 100%; height: 100%; stroke-width: 1.4; }
+    .res-strip-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      display: block;
+      margin-bottom: 3px;
+    }
+    .res-strip-value {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.4;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .res-strip-value strong { font-weight: 500; }
+    .res-strip-value a {
+      color: var(--text);
+      transition: color 180ms ease;
+    }
+    .res-strip-value a:hover { color: var(--terracotta); }
+    .res-strip-cta {
+      justify-self: end;
+    }
+
+    /* ─── Sections ─────────────────────────────────────────────────────────── */
+    section { position: relative; }
+
+    .section-pad {
+      padding: 140px 0;
+    }
+
+    .section-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 350;
+      line-height: 1.05;
+      letter-spacing: -0.022em;
+      color: var(--text);
+      max-width: 22ch;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .section-heading em {
+      font-style: italic;
+      color: var(--terracotta);
+      font-weight: 300;
+    }
+    .section-heading-sub {
+      margin-top: 24px;
+      color: var(--text-muted);
+      font-size: 1.0625rem;
+      max-width: 56ch;
+      line-height: 1.7;
+    }
+
+    /* ─── Speisekarte preview ──────────────────────────────────────────────── */
+    .menu-section {
+      padding: 140px 0 120px;
+      background: var(--bg);
+    }
+    .menu-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 88px;
+    }
+    .menu-header-right {
+      padding-bottom: 8px;
+    }
+    .menu-header-right p {
+      color: var(--text-muted);
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      max-width: 44ch;
+    }
+
+    .dish-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .dish {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 64px;
+      align-items: center;
+      padding: 48px 0;
+      border-top: 1px solid var(--line);
+    }
+    .dish:last-of-type { border-bottom: 1px solid var(--line); }
+    .dish.flip .dish-image { order: 2; }
+    .dish.flip .dish-body { order: 1; padding-left: 0; padding-right: 32px; }
+    .dish-body { padding-left: 32px; }
+
+    .dish-image {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      position: relative;
+    }
+    .dish-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.08) contrast(1.03);
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dish:hover .dish-image img { transform: scale(1.03); }
+
+    .dish-number {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.875rem;
+      color: var(--terracotta);
+      letter-spacing: 0.02em;
+      margin-bottom: 14px;
+    }
+    .dish-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .dish-name {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 2.4vw, 2rem);
+      font-weight: 400;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      line-height: 1.15;
+      flex: 1;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .dish-dots {
+      flex: 0 0 auto;
+      align-self: baseline;
+      margin: 0 4px;
+      border-bottom: 1px dotted var(--line);
+      min-width: 24px;
+      flex: 1;
+      max-width: 200px;
+      transform: translateY(-6px);
+    }
+    .dish-price {
+      font-family: var(--font-serif);
+      font-size: 1.125rem;
+      color: var(--gold);
+      font-weight: 400;
+      letter-spacing: 0;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .dish-italian {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .dish-desc {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      max-width: 52ch;
+    }
+    .dish-tag {
+      display: inline-block;
+      font-size: 0.6875rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+    .dish-note {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+      padding-left: 16px;
+      border-left: 2px solid var(--terracotta);
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+
+    .menu-cta-row {
+      margin-top: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .menu-cta-note {
+      color: var(--text-faint);
+      font-size: 0.8125rem;
+      font-style: italic;
+      font-family: var(--font-serif);
+    }
+
+    /* ─── Geschichte ───────────────────────────────────────────────────────── */
+    .story-section {
+      padding: 140px 0;
+      background: var(--bg-deep);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 96px;
+      align-items: start;
+    }
+    .story-body p {
+      color: var(--text-muted);
+      font-size: 1.0625rem;
+      line-height: 1.8;
+      margin-bottom: 24px;
+      max-width: 56ch;
+    }
+    .story-body p:first-of-type::first-letter {
+      font-family: var(--font-serif);
+      font-size: 3.6rem;
+      float: left;
+      line-height: 0.9;
+      padding-right: 12px;
+      padding-top: 6px;
+      color: var(--terracotta);
+      font-weight: 400;
+      font-style: italic;
+    }
+    .story-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.5rem;
+      line-height: 1.4;
+      color: var(--text);
+      margin: 40px 0;
+      padding: 24px 0 24px 32px;
+      border-left: 2px solid var(--terracotta);
+      max-width: 40ch;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .story-quote-attr {
+      display: block;
+      font-style: normal;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-top: 14px;
+    }
+    .story-image-wrap {
+      position: sticky;
+      top: 120px;
+    }
+    .story-image {
+      aspect-ratio: 7 / 9;
+      overflow: hidden;
+      position: relative;
+    }
+    .story-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.02);
+    }
+    .story-caption {
+      margin-top: 16px;
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      font-style: italic;
+      font-family: var(--font-serif);
+      line-height: 1.5;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .story-caption strong {
+      font-style: normal;
+      color: var(--text);
+      font-weight: 500;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .story-press {
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .press-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--text);
+      margin-bottom: 14px;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .press-source {
+      font-size: 0.6875rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .press-source strong { color: var(--terracotta); font-weight: 500; }
+
+    /* ─── Weinliste teaser ─────────────────────────────────────────────────── */
+    .wine-section {
+      padding: 140px 0;
+      position: relative;
+    }
+    .wine-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 96px;
+      align-items: start;
+    }
+    .wine-intro p {
+      color: var(--text-muted);
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      margin-bottom: 20px;
+      max-width: 42ch;
+    }
+    .wine-sommelier {
+      margin-top: 32px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--bg-deep);
+    }
+    .wine-sommelier-name {
+      font-family: var(--font-serif);
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 4px;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .wine-sommelier-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .wine-sommelier-quote {
+      font-style: italic;
+      font-family: var(--font-serif);
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+
+    .wine-list {
+      list-style: none;
+    }
+    .wine-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .wine-item:last-child { border-bottom: 1px solid var(--line); }
+    .wine-name {
+      font-family: var(--font-serif);
+      font-size: 1.125rem;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .wine-meta {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+    .wine-meta em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--text);
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .wine-price {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--gold);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .wine-price-sub {
+      display: block;
+      font-size: 0.6875rem;
+      color: var(--text-faint);
+      letter-spacing: 0.08em;
+      text-align: right;
+      margin-top: 2px;
+      font-family: var(--font-sans);
+    }
+
+    .wine-actions {
+      margin-top: 40px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* ─── Galerie ──────────────────────────────────────────────────────────── */
+    .gallery-section {
+      padding: 0 0 140px;
+    }
+    .gallery-header {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 40px 56px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 180px;
+      gap: 8px;
+      padding: 0 40px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .gallery-tile {
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.04);
+      transition: transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .gallery-tile:hover img { transform: scale(1.04); }
+    .gallery-tile-cap {
+      position: absolute;
+      bottom: 14px;
+      left: 16px;
+      font-size: 0.6875rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text);
+      background: rgba(15, 13, 12, 0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 5px 10px;
+      border: 1px solid rgba(242, 237, 227, 0.08);
+    }
+    .gt-1 { grid-column: span 5; grid-row: span 2; }
+    .gt-2 { grid-column: span 4; grid-row: span 1; }
+    .gt-3 { grid-column: span 3; grid-row: span 1; }
+    .gt-4 { grid-column: span 4; grid-row: span 2; }
+    .gt-5 { grid-column: span 3; grid-row: span 1; }
+    .gt-6 { grid-column: span 3; grid-row: span 2; }
+    .gt-7 { grid-column: span 5; grid-row: span 1; }
+    .gt-8 { grid-column: span 4; grid-row: span 1; }
+
+    /* ─── Anfahrt ──────────────────────────────────────────────────────────── */
+    .visit-section {
+      padding: 140px 0;
+      background: var(--bg-deep);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .visit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .visit-block { margin-top: 40px; }
+    .visit-block:first-child { margin-top: 32px; }
+    .visit-block-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 14px;
+    }
+    .visit-address {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      line-height: 1.4;
+      color: var(--text);
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .visit-address strong { font-weight: 500; }
+
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .hours-table tr {
+      border-bottom: 1px solid var(--line);
+    }
+    .hours-table tr:last-child { border-bottom: none; }
+    .hours-table tr.today td {
+      color: var(--text);
+    }
+    .hours-table tr.today td:first-child::after {
+      content: 'Heute';
+      font-family: var(--font-sans);
+      font-size: 0.625rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-left: 12px;
+      padding: 2px 8px;
+      border: 1px solid var(--terracotta);
+      border-radius: 2px;
+      vertical-align: middle;
+    }
+    .hours-table td {
+      padding: 14px 0;
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+    }
+    .hours-table td:first-child {
+      color: var(--text);
+      font-weight: 400;
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .hours-table td:last-child {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+    }
+
+    .visit-contacts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 8px;
+    }
+    .visit-contact-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 8px;
+    }
+    .visit-contact-value {
+      font-family: var(--font-serif);
+      font-size: 1.0625rem;
+      color: var(--text);
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .visit-contact-value a:hover { color: var(--terracotta); }
+
+    .visit-meta {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+    }
+    .visit-meta-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+    .visit-meta-icon {
+      width: 18px;
+      height: 18px;
+      color: var(--terracotta);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .visit-meta-icon svg { width: 100%; height: 100%; stroke-width: 1.4; }
+    .visit-meta-text {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.55;
+    }
+    .visit-meta-text strong { color: var(--text); font-weight: 500; }
+
+    .events-note {
+      margin-top: 32px;
+      padding: 24px;
+      background: var(--bg-warm);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--terracotta);
+    }
+    .events-note p {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    .events-note p strong {
+      color: var(--text);
+      font-weight: 500;
+      font-family: var(--font-serif);
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1rem;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+
+    .visit-image {
+      aspect-ratio: 7 / 6;
+      overflow: hidden;
+      position: sticky;
+      top: 120px;
+    }
+    .visit-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.05);
+    }
+
+    /* ─── Reservierung Form ────────────────────────────────────────────────── */
+    .res-section {
+      padding: 140px 0;
+      background: var(--bg);
+    }
+    .res-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 96px;
+      align-items: start;
+    }
+    .res-intro p {
+      color: var(--text-muted);
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      margin-bottom: 20px;
+      max-width: 44ch;
+    }
+    .res-note {
+      margin-top: 40px;
+      padding: 28px;
+      background: var(--bg-deep);
+      border: 1px solid var(--line);
+    }
+    .res-note-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 14px;
+    }
+    .res-note p {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      margin-bottom: 12px;
+      max-width: 100%;
+    }
+    .res-note p:last-child { margin-bottom: 0; }
+    .res-note strong { color: var(--text); font-weight: 500; }
+
+    .res-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .field-full { grid-column: span 2; }
+    .field-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .field-label .req { color: var(--terracotta); margin-left: 4px; }
+    .field input,
+    .field textarea,
+    .field select {
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line);
+      padding: 14px 16px;
+      border-radius: 2px;
+      transition: border-color 200ms ease, background 200ms ease;
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: var(--text-faint);
+    }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline: none;
+      border-color: var(--terracotta);
+      background: var(--bg-deep);
+    }
+    .field textarea {
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.55;
+    }
+    .field input[type="date"],
+    .field input[type="time"] {
+      color-scheme: dark;
+    }
+
+    .res-submit-row {
+      grid-column: span 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .res-submit-row .legal {
+      color: var(--text-faint);
+      font-size: 0.75rem;
+      max-width: 36ch;
+      line-height: 1.5;
+    }
+    .res-submit-row .legal a {
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--line);
+    }
+    .res-success {
+      grid-column: span 2;
+      padding: 24px;
+      border: 1px solid var(--terracotta);
+      background: rgba(196, 106, 63, 0.06);
+      color: var(--text);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      display: none;
+    }
+    .res-success.show { display: block; }
+    .res-success strong {
+      font-family: var(--font-serif);
+      font-size: 1.0625rem;
+      color: var(--terracotta);
+      display: block;
+      margin-bottom: 6px;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+
+    /* ─── Footer ───────────────────────────────────────────────────────────── */
+    .footer {
+      background: var(--bg-deep);
+      padding: 96px 0 32px;
+      border-top: 1px solid var(--line);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 56px;
+    }
+    .footer-brand-wordmark {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+      margin-bottom: 18px;
+    }
+    .footer-brand-wordmark em { font-style: italic; color: var(--terracotta); }
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      max-width: 36ch;
+    }
+    .footer-brand .tag-italian {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--text-faint);
+      font-size: 0.875rem;
+      margin-top: 16px;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+    .footer-col h4 {
+      font-size: 0.6875rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col a {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      transition: color 180ms ease;
+    }
+    .footer-col a:hover { color: var(--text); }
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.7;
+    }
+
+    .footer-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent 0%, var(--terracotta) 12%, var(--terracotta) 18%, var(--line) 18%, var(--line) 100%);
+      margin-bottom: 28px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-bottom p,
+    .footer-bottom a {
+      color: var(--text-faint);
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+    }
+    .footer-bottom a { transition: color 180ms ease; }
+    .footer-bottom a:hover { color: var(--text-muted); }
+    .footer-bottom ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── Responsive ───────────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .container, .container-wide { padding: 0 28px; }
+      .nav-inner { padding: 0 28px; }
+      .hero-grid { gap: 56px; }
+      .menu-header { gap: 56px; }
+      .story-grid { gap: 56px; }
+      .wine-grid { gap: 56px; }
+      .visit-grid { gap: 56px; }
+      .res-grid { gap: 56px; }
+      .gallery-header { padding: 0 28px 48px; }
+      .gallery-grid { padding: 0 28px; }
+    }
+
+    @media (max-width: 880px) {
+      .nav-links { display: none; }
+      .nav-cta-wrap .nav-cta { display: none; }
+      .nav-burger { display: inline-block; }
+      .mobile-menu { display: flex; }
+
+      .hero { padding-top: 110px; min-height: auto; }
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; min-height: 0; }
+      .hero-left { padding-right: 0; }
+      .hero-image-wrap { aspect-ratio: 4/5; max-height: 70dvh; }
+      .hero-ornament { display: none; }
+      .hero-meta { gap: 32px; }
+
+      .res-strip-inner { grid-template-columns: 1fr; gap: 20px; }
+      .res-strip-cta { justify-self: start; }
+
+      .section-pad { padding: 88px 0; }
+      .menu-section { padding: 96px 0 88px; }
+      .menu-header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 56px; }
+      .menu-header-right { padding-bottom: 0; }
+      .dish { grid-template-columns: 1fr; gap: 28px; padding: 36px 0; }
+      .dish.flip .dish-image { order: 0; }
+      .dish.flip .dish-body { order: 0; padding-right: 0; }
+      .dish-body { padding-left: 0; }
+      .menu-cta-row { flex-direction: column; align-items: flex-start; }
+
+      .story-section { padding: 96px 0; }
+      .story-grid { grid-template-columns: 1fr; gap: 48px; }
+      .story-image-wrap { position: static; }
+      .story-press { grid-template-columns: 1fr; gap: 28px; }
+
+      .wine-section { padding: 96px 0; }
+      .wine-grid { grid-template-columns: 1fr; gap: 48px; }
+
+      .gallery-grid {
+        grid-template-columns: repeat(6, 1fr);
+        grid-auto-rows: 140px;
+        gap: 6px;
+      }
+      .gt-1 { grid-column: span 6; grid-row: span 2; }
+      .gt-2 { grid-column: span 3; }
+      .gt-3 { grid-column: span 3; }
+      .gt-4 { grid-column: span 4; grid-row: span 2; }
+      .gt-5 { grid-column: span 2; }
+      .gt-6 { grid-column: span 2; grid-row: span 1; }
+      .gt-7 { grid-column: span 6; }
+      .gt-8 { grid-column: span 6; }
+
+      .visit-section { padding: 96px 0; }
+      .visit-grid { grid-template-columns: 1fr; gap: 48px; }
+      .visit-image { position: static; aspect-ratio: 4/3; }
+      .visit-contacts { grid-template-columns: 1fr; gap: 20px; }
+
+      .res-section { padding: 96px 0; }
+      .res-grid { grid-template-columns: 1fr; gap: 48px; }
+      .res-form { grid-template-columns: 1fr; }
+      .field-full { grid-column: span 1; }
+      .res-submit-row { grid-column: span 1; flex-direction: column; align-items: flex-start; }
+      .res-success { grid-column: span 1; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 540px) {
+      .container, .container-wide { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .gallery-header { padding: 0 20px 40px; }
+      .gallery-grid { padding: 0 20px; }
+      .hero-headline { font-size: 2.4rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .mobile-menu { padding: 90px 24px 32px; }
+      .mobile-menu a { font-size: 1.625rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ─── Navbar ───────────────────────────────────────────────────────────── -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#top" class="nav-wordmark" aria-label="Trattoria Marconi — Startseite">
+        Trattoria <em>Marconi</em>
+      </a>
+      <nav aria-label="Hauptnavigation">
+        <ul class="nav-links">
+          <li><a href="#speisekarte">Speisekarte</a></li>
+          <li><a href="#weinliste">Weinliste</a></li>
+          <li><a href="#geschichte">Geschichte</a></li>
+          <li><a href="#anfahrt">Anfahrt</a></li>
+        </ul>
+      </nav>
+      <div class="nav-cta-wrap">
+        <a href="#reservierung" class="nav-cta">Tisch reservieren</a>
+        <button class="nav-burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <ul>
+      <li><a href="#speisekarte" data-mclose>Speisekarte</a></li>
+      <li><a href="#weinliste" data-mclose>Weinliste</a></li>
+      <li><a href="#geschichte" data-mclose>Geschichte</a></li>
+      <li><a href="#galerie" data-mclose>Galerie</a></li>
+      <li><a href="#anfahrt" data-mclose>Anfahrt</a></li>
+    </ul>
+    <a href="#reservierung" class="mobile-cta" data-mclose>Tisch reservieren</a>
+    <div class="mobile-menu-meta">
+      <strong>Eppendorfer Landstraße 87</strong><br>
+      20251 Hamburg<br><br>
+      Di–Sa, 18:00–23:00 Uhr<br>
+      So, 11:00–15:00 Brunch<br><br>
+      <a href="tel:+494047117802" style="color: var(--terracotta);">040 47 11 78 02</a>
+    </div>
+  </div>
+
+  <!-- ─── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="hero" id="top">
+    <span class="hero-ornament" aria-hidden="true">— Cucina Emiliana · seit 2014 —</span>
+    <div class="container-wide">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <p class="hero-eyebrow eyebrow eyebrow-mark reveal">Trattoria · Hamburg-Eppendorf · seit 2014</p>
+          <h1 class="hero-headline reveal reveal-d-1">
+            <em>Buon appetito,</em>
+            Eppendorf.
+            <span class="hero-headline-sub">Handgemachte Pasta, italienische Weine, ein Haus mit fünfzig Plätzen.</span>
+          </h1>
+          <p class="hero-body reveal reveal-d-2">
+            Seit elf Jahren kochen wir auf der Eppendorfer Landstraße norditalienische Küche, wie sie Elenas Großmutter in Bologna gemacht hat — mit eigener Pasta, geduldigen Ragùs und Weinen, die Filippo Carrara persönlich im Piemont und in der Toskana auswählt.
+          </p>
+          <div class="hero-actions reveal reveal-d-3">
+            <a href="#reservierung" class="btn btn-primary">
+              Tisch reservieren
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="#speisekarte" class="link-muted">Speisekarte ansehen</a>
+          </div>
+          <div class="hero-meta reveal reveal-d-4">
+            <div class="hero-meta-item">
+              <span class="hero-meta-label">Heute geöffnet</span>
+              <span class="hero-meta-value">18:00 — 23:00 Uhr</span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="hero-meta-label">Reservierung</span>
+              <span class="hero-meta-value">
+                <a href="tel:+494047117802">040 47 11 78 02</a>
+              </span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="hero-meta-label">Adresse</span>
+              <span class="hero-meta-value">Eppendorfer Landstr. 87</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-right reveal reveal-d-2">
+          <div class="hero-image-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1761168941826-7efda859bdae?w=1100&h=1300&fit=crop&q=85&auto=format"
+              alt="Handgemachte Tagliatelle al ragù bei Kerzenlicht auf einem Marmortisch der Trattoria Marconi"
+              width="1100"
+              height="1300"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <span class="hero-image-tag"><em>Signature</em> Tagliatelle al ragù di manzo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Reservierung Strip ──────────────────────────────────────────────── -->
+  <section class="res-strip" aria-label="Schnellinfo: Öffnungszeiten, Telefon, Reservierung">
+    <div class="container-wide">
+      <div class="res-strip-inner">
+        <div class="res-strip-item">
+          <div class="res-strip-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <div>
+            <span class="res-strip-label">Öffnungszeiten</span>
+            <span class="res-strip-value"><strong>Di–Sa</strong> 18:00–23:00 · <strong>So</strong> 11:00–15:00 Brunch · Mo Ruhetag</span>
+          </div>
+        </div>
+        <div class="res-strip-item">
+          <div class="res-strip-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <span class="res-strip-label">Reservierung per Telefon</span>
+            <span class="res-strip-value"><a href="tel:+494047117802">040 47 11 78 02</a></span>
+          </div>
+        </div>
+        <a href="#reservierung" class="btn btn-primary res-strip-cta">
+          Online reservieren
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Speisekarte Preview ─────────────────────────────────────────────── -->
+  <section class="menu-section" id="speisekarte">
+    <div class="container">
+      <p class="section-label reveal">La Cucina · Auswahl der Karte</p>
+      <div class="menu-header">
+        <h2 class="section-heading reveal">
+          Pasta täglich frisch.
+          <em>Wie in Bologna gelernt.</em>
+        </h2>
+        <div class="menu-header-right reveal reveal-d-1">
+          <p>
+            Unsere Karte wechselt mit den Jahreszeiten, einige Klassiker bleiben. Die Pasta rollen wir jeden Morgen selbst in der offenen Küche — ohne Maschine, ohne Kompromisse. Hier sechs Gerichte, die unsere Stammgäste seit Jahren wiederkommen lassen.
+          </p>
+        </div>
+      </div>
+
+      <div class="dish-list">
+
+        <!-- Dish 1 -->
+        <article class="dish reveal">
+          <div class="dish-image">
+            <img src="https://images.unsplash.com/photo-1592774912353-72756004ecbb?w=800&h=600&fit=crop&q=85&auto=format" alt="Hausgemachte Tagliatelle al ragù di manzo mit Parmigiano" width="800" height="600" loading="lazy" />
+          </div>
+          <div class="dish-body">
+            <div class="dish-number">— Primi · Nr. 01</div>
+            <div class="dish-title-row">
+              <h3 class="dish-name">Tagliatelle al ragù di manzo</h3>
+              <span class="dish-dots" aria-hidden="true"></span>
+              <span class="dish-price">18,00&nbsp;€</span>
+            </div>
+            <p class="dish-italian">Hausgemachte Bandnudeln · 24-Stunden geschmortes Rindragout</p>
+            <p class="dish-desc">
+              Das Gericht, an dem wir uns messen lassen. Rindfleisch aus Schleswig-Holstein, langsam geschmort mit Soffritto, Tomate und einem Glas Sangiovese. Frische Tagliatelle, am Morgen gerollt. Großzügig mit Parmigiano Reggiano 24 Mesi.
+            </p>
+            <div class="dish-tag">Signature · seit der ersten Karte 2014</div>
+          </div>
+        </article>
+
+        <!-- Dish 2 -->
+        <article class="dish flip reveal">
+          <div class="dish-image">
+            <img src="https://images.unsplash.com/photo-1691689115767-1532d12c119f?w=800&h=600&fit=crop&q=85&auto=format" alt="Tortelli di zucca mit Amaretti und Salbei-Butter" width="800" height="600" loading="lazy" />
+          </div>
+          <div class="dish-body">
+            <div class="dish-number">— Primi · Nr. 02</div>
+            <div class="dish-title-row">
+              <h3 class="dish-name">Tortelli di zucca mantovani</h3>
+              <span class="dish-dots" aria-hidden="true"></span>
+              <span class="dish-price">19,00&nbsp;€</span>
+            </div>
+            <p class="dish-italian">Mantuanische Kürbis-Tortelli · Amaretti · brauner Salbei-Butter</p>
+            <p class="dish-desc">
+              Ein Klassiker aus der Lombardei, der von vielen Tischen bestellt wird, sobald die ersten Hokkaido auf dem Großmarkt liegen. Die Süße des Kürbisses, das Mandelbittere der Amaretti und der nussige Salbei-Butter — eine seltene Balance.
+            </p>
+            <p class="dish-note">Ab Mitte September auf der Karte, solange die Saison hält.</p>
+          </div>
+        </article>
+
+        <!-- Dish 3 -->
+        <article class="dish reveal">
+          <div class="dish-image">
+            <img src="https://images.unsplash.com/photo-1708593679370-0523990e8922?w=800&h=600&fit=crop&q=85&auto=format" alt="Vitello tonnato mit Thunfisch-Kapern-Creme" width="800" height="600" loading="lazy" />
+          </div>
+          <div class="dish-body">
+            <div class="dish-number">— Antipasti · Nr. 03</div>
+            <div class="dish-title-row">
+              <h3 class="dish-name">Vitello tonnato</h3>
+              <span class="dish-dots" aria-hidden="true"></span>
+              <span class="dish-price">16,00&nbsp;€</span>
+            </div>
+            <p class="dish-italian">Hauchdünn aufgeschnittenes Kalbfleisch · Thunfisch-Kapern-Creme · geröstete Kapernblüten</p>
+            <p class="dish-desc">
+              Kalbsnuss aus der Region, sanft im Sud gegart und über Nacht ruhend. Die Creme machen wir täglich mit Thunfisch in Olivenöl, Eigelb, Kapern und einem Spritzer Zitrone — keine Mayonnaise als Abkürzung.
+            </p>
+          </div>
+        </article>
+
+        <!-- Dish 4 -->
+        <article class="dish flip reveal">
+          <div class="dish-image">
+            <img src="https://images.unsplash.com/photo-1671193239324-0d748496e491?w=800&h=600&fit=crop&q=85&auto=format" alt="Raviolo al uovo mit flüssigem Eigelb und Trüffel" width="800" height="600" loading="lazy" />
+          </div>
+          <div class="dish-body">
+            <div class="dish-number">— Primi · Nr. 04</div>
+            <div class="dish-title-row">
+              <h3 class="dish-name">Raviolo al uovo</h3>
+              <span class="dish-dots" aria-hidden="true"></span>
+              <span class="dish-price">22,00&nbsp;€</span>
+            </div>
+            <p class="dish-italian">Großer Raviolo mit Ricotta · flüssiges Eigelb · Salbei-Butter · Trüffel der Saison</p>
+            <p class="dish-desc">
+              Ein einziges Stück Pasta auf dem Teller, gefüllt mit Schafsricotta und einem rohen Eigelb. Beim Anschnitt fließt das Gelb in die Salbei-Butter. In der Saison kommt frischer Trüffel aus Alba dazu — preisangepasst.
+            </p>
+            <div class="dish-tag">Begrenzte Anzahl pro Abend</div>
+          </div>
+        </article>
+
+        <!-- Dish 5 -->
+        <article class="dish reveal">
+          <div class="dish-image">
+            <img src="https://images.unsplash.com/photo-1773417461034-75e751de40ba?w=800&h=600&fit=crop&q=85&auto=format" alt="Branzino mit Fenchel, Zitrone und Liguster-Olivenöl" width="800" height="600" loading="lazy" />
+          </div>
+          <div class="dish-body">
+            <div class="dish-number">— Secondi · Nr. 05</div>
+            <div class="dish-title-row">
+              <h3 class="dish-name">Branzino al forno</h3>
+              <span class="dish-dots" aria-hidden="true"></span>
+              <span class="dish-price">32,00&nbsp;€</span>
+            </div>
+            <p class="dish-italian">Ganzer Wolfsbarsch aus dem Ofen · Fenchel · Zitrone · ligurisches Olivenöl</p>
+            <p class="dish-desc">
+              Wir bekommen den Fisch zweimal pro Woche aus einem Adriatischen Fischbetrieb in Chioggia. Im Salzbett gegart, am Tisch filetiert. Kommt mit Salzkartoffeln und einem schlichten Fenchelsalat — alles, was es braucht.
+            </p>
+            <p class="dish-note">Henrik filetiert am Tisch — geben Sie uns 4 Minuten.</p>
+          </div>
+        </article>
+
+        <!-- Dish 6 -->
+        <article class="dish flip reveal">
+          <div class="dish-image">
+            <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&h=600&fit=crop&q=85&auto=format" alt="Klassisches Tiramisù aus Mascarpone und Espresso" width="800" height="600" loading="lazy" />
+          </div>
+          <div class="dish-body">
+            <div class="dish-number">— Dolci · Nr. 06</div>
+            <div class="dish-title-row">
+              <h3 class="dish-name">Tiramisù della Nonna</h3>
+              <span class="dish-dots" aria-hidden="true"></span>
+              <span class="dish-price">9,50&nbsp;€</span>
+            </div>
+            <p class="dish-italian">Klassisches Tiramisù nach dem Rezept von Elenas Großmutter · Espresso aus Neapel · Mascarpone aus Cremona</p>
+            <p class="dish-desc">
+              Wir machen es jeden Vormittag frisch in einer großen Form und schneiden es auf Bestellung. Keine Schokoladenflocken, keine Beeren, kein Aufputz — nur Mascarpone, Espresso, Eigelb und ein Schuss Marsala. So, wie es sein soll.
+            </p>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="menu-cta-row reveal">
+        <a href="/speisekarte" class="link-accent">
+          Vollständige Speisekarte ansehen
+          <span aria-hidden="true">→</span>
+        </a>
+        <p class="menu-cta-note">— Tagesgericht und Mittagsmenü wechseln täglich. Allergene auf Anfrage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Geschichte ──────────────────────────────────────────────────────── -->
+  <section class="story-section" id="geschichte">
+    <div class="container">
+      <p class="section-label reveal">— La Famiglia Marconi</p>
+      <div class="story-grid">
+        <div class="story-body reveal">
+          <h2 class="section-heading" style="margin-bottom: 40px;">
+            Ein Haus für die Nachbarschaft.
+            <em>Geführt von Elena und Henrik.</em>
+          </h2>
+          <p>
+            Elena Marconi ist in Hamburg geboren, aber jeden Sommer ihrer Kindheit verbrachte sie in der Küche ihrer Nonna Giuseppina in Bologna. Dort lernte sie, wie man Tagliatelle so dünn rollt, dass man Zeitung dadurch lesen kann — und warum ein Ragù mindestens vier Stunden Zeit braucht. Als sie 2014 mit ihrem Mann Henrik Voß an die Eppendorfer Landstraße zog, war klar: wenn wir kochen, dann so, wie es bei der Familie immer gemacht wurde.
+          </p>
+          <p>
+            Wir öffneten mit fünfzig Plätzen und einer kurzen Karte. Henrik, der vorher die Weinabteilung im Slowman geführt hat, übernahm den Service. Elena steht in der Küche. Wir sind klein geblieben, weil wir es so wollten — und weil man nicht jeden Abend zweihundert Teller Pasta selbst rollen kann, ohne dass es schlechter wird.
+          </p>
+          <p>
+            Was wir nicht machen: keine Mikrowelle, keine Tütensoßen, keine industrielle Pasta. Was wir machen: alle Pasta täglich frisch, Mehl aus der Mulino Marino im Piemont, Tomaten aus San Marzano, Olivenöl aus einem Familienbetrieb bei Lucca. Es ist kein Geheimnis, es ist nur Aufwand.
+          </p>
+          <blockquote class="story-quote">
+            "Wir wollten kein italienisches Restaurant in Hamburg eröffnen. Wir wollten unsere Küche eröffnen — die aus meiner Kindheit, mit Hamburger Gästen."
+            <span class="story-quote-attr">— Elena Marconi</span>
+          </blockquote>
+
+          <div class="story-press">
+            <div>
+              <p class="press-quote">"Die ehrlichste Trattoria der Hansestadt — kein Theater, nur exzellente norditalienische Küche."</p>
+              <p class="press-source"><strong>Hamburger Abendblatt</strong> · Restaurantkritik, März 2023</p>
+            </div>
+            <div>
+              <p class="press-quote">"Marconis Tortelli di zucca gehören zu den drei besten Pasta-Erlebnissen im Hamburger Raum."</p>
+              <p class="press-source"><strong>Falstaff Magazin</strong> · Norddeutsche Tafelrunde, 2024</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-image-wrap reveal reveal-d-1">
+          <div class="story-image">
+            <img
+              src="https://images.unsplash.com/photo-1731576089290-e6230a18dcb4?w=700&h=900&fit=crop&q=85&auto=format"
+              alt="Elena Marconi in der offenen Küche der Trattoria Marconi"
+              width="700"
+              height="900"
+              loading="lazy"
+            />
+          </div>
+          <p class="story-caption">
+            <strong>Elena Marconi &amp; Henrik Voß</strong>
+            Inhaber seit 2014. Elena führt die Küche, Henrik den Service und die Weinkarte. Foto: Marcus Kühn, Hamburg.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Weinliste Teaser ────────────────────────────────────────────────── -->
+  <section class="wine-section" id="weinliste">
+    <div class="container">
+      <p class="section-label reveal">— La Cantina · Weinliste</p>
+      <div class="wine-grid">
+        <div class="wine-intro reveal">
+          <h2 class="section-heading">
+            Über 80 italienische Weine.
+            <em>Kuratiert in der Toskana.</em>
+          </h2>
+          <p style="margin-top: 28px;">
+            Unsere Weinkarte ist tief in Norditalien verwurzelt — Piemont, Venetien, Friaul, Emilia-Romagna — mit ausgewählten Ausreißern aus Sizilien und der Toskana. Filippo Carrara fährt zweimal jährlich zu den Winzern, mit denen wir arbeiten. Es gibt nichts, was wir auf der Karte haben und das er nicht selbst probiert hat.
+          </p>
+          <p>
+            Glasweise führen wir mindestens zwanzig Weine, darunter immer einen Schaumwein, drei Weiße, sechs Rote und ein Dessertwein. Die offene Karte wechselt monatlich.
+          </p>
+
+          <div class="wine-sommelier">
+            <p class="wine-sommelier-name">Filippo Carrara</p>
+            <p class="wine-sommelier-role">Sommelier · seit 2017 im Haus</p>
+            <p class="wine-sommelier-quote">"Italienischer Wein lebt von Geographie und Geduld. Beides finden Sie auf unserer Karte."</p>
+          </div>
+
+          <div class="wine-actions" style="margin-top: 36px;">
+            <a href="/weinkarte.pdf" class="link-accent">
+              Vollständige Weinkarte (PDF)
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+        <ul class="wine-list reveal reveal-d-1">
+          <li class="wine-item">
+            <div>
+              <p class="wine-name">Barolo "Bussia"</p>
+              <p class="wine-meta">Prunotto · <em>Piemont</em> · 2019 · Nebbiolo</p>
+            </div>
+            <div>
+              <span class="wine-price">86,00&nbsp;€</span>
+              <span class="wine-price-sub">0,75 l Flasche</span>
+            </div>
+          </li>
+          <li class="wine-item">
+            <div>
+              <p class="wine-name">Chianti Classico Riserva</p>
+              <p class="wine-meta">Castello di Ama · <em>Toskana</em> · 2020 · Sangiovese</p>
+            </div>
+            <div>
+              <span class="wine-price">62,00&nbsp;€</span>
+              <span class="wine-price-sub">0,75 l Flasche</span>
+            </div>
+          </li>
+          <li class="wine-item">
+            <div>
+              <p class="wine-name">Vermentino di Gallura "Karagnani"</p>
+              <p class="wine-meta">Capichera · <em>Sardinien</em> · 2022 · Vermentino</p>
+            </div>
+            <div>
+              <span class="wine-price">48,00&nbsp;€</span>
+              <span class="wine-price-sub">0,75 l Flasche</span>
+            </div>
+          </li>
+          <li class="wine-item">
+            <div>
+              <p class="wine-name">Franciacorta Brut Saten</p>
+              <p class="wine-meta">Ca' del Bosco · <em>Lombardei</em> · NV · Chardonnay</p>
+            </div>
+            <div>
+              <span class="wine-price">58,00&nbsp;€</span>
+              <span class="wine-price-sub">0,75 l Flasche</span>
+            </div>
+          </li>
+          <li class="wine-item">
+            <div>
+              <p class="wine-name">Amarone della Valpolicella</p>
+              <p class="wine-meta">Allegrini · <em>Venetien</em> · 2018 · Corvina-Cuvée</p>
+            </div>
+            <div>
+              <span class="wine-price">94,00&nbsp;€</span>
+              <span class="wine-price-sub">0,75 l Flasche</span>
+            </div>
+          </li>
+          <li class="wine-item">
+            <div>
+              <p class="wine-name">Lambrusco Grasparossa Secco</p>
+              <p class="wine-meta">Cleto Chiarli · <em>Emilia-Romagna</em> · 2022 · Lambrusco</p>
+            </div>
+            <div>
+              <span class="wine-price">34,00&nbsp;€</span>
+              <span class="wine-price-sub">0,75 l Flasche</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Galerie ─────────────────────────────────────────────────────────── -->
+  <section class="gallery-section" id="galerie">
+    <div class="gallery-header">
+      <p class="section-label reveal">— Galleria</p>
+      <h2 class="section-heading reveal">
+        Ein Abend bei uns.
+        <em>In Bildern.</em>
+      </h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-tile gt-1 reveal">
+        <img src="https://images.unsplash.com/photo-1670984939096-f3cfd48c7408?w=1200&h=900&fit=crop&q=85&auto=format" alt="Innenraum der Trattoria Marconi am Abend mit warmem Kerzenlicht" loading="lazy" />
+        <span class="gallery-tile-cap">Speisesaal · Freitagabend</span>
+      </div>
+      <div class="gallery-tile gt-2 reveal reveal-d-1">
+        <img src="https://images.unsplash.com/photo-1769184617504-be7e08f3a8b3?w=900&h=500&fit=crop&q=85&auto=format" alt="Sommerterrasse der Trattoria Marconi mit 18 Plätzen" loading="lazy" />
+        <span class="gallery-tile-cap">Sommerterrasse</span>
+      </div>
+      <div class="gallery-tile gt-3 reveal reveal-d-2">
+        <img src="https://images.unsplash.com/photo-1642354571956-d77dfd9596bb?w=700&h=500&fit=crop&q=85&auto=format" alt="Detail von frisch gerollter Pasta in der offenen Küche" loading="lazy" />
+      </div>
+      <div class="gallery-tile gt-4 reveal reveal-d-1">
+        <img src="https://images.unsplash.com/photo-1768758923759-bb572a8857ee?w=900&h=900&fit=crop&q=85&auto=format" alt="Antipasti-Brett mit Salumi, Mozzarella und eingelegtem Gemüse" loading="lazy" />
+        <span class="gallery-tile-cap">Antipasti misti</span>
+      </div>
+      <div class="gallery-tile gt-5 reveal reveal-d-2">
+        <img src="https://images.unsplash.com/photo-1611872515743-b81d6c30605c?w=700&h=500&fit=crop&q=85&auto=format" alt="Espresso in einer kleinen Tasse nach dem Essen" loading="lazy" />
+      </div>
+      <div class="gallery-tile gt-6 reveal reveal-d-3">
+        <img src="https://images.unsplash.com/photo-1447279506476-3faec8071eee?w=700&h=900&fit=crop&q=85&auto=format" alt="Pasta wird von Hand in der offenen Küche gerollt" loading="lazy" />
+        <span class="gallery-tile-cap">Pasta a mano · 09:30 Uhr</span>
+      </div>
+      <div class="gallery-tile gt-7 reveal reveal-d-2">
+        <img src="https://images.unsplash.com/photo-1766812782166-e243111f703d?w=1200&h=600&fit=crop&q=85&auto=format" alt="Speisesaal an einem Freitagabend, alle Plätze besetzt" loading="lazy" />
+        <span class="gallery-tile-cap">Service · 20:30 Uhr</span>
+      </div>
+      <div class="gallery-tile gt-8 reveal reveal-d-3">
+        <img src="https://images.unsplash.com/photo-1700742330847-0314650ec09e?w=900&h=600&fit=crop&q=85&auto=format" alt="Weinkeller mit italienischen Weinen, kuratiert von Filippo Carrara" loading="lazy" />
+        <span class="gallery-tile-cap">La cantina · 80+ Positionen</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Anfahrt ─────────────────────────────────────────────────────────── -->
+  <section class="visit-section" id="anfahrt">
+    <div class="container">
+      <p class="section-label reveal">— Anfahrt &amp; Kontakt</p>
+      <div class="visit-grid">
+        <div>
+          <h2 class="section-heading reveal" style="margin-bottom: 40px;">
+            Mitten in Eppendorf.
+            <em>Vier Minuten vom Klosterstern.</em>
+          </h2>
+
+          <div class="visit-block reveal">
+            <p class="visit-block-label">Adresse</p>
+            <p class="visit-address">
+              <strong>Trattoria Marconi</strong><br>
+              Eppendorfer Landstraße 87<br>
+              20251 Hamburg
+            </p>
+          </div>
+
+          <div class="visit-block reveal reveal-d-1">
+            <p class="visit-block-label">Öffnungszeiten</p>
+            <table class="hours-table" aria-label="Öffnungszeiten der Trattoria Marconi">
+              <tbody>
+                <tr>
+                  <td>Montag</td>
+                  <td>Ruhetag</td>
+                </tr>
+                <tr>
+                  <td>Dienstag — Freitag</td>
+                  <td>12:00 — 14:30 · 18:00 — 23:00</td>
+                </tr>
+                <tr>
+                  <td>Samstag</td>
+                  <td>18:00 — 23:00</td>
+                </tr>
+                <tr>
+                  <td>Sonntag</td>
+                  <td>11:00 — 15:00 Brunch</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="visit-block reveal reveal-d-2">
+            <p class="visit-block-label">Kontakt</p>
+            <div class="visit-contacts">
+              <div>
+                <span class="visit-block-label" style="font-size: 0.625rem; margin-bottom: 6px;">Telefon</span>
+                <p class="visit-contact-value"><a href="tel:+494047117802">040 47 11 78 02</a></p>
+              </div>
+              <div>
+                <span class="visit-block-label" style="font-size: 0.625rem; margin-bottom: 6px;">E-Mail</span>
+                <p class="visit-contact-value"><a href="mailto:hallo@trattoria-marconi.de">hallo@trattoria-marconi.de</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="visit-meta">
+            <div class="visit-meta-row">
+              <div class="visit-meta-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+              </div>
+              <p class="visit-meta-text"><strong>U1 Klosterstern</strong> · 4 Minuten Fußweg über die Eppendorfer Landstraße</p>
+            </div>
+            <div class="visit-meta-row">
+              <div class="visit-meta-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V8a5 5 0 0 1 10 0v3"/></svg>
+              </div>
+              <p class="visit-meta-text"><strong>Parkhaus Eppendorfer Marktplatz</strong> · 3 Minuten Fußweg. Anwohnerparken auf der Straße ab 19:00 Uhr frei.</p>
+            </div>
+            <div class="visit-meta-row">
+              <div class="visit-meta-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              </div>
+              <p class="visit-meta-text"><strong>Barrierefrei zugänglich</strong> · Stufenloser Eingang, behindertengerechtes WC. Hund willkommen.</p>
+            </div>
+          </div>
+
+          <div class="events-note reveal reveal-d-3">
+            <p>
+              <strong>Privatfeiern bis 40 Personen</strong>
+              Geburtstage, Firmenessen, kleine Hochzeiten — sprechen Sie uns an. Wir öffnen das Restaurant auf Wunsch montags exklusiv. <a href="mailto:events@trattoria-marconi.de" style="color: var(--terracotta); border-bottom: 1px solid rgba(196,106,63,0.3);">events@trattoria-marconi.de</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="visit-image-wrap reveal reveal-d-1">
+          <div class="visit-image">
+            <img
+              src="https://images.unsplash.com/photo-1776015036314-0487d8ce89f5?w=900&h=780&fit=crop&q=85&auto=format"
+              alt="Außenansicht der Trattoria Marconi an der Eppendorfer Landstraße am Abend"
+              width="900"
+              height="780"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Reservierungs-Formular ──────────────────────────────────────────── -->
+  <section class="res-section" id="reservierung">
+    <div class="container">
+      <p class="section-label reveal">— Reservierung</p>
+      <div class="res-grid">
+        <div class="res-intro reveal">
+          <h2 class="section-heading">
+            Wir freuen uns auf Sie.
+            <em>Buon appetito.</em>
+          </h2>
+          <p style="margin-top: 28px;">
+            Reservieren Sie Ihren Tisch direkt über das Formular. Sie erhalten innerhalb von zwei Stunden eine Bestätigung per E-Mail — werktags von 10:00 bis 22:00 Uhr.
+          </p>
+          <p>
+            Für Gruppen ab zwölf Personen bitten wir um eine telefonische Reservierung, damit wir den Service in Ruhe vorbereiten können.
+          </p>
+
+          <div class="res-note">
+            <p class="res-note-label">Lieber telefonisch?</p>
+            <p>
+              <strong>040 47 11 78 02</strong><br>
+              Di — Sa, 11:00 bis 22:30 Uhr. Henrik oder Maria am Apparat.
+            </p>
+            <p style="margin-top: 14px;">
+              Bei kurzfristigen Reservierungen am selben Abend ist der Anruf der schnellste Weg.
+            </p>
+          </div>
+        </div>
+
+        <form class="res-form reveal reveal-d-1" id="resForm" novalidate>
+          <div class="field">
+            <label class="field-label" for="resName">Name <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="resName" name="name" required autocomplete="name" placeholder="Vor- und Nachname" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="resPhone">Telefon <span class="req" aria-hidden="true">*</span></label>
+            <input type="tel" id="resPhone" name="phone" required autocomplete="tel" placeholder="040 / 0157 ..." />
+          </div>
+          <div class="field field-full">
+            <label class="field-label" for="resEmail">E-Mail <span class="req" aria-hidden="true">*</span></label>
+            <input type="email" id="resEmail" name="email" required autocomplete="email" placeholder="ihre.adresse@beispiel.de" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="resDate">Datum <span class="req" aria-hidden="true">*</span></label>
+            <input type="date" id="resDate" name="date" required />
+          </div>
+          <div class="field">
+            <label class="field-label" for="resTime">Uhrzeit <span class="req" aria-hidden="true">*</span></label>
+            <input type="time" id="resTime" name="time" required value="19:30" step="900" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="resPersons">Anzahl Personen <span class="req" aria-hidden="true">*</span></label>
+            <select id="resPersons" name="persons" required>
+              <option value="2">2 Personen</option>
+              <option value="3">3 Personen</option>
+              <option value="4">4 Personen</option>
+              <option value="5">5 Personen</option>
+              <option value="6">6 Personen</option>
+              <option value="7">7 Personen</option>
+              <option value="8">8 Personen</option>
+              <option value="9">9 Personen</option>
+              <option value="10">10 Personen</option>
+              <option value="11">11 Personen</option>
+              <option value="phone">Mehr als 11 — bitte anrufen</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="resOccasion">Anlass (optional)</label>
+            <input type="text" id="resOccasion" name="occasion" placeholder="Geburtstag, Jahrestag, ..." />
+          </div>
+          <div class="field field-full">
+            <label class="field-label" for="resNotes">Wünsche oder Allergien (optional)</label>
+            <textarea id="resNotes" name="notes" placeholder="Vegetarisch, glutenfrei, Lieblingsplatz am Fenster — sagen Sie uns Bescheid."></textarea>
+          </div>
+
+          <div class="res-success" id="resSuccess" role="status" aria-live="polite">
+            <strong>Danke — Ihre Anfrage ist bei uns.</strong>
+            Wir melden uns innerhalb von zwei Stunden mit einer Bestätigung. Für kurzfristige Tische am gleichen Abend rufen Sie uns bitte unter 040 47 11 78 02 an.
+          </div>
+
+          <div class="res-submit-row">
+            <p class="legal">
+              Mit dem Absenden stimmen Sie unserer <a href="/datenschutz">Datenschutzerklärung</a> zu. Ihre Daten werden ausschließlich zur Reservierungsabwicklung verwendet.
+            </p>
+            <button type="submit" class="btn btn-primary">
+              Reservierung absenden
+              <span class="arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ──────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="footer-brand-wordmark">Trattoria <em>Marconi</em></p>
+          <p>
+            Norditalienische Küche in Hamburg-Eppendorf. Seit 2014 geführt von Elena Marconi und Henrik Voß.
+          </p>
+          <p class="tag-italian">— Cucina della famiglia, dal 2014.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Besuch</h4>
+          <ul>
+            <li><a href="#speisekarte">Speisekarte</a></li>
+            <li><a href="#weinliste">Weinliste</a></li>
+            <li><a href="#reservierung">Reservierung</a></li>
+            <li><a href="#anfahrt">Anfahrt</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="tel:+494047117802">040 47 11 78 02</a></li>
+            <li><a href="mailto:hallo@trattoria-marconi.de">hallo@trattoria-marconi.de</a></li>
+            <li><a href="mailto:events@trattoria-marconi.de">Privatfeiern</a></li>
+          </ul>
+          <h4 style="margin-top: 28px;">Folgen</h4>
+          <ul>
+            <li><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://maps.google.com/" target="_blank" rel="noopener">Google Maps</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Öffnungszeiten</h4>
+          <p>
+            Mo · Ruhetag<br>
+            Di — Fr · 12:00–14:30 · 18:00–23:00<br>
+            Sa · 18:00–23:00<br>
+            So · 11:00–15:00 Brunch
+          </p>
+          <h4 style="margin-top: 28px;">Adresse</h4>
+          <p>
+            Eppendorfer Landstraße 87<br>
+            20251 Hamburg
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-divider" aria-hidden="true"></div>
+
+      <div class="footer-bottom">
+        <p>© 2014 — 2026 Trattoria Marconi GbR · Elena Marconi &amp; Henrik Voß</p>
+        <ul>
+          <li><a href="/impressum">Impressum</a></li>
+          <li><a href="/datenschutz">Datenschutz</a></li>
+          <li><a href="/agb">AGB</a></li>
+          <li><a href="/allergene">Allergene &amp; Zusatzstoffe</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── Scripts ─────────────────────────────────────────────────────────── -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ── Sticky nav state on scroll ──
+      var nav = document.getElementById('nav');
+      var scrolled = false;
+      function onScroll() {
+        var shouldScroll = window.scrollY > 24;
+        if (shouldScroll !== scrolled) {
+          scrolled = shouldScroll;
+          nav.classList.toggle('scrolled', scrolled);
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // ── Mobile burger menu ──
+      var burger = document.getElementById('navBurger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      function setMenu(open) {
+        burger.classList.toggle('open', open);
+        mobileMenu.classList.toggle('open', open);
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+      burger.addEventListener('click', function () {
+        setMenu(!mobileMenu.classList.contains('open'));
+      });
+      mobileMenu.querySelectorAll('[data-mclose]').forEach(function (a) {
+        a.addEventListener('click', function () { setMenu(false); });
+      });
+
+      // ── Reveal on scroll ──
+      var reveals = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && reveals.length) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+        reveals.forEach(function (el) { io.observe(el); });
+      } else {
+        reveals.forEach(function (el) { el.classList.add('visible'); });
+      }
+
+      // ── Reservierungs-Form ──
+      var form = document.getElementById('resForm');
+      var success = document.getElementById('resSuccess');
+      var dateInput = document.getElementById('resDate');
+      // Set min date = today
+      if (dateInput) {
+        var today = new Date();
+        var iso = today.toISOString().slice(0, 10);
+        dateInput.setAttribute('min', iso);
+        if (!dateInput.value) dateInput.value = iso;
+      }
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          // Lightweight validation
+          var required = form.querySelectorAll('[required]');
+          var valid = true;
+          required.forEach(function (el) {
+            if (!el.value) { valid = false; el.style.borderColor = 'var(--terracotta)'; }
+          });
+          if (!valid) return;
+          success.classList.add('show');
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          form.reset();
+          if (dateInput) dateInput.value = iso;
+          document.getElementById('resTime').value = '19:30';
+        });
+      }
+
+      // ── Smooth-scroll polish for anchor links ──
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var href = a.getAttribute('href');
+          if (href.length > 1 && document.querySelector(href)) {
+            e.preventDefault();
+            var top = document.querySelector(href).getBoundingClientRect().top + window.scrollY - 60;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+          }
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

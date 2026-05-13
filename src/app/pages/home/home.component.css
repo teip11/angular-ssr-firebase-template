@@ -740,95 +740,58 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   TESTIMONIALS SECTION — softer, more comfortable glass
+   "WARUM KOSTENLOS?" HONESTY BLOCK + FAQ
    ═══════════════════════════════════════════════════════════════════════════ */
 
-.testimonials-section { /* transparent */ }
+.honesty-section { /* transparent */ }
 
-.testimonials-header {
-  opacity: 0;
-  transform: translateY(28px);
-  filter: blur(3px);
-  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform, opacity;
-}
-.testimonials-header.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
-}
+.faq-section { /* transparent */ }
 
-/* Testimonials headline — separate from header wrapper */
-.testimonials-headline {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.1s,
-              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
-  will-change: transform, opacity;
+.faq-item {
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: border-color 250ms ease, background 250ms ease;
 }
-.testimonials-headline.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.faq-item[open] {
+  background: rgba(0, 0, 0, 0.7);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
-.testimonial-card {
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-radius: 1.5rem;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  display: flex; flex-direction: column;
-  opacity: 0;
-  transform: translateY(36px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 300ms ease-out;
-  will-change: transform, opacity;
+.faq-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1.15rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  line-height: 1.45;
 }
-.testimonial-card.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.testimonial-card:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-}
-@media (hover: none) {
-  .testimonial-card:hover {
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  }
-}
+.faq-summary::-webkit-details-marker { display: none; }
+.faq-summary:hover { color: var(--color-accent-primary); }
 
-/* Featured middle card */
-.testimonial-card--featured {
-  background: rgba(0, 0, 0, 0.85);
-  border-color: var(--color-accent-primary);
-  box-shadow: 0 12px 48px var(--color-accent-primary-glow);
-}
-.testimonial-card--featured:hover {
-  box-shadow: 0 16px 48px var(--color-accent-primary-glow);
-}
-@media (hover: none) {
-  .testimonial-card--featured:hover {
-    box-shadow: 0 12px 48px var(--color-accent-primary-glow);
-  }
-}
-
-/* Avatar circle */
-.testimonial-avatar {
-  width: 2.5rem; height: 2.5rem; border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.6);
-  font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem;
-  display: flex; align-items: center; justify-content: center;
+.faq-chevron {
   flex-shrink: 0;
+  font-size: 1.5rem;
+  color: var(--color-text-muted, rgba(255,255,255,0.5));
+  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.testimonial-avatar--cyan {
-  background: var(--color-accent-primary-glow);
-  color: var(--color-accent-primary);
+.faq-item[open] .faq-chevron { transform: rotate(180deg); }
+
+.faq-answer {
+  padding: 0 1.4rem 1.3rem;
+  color: var(--color-text-muted, rgba(255,255,255,0.7));
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.65;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1344,9 +1307,6 @@
   .showcase-headline,
   .showcase-card-animate,
   .showcase-cta,
-  .testimonials-header,
-  .testimonials-headline,
-  .testimonial-card,
   .offer-headline,
   .offer-buttons,
   .process-intro,
