@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Praxis Lindner &amp; Kollegen — Physiotherapie und Osteopathie in Düsseldorf-Pempelfort</title>
+  <meta name="description" content="Praxis Lindner &amp; Kollegen in Düsseldorf-Pempelfort. Physiotherapie, Osteopathie und Manuelle Therapie seit 2008. Akut-Sprechstunde, alle Kassen, Termin online buchen oder 0211 87 32 04 11." />
+  <meta name="theme-color" content="#F1F3EE" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Tokens ───────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper:        #F1F3EE;
+      --paper-soft:   #E8EDE5;
+      --paper-warm:   #EDEEEA;
+      --card:         #F7F8F4;
+      --ink:          #1F2421;
+      --ink-soft:     #2E3631;
+      --ink-muted:    #7C8B82;
+      --ink-faint:    #A8B2AA;
+      --line:         #D8DDD4;
+      --line-soft:    #E2E6DE;
+      --sage:         #3E5D4A;
+      --sage-d:       #2F4A39;
+      --sage-l:       #547663;
+      --taupe:        #B5A992;
+
+      --font-serif: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
+      --font-sans:  'Manrope', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.62;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+    ::selection { background: var(--sage); color: var(--paper); }
+
+    /* ─── Soft grain ───────────────────────────────────────────────────────── */
+    .grain {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 200;
+      opacity: 0.03; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ─── Reveal ───────────────────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 720ms var(--ease), transform 720ms var(--ease);
+      will-change: transform, opacity;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d-1 { transition-delay: 80ms; }
+    .reveal-d-2 { transition-delay: 160ms; }
+    .reveal-d-3 { transition-delay: 240ms; }
+    .reveal-d-4 { transition-delay: 320ms; }
+    .reveal-d-5 { transition-delay: 400ms; }
+    .reveal-d-6 { transition-delay: 480ms; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ─── Container ────────────────────────────────────────────────────────── */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .container-wide {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── Eyebrow / labels ─────────────────────────────────────────────────── */
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+    .eyebrow-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .eyebrow-mark::before {
+      content: '';
+      width: 22px;
+      height: 1px;
+      background: var(--sage);
+    }
+
+    .section-label {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    .section-label::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--sage);
+    }
+
+    /* ─── Buttons ──────────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      padding: 14px 22px;
+      border-radius: 999px;
+      transition: transform 200ms var(--ease),
+                  background 200ms ease,
+                  color 200ms ease,
+                  border-color 200ms ease,
+                  box-shadow 200ms ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+      line-height: 1;
+    }
+    .btn:active { transform: translateY(1px); }
+
+    .btn-primary {
+      background: var(--sage);
+      color: var(--paper);
+      box-shadow: 0 6px 18px -10px rgba(46, 70, 55, 0.55);
+    }
+    .btn-primary:hover {
+      background: var(--sage-d);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px -12px rgba(46, 70, 55, 0.6);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+    .btn-ghost:hover {
+      border-color: var(--sage);
+      color: var(--sage);
+    }
+
+    .btn-small {
+      padding: 11px 18px;
+      font-size: 0.8125rem;
+    }
+
+    .btn .ico {
+      width: 14px; height: 14px;
+      stroke-width: 1.6;
+      flex-shrink: 0;
+    }
+
+    /* ─── Navigation ──────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 0;
+      transition: background 280ms ease, border-color 280ms ease, padding 280ms ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(241, 243, 238, 0.86);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom-color: var(--line-soft);
+      padding: 12px 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .nav-brand .wordmark {
+      font-family: var(--font-serif);
+      font-size: 1.125rem;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+    }
+    .nav-brand .sub {
+      font-family: var(--font-sans);
+      font-size: 0.625rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-top: 3px;
+      font-weight: 500;
+    }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      letter-spacing: 0.01em;
+      transition: color 180ms ease;
+      position: relative;
+    }
+    .nav-links a:hover { color: var(--sage); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: -6px;
+      height: 1px;
+      background: var(--sage);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 280ms var(--ease);
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .nav-phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+    }
+    .nav-phone svg {
+      width: 13px; height: 13px;
+      color: var(--sage);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      width: 22px; height: 1.5px;
+      background: var(--ink);
+      transition: transform 240ms var(--ease), opacity 240ms;
+    }
+
+    .mobile-menu {
+      display: none;
+    }
+
+    /* ─── Hero — Team portrait grid ──────────────────────────────────────── */
+    .hero {
+      padding: 130px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+    .hero-anna {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: 4px;
+      background: var(--paper-soft);
+    }
+    .hero-anna img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.94);
+      transition: transform 1200ms var(--ease);
+    }
+    .hero-anna:hover img { transform: scale(1.02); }
+
+    .hero-anna-tag {
+      position: absolute;
+      left: 22px; bottom: 22px;
+      padding: 12px 16px;
+      background: rgba(241, 243, 238, 0.92);
+      backdrop-filter: blur(8px);
+      border-radius: 2px;
+      max-width: 78%;
+    }
+    .hero-anna-tag .role {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .hero-anna-tag .name {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .hero-anna-tag .qual {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      margin-top: 2px;
+    }
+
+    .hero-team-stack {
+      display: grid;
+      grid-template-rows: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .hero-team-tile {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      background: var(--paper-soft);
+      display: grid;
+      grid-template-columns: 0.7fr 1fr;
+      gap: 0;
+      transition: transform 380ms var(--ease);
+    }
+    .hero-team-tile:hover {
+      transform: translateX(-3px);
+    }
+    .hero-team-tile .ht-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-team-tile .ht-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.92);
+    }
+    .hero-team-tile .ht-body {
+      padding: 16px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--card);
+      border-left: 1px solid var(--line-soft);
+    }
+    .hero-team-tile .ht-name {
+      font-family: var(--font-serif);
+      font-size: 1.0625rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .hero-team-tile .ht-role {
+      font-size: 0.6875rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-top: 5px;
+      font-weight: 500;
+    }
+    .hero-team-tile .ht-focus {
+      font-size: 0.8125rem;
+      color: var(--ink-soft);
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+
+    .hero-copy {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 56px;
+      align-items: end;
+    }
+    .hero-copy-left .eyebrow {
+      margin-bottom: 22px;
+    }
+    .hero-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(2.1rem, 4.4vw, 3.6rem);
+      font-weight: 400;
+      line-height: 1.06;
+      letter-spacing: -0.012em;
+      color: var(--ink);
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--sage);
+      font-weight: 400;
+    }
+
+    .hero-copy-right p {
+      font-size: 1.0625rem;
+      color: var(--ink-soft);
+      line-height: 1.62;
+      max-width: 46ch;
+      margin-bottom: 22px;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hero-meta {
+      margin-top: 64px;
+      display: flex;
+      gap: 44px;
+      flex-wrap: wrap;
+      padding-top: 28px;
+      border-top: 1px solid var(--line-soft);
+    }
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 130px;
+    }
+    .hero-meta-item .k {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+    .hero-meta-item .v {
+      font-family: var(--font-serif);
+      font-size: 1.0625rem;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* ─── Behandlungsanlässe ─────────────────────────────────────────────── */
+    .anlass {
+      padding: 110px 0 90px;
+      position: relative;
+    }
+    .anlass-head {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 60px;
+      margin-bottom: 64px;
+      align-items: end;
+    }
+    .anlass-head h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.008em;
+      color: var(--ink);
+    }
+    .anlass-head h2 em { font-style: italic; color: var(--sage); font-weight: 400; }
+    .anlass-head p {
+      color: var(--ink-soft);
+      font-size: 1rem;
+      max-width: 52ch;
+    }
+
+    /* Asymmetric grid: 6 tiles, mixed sizes
+       Row 1: tall + wide
+       Row 2: wide + tall
+       Row 3: 2 medium */
+    .anlass-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: minmax(0, auto);
+      gap: 18px;
+    }
+    .anlass-card {
+      background: var(--card);
+      border: 1px solid var(--line-soft);
+      padding: 30px 30px 26px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      transition: transform 380ms var(--ease), border-color 280ms ease, box-shadow 280ms ease;
+    }
+    .anlass-card:hover {
+      transform: translateY(-3px);
+      border-color: #C9D2C4;
+      box-shadow: 0 18px 32px -22px rgba(46, 70, 55, 0.28);
+    }
+    .anlass-card.span-4 { grid-column: span 4; }
+    .anlass-card.span-2 { grid-column: span 2; }
+    .anlass-card.span-3 { grid-column: span 3; }
+
+    .anlass-card .tag-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .anlass-card .num {
+      font-family: var(--font-serif);
+      font-size: 0.875rem;
+      font-style: italic;
+      color: var(--sage);
+    }
+    .anlass-card .badge {
+      font-size: 0.625rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 600;
+      padding: 5px 9px;
+      border: 1px solid var(--sage);
+      border-radius: 999px;
+      line-height: 1;
+    }
+    .anlass-card .badge.muted {
+      color: var(--ink-muted);
+      border-color: var(--line);
+    }
+    .anlass-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.18;
+      color: var(--ink);
+      letter-spacing: -0.005em;
+    }
+    .anlass-card p {
+      color: var(--ink-soft);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    .anlass-card .methods {
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid var(--line-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .anlass-card .methods .k {
+      font-size: 0.625rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+    .anlass-card .methods .v {
+      font-size: 0.875rem;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    .anlass-card .wait {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      margin-top: 8px;
+    }
+    .anlass-card .wait .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+    }
+    .anlass-card .wait.acute .dot {
+      background: #C26A4F;
+    }
+    .anlass-card .wait.acute {
+      color: #9A523B;
+    }
+
+    /* ─── Erster Termin / Q&A ────────────────────────────────────────────── */
+    .erster {
+      padding: 110px 0;
+      background: var(--paper-soft);
+      border-top: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .erster-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+      align-items: end;
+    }
+    .erster-head h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.008em;
+      color: var(--ink);
+    }
+    .erster-head h2 em { font-style: italic; color: var(--sage); font-weight: 400; }
+    .erster-head p {
+      color: var(--ink-soft);
+      max-width: 50ch;
+    }
+
+    .qa-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .qa-item {
+      display: grid;
+      grid-template-columns: 0.55fr 1fr;
+      gap: 44px;
+      padding: 32px 0;
+      border-top: 1px solid var(--line);
+      align-items: start;
+    }
+    .qa-item:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+    .qa-item .q {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.375rem;
+      line-height: 1.25;
+      color: var(--ink);
+      font-weight: 400;
+      letter-spacing: -0.003em;
+    }
+    .qa-item .q .num {
+      font-style: normal;
+      font-size: 0.6875rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-family: var(--font-sans);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .qa-item .a {
+      color: var(--ink-soft);
+      font-size: 1rem;
+      line-height: 1.66;
+    }
+    .qa-item .a strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ─── Methode / Founder editorial ──────────────────────────────────── */
+    .methode {
+      padding: 130px 0 110px;
+    }
+    .methode-inner {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .methode-portrait {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: 4px;
+      background: var(--paper-soft);
+    }
+    .methode-portrait img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(0.94);
+    }
+    .methode-portrait .cap {
+      position: absolute;
+      left: 0; bottom: -34px;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.875rem;
+      color: var(--ink-muted);
+    }
+
+    .methode-text {
+      padding-top: 14px;
+    }
+    .methode-text .section-label {
+      margin-bottom: 28px;
+    }
+    .methode-text h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.6vw, 3rem);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 36px;
+    }
+    .methode-text h2 em { font-style: italic; color: var(--sage); font-weight: 400; }
+    .methode-text p {
+      color: var(--ink-soft);
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      margin-bottom: 22px;
+      max-width: 56ch;
+    }
+    .methode-text .pull {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.5rem;
+      line-height: 1.32;
+      color: var(--ink);
+      margin: 28px 0;
+      padding-left: 24px;
+      border-left: 1px solid var(--sage);
+      max-width: 50ch;
+    }
+    .methode-text .signature {
+      margin-top: 38px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .methode-text .signature .name {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--ink);
+      letter-spacing: -0.005em;
+    }
+    .methode-text .signature .role {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    /* ─── Praxisräume — horizontal filmstrip ─────────────────────────────── */
+    .raeume {
+      padding: 100px 0 120px;
+      background: var(--paper-warm);
+      border-top: 1px solid var(--line-soft);
+    }
+    .raeume-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+    .raeume-head .left {
+      max-width: 56ch;
+    }
+    .raeume-head h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.008em;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+    .raeume-head h2 em { font-style: italic; color: var(--sage); font-weight: 400; }
+    .raeume-head p {
+      color: var(--ink-soft);
+      font-size: 1rem;
+    }
+    .raeume-nav {
+      display: flex;
+      gap: 10px;
+    }
+    .raeume-nav button {
+      width: 44px; height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-soft);
+      transition: background 220ms ease, color 220ms ease, border-color 220ms ease;
+    }
+    .raeume-nav button:hover {
+      background: var(--sage);
+      color: var(--paper);
+      border-color: var(--sage);
+    }
+    .raeume-nav button svg { width: 16px; height: 16px; stroke-width: 1.5; }
+
+    .filmstrip {
+      display: flex;
+      gap: 22px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding-bottom: 12px;
+      margin: 0 -40px;
+      padding-left: 40px;
+      padding-right: 40px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--line) transparent;
+    }
+    .filmstrip::-webkit-scrollbar { height: 4px; }
+    .filmstrip::-webkit-scrollbar-track { background: transparent; }
+    .filmstrip::-webkit-scrollbar-thumb {
+      background: var(--line);
+      border-radius: 2px;
+    }
+
+    .film-card {
+      flex: 0 0 auto;
+      width: 560px;
+      scroll-snap-align: start;
+    }
+    .film-card .frame {
+      aspect-ratio: 7 / 5;
+      overflow: hidden;
+      border-radius: 4px;
+      background: var(--paper-soft);
+      margin-bottom: 14px;
+    }
+    .film-card .frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(0.95);
+      transition: transform 1100ms var(--ease);
+    }
+    .film-card:hover .frame img { transform: scale(1.03); }
+    .film-card .cap-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .film-card .cap {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--ink);
+    }
+    .film-card .room-no {
+      font-size: 0.625rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    /* ─── Anfahrt ──────────────────────────────────────────────────────── */
+    .anfahrt {
+      padding: 110px 0;
+    }
+    .anfahrt-inner {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 60px;
+    }
+    .anfahrt-left h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.008em;
+      color: var(--ink);
+      margin-bottom: 26px;
+    }
+    .anfahrt-left h2 em { font-style: italic; color: var(--sage); font-weight: 400; }
+
+    .anfahrt-address {
+      font-size: 1.125rem;
+      color: var(--ink);
+      line-height: 1.55;
+      margin-bottom: 30px;
+      font-family: var(--font-serif);
+    }
+    .anfahrt-blocks {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 32px;
+    }
+    .a-block .k {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .a-block .v {
+      font-size: 0.9375rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+    .a-block .v strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .anfahrt-trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+    .trust-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--paper-soft);
+      border: 1px solid var(--line-soft);
+      border-radius: 999px;
+      font-size: 0.8125rem;
+      color: var(--ink-soft);
+    }
+    .trust-chip svg {
+      width: 13px; height: 13px;
+      color: var(--sage);
+      stroke-width: 1.8;
+    }
+
+    .anfahrt-right {
+      background: var(--card);
+      border: 1px solid var(--line-soft);
+      padding: 36px 36px 32px;
+      border-radius: 4px;
+    }
+    .anfahrt-right h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 24px;
+      letter-spacing: -0.005em;
+    }
+    .hours-table {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0;
+    }
+    .hours-table .row {
+      display: contents;
+    }
+    .hours-table .row > * {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line-soft);
+      font-size: 0.9375rem;
+    }
+    .hours-table .row:last-child > * {
+      border-bottom: none;
+    }
+    .hours-table .day {
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .hours-table .time {
+      color: var(--ink-soft);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+    .hours-table .closed { color: var(--ink-muted); font-style: italic; }
+
+    .akut-note {
+      margin-top: 26px;
+      padding: 16px 18px;
+      background: var(--paper-soft);
+      border-left: 2px solid var(--sage);
+      border-radius: 0 4px 4px 0;
+      font-size: 0.875rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+    .akut-note strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ─── Footer ───────────────────────────────────────────────────────── */
+    footer {
+      padding: 80px 0 36px;
+      background: var(--paper-soft);
+      border-top: 1px solid var(--line-soft);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+    .footer-brand .wordmark {
+      font-family: var(--font-serif);
+      font-size: 1.625rem;
+      font-weight: 500;
+      letter-spacing: -0.008em;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .footer-brand .sub {
+      font-size: 0.6875rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+      margin-bottom: 22px;
+    }
+    .footer-brand p {
+      font-size: 0.875rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      max-width: 34ch;
+    }
+    .footer-col h4 {
+      font-size: 0.6875rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .footer-col li {
+      font-size: 0.875rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+    .footer-col a:hover { color: var(--sage); }
+    .footer-col .kassen {
+      font-size: 0.8125rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+    .footer-base {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .footer-base .copy {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+    }
+    .footer-base .legal {
+      display: flex;
+      gap: 22px;
+    }
+    .footer-base .legal a {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+    }
+    .footer-base .legal a:hover { color: var(--sage); }
+
+    /* ─── Sticky Booking Widget — Desktop ──────────────────────────────── */
+    .booking-widget {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 348px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 22px 22px 20px;
+      box-shadow: 0 18px 44px -20px rgba(46, 70, 55, 0.32),
+                  0 4px 14px -8px rgba(46, 70, 55, 0.18);
+      z-index: 90;
+      transform: translateY(0);
+      opacity: 1;
+      transition: transform 380ms var(--ease), opacity 280ms ease;
+    }
+    .booking-widget.hidden {
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .booking-widget-mobile {
+      display: none;
+    }
+
+    .bw-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .bw-head .title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .bw-head .title svg {
+      width: 15px; height: 15px;
+      color: var(--sage);
+      stroke-width: 1.6;
+    }
+    .bw-head .title span {
+      font-family: var(--font-serif);
+      font-size: 1.0625rem;
+      color: var(--ink);
+      font-weight: 500;
+      letter-spacing: -0.003em;
+    }
+    .bw-dismiss {
+      width: 22px; height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-muted);
+      border-radius: 50%;
+      transition: background 200ms ease, color 200ms ease;
+    }
+    .bw-dismiss:hover { background: var(--paper-soft); color: var(--ink); }
+    .bw-dismiss svg { width: 11px; height: 11px; stroke-width: 1.8; }
+
+    .bw-sub {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+    .bw-slots {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .bw-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 3px;
+      padding: 10px 12px;
+      background: var(--paper);
+      border: 1px solid var(--line-soft);
+      border-radius: 4px;
+      transition: border-color 220ms ease, transform 200ms var(--ease), background 220ms ease;
+      cursor: pointer;
+      text-align: left;
+    }
+    .bw-slot:hover {
+      border-color: var(--sage);
+      transform: translateY(-1px);
+      background: var(--paper-warm);
+    }
+    .bw-slot .when {
+      font-size: 0.6875rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+    .bw-slot .time {
+      font-family: var(--font-serif);
+      font-size: 1.0625rem;
+      color: var(--ink);
+      font-weight: 500;
+      letter-spacing: -0.005em;
+    }
+    .bw-slot.acute {
+      border-color: rgba(194, 106, 79, 0.45);
+      background: #F7EDE7;
+    }
+    .bw-slot.acute .when {
+      color: #9A523B;
+    }
+    .bw-slot.acute:hover { border-color: #C26A4F; }
+
+    .bw-cta {
+      display: block;
+      text-align: center;
+      width: 100%;
+      padding: 13px 18px;
+      background: var(--sage);
+      color: var(--paper);
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background 200ms ease, transform 200ms var(--ease);
+      margin-bottom: 10px;
+    }
+    .bw-cta:hover { background: var(--sage-d); transform: translateY(-1px); }
+
+    .bw-call {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      font-size: 0.875rem;
+      color: var(--ink);
+      font-weight: 500;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      transition: border-color 220ms ease, color 220ms ease;
+    }
+    .bw-call:hover { border-color: var(--sage); color: var(--sage); }
+    .bw-call svg { width: 13px; height: 13px; color: var(--sage); stroke-width: 1.8; }
+
+    .bw-trust {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--line);
+      font-size: 0.6875rem;
+      color: var(--ink-muted);
+      text-align: center;
+      letter-spacing: 0.02em;
+      line-height: 1.5;
+    }
+    .bw-trust strong { color: var(--ink-soft); font-weight: 600; }
+
+    /* ─── Responsive ──────────────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .hero-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hero-team-tile .ht-body {
+        padding: 14px 18px;
+      }
+      .booking-widget {
+        width: 320px;
+      }
+      .film-card { width: 480px; }
+    }
+
+    @media (max-width: 980px) {
+      .booking-widget { display: none; }
+      .booking-widget-mobile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: fixed;
+        bottom: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 90;
+        padding: 11px 16px 11px 14px;
+        background: var(--ink);
+        color: var(--paper);
+        border-radius: 999px;
+        box-shadow: 0 14px 30px -12px rgba(31, 36, 33, 0.45);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        max-width: calc(100% - 24px);
+      }
+      .booking-widget-mobile .next-slot {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        font-size: 0.625rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--paper);
+        opacity: 0.72;
+        line-height: 1.15;
+      }
+      .booking-widget-mobile .next-slot strong {
+        font-size: 0.75rem;
+        letter-spacing: 0.02em;
+        text-transform: none;
+        font-weight: 600;
+        font-family: var(--font-serif);
+        opacity: 1;
+      }
+      .booking-widget-mobile .divider {
+        width: 1px;
+        height: 26px;
+        background: rgba(241, 243, 238, 0.18);
+      }
+      .booking-widget-mobile .actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .booking-widget-mobile .btn-pill {
+        padding: 8px 14px;
+        background: var(--sage);
+        color: var(--paper);
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+      .booking-widget-mobile .call-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--paper);
+        border: 1px solid rgba(241, 243, 238, 0.22);
+        border-radius: 999px;
+      }
+      .booking-widget-mobile .call-pill svg { width: 12px; height: 12px; }
+    }
+
+    @media (max-width: 880px) {
+      .container, .container-wide { padding: 0 22px; }
+
+      .nav-links { display: none; }
+      .nav-phone { display: none; }
+      .menu-toggle { display: flex; }
+
+      .mobile-menu {
+        position: fixed;
+        top: 64px;
+        left: 0; right: 0;
+        background: var(--paper);
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        padding: 24px;
+        gap: 18px;
+        z-index: 95;
+        transform: translateY(-12px);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 280ms var(--ease), opacity 220ms ease;
+      }
+      .mobile-menu.open {
+        display: flex;
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .mobile-menu a {
+        font-family: var(--font-serif);
+        font-size: 1.5rem;
+        color: var(--ink);
+        padding: 8px 0;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .mobile-menu .m-foot {
+        margin-top: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .mobile-menu .m-phone {
+        font-family: var(--font-sans);
+        font-size: 0.9375rem;
+        color: var(--ink-soft);
+        border: none;
+        padding: 0;
+      }
+
+      .hero { padding: 100px 0 60px; }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .hero-anna { aspect-ratio: 4 / 5; max-width: 78%; }
+      .hero-team-stack {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        gap: 12px;
+      }
+      .hero-team-tile {
+        grid-template-columns: 0.85fr 1fr;
+      }
+      .hero-team-tile .ht-body { padding: 12px 14px; }
+      .hero-team-tile .ht-name { font-size: 0.9375rem; }
+      .hero-team-tile .ht-role { font-size: 0.625rem; }
+      .hero-team-tile .ht-focus { display: none; }
+
+      .hero-copy {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        margin-top: 42px;
+      }
+      .hero-meta { gap: 24px; margin-top: 44px; }
+      .hero-meta-item { min-width: 100px; }
+      .hero-meta-item .v { font-size: 0.9375rem; }
+      .hero-ctas { flex-direction: column; align-items: stretch; }
+      .hero-ctas .btn { justify-content: center; }
+
+      .anlass { padding: 80px 0 70px; }
+      .anlass-head { grid-template-columns: 1fr; gap: 24px; margin-bottom: 40px; }
+      .anlass-grid {
+        grid-template-columns: 1fr;
+      }
+      .anlass-card.span-2,
+      .anlass-card.span-3,
+      .anlass-card.span-4 {
+        grid-column: span 1;
+      }
+
+      .erster { padding: 80px 0; }
+      .erster-head { grid-template-columns: 1fr; gap: 18px; margin-bottom: 36px; }
+      .qa-item {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 26px 0;
+      }
+      .qa-item .q { font-size: 1.1875rem; }
+
+      .methode { padding: 80px 0 70px; }
+      .methode-inner { grid-template-columns: 1fr; gap: 50px; }
+      .methode-portrait { max-width: 78%; }
+
+      .raeume { padding: 70px 0 90px; }
+      .raeume-head { gap: 20px; margin-bottom: 32px; }
+      .raeume-nav { display: none; }
+      .film-card { width: 78vw; max-width: 380px; }
+      .filmstrip {
+        margin: 0 -22px;
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .anfahrt { padding: 80px 0 110px; }
+      .anfahrt-inner { grid-template-columns: 1fr; gap: 40px; }
+      .anfahrt-blocks { grid-template-columns: 1fr; gap: 22px; }
+
+      footer { padding: 60px 0 130px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 40px; }
+      .footer-brand { grid-column: span 2; }
+      .footer-base { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+
+    @media (max-width: 480px) {
+      .container, .container-wide { padding: 0 18px; }
+      .hero-team-stack { grid-template-columns: 1fr; }
+      .hero-team-tile { grid-template-columns: 0.55fr 1fr; }
+      .hero-anna, .methode-portrait { max-width: 100%; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: span 1; }
+      .booking-widget-mobile .next-slot { display: none; }
+      .booking-widget-mobile .divider { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════ NAVIGATION ═══════════════════════════════ -->
+  <nav class="nav" id="nav">
+    <div class="container-wide nav-inner">
+      <a href="#" class="nav-brand">
+        <span class="wordmark">Praxis Lindner &amp; Kollegen</span>
+        <span class="sub">Physiotherapie · Osteopathie · Manuelle Therapie</span>
+      </a>
+      <div class="nav-links">
+        <a href="#team">Team</a>
+        <a href="#behandlung">Behandlung</a>
+        <a href="#ablauf">Erster Termin</a>
+        <a href="#praxis">Praxis</a>
+        <a href="#anfahrt">Anfahrt</a>
+      </div>
+      <div class="nav-right">
+        <a href="tel:+4921187320411" class="nav-phone" aria-label="Telefon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          0211 87 32 04 11
+        </a>
+        <a href="#anfrage" class="btn btn-primary btn-small">Termin buchen</a>
+        <button class="menu-toggle" aria-label="Menü" id="menuToggle">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#team">Team</a>
+      <a href="#behandlung">Behandlung</a>
+      <a href="#ablauf">Erster Termin</a>
+      <a href="#praxis">Praxis</a>
+      <a href="#anfahrt">Anfahrt</a>
+      <div class="m-foot">
+        <a href="tel:+4921187320411" class="m-phone">0211 87 32 04 11</a>
+        <a href="#anfrage" class="btn btn-primary">Termin online buchen</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+  <header class="hero" id="team">
+    <div class="container-wide">
+      <div class="hero-grid">
+        <!-- Anna Lindner — large featured portrait -->
+        <figure class="hero-anna reveal">
+          <img src="https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=780&h=975&fit=crop&q=85&auto=format" alt="Anna Lindner, Inhaberin der Praxis Lindner und Kollegen" loading="eager" />
+          <figcaption class="hero-anna-tag">
+            <div class="role">Inhaberin · Seit 2008</div>
+            <div class="name">Anna Lindner</div>
+            <div class="qual">Physiotherapeutin &amp; Osteopathin D.O.</div>
+          </figcaption>
+        </figure>
+
+        <!-- Team stack — 4 therapists -->
+        <div class="hero-team-stack">
+          <article class="hero-team-tile reveal reveal-d-1">
+            <div class="ht-img">
+              <img src="https://images.unsplash.com/photo-1611608822650-925c227ef4d2?w=520&h=520&fit=crop&q=85&auto=format" alt="Daniel Meinhardt, Physiotherapeut" loading="lazy" />
+            </div>
+            <div class="ht-body">
+              <div class="ht-name">Daniel Meinhardt</div>
+              <div class="ht-role">Sportphysiotherapeut</div>
+              <div class="ht-focus">Sport-OP-Nachbehandlung, MTT, Triggerpunkt</div>
+            </div>
+          </article>
+
+          <article class="hero-team-tile reveal reveal-d-2">
+            <div class="ht-img">
+              <img src="https://images.unsplash.com/photo-1608034809014-73e7d72f25b4?w=520&h=520&fit=crop&q=85&auto=format" alt="Jannik Beckmann, Physiotherapeut" loading="lazy" />
+            </div>
+            <div class="ht-body">
+              <div class="ht-name">Jannik Beckmann</div>
+              <div class="ht-role">Physiotherapeut B.Sc.</div>
+              <div class="ht-focus">Manuelle Lymphdrainage, KG-ZNS Bobath, Geriatrie</div>
+            </div>
+          </article>
+
+          <article class="hero-team-tile reveal reveal-d-3">
+            <div class="ht-img">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=520&h=520&fit=crop&q=85&auto=format" alt="Karoline Schweiger, Physiotherapeutin" loading="lazy" />
+            </div>
+            <div class="ht-body">
+              <div class="ht-name">Karoline Schweiger</div>
+              <div class="ht-role">Beckenboden &amp; CMD</div>
+              <div class="ht-focus">Rückbildung, Schwangerschaft, Kiefertherapie</div>
+            </div>
+          </article>
+
+          <article class="hero-team-tile reveal reveal-d-4">
+            <div class="ht-img">
+              <img src="https://images.unsplash.com/photo-1652550616981-e4dcabc0b489?w=520&h=520&fit=crop&q=85&auto=format" alt="Lukas Pohl, Heilpraktiker und Physiotherapeut" loading="lazy" />
+            </div>
+            <div class="ht-body">
+              <div class="ht-name">Lukas Pohl</div>
+              <div class="ht-role">Heilpraktiker &amp; Physio</div>
+              <div class="ht-focus">Naturheilverfahren, Akupunktur, Triggerpunkt</div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Eyebrow + headline + ctas -->
+      <div class="hero-copy">
+        <div class="hero-copy-left">
+          <div class="eyebrow eyebrow-mark reveal">Praxis · Düsseldorf-Pempelfort · Seit 2008</div>
+          <h1 class="hero-headline reveal reveal-d-1">
+            Physiotherapie, die <em>zuhört</em><br/>
+            — und wieder in Bewegung bringt.
+          </h1>
+        </div>
+        <div class="hero-copy-right reveal reveal-d-2">
+          <p>
+            Fünf Therapeutinnen und Therapeuten, ein Anspruch: Wir nehmen uns Zeit, schauen genau hin und behandeln Sie mit den Verfahren, die zu Ihrer Situation passen — von Manueller Therapie bis Osteopathie, evidenzbasiert und in enger Abstimmung mit Ihren Ärzten.
+          </p>
+          <div class="hero-ctas">
+            <a href="#anfrage" class="btn btn-primary">
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              Termin online buchen
+            </a>
+            <a href="tel:+4921187320411" class="btn btn-ghost">
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              Anrufen — 0211 87 32 04 11
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-meta reveal">
+        <div class="hero-meta-item">
+          <span class="k">Akut-Sprechstunde</span>
+          <span class="v">Heute · Morgen</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="k">Krankenkassen</span>
+          <span class="v">Alle gesetzlich · privat</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="k">Heilmittel</span>
+          <span class="v">14 Verfahren</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="k">Therapeut:innen</span>
+          <span class="v">Fünf · ein Team</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="k">Empfang</span>
+          <span class="v">Mo–Fr durchgehend</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════ BEHANDLUNGSANLÄSSE ═══════════════════════════════ -->
+  <section class="anlass" id="behandlung">
+    <div class="container-wide">
+      <div class="anlass-head reveal">
+        <div>
+          <div class="section-label">Behandlungsanlässe</div>
+          <h2>Wir behandeln <em>Situationen</em>, nicht nur Diagnosen.</h2>
+        </div>
+        <p>
+          Die meisten Patientinnen und Patienten kommen nicht mit einer Methode im Kopf, sondern mit einer konkreten Frage — akut, chronisch, nach einer OP, in der Schwangerschaft. Hier finden Sie, wofür wir geeignet sind und welche Verfahren wir dafür einsetzen.
+        </p>
+      </div>
+
+      <div class="anlass-grid">
+        <!-- Card 1: Akute Schmerzen — wide (span 4) -->
+        <article class="anlass-card span-4 reveal">
+          <div class="tag-row">
+            <span class="num">01</span>
+            <span class="badge">Akut-Sprechstunde</span>
+          </div>
+          <h3>Akute Schmerzen &amp; Verletzungen</h3>
+          <p>
+            Hexenschuss, akuter Nacken, blockierte Schulter, frische Verstauchung — wenn der Schmerz plötzlich kommt, brauchen Sie keine Wartezeit von zwei Wochen. In unserer Akut-Sprechstunde sind wir meist innerhalb von 24 Stunden für Sie da, befunden klinisch und beginnen die Behandlung sofort.
+          </p>
+          <div class="methods">
+            <span class="k">Eingesetzte Verfahren</span>
+            <span class="v">Manuelle Therapie · Triggerpunktbehandlung · Osteopathie · Kinesiotaping</span>
+          </div>
+          <span class="wait acute"><span class="dot"></span>Akut-Termin: meist heute oder morgen</span>
+        </article>
+
+        <!-- Card 2: Reha — narrow (span 2) -->
+        <article class="anlass-card span-2 reveal reveal-d-1">
+          <div class="tag-row">
+            <span class="num">02</span>
+          </div>
+          <h3>Rehabilitation nach OP &amp; Unfall</h3>
+          <p>
+            Knie, Hüfte, Schulter oder Bandscheibe — strukturierte Nachbehandlung im engen Austausch mit Ihrer Orthopädin oder Ihrem Operateur. Heilmittelverordnung wird über die Krankenkasse abgerechnet.
+          </p>
+          <div class="methods">
+            <span class="k">Verfahren</span>
+            <span class="v">KG · MT · MTT · Lymphdrainage</span>
+          </div>
+          <span class="wait"><span class="dot"></span>Wartezeit: 3–7 Tage</span>
+        </article>
+
+        <!-- Card 3: Chronisch — narrow (span 2) -->
+        <article class="anlass-card span-2 reveal">
+          <div class="tag-row">
+            <span class="num">03</span>
+          </div>
+          <h3>Chronische Beschwerden</h3>
+          <p>
+            Wiederkehrender Rückenschmerz, Migräne, langjährige Bandscheiben-Vorgeschichte — hier setzen wir auf Verlaufstherapie statt schneller Symptombehandlung, mit klarem Befundungsplan über mehrere Termine.
+          </p>
+          <div class="methods">
+            <span class="k">Verfahren</span>
+            <span class="v">Osteopathie · MT · MTT · Naturheilverfahren</span>
+          </div>
+          <span class="wait"><span class="dot"></span>Wartezeit: 5–10 Tage</span>
+        </article>
+
+        <!-- Card 4: Sport — wide (span 4) -->
+        <article class="anlass-card span-4 reveal reveal-d-1">
+          <div class="tag-row">
+            <span class="num">04</span>
+            <span class="badge muted">Sportphysio · MTT-Raum</span>
+          </div>
+          <h3>Sport &amp; Performance</h3>
+          <p>
+            Vom ambitionierten Freizeitsportler bis zur Wettkampfvorbereitung: gezielte Diagnostik, Verletzungsprävention, Medizinische Trainingstherapie an Geräten und individuelles Belastungsmanagement. Daniel Meinhardt betreut seit Jahren auch Profis aus dem Düsseldorfer Sport.
+          </p>
+          <div class="methods">
+            <span class="k">Eingesetzte Verfahren</span>
+            <span class="v">MTT · Manuelle Therapie · Triggerpunkt · Sport-Taping · Faszientherapie</span>
+          </div>
+          <span class="wait"><span class="dot"></span>Termin nach Absprache · auch abends</span>
+        </article>
+
+        <!-- Card 5: Schwangerschaft — span 3 -->
+        <article class="anlass-card span-3 reveal">
+          <div class="tag-row">
+            <span class="num">05</span>
+          </div>
+          <h3>Schwangerschaft, Geburt, Rückbildung</h3>
+          <p>
+            Beckenbodentherapie, Begleitung in Schwangerschaft und Wochenbett, Rückbildungstherapie — vertraulich, ruhig, im separaten Behandlungsraum. Wir arbeiten eng mit Hebammen und Gynäkologinnen in Pempelfort und der Altstadt zusammen.
+          </p>
+          <div class="methods">
+            <span class="k">Verfahren</span>
+            <span class="v">Beckenboden · Manuelle Therapie · Lymphdrainage</span>
+          </div>
+          <span class="wait"><span class="dot"></span>Wartezeit: 1–2 Wochen</span>
+        </article>
+
+        <!-- Card 6: CMD — span 3 -->
+        <article class="anlass-card span-3 reveal reveal-d-1">
+          <div class="tag-row">
+            <span class="num">06</span>
+            <span class="badge muted">Interdisziplinär</span>
+          </div>
+          <h3>Kiefer &amp; Kopfschmerzen — CMD</h3>
+          <p>
+            Bruxismus, Kieferknacken, chronische Spannungskopfschmerzen, Tinnitus mit Kieferbezug: die kraniomandibuläre Dysfunktion wird oft übersehen. Wir behandeln in enger Abstimmung mit Zahnärzten und Kieferorthopäden aus Düsseldorf.
+          </p>
+          <div class="methods">
+            <span class="k">Verfahren</span>
+            <span class="v">CMD-Therapie · Manuelle Therapie · Kraniosakraltherapie · Triggerpunkt</span>
+          </div>
+          <span class="wait"><span class="dot"></span>Wartezeit: 7–14 Tage</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ ERSTER TERMIN — Q&A ═══════════════════════════════ -->
+  <section class="erster" id="ablauf">
+    <div class="container">
+      <div class="erster-head reveal">
+        <div>
+          <div class="section-label">Ihr erster Termin</div>
+          <h2>Was Sie <em>vorher</em> wissen sollten.</h2>
+        </div>
+        <p>
+          Die häufigsten Fragen, die uns am Telefon gestellt werden — kurz beantwortet, damit Sie nicht raten müssen. Sollte Ihre Frage hier nicht stehen: Rufen Sie an, unser Empfang antwortet werktags durchgehend.
+        </p>
+      </div>
+
+      <div class="qa-stack">
+        <div class="qa-item reveal">
+          <div class="q">
+            <span class="num">Frage 01</span>
+            Brauche ich eine Überweisung vom Arzt?
+          </div>
+          <div class="a">
+            Für klassische <strong>Heilmittel</strong> wie Krankengymnastik, Manuelle Therapie oder Lymphdrainage ja — Sie bringen die rosa Verordnung Ihres Arztes mit. Für <strong>Osteopathie</strong>, <strong>Naturheilverfahren</strong> und reine Präventionstermine ist keine Überweisung nötig. Wenn Sie unsicher sind, rufen Sie kurz an — wir klären das in zwei Minuten.
+          </div>
+        </div>
+
+        <div class="qa-item reveal">
+          <div class="q">
+            <span class="num">Frage 02</span>
+            Wie lange dauert ein Termin?
+          </div>
+          <div class="a">
+            Eine reguläre Heilmittelbehandlung dauert <strong>25 Minuten</strong>, Manuelle Therapie 30 Minuten. Für Osteopathie planen wir eine volle Stunde, für die Erstuntersuchung in komplexen Fällen ebenfalls 60 Minuten. Wir geben uns die Zeit, die Ihre Situation verlangt — und sagen es Ihnen offen, wenn ein Doppeltermin sinnvoller wäre.
+          </div>
+        </div>
+
+        <div class="qa-item reveal">
+          <div class="q">
+            <span class="num">Frage 03</span>
+            Übernimmt meine Krankenkasse die Behandlung?
+          </div>
+          <div class="a">
+            Wir rechnen mit <strong>allen gesetzlichen Krankenkassen</strong> direkt ab, ebenso mit der <strong>privaten Krankenversicherung</strong> und <strong>Beihilfe</strong>. Bei gesetzlich Versicherten fällt die übliche Heilmittel-Zuzahlung von 10 % plus 10 Euro pro Verordnung an. Osteopathische Behandlungen werden von vielen gesetzlichen Kassen anteilig bezuschusst — eine aktuelle Liste schicken wir Ihnen gerne per E-Mail zu.
+          </div>
+        </div>
+
+        <div class="qa-item reveal">
+          <div class="q">
+            <span class="num">Frage 04</span>
+            Was passiert bei der Erstuntersuchung?
+          </div>
+          <div class="a">
+            Wir sprechen zuerst etwa zehn Minuten über Ihre Beschwerden, Vorerkrankungen, Beruf und Sport. Danach folgt eine <strong>körperliche Befundung</strong>: Beweglichkeit, Stabilität, Funktionstests. Sie erfahren noch im Termin, was wir gefunden haben, welche Behandlung wir vorschlagen, wie viele Sitzungen wir erwarten — und beginnen direkt mit der ersten Behandlungseinheit.
+          </div>
+        </div>
+
+        <div class="qa-item reveal">
+          <div class="q">
+            <span class="num">Frage 05</span>
+            Was bringe ich mit?
+          </div>
+          <div class="a">
+            Versichertenkarte, Heilmittelverordnung (falls vorhanden), <strong>bequeme Sportkleidung</strong>, ein großes Handtuch. Bei OP- oder Unfallnachbehandlung sind aktuelle Befunde — MRT, Röntgen, OP-Bericht — sehr hilfreich. Wenn Sie etwas vergessen: kein Problem, der Empfang hilft weiter.
+          </div>
+        </div>
+
+        <div class="qa-item reveal">
+          <div class="q">
+            <span class="num">Frage 06</span>
+            Habe ich auch kurzfristig einen Termin?
+          </div>
+          <div class="a">
+            Für akute Beschwerden halten wir täglich <strong>Akut-Slots frei</strong>. Rufen Sie morgens zwischen 7:30 und 9:00 an — wir finden in der Regel einen Termin am selben oder am nächsten Tag. Für reguläre Termine liegen wir bei <strong>3 bis 10 Tagen Wartezeit</strong>, je nach Behandler und Verfahren.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ METHODE / FOUNDER ═══════════════════════════════ -->
+  <section class="methode">
+    <div class="container">
+      <div class="methode-inner">
+        <figure class="methode-portrait reveal">
+          <img src="https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=720&h=900&fit=crop&q=85&auto=format" alt="Anna Lindner in einem Behandlungsraum der Praxis" loading="lazy" />
+          <figcaption class="cap">Anna Lindner, Pempelfort 2024</figcaption>
+        </figure>
+
+        <div class="methode-text reveal reveal-d-1">
+          <div class="section-label">Methode &amp; Haltung</div>
+          <h2>Warum wir uns für jede Patientin <em>diese</em> Zeit nehmen.</h2>
+
+          <p>
+            Ich habe die Praxis 2008 gegründet, nachdem ich an der Höheren Berufsfachschule für Physiotherapie in Düsseldorf ausgebildet und anschließend meine fünfjährige Osteopathie-Ausbildung an der Osteopathy School Stuttgart abgeschlossen hatte. Schon damals war mein Anspruch ein anderer als das, was man oft erlebt: nicht „der nächste Patient bitte" im Halbstundentakt, sondern wirklich genau hinschauen.
+          </p>
+
+          <p>
+            Heute sind wir zu fünft, und dieser Anspruch hat sich nicht verschoben. Jede neue Patientin, jeder neue Patient bekommt eine echte Erstuntersuchung mit Anamnese und Befund — und ein klares Bild davon, was wir vorschlagen und warum. Wir arbeiten <em>evidenzbasiert</em>, eng vernetzt mit Orthopädinnen, Hausärzten, Zahnärzten und Hebammen in Pempelfort, Derendorf und rund um die Kö, und wir sagen offen, wenn wir das falsche Angebot für eine Beschwerde wären.
+          </p>
+
+          <div class="pull">
+            „Eine gute Behandlung beginnt nicht am Behandlungstisch — sie beginnt damit, dass jemand wirklich zuhört."
+          </div>
+
+          <p>
+            Was wir nicht sind: ein Wellness-Studio. Was wir sind: eine Praxis, in der fünf erfahrene Therapeut:innen mit ihren jeweiligen Schwerpunkten zusammenarbeiten, regelmäßig Fortbildungen besuchen und ihre Befunde im Team besprechen. Wenn Sie zum ersten Mal kommen, werden Sie das spüren.
+          </p>
+
+          <div class="signature">
+            <span class="name">Anna Lindner, D.O.</span>
+            <span class="role">Inhaberin · Physiotherapeutin &amp; Osteopathin</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ PRAXISRÄUME ═══════════════════════════════ -->
+  <section class="raeume" id="praxis">
+    <div class="container-wide">
+      <div class="raeume-head reveal">
+        <div class="left">
+          <div class="section-label">Praxisräume</div>
+          <h2>Ein <em>Altbau</em> in der Nordstraße — barrierefrei, ruhig, hell.</h2>
+          <p>
+            Die Praxis liegt im Hochparterre eines sanierten Gründerzeitaltbaus an der Nordstraße. Vier Behandlungsräume, ein eigener MTT-Raum mit Geräten, getrennte Räume für Lymphdrainage und Beckenbodentherapie — und ein Empfang, an dem Sie tatsächlich jemanden antreffen.
+          </p>
+        </div>
+        <div class="raeume-nav">
+          <button id="filmPrev" aria-label="Zurück">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button id="filmNext" aria-label="Weiter">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="filmstrip" id="filmstrip">
+        <article class="film-card reveal">
+          <div class="frame">
+            <img src="https://images.unsplash.com/photo-1608979827489-2b855e79debe?w=1400&h=1000&fit=crop&q=85&auto=format" alt="Empfangsbereich der Praxis Lindner" loading="lazy" />
+          </div>
+          <div class="cap-row">
+            <div class="cap">Empfang &amp; Wartebereich</div>
+            <div class="room-no">Raum 01</div>
+          </div>
+        </article>
+
+        <article class="film-card reveal reveal-d-1">
+          <div class="frame">
+            <img src="https://images.unsplash.com/photo-1553267570-73887f15b17a?w=1400&h=1000&fit=crop&q=85&auto=format" alt="Behandlungsraum für Manuelle Therapie" loading="lazy" />
+          </div>
+          <div class="cap-row">
+            <div class="cap">Behandlungsraum — Manuelle Therapie</div>
+            <div class="room-no">Raum 02</div>
+          </div>
+        </article>
+
+        <article class="film-card reveal reveal-d-2">
+          <div class="frame">
+            <img src="https://images.unsplash.com/photo-1717500252709-05a73fc4f1da?w=1400&h=1000&fit=crop&q=85&auto=format" alt="MTT-Raum mit Trainingsgeräten" loading="lazy" />
+          </div>
+          <div class="cap-row">
+            <div class="cap">MTT-Raum — Trainingstherapie</div>
+            <div class="room-no">Raum 03</div>
+          </div>
+        </article>
+
+        <article class="film-card reveal reveal-d-3">
+          <div class="frame">
+            <img src="https://images.unsplash.com/photo-1648775507324-b48dd3791fa5?w=1400&h=1000&fit=crop&q=85&auto=format" alt="Ruhiger Behandlungsraum für Lymphdrainage" loading="lazy" />
+          </div>
+          <div class="cap-row">
+            <div class="cap">Behandlungsraum — Lymphdrainage</div>
+            <div class="room-no">Raum 04</div>
+          </div>
+        </article>
+
+        <article class="film-card reveal reveal-d-4">
+          <div class="frame">
+            <img src="https://images.unsplash.com/photo-1676496962536-d8ef110ff6f0?w=1400&h=1000&fit=crop&q=85&auto=format" alt="Osteopathie-Raum, gedämpftes Licht" loading="lazy" />
+          </div>
+          <div class="cap-row">
+            <div class="cap">Osteopathie &amp; Kraniosakral</div>
+            <div class="room-no">Raum 05</div>
+          </div>
+        </article>
+
+        <article class="film-card reveal reveal-d-5">
+          <div class="frame">
+            <img src="https://images.unsplash.com/photo-1519068596688-d7eb3bcf2dc8?w=1400&h=1000&fit=crop&q=85&auto=format" alt="Außenansicht des Altbaus an der Nordstraße" loading="lazy" />
+          </div>
+          <div class="cap-row">
+            <div class="cap">Außenansicht — Nordstraße 47</div>
+            <div class="room-no">Raum 06</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ ANFAHRT ═══════════════════════════════ -->
+  <section class="anfahrt" id="anfahrt">
+    <div class="container-wide">
+      <div class="anfahrt-inner">
+        <div class="anfahrt-left reveal">
+          <div class="section-label">Anfahrt &amp; Praxis-Info</div>
+          <h2>Mitten in <em>Pempelfort</em>, vier Minuten von der U-Bahn.</h2>
+
+          <div class="anfahrt-address">
+            Praxis Lindner &amp; Kollegen<br/>
+            Nordstraße 47<br/>
+            40477 Düsseldorf-Pempelfort
+          </div>
+
+          <div class="anfahrt-blocks">
+            <div class="a-block">
+              <div class="k">Mit der U-Bahn</div>
+              <div class="v">
+                <strong>U78 / U79</strong> bis Pempelforter Straße — 4 Minuten Fußweg, ebenerdig.
+              </div>
+            </div>
+            <div class="a-block">
+              <div class="k">Mit dem Auto</div>
+              <div class="v">
+                Tiefgarage Nordstraße direkt nebenan, sonst Bewohnerparken mit Tagesticket.
+              </div>
+            </div>
+            <div class="a-block">
+              <div class="k">Mit dem Rad</div>
+              <div class="v">
+                Überdachte Stellplätze direkt am Eingang, gesicherte Bügel im Innenhof.
+              </div>
+            </div>
+            <div class="a-block">
+              <div class="k">Empfang</div>
+              <div class="v">
+                <strong>Mo–Fr durchgehend</strong> besetzt, freitags bis 18 Uhr, samstags bis 14 Uhr.
+              </div>
+            </div>
+          </div>
+
+          <div class="anfahrt-trust">
+            <span class="trust-chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Barrierefreier Zugang ohne Stufen
+            </span>
+            <span class="trust-chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Alle gesetzlichen Kassen
+            </span>
+            <span class="trust-chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Privat &amp; Beihilfe
+            </span>
+            <span class="trust-chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Akut-Sprechstunde
+            </span>
+          </div>
+        </div>
+
+        <div class="anfahrt-right reveal reveal-d-1" id="anfrage">
+          <h3>Öffnungszeiten</h3>
+          <div class="hours-table">
+            <div class="row">
+              <span class="day">Montag</span>
+              <span class="time">07:30 — 20:00</span>
+            </div>
+            <div class="row">
+              <span class="day">Dienstag</span>
+              <span class="time">07:30 — 20:00</span>
+            </div>
+            <div class="row">
+              <span class="day">Mittwoch</span>
+              <span class="time">07:30 — 20:00</span>
+            </div>
+            <div class="row">
+              <span class="day">Donnerstag</span>
+              <span class="time">07:30 — 20:00</span>
+            </div>
+            <div class="row">
+              <span class="day">Freitag</span>
+              <span class="time">07:30 — 18:00</span>
+            </div>
+            <div class="row">
+              <span class="day">Samstag</span>
+              <span class="time">08:00 — 14:00</span>
+            </div>
+            <div class="row">
+              <span class="day">Sonntag</span>
+              <span class="time closed">geschlossen</span>
+            </div>
+          </div>
+
+          <div class="akut-note">
+            <strong>Akut-Sprechstunde:</strong> Bei plötzlich auftretenden Schmerzen rufen Sie bitte zwischen 7:30 und 9:00 Uhr an — wir halten täglich Slots frei.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+  <footer>
+    <div class="container-wide">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="wordmark">Praxis Lindner &amp; Kollegen</div>
+          <div class="sub">Physiotherapie · Osteopathie · Manuelle Therapie</div>
+          <p>
+            Eine Praxis für Physiotherapie und Osteopathie in Düsseldorf-Pempelfort, seit 2008 inhabergeführt von Anna Lindner. Fünf Therapeut:innen, alle Kassen, Akut-Termine möglich.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Praxis</h4>
+          <ul>
+            <li>Nordstraße 47</li>
+            <li>40477 Düsseldorf</li>
+            <li><a href="tel:+4921187320411">0211 87 32 04 11</a></li>
+            <li><a href="mailto:termin@praxis-lindner.de">termin@praxis-lindner.de</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Themen</h4>
+          <ul>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#behandlung">Behandlung</a></li>
+            <li><a href="#ablauf">Erster Termin</a></li>
+            <li><a href="#praxis">Praxisräume</a></li>
+            <li><a href="#anfahrt">Anfahrt</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Krankenkassen</h4>
+          <div class="kassen">
+            Alle gesetzlichen Krankenkassen, private Krankenversicherung, Beihilfe und Berufsgenossenschaft.
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-base">
+        <div class="copy">© 2024 Praxis Lindner &amp; Kollegen · Düsseldorf-Pempelfort</div>
+        <div class="legal">
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+          <a href="#">Praxisordnung</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════ STICKY BOOKING WIDGET — DESKTOP ═══════════════════════════════ -->
+  <aside class="booking-widget" id="bookingWidget" aria-label="Termin buchen">
+    <div class="bw-head">
+      <div class="title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>Termin online buchen</span>
+      </div>
+      <button class="bw-dismiss" aria-label="Schließen" id="bwDismiss">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="bw-sub">Nächste freie Slots, Stand heute:</div>
+    <div class="bw-slots">
+      <a href="#anfrage" class="bw-slot acute">
+        <span class="when">Heute · Akut</span>
+        <span class="time">16:30</span>
+      </a>
+      <a href="#anfrage" class="bw-slot">
+        <span class="when">Morgen, Di.</span>
+        <span class="time">09:00</span>
+      </a>
+      <a href="#anfrage" class="bw-slot">
+        <span class="when">Donnerstag</span>
+        <span class="time">14:30</span>
+      </a>
+      <a href="#anfrage" class="bw-slot">
+        <span class="when">Freitag</span>
+        <span class="time">10:15</span>
+      </a>
+    </div>
+    <a href="#anfrage" class="bw-cta">Alle Termine ansehen</a>
+    <a href="tel:+4921187320411" class="bw-call">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      Anrufen · 0211 87 32 04 11
+    </a>
+    <div class="bw-trust">
+      Bei akuten Beschwerden — <strong>direkt anrufen</strong>.<br/>
+      Wir halten täglich Akut-Slots frei.
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════ STICKY BOOKING WIDGET — MOBILE ═══════════════════════════════ -->
+  <div class="booking-widget-mobile" id="bookingWidgetMobile" aria-label="Termin buchen">
+    <div class="next-slot">
+      <span>Nächster freier Slot</span>
+      <strong>heute 16:30</strong>
+    </div>
+    <div class="divider"></div>
+    <div class="actions">
+      <a href="#anfrage" class="btn-pill">Termin</a>
+      <a href="tel:+4921187320411" class="call-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        Anrufen
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // ── Nav scroll state ──────────────────────────────────────────────────
+    (function() {
+      const nav = document.getElementById('nav');
+      const onScroll = () => {
+        if (window.scrollY > 24) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+
+    // ── Mobile menu toggle ────────────────────────────────────────────────
+    (function() {
+      const toggle = document.getElementById('menuToggle');
+      const menu = document.getElementById('mobileMenu');
+      if (!toggle || !menu) return;
+      toggle.addEventListener('click', () => {
+        menu.classList.toggle('open');
+      });
+      menu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => menu.classList.remove('open'));
+      });
+    })();
+
+    // ── Reveal on scroll ──────────────────────────────────────────────────
+    (function() {
+      const els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(el => el.classList.add('visible'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(el => io.observe(el));
+    })();
+
+    // ── Filmstrip nav ─────────────────────────────────────────────────────
+    (function() {
+      const strip = document.getElementById('filmstrip');
+      const prev = document.getElementById('filmPrev');
+      const next = document.getElementById('filmNext');
+      if (!strip || !prev || !next) return;
+      const step = () => {
+        const card = strip.querySelector('.film-card');
+        if (!card) return 600;
+        return card.getBoundingClientRect().width + 22;
+      };
+      prev.addEventListener('click', () => strip.scrollBy({ left: -step(), behavior: 'smooth' }));
+      next.addEventListener('click', () => strip.scrollBy({ left: step(), behavior: 'smooth' }));
+    })();
+
+    // ── Booking widget dismiss ────────────────────────────────────────────
+    (function() {
+      const widget = document.getElementById('bookingWidget');
+      const dismiss = document.getElementById('bwDismiss');
+      if (!widget || !dismiss) return;
+      dismiss.addEventListener('click', () => {
+        widget.classList.add('hidden');
+      });
+    })();
+
+    // ── Booking widget appear after hero ──────────────────────────────────
+    (function() {
+      const widget = document.getElementById('bookingWidget');
+      if (!widget) return;
+      widget.style.transform = 'translateY(20px)';
+      widget.style.opacity = '0';
+      let shown = false;
+      const reveal = () => {
+        if (shown) return;
+        if (window.scrollY > window.innerHeight * 0.4) {
+          widget.style.transform = 'translateY(0)';
+          widget.style.opacity = '1';
+          shown = true;
+        }
+      };
+      reveal();
+      window.addEventListener('scroll', reveal, { passive: true });
+    })();
+  </script>
+</body>
+</html>

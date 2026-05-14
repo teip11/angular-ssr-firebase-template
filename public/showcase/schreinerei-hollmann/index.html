@@ -1,0 +1,2679 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schreinerei Hollmann — Einbauküchen und Innenausbau aus Stuttgart-Süd</title>
+  <meta name="description" content="Schreinerei Hollmann, Stuttgart-Süd. Maßgefertigte Einbauküchen, Ankleiden, Bibliotheken und Innenausbau in dritter Generation, seit 1978. Erstgespräch: 0711 64 89 25 70." />
+  <meta name="theme-color" content="#F5F0E8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & tokens ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #F5F0E8;
+      --bg-soft:      #EFE7D7;
+      --bg-deep:      #211D19;
+      --bg-paper:     #F8F3EB;
+      --text:         #1E1A16;
+      --text-soft:    #2F2820;
+      --text-muted:   #8B7F6F;
+      --text-faint:   #B0A48F;
+      --line:         #D9CFC0;
+      --line-soft:    #E5DCCC;
+      --walnut:       #6E4A2C;
+      --walnut-d:     #5C3B1F;
+      --walnut-l:     #8A6440;
+      --oak:          #A38866;
+      --raucheiche:   #3F2E22;
+
+      --font-serif: 'Spectral', 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Outfit', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+    ::selection { background: var(--walnut); color: var(--bg); }
+
+    /* ─── Grain ──────────────────────────────────────────────────────────── */
+    .grain {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 200;
+      opacity: 0.045; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ─── Reveal ─────────────────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 760ms cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d-1 { transition-delay: 90ms; }
+    .reveal-d-2 { transition-delay: 180ms; }
+    .reveal-d-3 { transition-delay: 270ms; }
+    .reveal-d-4 { transition-delay: 360ms; }
+    .reveal-d-5 { transition-delay: 450ms; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ─── Container ──────────────────────────────────────────────────────── */
+    .container      { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+    .container-wide { max-width: 1480px; margin: 0 auto; padding: 0 40px; }
+    .container-narrow { max-width: 980px; margin: 0 auto; padding: 0 40px; }
+
+    /* ─── Common type ────────────────────────────────────────────────────── */
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .eyebrow-mark { display: inline-flex; align-items: center; gap: 14px; }
+    .eyebrow-mark::before {
+      content: '';
+      width: 28px; height: 1px; background: var(--walnut);
+    }
+
+    .section-label {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex; align-items: center; gap: 14px;
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+    .section-label::before {
+      content: ''; width: 36px; height: 1px; background: var(--walnut);
+    }
+
+    .display-h {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      line-height: 1.04;
+      letter-spacing: -0.012em;
+      color: var(--text);
+    }
+    .display-h em {
+      font-style: italic; font-weight: 300;
+      color: var(--walnut);
+    }
+
+    .h-sub {
+      font-family: var(--font-sans);
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.55;
+    }
+
+    /* ─── Buttons ────────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 14px 24px;
+      border-radius: 2px;
+      transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+                  background 180ms ease,
+                  color 180ms ease,
+                  border-color 180ms ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--walnut);
+      color: var(--bg);
+      border: 1px solid var(--walnut);
+    }
+    .btn-primary:hover {
+      background: var(--walnut-d);
+      border-color: var(--walnut-d);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform: translateY(0) scale(0.98); }
+    .btn-primary .arrow { transition: transform 180ms ease; }
+    .btn-primary:hover .arrow { transform: translateX(3px); }
+
+    .btn-ghost {
+      color: var(--text);
+      border: 1px solid var(--line);
+      background: transparent;
+    }
+    .btn-ghost:hover {
+      border-color: var(--walnut);
+      background: var(--bg-paper);
+    }
+
+    .btn-light {
+      color: var(--bg);
+      border: 1px solid rgba(245, 240, 232, 0.4);
+      background: transparent;
+    }
+    .btn-light:hover {
+      border-color: var(--bg);
+      background: rgba(245, 240, 232, 0.08);
+    }
+
+    .link-accent {
+      color: var(--walnut);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 2px;
+      border-bottom: 1px solid rgba(110, 74, 44, 0.3);
+      transition: border-color 180ms ease, gap 220ms ease;
+    }
+    .link-accent:hover { border-color: var(--walnut); gap: 12px; }
+
+    /* ─── Navigation (different from Trattoria) ──────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 22px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 300ms ease, padding 240ms ease, border-color 240ms ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 14px 40px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .nav-wordmark {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      color: var(--text);
+      display: inline-flex; align-items: baseline; gap: 8px;
+      line-height: 1;
+    }
+    .nav-wordmark em {
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.74rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transform: translateY(-2px);
+    }
+
+    .nav-right {
+      display: flex; align-items: center; gap: 28px;
+    }
+
+    .nav-phone-inline {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      color: var(--text);
+      letter-spacing: 0.01em;
+      padding: 6px 0;
+      border-bottom: 1px solid transparent;
+      transition: border-color 180ms ease;
+    }
+    .nav-phone-inline:hover { border-color: var(--walnut); }
+    .nav-phone-inline .dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--walnut);
+      display: inline-block;
+    }
+    .nav-phone-inline .lbl {
+      color: var(--text-muted);
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--text);
+      padding: 10px 16px 10px 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+    .nav-cta:hover {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+    .nav-cta-bar {
+      width: 14px; height: 1px; background: currentColor;
+    }
+
+    .nav-burger {
+      width: 44px; height: 44px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: transparent;
+      cursor: pointer;
+      transition: background 180ms ease, border-color 180ms ease;
+    }
+    .nav-burger:hover { background: var(--bg-paper); border-color: var(--walnut); }
+    .nav-burger span {
+      position: relative;
+      display: block;
+      width: 18px; height: 1px;
+      background: var(--text);
+    }
+    .nav-burger span::before,
+    .nav-burger span::after {
+      content: ''; position: absolute; left: 0; width: 18px; height: 1px;
+      background: var(--text);
+      transition: transform 200ms ease, top 200ms ease;
+    }
+    .nav-burger span::before { top: -6px; }
+    .nav-burger span::after  { top: 6px; }
+    .nav-burger.open span { background: transparent; }
+    .nav-burger.open span::before { top: 0; transform: rotate(45deg); }
+    .nav-burger.open span::after  { top: 0; transform: rotate(-45deg); }
+
+    /* mobile menu — hidden by default, only visible at narrow widths */
+    .mobile-menu { display: none; }
+
+    /* ─── Hero — FULL BLEED IMAGE w/ corner card ─────────────────────────── */
+    .hero {
+      position: relative;
+      width: 100%;
+      max-width: none;
+      min-height: 100dvh;
+      overflow: hidden;
+      background: var(--bg-deep);
+    }
+    .hero-image {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+    }
+    .hero-image img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      transform: scale(1.02);
+    }
+    .hero-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, rgba(33, 29, 25, 0.18) 0%, rgba(33, 29, 25, 0.05) 30%, rgba(33, 29, 25, 0.1) 60%, rgba(33, 29, 25, 0.55) 100%);
+      pointer-events: none;
+    }
+
+    .hero-top-meta {
+      position: absolute;
+      top: 110px;
+      right: 40px;
+      z-index: 3;
+      display: flex; flex-direction: column; align-items: flex-end;
+      gap: 6px;
+      color: var(--bg);
+    }
+    .hero-top-meta .line { width: 28px; height: 1px; background: rgba(245, 240, 232, 0.6); }
+    .hero-top-meta .pill {
+      font-family: var(--font-sans);
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.85);
+    }
+
+    .hero-card {
+      position: absolute;
+      left: 40px;
+      bottom: 56px;
+      z-index: 4;
+      max-width: 720px;
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 48px 52px 44px 52px;
+      border: 1px solid rgba(217, 207, 192, 0.6);
+      box-shadow: inset 0 1px 0 rgba(248, 243, 235, 0.5),
+                  0 30px 60px -30px rgba(33, 29, 25, 0.45);
+    }
+    .hero-card .eyebrow {
+      margin-bottom: 22px;
+      display: flex; align-items: center; gap: 12px;
+      color: var(--walnut);
+    }
+    .hero-card .eyebrow::before {
+      content: ''; width: 30px; height: 1px; background: var(--walnut);
+    }
+    .hero-card-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.4vw, 3.05rem);
+      line-height: 1.06;
+      letter-spacing: -0.012em;
+      color: var(--text);
+    }
+    .hero-card-title em {
+      font-style: italic; font-weight: 300;
+      color: var(--walnut);
+    }
+    .hero-card-sub {
+      margin-top: 22px;
+      max-width: 540px;
+      color: var(--text-soft);
+      font-size: 1.025rem;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+    .hero-card-ctas {
+      margin-top: 32px;
+      display: flex; flex-wrap: wrap; gap: 12px;
+      align-items: center;
+    }
+    .hero-card-phone {
+      margin-top: 22px;
+      display: flex; align-items: center; gap: 14px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line-soft);
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+    }
+    .hero-card-phone .lbl {
+      color: var(--text-muted);
+      font-size: 0.66rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .hero-card-phone a {
+      color: var(--text);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      border-bottom: 1px solid transparent;
+      transition: border-color 180ms ease;
+    }
+    .hero-card-phone a:hover { border-color: var(--walnut); }
+
+    .hero-scroll-cue {
+      position: absolute;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(245, 240, 232, 0.7);
+    }
+    .hero-scroll-cue .pip {
+      width: 1px; height: 38px;
+      background: linear-gradient(180deg, transparent, rgba(245, 240, 232, 0.9));
+      animation: pipFlow 2400ms ease-in-out infinite;
+    }
+    .hero-scroll-cue .txt {
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+    @keyframes pipFlow {
+      0%, 100% { transform: translateY(0); opacity: 0.6; }
+      50%      { transform: translateY(6px); opacity: 1; }
+    }
+
+    /* ─── Werkstücke (deep case studies) ─────────────────────────────────── */
+    .werkstuecke {
+      padding: 140px 0 60px;
+      background: var(--bg);
+    }
+
+    .werk-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      padding: 0 0 90px;
+    }
+    .werk-intro-h {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.1vw, 2.8rem);
+      line-height: 1.06;
+      letter-spacing: -0.012em;
+    }
+    .werk-intro-h em {
+      font-style: italic; font-weight: 300;
+      color: var(--walnut);
+    }
+    .werk-intro-sub {
+      color: var(--text-muted);
+      font-weight: 300;
+      font-size: 1.025rem;
+      line-height: 1.65;
+      max-width: 440px;
+      justify-self: end;
+    }
+
+    .werkstueck {
+      padding: 80px 0 100px;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .werk-head {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 60px;
+      align-items: end;
+      margin-bottom: 56px;
+    }
+    .werk-head-meta { display: flex; flex-direction: column; gap: 14px; }
+    .werk-head-num {
+      font-family: var(--font-sans);
+      font-size: 0.66rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .werk-head-tag {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      color: var(--walnut);
+    }
+
+    .werk-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(1.85rem, 3.2vw, 2.85rem);
+      line-height: 1.06;
+      letter-spacing: -0.012em;
+      color: var(--text);
+    }
+    .werk-title em { font-style: italic; font-weight: 300; color: var(--walnut); }
+    .werk-concept {
+      margin-top: 18px;
+      font-size: 1.025rem;
+      color: var(--text-soft);
+      font-weight: 300;
+      max-width: 720px;
+      line-height: 1.55;
+    }
+
+    .werk-bento {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 18px;
+      margin: 8px 0 0;
+    }
+    .werk-bento.flip {
+      grid-template-columns: 1fr 1.6fr;
+    }
+    .werk-bento .b-main {
+      grid-row: 1 / span 2;
+      overflow: hidden;
+      position: relative;
+      background: var(--bg-paper);
+    }
+    .werk-bento.flip .b-main {
+      grid-row: 1 / span 2;
+      grid-column: 2;
+    }
+    .werk-bento .b-1, .werk-bento .b-2 {
+      overflow: hidden;
+      background: var(--bg-paper);
+      position: relative;
+    }
+    .werk-bento.flip .b-1 { grid-column: 1; grid-row: 1; }
+    .werk-bento.flip .b-2 { grid-column: 1; grid-row: 2; }
+    .werk-bento img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .werk-bento .b-main img { aspect-ratio: 5 / 6; }
+    .werk-bento .b-1 img   { aspect-ratio: 4 / 3; }
+    .werk-bento .b-2 img   { aspect-ratio: 4 / 3; }
+    .werk-bento > div:hover img { transform: scale(1.025); }
+
+    .werk-body-grid {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+    .werk-body-grid > p {
+      color: var(--text-soft);
+      line-height: 1.7;
+      font-weight: 300;
+      font-size: 0.985rem;
+    }
+
+    .werk-specs {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .werk-spec {
+      padding: 24px 0;
+      display: flex; flex-direction: column; gap: 6px;
+      border-right: 1px solid var(--line-soft);
+      padding-right: 24px;
+    }
+    .werk-spec:last-child { border-right: none; }
+    .werk-spec-label {
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .werk-spec-value {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .werk-spec-value em { font-style: italic; color: var(--walnut); font-weight: 300; }
+
+    .werk-quote {
+      margin-top: 56px;
+      padding: 36px 40px;
+      background: var(--bg-paper);
+      border-left: 1px solid var(--walnut);
+      max-width: 760px;
+    }
+    .werk-quote p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.3rem;
+      line-height: 1.45;
+      color: var(--text);
+    }
+    .werk-quote .attrib {
+      margin-top: 16px;
+      font-family: var(--font-sans);
+      font-style: normal;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    /* ─── Leistungsspektrum — BENTO GRID ─────────────────────────────────── */
+    .leistungen {
+      padding: 140px 0 120px;
+      background: var(--bg-soft);
+      border-top: 1px solid var(--line-soft);
+    }
+    .leistungen-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 64px;
+    }
+    .leistungen-h {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.4vw, 3rem);
+      line-height: 1.06;
+      letter-spacing: -0.012em;
+    }
+    .leistungen-h em { font-style: italic; font-weight: 300; color: var(--walnut); }
+    .leistungen-intro {
+      color: var(--text-muted);
+      font-weight: 300;
+      font-size: 1.025rem;
+      line-height: 1.65;
+      max-width: 460px;
+      justify-self: end;
+    }
+
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: minmax(220px, auto);
+      gap: 18px;
+    }
+    .bento-tile {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg-paper);
+      border: 1px solid var(--line-soft);
+      display: flex; flex-direction: column;
+      transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 240ms ease,
+                  box-shadow 240ms ease;
+    }
+    .bento-tile:hover {
+      transform: translateY(-2px);
+      border-color: var(--walnut);
+      box-shadow: 0 20px 40px -28px rgba(33, 29, 25, 0.35);
+    }
+    .bento-tile-img {
+      flex: 1 1 auto;
+      overflow: hidden;
+      position: relative;
+      min-height: 180px;
+    }
+    .bento-tile-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bento-tile:hover .bento-tile-img img { transform: scale(1.035); }
+    .bento-tile-body {
+      padding: 22px 24px 24px;
+      background: var(--bg-paper);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .bento-tile-num {
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .bento-tile-name {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      color: var(--text);
+      line-height: 1.15;
+    }
+    .bento-tile-desc {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.55;
+    }
+    .bento-tile-foot {
+      margin-top: 8px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line-soft);
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 12px;
+    }
+    .bento-tile-foot .ab {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .bento-tile-foot .price {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--walnut);
+    }
+
+    /* dominant tile: Einbauküchen */
+    .bt-dominant {
+      grid-column: span 4;
+      grid-row: span 2;
+      min-height: 460px;
+    }
+    .bt-dominant .bento-tile-img { min-height: 360px; }
+    .bt-dominant .bento-tile-body { padding: 30px 34px 32px; }
+    .bt-dominant .bento-tile-name { font-size: 1.85rem; }
+    .bt-dominant .bento-tile-desc { font-size: 0.95rem; max-width: 520px; }
+
+    /* small tiles, 2-col span each */
+    .bt-a { grid-column: span 2; }
+    .bt-b { grid-column: span 2; }
+    .bt-c { grid-column: span 3; }
+    .bt-d { grid-column: span 3; }
+    .bt-e { grid-column: span 6; min-height: 280px; flex-direction: row; }
+    .bt-e .bento-tile-img { flex: 1.4; min-height: 280px; }
+    .bt-e .bento-tile-body { flex: 1; justify-content: center; padding: 32px 36px; }
+    .bt-e .bento-tile-name { font-size: 1.55rem; }
+
+    /* ─── Werkstatt photo essay ──────────────────────────────────────────── */
+    .essay {
+      padding: 140px 0 120px;
+      background: var(--bg);
+      border-top: 1px solid var(--line-soft);
+    }
+    .essay-intro {
+      max-width: 760px;
+      margin-bottom: 80px;
+    }
+    .essay-intro h2 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.3vw, 2.85rem);
+      line-height: 1.07;
+      letter-spacing: -0.012em;
+    }
+    .essay-intro h2 em { font-style: italic; font-weight: 300; color: var(--walnut); }
+    .essay-intro p {
+      margin-top: 24px;
+      color: var(--text-muted);
+      font-weight: 300;
+      font-size: 1.05rem;
+      line-height: 1.65;
+      max-width: 640px;
+    }
+
+    .essay-frame {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      margin: 80px 0;
+    }
+    .essay-frame.flip > :first-child { order: 2; }
+    .essay-frame.flip > :last-child  { order: 1; }
+
+    .essay-photo {
+      overflow: hidden;
+      background: var(--bg-paper);
+      position: relative;
+    }
+    .essay-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      aspect-ratio: 5 / 4;
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .essay-photo:hover img { transform: scale(1.02); }
+
+    .essay-photo.wide img { aspect-ratio: 16 / 9; }
+    .essay-photo.tall img { aspect-ratio: 4 / 5; }
+
+    .essay-cap {
+      padding-top: 16px;
+      max-width: 480px;
+      align-self: end;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .essay-cap-num {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--walnut);
+    }
+    .essay-cap-title {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.005em;
+      color: var(--text);
+    }
+    .essay-cap-body {
+      color: var(--text-soft);
+      font-weight: 300;
+      line-height: 1.65;
+      font-size: 0.985rem;
+    }
+    .essay-cap-meta {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding-top: 12px;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .essay-full {
+      margin: 100px 0 60px;
+    }
+    .essay-full .essay-photo img { aspect-ratio: 21 / 9; }
+    .essay-full-cap {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 60px;
+      max-width: 1100px;
+    }
+    .essay-full-cap .lead {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--text);
+      line-height: 1.35;
+      font-weight: 400;
+    }
+    .essay-full-cap .body {
+      color: var(--text-soft);
+      font-weight: 300;
+      line-height: 1.7;
+      font-size: 0.985rem;
+    }
+
+    /* Drei Generationen sidebar */
+    .lineage {
+      margin: 100px auto 0;
+      max-width: 1100px;
+      background: var(--bg-deep);
+      color: var(--bg);
+      padding: 60px 64px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .lineage-head .eyebrow {
+      color: rgba(245, 240, 232, 0.6);
+      display: inline-flex; align-items: center; gap: 12px;
+      margin-bottom: 18px;
+    }
+    .lineage-head .eyebrow::before {
+      content: ''; width: 28px; height: 1px; background: var(--oak);
+    }
+    .lineage-head h3 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 1.85rem;
+      line-height: 1.15;
+      letter-spacing: -0.005em;
+    }
+    .lineage-head h3 em { font-style: italic; color: var(--oak); font-weight: 300; }
+
+    .lineage-list {
+      display: flex; flex-direction: column; gap: 24px;
+      list-style: none;
+    }
+    .lineage-row {
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      gap: 28px;
+      padding: 18px 0;
+      border-top: 1px solid rgba(245, 240, 232, 0.14);
+    }
+    .lineage-row:first-child { border-top: none; padding-top: 4px; }
+    .lineage-year {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.45rem;
+      color: var(--oak);
+      font-weight: 400;
+    }
+    .lineage-name {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      letter-spacing: -0.005em;
+      color: var(--bg);
+    }
+    .lineage-role {
+      margin-top: 4px;
+      color: rgba(245, 240, 232, 0.65);
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    /* ─── Holzarten horizontal carousel ──────────────────────────────────── */
+    .holzarten {
+      padding: 140px 0 100px;
+      background: var(--bg-soft);
+      border-top: 1px solid var(--line-soft);
+      overflow: hidden;
+    }
+    .holzarten-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 56px;
+    }
+    .holzarten-h {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.2vw, 2.85rem);
+      line-height: 1.06;
+      letter-spacing: -0.012em;
+    }
+    .holzarten-h em { font-style: italic; font-weight: 300; color: var(--walnut); }
+    .holzarten-intro {
+      color: var(--text-muted);
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.65;
+      max-width: 460px;
+      justify-self: end;
+    }
+
+    .holz-rail-wrap { position: relative; }
+    .holz-rail {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 320px;
+      gap: 18px;
+      padding: 4px 40px 30px;
+      margin: 0 -40px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+    }
+    .holz-rail::-webkit-scrollbar { display: none; }
+
+    .holz-card {
+      scroll-snap-align: start;
+      display: flex; flex-direction: column;
+      background: var(--bg-paper);
+      border: 1px solid var(--line-soft);
+      transition: border-color 220ms ease, transform 240ms ease;
+    }
+    .holz-card:hover {
+      border-color: var(--walnut);
+      transform: translateY(-2px);
+    }
+    .holz-swatch {
+      aspect-ratio: 1 / 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .holz-swatch::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(33, 29, 25, 0.04), transparent 40%);
+    }
+    .sw-eiche       { background: linear-gradient(135deg, #B89066, #8B6938); }
+    .sw-raucheiche  { background: linear-gradient(135deg, #4E3623, #2E1F12); }
+    .sw-nussbaum    { background: linear-gradient(135deg, #5E3E26, #321F12); }
+    .sw-esche       { background: linear-gradient(135deg, #D6BC92, #A48A65); }
+    .sw-ahorn       { background: linear-gradient(135deg, #E6D2B0, #BFA47E); }
+    .sw-kirsche     { background: linear-gradient(135deg, #A4624C, #6E3D2C); }
+    .sw-laerche     { background: linear-gradient(135deg, #C49870, #8B6541); }
+    .sw-weisseiche  { background: linear-gradient(135deg, #C7A983, #927152); }
+
+    .holz-swatch-tag {
+      position: absolute;
+      top: 16px; left: 16px;
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.9);
+      padding: 5px 9px;
+      border: 1px solid rgba(245, 240, 232, 0.4);
+      backdrop-filter: blur(4px);
+    }
+    .holz-card.dark .holz-swatch-tag { color: rgba(245, 240, 232, 0.95); }
+
+    .holz-card-body {
+      padding: 22px 24px 26px;
+      display: flex; flex-direction: column; gap: 10px;
+      flex: 1 1 auto;
+    }
+    .holz-name {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      color: var(--text);
+      line-height: 1.15;
+    }
+    .holz-name em { font-style: italic; font-weight: 300; color: var(--walnut); }
+    .holz-desc {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.55;
+    }
+    .holz-origin {
+      margin-top: 8px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line-soft);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex; justify-content: space-between; align-items: baseline;
+    }
+    .holz-origin em { font-style: italic; color: var(--walnut); }
+
+    .holz-progress {
+      position: relative;
+      margin: 18px 4px 0;
+      height: 2px;
+      background: var(--line-soft);
+      overflow: hidden;
+    }
+    .holz-progress-bar {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      width: 0;
+      background: var(--walnut);
+      transition: width 220ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ─── Ablauf — 5-step process ────────────────────────────────────────── */
+    .ablauf {
+      padding: 140px 0 130px;
+      background: var(--bg);
+      border-top: 1px solid var(--line-soft);
+    }
+    .ablauf-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 72px;
+    }
+    .ablauf-h {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.4vw, 3rem);
+      line-height: 1.06;
+      letter-spacing: -0.012em;
+    }
+    .ablauf-h em { font-style: italic; font-weight: 300; color: var(--walnut); }
+    .ablauf-intro {
+      color: var(--text-muted);
+      font-weight: 300;
+      font-size: 1.025rem;
+      line-height: 1.65;
+      max-width: 460px;
+      justify-self: end;
+    }
+
+    .ablauf-track {
+      position: relative;
+      display: flex; flex-direction: column;
+    }
+    .ablauf-track::before {
+      content: '';
+      position: absolute;
+      left: 109px;
+      top: 24px;
+      bottom: 24px;
+      width: 1px;
+      background: linear-gradient(180deg, var(--line) 0%, var(--line-soft) 100%);
+    }
+
+    .ablauf-step {
+      display: grid;
+      grid-template-columns: 220px 1fr 240px;
+      gap: 36px;
+      padding: 40px 0 56px;
+      border-bottom: 1px solid var(--line-soft);
+      position: relative;
+    }
+    .ablauf-step:last-child { border-bottom: none; }
+
+    .ablauf-num {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 4.2rem;
+      letter-spacing: -0.02em;
+      color: var(--walnut);
+      line-height: 1;
+      position: relative;
+    }
+    .ablauf-num::after {
+      content: '';
+      position: absolute;
+      top: 26px;
+      right: -38px;
+      width: 14px; height: 14px;
+      background: var(--bg);
+      border: 1px solid var(--walnut);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .ablauf-body { padding-top: 8px; }
+    .ablauf-title {
+      font-family: var(--font-serif);
+      font-size: 1.7rem;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .ablauf-text {
+      color: var(--text-soft);
+      font-weight: 300;
+      line-height: 1.7;
+      font-size: 0.985rem;
+      max-width: 540px;
+    }
+
+    .ablauf-detail {
+      display: flex; flex-direction: column; gap: 12px;
+      padding-top: 12px;
+    }
+    .ablauf-detail-row {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .ablauf-detail-label {
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .ablauf-detail-value {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .ablauf-detail-value em { font-style: italic; color: var(--walnut); }
+
+    /* ─── Anfrage — two-column layout ────────────────────────────────────── */
+    .anfrage {
+      padding: 140px 0 130px;
+      background: var(--bg-soft);
+      border-top: 1px solid var(--line-soft);
+    }
+    .anfrage-head {
+      max-width: 900px;
+      margin-bottom: 64px;
+    }
+    .anfrage-h {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.3vw, 2.85rem);
+      line-height: 1.07;
+      letter-spacing: -0.012em;
+    }
+    .anfrage-h em { font-style: italic; font-weight: 300; color: var(--walnut); }
+    .anfrage-sub {
+      margin-top: 22px;
+      color: var(--text-muted);
+      font-size: 1.025rem;
+      font-weight: 300;
+      line-height: 1.65;
+      max-width: 640px;
+    }
+
+    .anfrage-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .anfrage-form {
+      background: var(--bg-paper);
+      padding: 48px 52px;
+      border: 1px solid var(--line-soft);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px 24px;
+    }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field-full { grid-column: 1 / -1; }
+    .field-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .field-label .req { color: var(--walnut); }
+    .field input,
+    .field select,
+    .field textarea {
+      font-family: var(--font-sans);
+      font-size: 0.965rem;
+      color: var(--text);
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      padding: 10px 0 12px;
+      outline: none;
+      transition: border-color 200ms ease;
+      width: 100%;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-bottom-color: var(--walnut);
+    }
+    .field select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8' fill='none'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%238B7F6F' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 4px center;
+      padding-right: 28px;
+    }
+    .field textarea { resize: vertical; min-height: 130px; line-height: 1.55; }
+    .field-hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    .anfrage-submit {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; margin-top: 8px;
+    }
+    .legal {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      max-width: 400px;
+      line-height: 1.5;
+    }
+    .legal a {
+      color: var(--walnut);
+      border-bottom: 1px solid rgba(110, 74, 44, 0.3);
+    }
+
+    .anfrage-success {
+      grid-column: 1 / -1;
+      padding: 18px 22px;
+      background: rgba(110, 74, 44, 0.08);
+      border-left: 1px solid var(--walnut);
+      color: var(--text);
+      font-size: 0.92rem;
+      line-height: 1.55;
+      display: none;
+    }
+    .anfrage-success.show { display: block; }
+    .anfrage-success strong { display: block; margin-bottom: 4px; font-family: var(--font-serif); font-size: 1.05rem; font-weight: 500; }
+
+    /* trust column */
+    .trust {
+      display: flex; flex-direction: column; gap: 32px;
+    }
+    .trust-block { display: flex; flex-direction: column; gap: 8px; }
+    .trust-label {
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .trust-phone {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: -0.012em;
+      line-height: 1.05;
+      color: var(--text);
+      border-bottom: 1px solid transparent;
+      transition: border-color 200ms ease;
+      align-self: flex-start;
+    }
+    .trust-phone:hover { border-color: var(--walnut); }
+    .trust-hours {
+      color: var(--text-muted);
+      font-weight: 300;
+      font-size: 0.875rem;
+    }
+    .trust-email a {
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      color: var(--text);
+      letter-spacing: -0.005em;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2px;
+      transition: border-color 200ms ease;
+    }
+    .trust-email a:hover { border-color: var(--walnut); }
+    .trust-address {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .trust-address em {
+      display: block;
+      margin-top: 6px;
+      font-style: italic;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .trust-erst {
+      background: var(--bg-deep);
+      color: var(--bg);
+      padding: 24px 26px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .trust-erst .label {
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.6);
+      font-weight: 500;
+    }
+    .trust-erst .lead {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--bg);
+    }
+    .trust-erst .lead em { font-style: italic; color: var(--oak); }
+    .trust-erst .small {
+      font-size: 0.84rem;
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.7);
+      line-height: 1.55;
+    }
+
+    .trust-badge {
+      padding-top: 24px;
+      border-top: 1px solid var(--line-soft);
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .trust-badge .name {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.02rem;
+      color: var(--walnut);
+    }
+    .trust-badge .meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.55;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────── */
+    .footer {
+      background: var(--bg-deep);
+      color: var(--bg);
+      padding: 90px 0 36px;
+    }
+    .footer-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(245, 240, 232, 0.12);
+    }
+    .footer-brand .wordmark {
+      font-family: var(--font-serif);
+      font-size: 1.65rem;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      color: var(--bg);
+      display: inline-flex; align-items: baseline; gap: 10px;
+      margin-bottom: 18px;
+    }
+    .footer-brand .wordmark em {
+      font-style: italic;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--oak);
+      font-weight: 300;
+    }
+    .footer-brand p {
+      color: rgba(245, 240, 232, 0.6);
+      font-weight: 300;
+      font-size: 0.925rem;
+      line-height: 1.7;
+      max-width: 360px;
+    }
+    .footer-col h4 {
+      font-family: var(--font-sans);
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oak);
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a, .footer-col p {
+      color: rgba(245, 240, 232, 0.75);
+      font-size: 0.9rem;
+      font-weight: 300;
+      transition: color 180ms ease;
+    }
+    .footer-col a:hover { color: var(--bg); }
+
+    .footer-bottom {
+      padding-top: 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .footer-bottom p {
+      color: rgba(245, 240, 232, 0.55);
+      font-size: 0.78rem;
+      font-weight: 300;
+    }
+    .footer-bottom ul {
+      display: flex; gap: 18px; list-style: none;
+    }
+    .footer-bottom a {
+      color: rgba(245, 240, 232, 0.55);
+      font-size: 0.78rem;
+    }
+    .footer-bottom a:hover { color: var(--bg); }
+
+    /* ─── Responsive ─────────────────────────────────────────────────────── */
+    @media (max-width: 1180px) {
+      .bento { grid-template-columns: repeat(4, 1fr); }
+      .bt-dominant { grid-column: span 4; }
+      .bt-a, .bt-b { grid-column: span 2; }
+      .bt-c, .bt-d { grid-column: span 2; }
+      .bt-e { grid-column: span 4; }
+    }
+
+    @media (max-width: 880px) {
+      .container, .container-wide, .container-narrow { padding: 0 22px; }
+
+      .nav { padding: 18px 22px; }
+      .nav.scrolled { padding: 12px 22px; }
+      .nav-phone-inline { display: none; }
+      .nav-cta { display: none; }
+      .nav-burger { display: inline-flex; }
+
+      .mobile-menu {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        background: var(--bg);
+        z-index: 99;
+        padding: 100px 28px 40px;
+        flex-direction: column;
+        gap: 28px;
+        transform: translateY(-12px);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1), opacity 240ms ease;
+      }
+      .mobile-menu.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .mobile-menu a.m-link {
+        font-family: var(--font-serif);
+        font-size: 1.85rem;
+        font-weight: 400;
+        color: var(--text);
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .mobile-menu .m-foot {
+        margin-top: 16px;
+        display: flex; flex-direction: column; gap: 14px;
+      }
+      .mobile-menu .m-foot a {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .hero { min-height: 96dvh; }
+      .hero-card {
+        left: 16px; right: 16px; bottom: 28px;
+        padding: 30px 26px 30px;
+        max-width: none;
+      }
+      .hero-card-title { font-size: 1.65rem; }
+      .hero-top-meta { top: 88px; right: 20px; }
+
+      .werkstuecke { padding: 90px 0 20px; }
+      .werk-intro { grid-template-columns: 1fr; gap: 28px; padding-bottom: 50px; }
+      .werk-intro-sub { justify-self: start; }
+      .werk-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
+      .werk-bento { grid-template-columns: 1fr; }
+      .werk-bento.flip { grid-template-columns: 1fr; }
+      .werk-bento .b-main, .werk-bento .b-1, .werk-bento .b-2 { grid-row: auto; grid-column: auto; }
+      .werk-body-grid { grid-template-columns: 1fr; gap: 22px; margin-top: 36px; }
+      .werk-specs { grid-template-columns: 1fr 1fr; }
+      .werk-spec { padding: 18px 0; border-right: 1px solid var(--line-soft); }
+      .werk-spec:nth-child(2n) { border-right: none; }
+      .werk-spec:nth-child(-n+2) { border-bottom: 1px solid var(--line-soft); }
+      .werk-quote { padding: 24px 22px; margin-top: 32px; }
+      .werk-quote p { font-size: 1.1rem; }
+      .werkstueck { padding: 50px 0 70px; }
+
+      .leistungen { padding: 90px 0 80px; }
+      .leistungen-head { grid-template-columns: 1fr; gap: 24px; margin-bottom: 36px; }
+      .leistungen-intro { justify-self: start; }
+      .bento { grid-template-columns: 1fr; grid-auto-rows: minmax(200px, auto); }
+      .bt-dominant, .bt-a, .bt-b, .bt-c, .bt-d, .bt-e { grid-column: span 1; }
+      .bt-dominant { min-height: auto; grid-row: span 1; }
+      .bt-dominant .bento-tile-img { min-height: 240px; }
+      .bt-dominant .bento-tile-body { padding: 22px 22px; }
+      .bt-dominant .bento-tile-name { font-size: 1.45rem; }
+      .bt-e { flex-direction: column; min-height: auto; }
+      .bt-e .bento-tile-img { min-height: 200px; }
+      .bt-e .bento-tile-body { padding: 22px 22px; }
+
+      .essay { padding: 90px 0 80px; }
+      .essay-intro { margin-bottom: 40px; }
+      .essay-frame { grid-template-columns: 1fr; gap: 18px; margin: 50px 0; }
+      .essay-frame.flip > :first-child { order: 0; }
+      .essay-frame.flip > :last-child { order: 0; }
+      .essay-full { margin: 60px 0 40px; }
+      .essay-full-cap { grid-template-columns: 1fr; gap: 18px; margin-top: 20px; }
+      .lineage { grid-template-columns: 1fr; gap: 28px; padding: 36px 28px; margin-top: 60px; }
+
+      .holzarten { padding: 90px 0 70px; }
+      .holzarten-head { grid-template-columns: 1fr; gap: 22px; margin-bottom: 36px; }
+      .holzarten-intro { justify-self: start; }
+      .holz-rail {
+        grid-auto-columns: 78%;
+        padding: 4px 22px 26px;
+        margin: 0 -22px;
+      }
+
+      .ablauf { padding: 90px 0 80px; }
+      .ablauf-head { grid-template-columns: 1fr; gap: 22px; margin-bottom: 36px; }
+      .ablauf-intro { justify-self: start; }
+      .ablauf-track::before { display: none; }
+      .ablauf-step { grid-template-columns: 1fr; gap: 14px; padding: 28px 0 32px; }
+      .ablauf-num { font-size: 3rem; }
+      .ablauf-num::after { display: none; }
+      .ablauf-title { font-size: 1.45rem; }
+      .ablauf-detail { flex-direction: row; flex-wrap: wrap; gap: 22px; padding-top: 6px; }
+
+      .anfrage { padding: 90px 0 80px; }
+      .anfrage-grid { grid-template-columns: 1fr; gap: 36px; }
+      .anfrage-form { grid-template-columns: 1fr; padding: 30px 24px; gap: 18px; }
+      .anfrage-submit { flex-direction: column; align-items: stretch; gap: 16px; }
+      .trust-phone { font-size: 1.6rem; }
+
+      .footer { padding: 60px 0 28px; }
+      .footer-row { grid-template-columns: 1fr; gap: 32px; padding-bottom: 36px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+
+    @media (max-width: 560px) {
+      .hero-card { padding: 26px 22px 26px; }
+      .hero-card-ctas { flex-direction: column; align-items: stretch; }
+      .hero-card-ctas .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ─── Nav ─────────────────────────────────────────────────────────────── -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav-wordmark" aria-label="Schreinerei Hollmann — zur Startseite">
+      <span>Hollmann</span><em>Schreinerei</em>
+    </a>
+
+    <div class="nav-right">
+      <a class="nav-phone-inline" href="tel:+4971164892570" aria-label="Anrufen: 0711 64 89 25 70">
+        <span class="dot" aria-hidden="true"></span>
+        <span>
+          <span class="lbl">Werkstatt</span>
+          <span> 0711 / 64 89 25 70</span>
+        </span>
+      </a>
+      <a href="#anfrage" class="nav-cta">
+        <span>Projekt anfragen</span>
+        <span class="nav-cta-bar" aria-hidden="true"></span>
+      </a>
+      <button class="nav-burger" id="navBurger" aria-label="Menü öffnen" aria-controls="mobileMenu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="#werkstuecke"  class="m-link" data-mclose>Werkstücke</a>
+    <a href="#leistungen"   class="m-link" data-mclose>Leistungen</a>
+    <a href="#werkstatt"    class="m-link" data-mclose>Werkstatt</a>
+    <a href="#holzarten"    class="m-link" data-mclose>Holzarten</a>
+    <a href="#ablauf"       class="m-link" data-mclose>Ablauf</a>
+    <a href="#anfrage"      class="m-link" data-mclose>Anfrage</a>
+    <div class="m-foot">
+      <a href="tel:+4971164892570" data-mclose>0711 / 64 89 25 70</a>
+      <a href="mailto:anfrage@schreinerei-hollmann.de" data-mclose>anfrage@schreinerei-hollmann.de</a>
+      <a href="https://maps.google.com/?q=Böheimstraße+47,+70199+Stuttgart" target="_blank" rel="noopener" data-mclose>Böheimstraße 47, 70199 Stuttgart-Süd</a>
+    </div>
+  </nav>
+
+  <!-- ─── Hero — FULL BLEED ───────────────────────────────────────────────── -->
+  <section class="hero" id="top">
+    <div class="hero-image" aria-hidden="true">
+      <img
+        src="https://images.unsplash.com/photo-1684928365167-e91916573122?w=2200&h=1400&fit=crop&q=85&auto=format"
+        alt=""
+        width="2200" height="1400"
+      />
+    </div>
+
+    <div class="hero-top-meta">
+      <span class="pill">Werkstatt geöffnet · Mo–Fr</span>
+      <span class="line" aria-hidden="true"></span>
+    </div>
+
+    <div class="hero-card reveal">
+      <p class="eyebrow">Schreinerei · Stuttgart-Süd · seit 1978</p>
+      <h1 class="hero-card-title">
+        Maßgefertigte Einbauküchen und Innenausbau aus <em>Stuttgart-Süd.</em>
+      </h1>
+      <p class="hero-card-sub">
+        In dritter Generation planen, fertigen und montieren wir Möbel, die genau in den Raum passen, für den sie gebaut sind. Aufmaß, Entwurf, Werkstatt und Montage — alles aus einer Hand, ohne Subunternehmer.
+      </p>
+      <div class="hero-card-ctas">
+        <a href="#anfrage" class="btn btn-primary">
+          Projekt anfragen
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="#werkstatt" class="btn btn-ghost">
+          Werkstatt besuchen
+        </a>
+      </div>
+      <div class="hero-card-phone">
+        <span class="lbl">Direkt</span>
+        <a href="tel:+4971164892570">0711 / 64 89 25 70</a>
+        <span style="color: var(--text-muted); font-size: 0.78rem;">Mo–Fr 8–17 Uhr</span>
+      </div>
+    </div>
+
+    <a href="#werkstuecke" class="hero-scroll-cue" aria-label="Zu den Werkstücken">
+      <span class="txt">Werkstücke</span>
+      <span class="pip" aria-hidden="true"></span>
+    </a>
+  </section>
+
+  <!-- ─── Werkstücke ──────────────────────────────────────────────────────── -->
+  <section class="werkstuecke" id="werkstuecke">
+    <div class="container">
+
+      <div class="werk-intro">
+        <h2 class="werk-intro-h reveal">
+          Drei Projekte aus den letzten zwölf Monaten — <em>jedes auf den Raum gebaut, in dem es steht.</em>
+        </h2>
+        <p class="werk-intro-sub reveal reveal-d-1">
+          Wir zeigen keine Kataloge. Jedes Stück, das die Werkstatt verlässt, wurde für einen konkreten Raum entworfen — mit Aufmaß vor Ort, in Absprache mit Bauherr und Architekt, und gefertigt von denselben Schreinern, die es anschließend montieren.
+        </p>
+      </div>
+
+      <!-- Werkstück 01 -->
+      <article class="werkstueck reveal" id="werkstueck-01">
+        <div class="werk-head">
+          <div class="werk-head-meta">
+            <span class="werk-head-num">Werkstück 01</span>
+            <span class="werk-head-tag">Einbauküche · 2025</span>
+          </div>
+          <div>
+            <h3 class="werk-title">
+              Einbauküche Familie Bauer — <em>Stuttgart-Vaihingen</em>
+            </h3>
+            <p class="werk-concept">
+              Massive Räuchereiche, fugenlos verarbeitet. Insellösung mit Quarzitstein-Arbeitsplatte und integriertem Esstresen für sechs Personen.
+            </p>
+          </div>
+        </div>
+
+        <div class="werk-bento">
+          <div class="b-main">
+            <img src="https://images.unsplash.com/photo-1774437290626-34d18c49598a?w=1100&h=1320&fit=crop&q=85&auto=format" alt="Insellösung in Räuchereiche mit Quarzit-Arbeitsplatte in einem Wohnzimmer in Stuttgart-Vaihingen" loading="lazy" />
+          </div>
+          <div class="b-1">
+            <img src="https://images.unsplash.com/photo-1599394858223-155be4b4e25f?w=900&h=680&fit=crop&q=85&auto=format" alt="Detail einer grifflosen Front aus geräucherter Eiche" loading="lazy" />
+          </div>
+          <div class="b-2">
+            <img src="https://images.unsplash.com/photo-1493710494541-43364cb47485?w=900&h=680&fit=crop&q=85&auto=format" alt="Innenausstattung eines Auszugs mit Messer- und Besteckeinsatz aus Massivholz" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="werk-body-grid">
+          <p>
+            Familie Bauer hat ein Reihenhaus aus den siebziger Jahren entkernt und uns geholt, bevor die Trockenbauer kamen. Das hat den Unterschied gemacht: Wir konnten die Steigleitung im Inselblock verlegen lassen, die Dunstabzugsführung sauber durch die Decke planen, und die Stromversorgung für das Induktionsfeld an der richtigen Stelle vorbereiten. Was im Nachhinein Pfusch kostet, wurde so vermieden.
+          </p>
+          <p>
+            Die Fronten sind aus durchgehender Räuchereiche mit Schattenfuge — keine Griffe, kein Push-to-Open. Jede Schublade läuft auf Blum-Auszügen mit Soft-Close. Die Quarzitplatte ist 30 mm massiv und seitlich auf Gehrung gestoßen, sodass die Maserung um die Inselkante weiterläuft. Ein Detail, das man erst auf den zweiten Blick sieht.
+          </p>
+        </div>
+
+        <div class="werk-specs">
+          <div class="werk-spec">
+            <span class="werk-spec-label">Holzart</span>
+            <span class="werk-spec-value"><em>Räuchereiche</em></span>
+          </div>
+          <div class="werk-spec">
+            <span class="werk-spec-label">Flächenmaß</span>
+            <span class="werk-spec-value">22,4 m²</span>
+          </div>
+          <div class="werk-spec">
+            <span class="werk-spec-label">Bauzeit</span>
+            <span class="werk-spec-value">7 Wochen</span>
+          </div>
+          <div class="werk-spec">
+            <span class="werk-spec-label">Übergabe</span>
+            <span class="werk-spec-value">März 2025</span>
+          </div>
+        </div>
+
+        <div class="werk-quote">
+          <p>"Wir hatten Angst, eine Küche dieser Größe in einem Reihenhaus würde erdrücken. Das Gegenteil ist passiert — die Insel zieht den Raum zusammen, ohne ihn zu verkleinern."</p>
+          <p class="attrib">— Karin Bauer, Bauherrin · Stuttgart-Vaihingen</p>
+        </div>
+      </article>
+
+      <!-- Werkstück 02 -->
+      <article class="werkstueck reveal" id="werkstueck-02">
+        <div class="werk-head">
+          <div class="werk-head-meta">
+            <span class="werk-head-num">Werkstück 02</span>
+            <span class="werk-head-tag">Ankleide · 2024</span>
+          </div>
+          <div>
+            <h3 class="werk-title">
+              Ankleide Familie Renz — <em>Esslingen-Berkheim</em>
+            </h3>
+            <p class="werk-concept">
+              Begehbare Ankleide in europäischem Nussbaum, raumhoch. Integrierte LED-Bestückung, drei großflächige Schiebetüren mit Riffelglas, doppelte Hängestange.
+            </p>
+          </div>
+        </div>
+
+        <div class="werk-bento flip">
+          <div class="b-main">
+            <img src="https://images.unsplash.com/photo-1640357154220-9775b0f31dec?w=1100&h=1320&fit=crop&q=85&auto=format" alt="Begehbare Ankleide in europäischem Nussbaum mit integrierter LED-Beleuchtung" loading="lazy" />
+          </div>
+          <div class="b-1">
+            <img src="https://images.unsplash.com/photo-1525570665650-76bb26af503d?w=900&h=680&fit=crop&q=85&auto=format" alt="Großflächige Schiebetür mit Riffelglas-Einsatz vor einer Ankleide" loading="lazy" />
+          </div>
+          <div class="b-2">
+            <img src="https://images.unsplash.com/photo-1654467103557-6c9a62486826?w=900&h=680&fit=crop&q=85&auto=format" alt="Detailansicht einer Schmuckschublade mit Filzeinlage und integriertem LED-Spot" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="werk-body-grid">
+          <p>
+            Im Bauplan ein vier Quadratmeter großes Schlafzimmer-Eckchen, in der Realität ein Raum mit Dachschräge, einem hervorspringenden Kamin und einer Steigleitung in der falschen Ecke. Die Familie Renz wollte trotzdem keine Standardlösung mit aufgesetzten Modulen — sondern einen Raum, der so wirkt, als wäre er von Anfang an als Ankleide geplant gewesen.
+          </p>
+          <p>
+            Drei Hängestangen, sechs Auszüge mit Filzeinlage, ein abschließbarer Schmuckkorpus. Die LED-Bestückung läuft hinter einer durchgehenden Schattenfuge, sodass das Licht erst beim Öffnen der Schiebetür zu sehen ist. Die Türen selbst laufen auf Hawa-Beschlägen mit gedämpftem Einzug — drei Meter, zwei Meter vierzig hoch, ohne Wackeln.
+          </p>
+          <p>
+            Aufgenommen wurde der Raum an einem Samstagvormittag, geliefert wurde elf Wochen später — montiert an einem einzigen Tag, ohne dass die Familie die Wohnung verlassen musste.
+          </p>
+        </div>
+
+        <div class="werk-specs">
+          <div class="werk-spec">
+            <span class="werk-spec-label">Holzart</span>
+            <span class="werk-spec-value"><em>Nussbaum europ.</em></span>
+          </div>
+          <div class="werk-spec">
+            <span class="werk-spec-label">Flächenmaß</span>
+            <span class="werk-spec-value">9,8 m²</span>
+          </div>
+          <div class="werk-spec">
+            <span class="werk-spec-label">Bauzeit</span>
+            <span class="werk-spec-value">11 Wochen</span>
+          </div>
+          <div class="werk-spec">
+            <span class="werk-spec-label">Übergabe</span>
+            <span class="werk-spec-value">Nov 2024</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Werkstück 03 -->
+      <article class="werkstueck reveal" id="werkstueck-03">
+        <div class="werk-head">
+          <div class="werk-head-meta">
+            <span class="werk-head-num">Werkstück 03</span>
+            <span class="werk-head-tag">Praxisbibliothek · 2024</span>
+          </div>
+          <div>
+            <h3 class="werk-title">
+              Praxisbibliothek Dr. Schwenninger — <em>Ludwigsburg</em>
+            </h3>
+            <p class="werk-concept">
+              Deckenhohe Eichenregale mit integriertem Sekretär und fahrbarer Schiebeleiter. Bauherr: Internistische Praxis in einer denkmalgeschützten Stadtvilla.
+            </p>
+          </div>
+        </div>
+
+        <div class="werk-bento">
+          <div class="b-main">
+            <img src="https://images.unsplash.com/photo-1699523525646-ae96e089474f?w=1100&h=1320&fit=crop&q=85&auto=format" alt="Deckenhohe Bibliothek aus heller Eiche mit integriertem Sekretär und Schiebeleiter" loading="lazy" />
+          </div>
+          <div class="b-1">
+            <img src="https://images.unsplash.com/photo-1677461517419-221eb098ea99?w=900&h=680&fit=crop&q=85&auto=format" alt="Schiebeleiter aus Eiche mit Messing-Beschlag vor einer Regalwand" loading="lazy" />
+          </div>
+          <div class="b-2">
+            <img src="https://images.unsplash.com/photo-1767277680055-34f1eeec0c26?w=900&h=680&fit=crop&q=85&auto=format" alt="Integrierter Sekretär mit massiver Eichenklappe in einer Regalwand" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="werk-body-grid">
+          <p>
+            Eine Stadtvilla am Ludwigsburger Schillerplatz, Baujahr 1908. Die Praxis von Dr. Schwenninger nutzt das Erdgeschoss als Wartebereich und Sprechzimmer; im Halbgeschoss darüber sollte die Fachbibliothek entstehen. Sieben Meter Wandfläche, dreieinhalb Meter Raumhöhe, Stuckdecke und Sockelleisten unter Denkmalschutz.
+          </p>
+          <p>
+            Wir haben die Regalwand in vier Segmenten geliefert, die sich erst vor Ort zur durchgehenden Front fügen. Die Schiebeleiter läuft auf einer Messingschiene, gefräst und galvanisiert in unserer Werkstatt; der Sekretär in der Mitte klappt herunter und trägt einen Laptop plus zwei aufgeschlagene Bücher, ohne durchzubiegen.
+          </p>
+        </div>
+
+        <div class="werk-specs">
+          <div class="werk-spec">
+            <span class="werk-spec-label">Holzart</span>
+            <span class="werk-spec-value"><em>Eiche, geseift</em></span>
+          </div>
+          <div class="werk-spec">
+            <span class="werk-spec-label">Flächenmaß</span>
+            <span class="werk-spec-value">24,5 m²</span>
+          </div>
+          <div class="werk-spec">
+            <span class="werk-spec-label">Bauzeit</span>
+            <span class="werk-spec-value">8 Wochen</span>
+          </div>
+          <div class="werk-spec">
+            <span class="werk-spec-label">Übergabe</span>
+            <span class="werk-spec-value">Juli 2024</span>
+          </div>
+        </div>
+
+        <div class="werk-quote">
+          <p>"Bei Denkmalschutz scheitert vieles am Detail. Hollmann hat uns nicht erklärt, warum etwas nicht geht — sondern wie es trotzdem funktioniert."</p>
+          <p class="attrib">— Dr. Friedrich Schwenninger · Ludwigsburg</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ─── Leistungsspektrum — BENTO GRID ──────────────────────────────────── -->
+  <section class="leistungen" id="leistungen">
+    <div class="container">
+      <p class="section-label reveal">Leistungsspektrum</p>
+      <div class="leistungen-head">
+        <h2 class="leistungen-h reveal">
+          Sechs Bereiche aus einer Werkstatt — <em>maßgefertigt, kein Möbelhaus.</em>
+        </h2>
+        <p class="leistungen-intro reveal reveal-d-1">
+          Wir bauen, was in den Raum passt, in dem es stehen soll. Aufmaß vor Ort, 3D-Entwurf in Absprache mit Ihnen, Fertigung in unserer Werkstatt in Heslach. Lieferung und Montage durch unsere eigenen Schreiner.
+        </p>
+      </div>
+
+      <div class="bento">
+
+        <!-- Dominant tile: Einbauküchen -->
+        <a href="#anfrage" class="bento-tile bt-dominant reveal">
+          <div class="bento-tile-img">
+            <img src="https://images.unsplash.com/photo-1713514023762-b3995318dc94?w=1400&h=1000&fit=crop&q=85&auto=format" alt="Maßgefertigte Einbauküche in massiver Eiche mit Mineralwerkstoff-Arbeitsplatte in einem Stuttgarter Altbau" loading="lazy" />
+          </div>
+          <div class="bento-tile-body">
+            <span class="bento-tile-num">Leitprodukt · seit 1978</span>
+            <span class="bento-tile-name">Einbauküchen</span>
+            <p class="bento-tile-desc">
+              Auf den Zentimeter gebaut, auch in Altbauten mit schiefen Wänden. Korpus aus Multiplex oder Massivholz, Fronten in Furnier, Lack, Linoleum oder Mineralwerkstoff. Geräte stimmen wir mit Bora, Gaggenau oder Miele direkt ab.
+            </p>
+            <div class="bento-tile-foot">
+              <span class="ab">Über 240 Küchen seit 2014</span>
+              <span class="price">ab 18.000 €</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#anfrage" class="bento-tile bt-a reveal reveal-d-1">
+          <div class="bento-tile-img">
+            <img src="https://images.unsplash.com/photo-1672137233327-37b0c1049e77?w=800&h=700&fit=crop&q=85&auto=format" alt="Wandhoher Einbauschrank in heller Eiche mit grifflosen Fronten" loading="lazy" />
+          </div>
+          <div class="bento-tile-body">
+            <span class="bento-tile-num">— Nr. 02</span>
+            <span class="bento-tile-name">Einbauschränke &amp; Garderoben</span>
+            <p class="bento-tile-desc">Stauraum unter Dachschrägen, in Nischen, raumhoch von Wand zu Wand.</p>
+            <div class="bento-tile-foot">
+              <span class="ab">Lieferzeit 8–12 Wochen</span>
+              <span class="price">ab 4.800 €</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#anfrage" class="bento-tile bt-b reveal reveal-d-2">
+          <div class="bento-tile-img">
+            <img src="https://images.unsplash.com/photo-1765371513765-d2b624850162?w=800&h=700&fit=crop&q=85&auto=format" alt="Raumhohe Bibliothek aus Nussbaum mit integriertem Schreibtisch" loading="lazy" />
+          </div>
+          <div class="bento-tile-body">
+            <span class="bento-tile-num">— Nr. 03</span>
+            <span class="bento-tile-name">Bibliotheken &amp; Arbeitszimmer</span>
+            <p class="bento-tile-desc">Regalwände mit durchgehenden Böden, Leselicht-Verkabelung, Leiter wenn nötig.</p>
+            <div class="bento-tile-foot">
+              <span class="ab">Hält drei Generationen</span>
+              <span class="price">ab 6.400 €</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#anfrage" class="bento-tile bt-c reveal">
+          <div class="bento-tile-img">
+            <img src="https://images.unsplash.com/photo-1712878696612-cca889b13e1d?w=900&h=700&fit=crop&q=85&auto=format" alt="Massivholz-Waschtisch in Räuchereiche mit Aufsatzbecken und Spiegelschrank" loading="lazy" />
+          </div>
+          <div class="bento-tile-body">
+            <span class="bento-tile-num">— Nr. 04</span>
+            <span class="bento-tile-name">Badmöbel &amp; Waschtische</span>
+            <p class="bento-tile-desc">
+              Feuchtraumfeste Möbel, geplant mit Ihrem Sanitärbetrieb. Multiplex mit Spezialkante, Linoleum-Fronten oder lackierte MDF mit verdeckter Beschichtung.
+            </p>
+            <div class="bento-tile-foot">
+              <span class="ab">Feuchtraumtauglich</span>
+              <span class="price">ab 2.200 €</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#anfrage" class="bento-tile bt-d reveal reveal-d-1">
+          <div class="bento-tile-img">
+            <img src="https://images.unsplash.com/photo-1758998256408-ab2c9fbec19b?w=900&h=700&fit=crop&q=85&auto=format" alt="Raumhohe Schiebetür mit Glaseinsatz als Raumteiler zwischen Wohnen und Arbeiten" loading="lazy" />
+          </div>
+          <div class="bento-tile-body">
+            <span class="bento-tile-num">— Nr. 05</span>
+            <span class="bento-tile-name">Schiebetüren &amp; Raumteiler</span>
+            <p class="bento-tile-desc">
+              Räume trennen ohne zu mauern. Ein- bis dreiflüglig, raumhoch bis 3,20 m, Beschläge von Hawa oder Eku, Glas in klar, rauch oder geriffelt.
+            </p>
+            <div class="bento-tile-foot">
+              <span class="ab">bis 3,20 m Bauhöhe</span>
+              <span class="price">ab 1.800 €</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#anfrage" class="bento-tile bt-e reveal">
+          <div class="bento-tile-img">
+            <img src="https://images.unsplash.com/photo-1719899913493-1e508c3833e8?w=1400&h=800&fit=crop&q=85&auto=format" alt="Massiver Esstisch aus durchgehender Eichenbohle mit pulverbeschichtetem Stahlgestell" loading="lazy" />
+          </div>
+          <div class="bento-tile-body">
+            <span class="bento-tile-num">— Nr. 06 · Einzelstücke</span>
+            <span class="bento-tile-name">Massivholz-Esstische</span>
+            <p class="bento-tile-desc">
+              Bohlen, die wir selbst im Schwarzwald aussuchen. Durchgehende Platte oder mehrteilige Verleimung, Baumkante oder gerade Kante, Untergestell aus Holz oder pulverbeschichtetem Stahl. Geölt, gewachst oder geseift.
+            </p>
+            <div class="bento-tile-foot">
+              <span class="ab">Nur auf Anfrage</span>
+              <span class="price">ab 2.800 €</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Werkstatt — photo essay ─────────────────────────────────────────── -->
+  <section class="essay" id="werkstatt">
+    <div class="container-wide">
+      <p class="section-label reveal">In der Werkstatt</p>
+      <div class="essay-intro reveal">
+        <h2>
+          Zwölf Schreiner, eine Halle in Heslach. <em>CNC und Hobelbank stehen nebeneinander.</em>
+        </h2>
+        <p>
+          Wir sind kein Atelier, kein Showroom — wir sind eine arbeitende Werkstatt mit Maschinenpark, Holzlager und Lehrlingen. Was bei uns von der Hobelbank kommt, hat vorher durch dieselben Hände auch die CNC verlassen. Das eine ist nicht schlechter als das andere; es kommt nur darauf an, welches Werkzeug das Werkstück verlangt.
+        </p>
+      </div>
+
+      <!-- Photo essay frame 1 — left photo, right caption -->
+      <div class="essay-frame reveal">
+        <div class="essay-photo">
+          <img src="https://images.unsplash.com/photo-1683115096447-5d01c11d3ead?w=1100&h=880&fit=crop&q=85&auto=format" alt="Markus Renz beim Furnieren einer Nussbaum-Front auf der Furnierpresse" loading="lazy" />
+        </div>
+        <div class="essay-cap">
+          <span class="essay-cap-num">— 01 / 04</span>
+          <p class="essay-cap-title">
+            Furnierpresse, Donnerstagnachmittag.
+          </p>
+          <p class="essay-cap-body">
+            Markus Renz, Werkstattleiter seit 2009, beim Aufpressen einer Nussbaum-Front. Das Furnier kommt vom selben Stamm wie die Anschlussfront daneben — bei Hollmann werden gegenüberliegende Fronten ausschließlich aus aufeinanderfolgenden Furnierblättern gefertigt, sodass die Maserung im Raum durchläuft.
+          </p>
+          <p class="essay-cap-meta">Werkstattleitung · seit 2009 im Haus</p>
+        </div>
+      </div>
+
+      <!-- Photo essay frame 2 — right photo, left caption -->
+      <div class="essay-frame flip reveal">
+        <div class="essay-photo tall">
+          <img src="https://images.unsplash.com/photo-1683115099860-5379ac101bce?w=900&h=1100&fit=crop&q=85&auto=format" alt="CNC-Bearbeitung einer Multiplex-Front mit Schattenfuge in der Hollmann-Werkstatt" loading="lazy" />
+        </div>
+        <div class="essay-cap">
+          <span class="essay-cap-num">— 02 / 04</span>
+          <p class="essay-cap-title">
+            CNC und Handarbeit, gleicher Saal.
+          </p>
+          <p class="essay-cap-body">
+            Die CNC fräst Schattenfugen mit hundertstel-Millimeter-Toleranz. Was sie nicht kann, ist die Hirnholzkante eines Stollens zu lesen oder zu spüren, ob die Faser an einer kritischen Stelle ausreißt — das macht der Schreiner an der Hobelbank vier Meter daneben. Bei uns gehört beides zur selben Werkstatt.
+          </p>
+          <p class="essay-cap-meta">CNC · Format 4 · ab 2018 in Betrieb</p>
+        </div>
+      </div>
+
+      <!-- Photo essay frame 3 — left photo, right caption -->
+      <div class="essay-frame reveal">
+        <div class="essay-photo">
+          <img src="https://images.unsplash.com/photo-1772442198624-4fc4d7281e89?w=1100&h=880&fit=crop&q=85&auto=format" alt="Tobias Hollmann beim Aufmaß in einem Altbau in Stuttgart-West, mit Maßband und Klemmbrett" loading="lazy" />
+        </div>
+        <div class="essay-cap">
+          <span class="essay-cap-num">— 03 / 04</span>
+          <p class="essay-cap-title">
+            Aufmaß, Altbau, Stuttgart-West.
+          </p>
+          <p class="essay-cap-body">
+            Tobias Hollmann nimmt jedes Aufmaß persönlich, zumindest beim ersten Termin. Ein Reihenhaus aus den siebziger Jahren hat selten gerade Wände — wer hier mit Standardmaßen plant, baut zwangsläufig eine Küche, die im Modell schön aussieht und in der Realität klemmt. Die zwei Stunden Aufmaß sparen später drei Wochen Nacharbeit.
+          </p>
+          <p class="essay-cap-meta">Geschäftsführung · Meister + Innenarchitekt</p>
+        </div>
+      </div>
+
+      <!-- Full-bleed editorial image -->
+      <div class="essay-full reveal">
+        <div class="essay-photo">
+          <img src="https://images.unsplash.com/photo-1422246654994-34520d5a0340?w=2000&h=860&fit=crop&q=85&auto=format" alt="Holzlager der Schreinerei Hollmann mit gestapelten Eichen- und Nussbaumbohlen" loading="lazy" />
+        </div>
+        <div class="essay-full-cap">
+          <p class="lead">
+            "Das richtige Brett für die richtige Stelle — das entscheidet, ob ein Möbel in fünfzehn Jahren noch aussieht wie am ersten Tag oder eben nicht."
+          </p>
+          <p class="body">
+            Unser Holzlager fasst Bohlen für rund vier Monatsproduktion. Wir kaufen direkt bei Sägewerken im Schwarzwald, im Schwäbischen Wald und im Spessart — kein Importholz, keine Tropenhölzer. Was eingelagert ist, ist FSC- oder PEFC-zertifiziert oder stammt von Beständen, die wir kennen. Lufttrocknung mindestens zwei Jahre vor der Kammertrocknung. Markus Renz, Werkstattleiter, Zitat aus dem Werkstattgespräch im Frühjahr 2024.
+          </p>
+        </div>
+      </div>
+
+      <!-- Drei Generationen lineage block -->
+      <aside class="lineage reveal">
+        <div class="lineage-head">
+          <p class="eyebrow">Drei Generationen</p>
+          <h3>
+            Eine Werkstatt, eine Familie, <em>seit 1978.</em>
+          </h3>
+        </div>
+        <ul class="lineage-list">
+          <li class="lineage-row">
+            <span class="lineage-year">1978</span>
+            <div>
+              <p class="lineage-name">Herbert Hollmann — Gründer</p>
+              <p class="lineage-role">Gründet die Schreinerei in einer ehemaligen Scheune an der Böheimstraße. Geprägt von der schwäbischen Möbelmanufaktur der Nachkriegsjahre — Eichenmöbel für Kantinen, Pfarrhäuser, Volksbanken.</p>
+            </div>
+          </li>
+          <li class="lineage-row">
+            <span class="lineage-year">1995</span>
+            <div>
+              <p class="lineage-name">Wolfgang Hollmann — 2. Generation</p>
+              <p class="lineage-role">Übernimmt den Betrieb, baut das Holzlager aus, führt die ersten CNC-fähigen Plattensägen ein. Spezialisiert die Werkstatt auf maßgefertigte Einbauküchen für Stuttgarter Altbauten.</p>
+            </div>
+          </li>
+          <li class="lineage-row">
+            <span class="lineage-year">2014</span>
+            <div>
+              <p class="lineage-name">Tobias Hollmann — Meister + Innenarchitekt</p>
+              <p class="lineage-role">Übernimmt die Geschäftsführung nach Schreinermeister-Prüfung und Innenarchitektur-Studium in Stuttgart. Erweitert das Leistungsspektrum um Ankleiden, Bibliotheken und integrierte Bad-Lösungen.</p>
+            </div>
+          </li>
+        </ul>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- ─── Holzarten — horizontal carousel ─────────────────────────────────── -->
+  <section class="holzarten" id="holzarten">
+    <div class="container">
+      <p class="section-label reveal">Holzarten</p>
+      <div class="holzarten-head">
+        <h2 class="holzarten-h reveal">
+          Acht Hölzer aus unserem Lager — <em>heimisch, zertifiziert, gewachsen.</em>
+        </h2>
+        <p class="holzarten-intro reveal reveal-d-1">
+          Tropenhölzer setzen wir grundsätzlich nicht ein. Was wir verarbeiten, ist FSC- oder PEFC-zertifiziert oder stammt aus Beständen, die wir kennen. Seitlich scrollen — sechs Hauptsorten und zwei Sonderhölzer auf Anfrage.
+        </p>
+      </div>
+
+      <div class="holz-rail-wrap reveal reveal-d-1">
+        <div class="holz-rail" id="holzRail" tabindex="0" aria-label="Holzarten zum seitlichen Scrollen">
+
+          <article class="holz-card">
+            <div class="holz-swatch sw-eiche">
+              <span class="holz-swatch-tag">01</span>
+            </div>
+            <div class="holz-card-body">
+              <p class="holz-name">Eiche</p>
+              <p class="holz-desc">Heimisches Hartholz, traditionell schwäbisch. Roh, geölt oder geseift — dunkelt mit den Jahren warm nach.</p>
+              <p class="holz-origin"><span>Herkunft</span><em>Schwarzwald</em></p>
+            </div>
+          </article>
+
+          <article class="holz-card dark">
+            <div class="holz-swatch sw-raucheiche">
+              <span class="holz-swatch-tag">02</span>
+            </div>
+            <div class="holz-card-body">
+              <p class="holz-name">Räuchereiche</p>
+              <p class="holz-desc">Tief dunkel durch Ammoniakräucherung. Charaktervoll für Waschtische, Inseln und Wandverkleidungen.</p>
+              <p class="holz-origin"><span>Werkstatt</span><em>gereift</em></p>
+            </div>
+          </article>
+
+          <article class="holz-card dark">
+            <div class="holz-swatch sw-nussbaum">
+              <span class="holz-swatch-tag">03</span>
+            </div>
+            <div class="holz-card-body">
+              <p class="holz-name">Nussbaum <em>europäisch</em></p>
+              <p class="holz-desc">Dunkles Edelholz mit lebendiger Maserung. Erste Wahl für Bibliotheken, Ankleiden und Esstische.</p>
+              <p class="holz-origin"><span>Herkunft</span><em>Spessart</em></p>
+            </div>
+          </article>
+
+          <article class="holz-card">
+            <div class="holz-swatch sw-esche">
+              <span class="holz-swatch-tag">04</span>
+            </div>
+            <div class="holz-card-body">
+              <p class="holz-name">Esche</p>
+              <p class="holz-desc">Helles, zähes Holz, elastisch und ausdrucksstark. Bevorzugt für Stühle, Gestelle und Frontprofile.</p>
+              <p class="holz-origin"><span>Herkunft</span><em>Schwäbischer Wald</em></p>
+            </div>
+          </article>
+
+          <article class="holz-card">
+            <div class="holz-swatch sw-ahorn">
+              <span class="holz-swatch-tag">05</span>
+            </div>
+            <div class="holz-card-body">
+              <p class="holz-name">Ahorn</p>
+              <p class="holz-desc">Cremig hell, feine und gleichmäßige Struktur. Für ruhige, lichte Räume und Schlafzimmer-Ankleiden.</p>
+              <p class="holz-origin"><span>Herkunft</span><em>Allgäu</em></p>
+            </div>
+          </article>
+
+          <article class="holz-card">
+            <div class="holz-swatch sw-kirsche">
+              <span class="holz-swatch-tag">06</span>
+            </div>
+            <div class="holz-card-body">
+              <p class="holz-name">Kirschbaum</p>
+              <p class="holz-desc">Rötlich-warm, dunkelt mit den Jahren in einen tiefen Bernstein nach. Klassisch für Vitrinen und Kommoden.</p>
+              <p class="holz-origin"><span>Herkunft</span><em>Franken</em></p>
+            </div>
+          </article>
+
+          <article class="holz-card">
+            <div class="holz-swatch sw-laerche">
+              <span class="holz-swatch-tag">07</span>
+            </div>
+            <div class="holz-card-body">
+              <p class="holz-name">Lärche</p>
+              <p class="holz-desc">Hartes Nadelholz mit ausgeprägter Maserung. Für Sauna, Wandverkleidung und Innentüren — auf Anfrage.</p>
+              <p class="holz-origin"><span>Herkunft</span><em>Schwarzwald, Hoch.</em></p>
+            </div>
+          </article>
+
+          <article class="holz-card">
+            <div class="holz-swatch sw-weisseiche">
+              <span class="holz-swatch-tag">08</span>
+            </div>
+            <div class="holz-card-body">
+              <p class="holz-name">Weißeiche <em>amerikanisch</em></p>
+              <p class="holz-desc">Härter und ruhiger als europäische Eiche, FSC-zertifiziert. Bevorzugt für Küchenfronten in hellem Naturton.</p>
+              <p class="holz-origin"><span>Sonderholz</span><em>auf Anfrage</em></p>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="holz-progress" aria-hidden="true">
+          <div class="holz-progress-bar" id="holzProgress"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Ablauf — 5 Schritte ─────────────────────────────────────────────── -->
+  <section class="ablauf" id="ablauf">
+    <div class="container">
+      <p class="section-label reveal">So läuft Ihr Projekt ab</p>
+      <div class="ablauf-head">
+        <h2 class="ablauf-h reveal">
+          Vom Erstgespräch bis zur Montage — <em>fünf Schritte, alle in unserer Hand.</em>
+        </h2>
+        <p class="ablauf-intro reveal reveal-d-1">
+          Wir arbeiten ohne Subunternehmer und ohne Zwischenhändler. Vom ersten Telefonat bis zum letzten Anschluss übernimmt unser eigenes Team — das ist langsamer als die Möbelhauskette, aber dafür haftet eine einzige Werkstatt für das Ergebnis.
+        </p>
+      </div>
+
+      <ol class="ablauf-track">
+
+        <li class="ablauf-step reveal">
+          <span class="ablauf-num">01</span>
+          <div class="ablauf-body">
+            <h3 class="ablauf-title">Erstgespräch</h3>
+            <p class="ablauf-text">
+              Wir hören uns an, was Sie planen — am Telefon, in der Werkstatt oder bei einem Vor-Ort-Termin. Sie zeigen uns Räume, Bilder oder Skizzen, wir geben eine erste Einschätzung zu Machbarkeit, Größenordnung und Materialien. Verbindlich wird hier noch nichts.
+            </p>
+          </div>
+          <div class="ablauf-detail">
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Dauer</span>
+              <span class="ablauf-detail-value">ca. 30 Min.</span>
+            </div>
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Ort</span>
+              <span class="ablauf-detail-value">Vor Ort oder Werkstatt</span>
+            </div>
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Aufwand</span>
+              <span class="ablauf-detail-value"><em>kostenfrei &amp; unverbindlich</em></span>
+            </div>
+          </div>
+        </li>
+
+        <li class="ablauf-step reveal">
+          <span class="ablauf-num">02</span>
+          <div class="ablauf-body">
+            <h3 class="ablauf-title">Aufmaß</h3>
+            <p class="ablauf-text">
+              Tobias Hollmann oder Markus Renz kommen zu Ihnen, nehmen Maß und besprechen Materialwünsche, Bauablauf und mögliche Knackpunkte direkt am Ort. Bei Altbauten prüfen wir gleichzeitig Wandbeschaffenheit, Bestandsleitungen und Bodenniveau.
+            </p>
+          </div>
+          <div class="ablauf-detail">
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Dauer</span>
+              <span class="ablauf-detail-value">1 – 2 Stunden</span>
+            </div>
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Ort</span>
+              <span class="ablauf-detail-value">Bei Ihnen vor Ort</span>
+            </div>
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Inkludiert</span>
+              <span class="ablauf-detail-value">Materialberatung</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="ablauf-step reveal">
+          <span class="ablauf-num">03</span>
+          <div class="ablauf-body">
+            <h3 class="ablauf-title">Entwurf &amp; Angebot</h3>
+            <p class="ablauf-text">
+              Innerhalb von zwei Wochen erhalten Sie einen schriftlichen Entwurf mit 3D-Visualisierung und vollständigem Festpreis. Eingerechnet sind Material, Werkstattfertigung, Lieferung und Montage. Anpassungen besprechen wir gemeinsam in der Werkstatt — auch dieser Schritt ist noch unverbindlich.
+            </p>
+          </div>
+          <div class="ablauf-detail">
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Bearbeitung</span>
+              <span class="ablauf-detail-value">innerhalb 2 Wochen</span>
+            </div>
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Format</span>
+              <span class="ablauf-detail-value">3D + Festpreis</span>
+            </div>
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Status</span>
+              <span class="ablauf-detail-value"><em>weiterhin unverbindlich</em></span>
+            </div>
+          </div>
+        </li>
+
+        <li class="ablauf-step reveal">
+          <span class="ablauf-num">04</span>
+          <div class="ablauf-body">
+            <h3 class="ablauf-title">Werkstattfertigung</h3>
+            <p class="ablauf-text">
+              Nach Auftragsbestätigung wandert das Projekt in unsere Werkstatt. Sie erhalten transparente Statusupdates per E-Mail: wenn das Holz aufgelegt wird, wenn die Korpusse fertig sind, wenn die Fronten lackiert oder geölt werden. Bei Bedarf können Sie jederzeit vorbeikommen.
+            </p>
+          </div>
+          <div class="ablauf-detail">
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Bauzeit</span>
+              <span class="ablauf-detail-value">4 – 8 Wochen</span>
+            </div>
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Updates</span>
+              <span class="ablauf-detail-value">14-täglich, per Mail</span>
+            </div>
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Werkstatt</span>
+              <span class="ablauf-detail-value">jederzeit offen</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="ablauf-step reveal">
+          <span class="ablauf-num">05</span>
+          <div class="ablauf-body">
+            <h3 class="ablauf-title">Lieferung &amp; Montage</h3>
+            <p class="ablauf-text">
+              Geliefert und montiert wird durch unser eigenes Team — keine Subunternehmer, keine externen Monteure. Wir koordinieren bei Bedarf direkt mit Ihrem Elektriker, Sanitärbetrieb oder Steinmetz. Bei der Übergabe gehen wir das fertige Projekt gemeinsam durch.
+            </p>
+          </div>
+          <div class="ablauf-detail">
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Team</span>
+              <span class="ablauf-detail-value">eigene Schreiner</span>
+            </div>
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Montagedauer</span>
+              <span class="ablauf-detail-value">1 – 3 Tage</span>
+            </div>
+            <div class="ablauf-detail-row">
+              <span class="ablauf-detail-label">Garantie</span>
+              <span class="ablauf-detail-value"><em>10 Jahre auf Möbel</em></span>
+            </div>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- ─── Anfrage — Two-column layout ─────────────────────────────────────── -->
+  <section class="anfrage" id="anfrage">
+    <div class="container">
+      <p class="section-label reveal">Projektanfrage</p>
+      <div class="anfrage-head reveal">
+        <h2 class="anfrage-h">
+          Erzählen Sie uns von Ihrem Projekt. <em>Wir melden uns innerhalb eines Werktages.</em>
+        </h2>
+        <p class="anfrage-sub">
+          Tobias Hollmann oder Markus Renz schreibt oder ruft Sie zurück und schlägt einen kostenfreien Erstberatungstermin vor — bei Ihnen vor Ort oder in unserer Werkstatt in Heslach. Grundrisse oder Fotos können nach dem Erstkontakt nachgereicht werden, ein Anhang ist hier nicht nötig.
+        </p>
+      </div>
+
+      <div class="anfrage-grid">
+
+        <form class="anfrage-form reveal reveal-d-1" id="anfrageForm" novalidate>
+          <div class="field">
+            <label class="field-label" for="anfName">Name <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="anfName" name="name" required autocomplete="name" placeholder="Vor- und Nachname" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="anfPhone">Telefon <span class="req" aria-hidden="true">*</span></label>
+            <input type="tel" id="anfPhone" name="phone" required autocomplete="tel" placeholder="0711 / 0157 …" />
+          </div>
+          <div class="field field-full">
+            <label class="field-label" for="anfEmail">E-Mail <span class="req" aria-hidden="true">*</span></label>
+            <input type="email" id="anfEmail" name="email" required autocomplete="email" placeholder="ihre.adresse@beispiel.de" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="anfProjekt">Projekttyp <span class="req" aria-hidden="true">*</span></label>
+            <select id="anfProjekt" name="projekttyp" required>
+              <option value="">Bitte auswählen</option>
+              <option value="einbaukueche">Einbauküche</option>
+              <option value="einbauschrank">Einbauschrank / Garderobe</option>
+              <option value="bibliothek">Bibliothek / Arbeitszimmer</option>
+              <option value="badmoebel">Badmöbel / Waschtisch</option>
+              <option value="schiebetuer">Schiebetür / Raumteiler</option>
+              <option value="esstisch">Massivholz-Esstisch</option>
+              <option value="innenausbau">Allgemeiner Innenausbau</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="anfZeitraum">Geplanter Zeitraum</label>
+            <select id="anfZeitraum" name="zeitraum">
+              <option value="">Noch offen</option>
+              <option value="3monate">In den nächsten 3 Monaten</option>
+              <option value="6monate">In 3 – 6 Monaten</option>
+              <option value="12monate">In 6 – 12 Monaten</option>
+              <option value="spaeter">Später / unverbindlich</option>
+            </select>
+          </div>
+          <div class="field field-full">
+            <label class="field-label" for="anfBeschreibung">Beschreibung Ihres Projekts <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="anfBeschreibung" name="beschreibung" required placeholder="Erzählen Sie uns kurz, was Sie planen — Raum, Maße (sofern bekannt), Material- oder Stilwünsche, besondere Anforderungen."></textarea>
+            <p class="field-hint">Grundrisse oder Fotos können nach dem Erstkontakt per E-Mail nachgereicht werden — hier nicht nötig.</p>
+          </div>
+
+          <div class="anfrage-success" id="anfrageSuccess" role="status" aria-live="polite">
+            <strong>Danke — Ihre Anfrage ist bei uns.</strong>
+            Wir melden uns innerhalb eines Werktages. Für dringende Anliegen erreichen Sie uns direkt unter 0711 / 64 89 25 70.
+          </div>
+
+          <div class="anfrage-submit">
+            <p class="legal">
+              Mit dem Absenden stimmen Sie unserer <a href="/datenschutz">Datenschutzerklärung</a> zu. Ihre Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet.
+            </p>
+            <button type="submit" class="btn btn-primary">
+              Anfrage senden
+              <span class="arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+
+        <aside class="trust reveal reveal-d-2" aria-label="Direktkontakt und Werkstattadresse">
+          <div class="trust-block">
+            <span class="trust-label">Direkt am Telefon</span>
+            <a class="trust-phone" href="tel:+4971164892570">0711 / 64 89 25 70</a>
+            <span class="trust-hours">Mo–Fr · 8:00 – 17:00 Uhr · Sie erreichen direkt das Büro in der Werkstatt.</span>
+          </div>
+
+          <div class="trust-block trust-email">
+            <span class="trust-label">Per E-Mail</span>
+            <a href="mailto:anfrage@schreinerei-hollmann.de">anfrage@schreinerei-hollmann.de</a>
+          </div>
+
+          <div class="trust-block">
+            <span class="trust-label">Werkstatt &amp; Büro</span>
+            <p class="trust-address">
+              Schreinerei Hollmann<br>
+              Böheimstraße 47<br>
+              70199 Stuttgart-Süd
+              <em>S-Bahn Heslach Vogelrain · 6 Min. Fußweg · drei Stellplätze direkt am Werkstor</em>
+            </p>
+          </div>
+
+          <div class="trust-erst">
+            <span class="label">Erstgespräch</span>
+            <p class="lead">Kostenfrei und <em>unverbindlich.</em></p>
+            <p class="small">
+              30 Minuten am Telefon oder ein Vor-Ort-Termin in der Werkstatt — wir hören uns an, was Sie planen, und schlagen das weitere Vorgehen vor. Keine Anzahlung, kein Vertrag.
+            </p>
+          </div>
+
+          <div class="trust-block">
+            <span class="trust-label">Öffnungszeiten</span>
+            <p class="trust-hours">
+              Mo – Do · 7:00 – 17:00<br>
+              Fr · 7:00 – 14:00<br>
+              Sa · nach Vereinbarung
+            </p>
+          </div>
+
+          <div class="trust-badge">
+            <p class="name">Meisterbetrieb</p>
+            <p class="meta">Innung des Schreinerhandwerks Stuttgart · Handwerkskammer Region Stuttgart · anerkannter Lehrbetrieb seit 1989</p>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ──────────────────────────────────────────────────────────── -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-row">
+        <div class="footer-brand">
+          <p class="wordmark"><span>Hollmann</span><em>Schreinerei</em></p>
+          <p>
+            Maßgefertigte Einbauküchen, Möbel und Innenausbau aus Stuttgart-Süd. Seit 1978 in dritter Generation, heute geführt von Tobias Hollmann — Meister und Innenarchitekt.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Adresse</h4>
+          <p>
+            Böheimstraße 47<br>
+            70199 Stuttgart-Süd
+          </p>
+          <h4 style="margin-top: 22px;">Öffnungszeiten</h4>
+          <p>
+            Mo – Do · 7 – 17 Uhr<br>
+            Fr · 7 – 14 Uhr
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="tel:+4971164892570">0711 / 64 89 25 70</a></li>
+            <li><a href="mailto:anfrage@schreinerei-hollmann.de">anfrage@schreinerei-hollmann.de</a></li>
+            <li><a href="#anfrage">Projekt anfragen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Folgen</h4>
+          <ul>
+            <li><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://maps.google.com/?q=Böheimstraße+47,+70199+Stuttgart" target="_blank" rel="noopener">Google Maps</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 1978 – 2026 Schreinerei Hollmann GmbH · Inh. Tobias Hollmann</p>
+        <ul>
+          <li><a href="/impressum">Impressum</a></li>
+          <li><a href="/datenschutz">Datenschutz</a></li>
+          <li><a href="/agb">AGB</a></li>
+          <li><a href="/widerruf">Widerrufsbelehrung</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── Script ──────────────────────────────────────────────────────────── -->
+  <script>
+    (function () {
+      'use strict';
+
+      // Sticky nav state
+      var nav = document.getElementById('nav');
+      var navScrolled = false;
+      function onNavScroll() {
+        var should = window.scrollY > 24;
+        if (should !== navScrolled) {
+          navScrolled = should;
+          nav.classList.toggle('scrolled', navScrolled);
+        }
+      }
+      window.addEventListener('scroll', onNavScroll, { passive: true });
+      onNavScroll();
+
+      // Mobile burger
+      var burger = document.getElementById('navBurger');
+      var mMenu = document.getElementById('mobileMenu');
+      function setMenu(open) {
+        burger.classList.toggle('open', open);
+        mMenu.classList.toggle('open', open);
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        mMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+      burger.addEventListener('click', function () {
+        setMenu(!mMenu.classList.contains('open'));
+      });
+      mMenu.querySelectorAll('[data-mclose]').forEach(function (a) {
+        a.addEventListener('click', function () { setMenu(false); });
+      });
+
+      // Reveal on scroll
+      var reveals = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && reveals.length) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+        reveals.forEach(function (el) { io.observe(el); });
+      } else {
+        reveals.forEach(function (el) { el.classList.add('visible'); });
+      }
+
+      // Holzarten horizontal carousel — progress bar
+      var rail = document.getElementById('holzRail');
+      var bar  = document.getElementById('holzProgress');
+      if (rail && bar) {
+        function updateProgress() {
+          var max = rail.scrollWidth - rail.clientWidth;
+          var pct = max > 0 ? (rail.scrollLeft / max) * 100 : 0;
+          bar.style.width = Math.max(6, Math.min(100, pct)) + '%';
+        }
+        rail.addEventListener('scroll', updateProgress, { passive: true });
+        window.addEventListener('resize', updateProgress);
+        updateProgress();
+      }
+
+      // Form handling
+      var form = document.getElementById('anfrageForm');
+      var success = document.getElementById('anfrageSuccess');
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var required = form.querySelectorAll('[required]');
+          var valid = true;
+          required.forEach(function (el) {
+            if (!el.value) { valid = false; el.style.borderBottomColor = 'var(--walnut)'; }
+            else { el.style.borderBottomColor = ''; }
+          });
+          if (!valid) return;
+          success.classList.add('show');
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          form.reset();
+        });
+      }
+
+      // Smooth anchor scroll
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var href = a.getAttribute('href');
+          if (href.length > 1 && document.querySelector(href)) {
+            e.preventDefault();
+            var top = document.querySelector(href).getBoundingClientRect().top + window.scrollY - 60;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+          }
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
