@@ -32,6 +32,8 @@
 
       --font-serif: 'Spectral', 'Cormorant Garamond', Georgia, serif;
       --font-sans:  'Outfit', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+
+      --nav-h: 72px;
     }
 
     html { scroll-behavior: smooth; }
@@ -46,6 +48,7 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
+      padding-top: var(--nav-h);
     }
 
     img { display: block; max-width: 100%; height: auto; }
@@ -201,17 +204,16 @@
     /* ─── Navigation (different from Trattoria) ──────────────────────────── */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 22px 40px;
+      height: var(--nav-h);
+      padding: 0 40px;
       display: flex; align-items: center; justify-content: space-between;
-      transition: background 300ms ease, padding 240ms ease, border-color 240ms ease;
+      background: var(--bg);
       border-bottom: 1px solid transparent;
+      transition: border-color 240ms ease, box-shadow 240ms ease;
     }
     .nav.scrolled {
-      background: rgba(245, 240, 232, 0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      padding: 14px 40px;
-      border-bottom: 1px solid var(--line-soft);
+      border-bottom-color: var(--line-soft);
+      box-shadow: 0 8px 24px -16px rgba(33, 29, 25, 0.18);
     }
 
     .nav-wordmark {
@@ -317,7 +319,7 @@
       position: relative;
       width: 100%;
       max-width: none;
-      min-height: 100dvh;
+      min-height: max(calc(100dvh - var(--nav-h)), 760px);
       overflow: hidden;
       background: var(--bg-deep);
     }
@@ -341,7 +343,7 @@
 
     .hero-top-meta {
       position: absolute;
-      top: 110px;
+      top: 32px;
       right: 40px;
       z-index: 3;
       display: flex; flex-direction: column; align-items: flex-end;
@@ -360,7 +362,7 @@
     .hero-card {
       position: absolute;
       left: 40px;
-      bottom: 56px;
+      bottom: 110px;
       z-index: 4;
       max-width: 720px;
       background: rgba(245, 240, 232, 0.92);
@@ -1500,10 +1502,11 @@
     }
 
     @media (max-width: 880px) {
+      :root { --nav-h: 64px; }
+
       .container, .container-wide, .container-narrow { padding: 0 22px; }
 
-      .nav { padding: 18px 22px; }
-      .nav.scrolled { padding: 12px 22px; }
+      .nav { padding: 0 22px; }
       .nav-phone-inline { display: none; }
       .nav-cta { display: none; }
       .nav-burger { display: inline-flex; }
@@ -1544,14 +1547,14 @@
         color: var(--text-muted);
       }
 
-      .hero { min-height: 96dvh; }
+      .hero { min-height: max(calc(96dvh - var(--nav-h)), 640px); }
       .hero-card {
-        left: 16px; right: 16px; bottom: 28px;
+        left: 16px; right: 16px; bottom: 36px;
         padding: 30px 26px 30px;
         max-width: none;
       }
       .hero-card-title { font-size: 1.65rem; }
-      .hero-top-meta { top: 88px; right: 20px; }
+      .hero-top-meta { top: 20px; right: 20px; }
 
       .werkstuecke { padding: 90px 0 20px; }
       .werk-intro { grid-template-columns: 1fr; gap: 28px; padding-bottom: 50px; }

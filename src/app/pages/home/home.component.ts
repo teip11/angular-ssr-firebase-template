@@ -44,6 +44,21 @@ export class HomeComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
+      // Energy-flow trigger: wait for the last letter of "Kunden bringen" to finish
+      // animating in, then add the modifier class 700ms later. Fallback timer covers
+      // the case where the element isn't in the DOM yet (shouldn't happen, but cheap).
+      const activateEnergyFlow = () => {
+        setTimeout(() => {
+          document.querySelector('.hero-line2-text')?.classList.add('energy-flow');
+        }, 700);
+      };
+      const lastLetter = document.querySelector('.hero-line2-text .hero-letter:last-child');
+      if (lastLetter) {
+        lastLetter.addEventListener('animationend', activateEnergyFlow, { once: true });
+      } else {
+        setTimeout(activateEnergyFlow, 2100);
+      }
+
       setTimeout(() => {
         // ── Helper: single-element observer ──────────────────────────────────
         const observe = (el: Element | null, options: IntersectionObserverInit = {}) => {

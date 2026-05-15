@@ -24,6 +24,17 @@ app.use(
   }),
 );
 
+// ── Showcase templates — standalone static HTML pages ─────────
+// These live in public/showcase/<slug>/index.html and are NOT Angular routes.
+// Needs index: 'index.html' so /showcase/<slug>/ resolves the directory's index.
+app.use(
+  '/showcase',
+  express.static(resolve(browserDistFolder, 'showcase'), {
+    maxAge: '1y',
+    index: 'index.html',
+  }),
+);
+
 // ── All other routes → Angular SSR ────────────────────────────
 app.use('/**', (req, res, next) => {
   angularApp

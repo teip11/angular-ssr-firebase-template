@@ -58,10 +58,31 @@
   100% { filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.5)) drop-shadow(0 0 55px rgba(103, 232, 249, 0.2)); }
 }
 
-/* Shimmer: single diagonal sweep across the text */
+/* Shimmer: single diagonal sweep across the text.
+   Holds off-screen for ~35% of the cycle, sweeps over ~35%, holds past for ~30% —
+   gives a long quiet pause between passes so the light feels intentional, not constant. */
 @keyframes heroTextShimmer {
-  0%   { background-position: -300% 0; }
-  100% { background-position: 300% 0; }
+  0%, 35%   { background-position: -300% 0; }
+  70%, 100% { background-position: 300% 0; }
+}
+
+/* Glow fade-in: from nothing to a soft cyan halo over 1.2s. */
+@keyframes heroEnergyGlowIn {
+  0%   { filter: drop-shadow(0 0 0px rgba(34, 211, 238, 0)); }
+  100% { filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.45))
+                 drop-shadow(0 0 50px rgba(103, 232, 249, 0.22)); }
+}
+
+/* Glow pulse: very subtle breathing once the glow is up. */
+@keyframes heroEnergyPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.45))
+            drop-shadow(0 0 50px rgba(103, 232, 249, 0.22));
+  }
+  50% {
+    filter: drop-shadow(0 0 28px rgba(34, 211, 238, 0.6))
+            drop-shadow(0 0 70px rgba(103, 232, 249, 0.3));
+  }
 }
 
 .hero-line2-text {
@@ -77,8 +98,6 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation:
-    heroTextLiquidFlow 7s ease-in-out 0.85s infinite;
   position: relative;
   display: inline-block;
 }
@@ -90,16 +109,29 @@
   background: linear-gradient(
     110deg,
     transparent 35%,
-    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.22) 50%,
     transparent 65%
   );
   background-size: 300% 100%;
-  animation: heroTextShimmer 6s ease-in-out 1.1s infinite;
   pointer-events: none;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+}
+
+/* Energy-flow modifier — applied via JS after the letter-cascade completes.
+   Runs liquid-color flow + sweep + glow pulse together. The 1.2s glow-in and
+   the infinite pulse share filter; the pulse picks up exactly where glow-in lands. */
+.hero-line2-text.energy-flow {
+  animation:
+    heroTextLiquidFlow 7s ease-in-out infinite,
+    heroEnergyGlowIn 1.2s ease-in forwards,
+    heroEnergyPulse 4s ease-in-out 1.2s infinite;
+}
+
+.hero-line2-text.energy-flow::after {
+  animation: heroTextShimmer 8s ease-in-out 0.6s infinite;
 }
 
 /* ─── Hero Typography Animation ────────────────────────────────────────── */
@@ -1316,5 +1348,17 @@
     filter: none;
     transition: none;
     animation: none;
+  }
+
+  /* Energy flow: kill the sweep and pulse, keep a static cyan halo so the
+     effect still reads as "alive" without any motion. */
+  .hero-line2-text.energy-flow {
+    animation: none;
+    filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.45))
+            drop-shadow(0 0 50px rgba(103, 232, 249, 0.22));
+  }
+  .hero-line2-text.energy-flow::after {
+    animation: none;
+    opacity: 0;
   }
 }

@@ -24,14 +24,15 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    // Defer past SSR hydration to ensure the banner renders correctly on first visit.
-    // Without this, Angular hydration keeps the server-rendered `visible = false` state
-    // and the BehaviorSubject replay fires before change detection can update the DOM.
+    // Delay also covers the SSR hydration race: without a deferred subscribe, Angular
+    // hydration keeps the server-rendered `visible = false` state and the BehaviorSubject
+    // replay fires before change detection can update the DOM. The longer delay additionally
+    // lets the home hero load-animation finish (~1.9s) before the banner slides in.
     setTimeout(() => {
       this.sub = this.consent.status$.subscribe((status: ConsentStatus) => {
         this.visible = status === 'pending';
       });
-    }, 0);
+    }, 2000);
   }
 
   ngOnDestroy(): void {
