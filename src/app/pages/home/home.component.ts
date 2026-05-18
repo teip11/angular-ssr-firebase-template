@@ -89,7 +89,7 @@ export class HomeComponent implements AfterViewInit {
             entries.forEach(e => {
               if (e.isIntersecting) {
                 const idx = parseInt((e.target as HTMLElement).dataset['vcIdx'] || '0', 10);
-                setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), idx * 130);
+                setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), idx * 120);
                 vcObs.unobserve(e.target);
               }
             });

@@ -1125,57 +1125,9 @@
   will-change: transform;
 }
 
-.value-card:hover .value-card-center {
-  transform: translateY(-44px);
-}
-
-/* ─── Touch: value cards always show reveal content ─────────────────────── */
-@media (hover: none) {
-  /* Remove square aspect ratio — let card be naturally tall */
-  .value-card {
-    aspect-ratio: unset;
-    min-height: unset;
-  }
-  /* Inner becomes normal flow */
-  .value-card-inner {
-    position: static;
-    padding: 1.75rem;
-    justify-content: flex-start;
-  }
-  /* Center group: no hover transform */
-  .value-card-center {
-    transform: none !important;
-    transition: none;
-    margin-bottom: 1.25rem;
-  }
-  /* Reveal: always visible */
-  .value-card-reveal {
-    position: static;
-    opacity: 1 !important;
-    transform: none !important;
-    pointer-events: auto !important;
-    transition: none;
-  }
-  /* Icon: no shrink on touch */
-  .value-card-icon-wrap {
-    width: 4rem !important;
-    height: 4rem !important;
-    border-radius: 1rem !important;
-    transition: none;
-  }
-  .value-card-icon {
-    transform: none !important;
-    font-size: 2rem !important;
-    transition: none;
-  }
-  /* Title: no size change */
-  .value-card-benefit-title {
-    font-size: 1.15rem !important;
-    transition: none;
-  }
-  /* Glow: disable proximity effect */
-  .value-card-glow {
-    display: none;
+@media (hover: hover) and (pointer: fine) {
+  .value-card:hover .value-card-center {
+    transform: translateY(-44px);
   }
 }
 
@@ -1196,10 +1148,12 @@
   pointer-events: none;
 }
 
-.value-card:hover .value-card-reveal {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+@media (hover: hover) and (pointer: fine) {
+  .value-card:hover .value-card-reveal {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
 }
 
 /* ─── Divider line inside reveal ────────────────────────────────────────── */
@@ -1229,11 +1183,13 @@
   overflow: hidden;
 }
 
-.value-card:hover .value-card-icon-wrap {
-  width: 3.25rem;
-  height: 3.25rem;
-  border-radius: 0.875rem;
-  background: var(--color-accent-glow);
+@media (hover: hover) and (pointer: fine) {
+  .value-card:hover .value-card-icon-wrap {
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 0.875rem;
+    background: var(--color-accent-glow);
+  }
 }
 
 .value-card-icon {
@@ -1244,8 +1200,10 @@
   will-change: transform;
 }
 
-.value-card:hover .value-card-icon {
-  transform: scale(0.6);
+@media (hover: hover) and (pointer: fine) {
+  .value-card:hover .value-card-icon {
+    transform: scale(0.6);
+  }
 }
 
 /* ─── Title ────────────────────────────────────────────────────────────── */
@@ -1263,10 +1221,12 @@
               line-height 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.value-card:hover .value-card-benefit-title {
-  font-size: 0.9rem;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+@media (hover: hover) and (pointer: fine) {
+  .value-card:hover .value-card-benefit-title {
+    font-size: 0.9rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
 }
 
 /* ─── Tag / Subtitle ───────────────────────────────────────────────────── */
@@ -1292,8 +1252,10 @@
   transition: opacity 400ms ease-out 60ms;
 }
 
-.value-card:hover .value-card-divider {
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .value-card:hover .value-card-divider {
+    opacity: 1;
+  }
 }
 
 /* ─── Details (bullet points) — inside reveal panel ───────────────────── */
@@ -1324,6 +1286,88 @@
   left: 0;
   color: var(--color-accent-secondary);
   font-weight: 600;
+}
+
+/* ─── Mobile: value cards flatten — all content visible, no hover ─────────
+   Placed AFTER all base .value-card* rules so source-order wins the cascade
+   without needing !important on positioning properties. Desktop hover state
+   is already gated to (hover: hover) and (pointer: fine) above. */
+@media (max-width: 768px) {
+  /* Grid: more breathing room between cards */
+  .value-cards-row {
+    gap: 1.5rem;
+  }
+  /* Card: drop square aspect ratio, height follows content */
+  .value-card {
+    aspect-ratio: unset;
+    min-height: unset;
+  }
+  /* Inner: normal flow column with 24px padding */
+  .value-card-inner {
+    position: static;
+    padding: 1.5rem;
+    justify-content: flex-start;
+  }
+  /* Center group: flex column, reorder children via flex order so the HTML
+     stays untouched. Visual order inside .value-card-center: kicker → icon
+     → title. */
+  .value-card-center {
+    transform: none;
+    transition: none;
+    gap: 0;
+    margin-bottom: 0.75rem; /* 12px between title and the bullet list below */
+    width: 100%;
+  }
+  .value-card-tag {
+    order: 1;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--color-accent-primary);
+    margin: 0 0 0.75rem; /* 12px under kicker */
+  }
+  .value-card-icon-wrap {
+    order: 2;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    margin: 0 0 1rem; /* 16px between icon and title */
+    transition: none;
+  }
+  .value-card-icon {
+    font-size: 1.75rem !important; /* base uses !important on this one */
+    transform: none;
+    transition: none;
+  }
+  .value-card-benefit-title {
+    order: 3;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    transition: none;
+    margin: 0;
+  }
+  /* Reveal: pulled into normal flow at the bottom of .value-card-inner,
+     fully visible. No absolute positioning. */
+  .value-card-reveal {
+    position: static;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    transition: none;
+    inset: auto;
+    width: 100%;
+  }
+  /* The reveal's internal divider is redundant in the flat layout */
+  .value-card-divider-line {
+    display: none;
+  }
+  .value-card-details {
+    margin: 0;
+  }
+  /* Proximity glow: pointer-driven, irrelevant on touch */
+  .value-card-glow {
+    display: none;
+  }
 }
 
 /* ─── Reduced motion ────────────────────────────────────────────────────── */
@@ -1361,4 +1405,119 @@
     animation: none;
     opacity: 0;
   }
+
+  /* Hero scroll indicator: kill bounce/pulse, keep static visible state */
+  .hero-scroll-label {
+    animation: none !important;
+    opacity: 0.6;
+  }
+  .scroll-dot {
+    animation: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HERO — MOBILE REFINEMENTS
+   Scoped to <=768px. Desktop hero is untouched.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  /* ── 1. Background seam ────────────────────────────────────────────────
+     The desktop hero uses Hero_image.png (a wave composition). On narrow
+     viewports the centered crop produces a visible vertical crease and a
+     bottom-right blob. Replace with a single centered radial on mobile —
+     keeps the dark teal/cyan atmosphere, no seam, no blob. */
+  .hero-section {
+    background-image:
+      radial-gradient(
+        ellipse 120% 85% at 50% 30%,
+        #0a3a3e 0%,
+        #062528 28%,
+        #03171a 55%,
+        #020608 85%
+      );
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  /* Drop the brightness-amplified second image layer — no image to amplify. */
+  .hero-section::before {
+    display: none;
+  }
+  /* Consolidated atmospheric overlay: bottom fade into page bg + a single
+     very soft, large, centered glow for subtle depth. No corner vignette. */
+  .hero-section::after {
+    background:
+      linear-gradient(to bottom, transparent 86%, var(--color-bg) 100%),
+      radial-gradient(
+        ellipse 90% 55% at 50% 38%,
+        rgba(34, 211, 238, 0.07) 0%,
+        transparent 70%
+      );
+  }
+  /* Recenter the glow boost so it doesn't pull weight to the top-right. */
+  .hero-glow-boost {
+    background: radial-gradient(
+      ellipse 80% 50% at 50% 32%,
+      rgba(34, 211, 238, 0.09) 0%,
+      transparent 70%
+    );
+    opacity: 0.7;
+    filter: blur(18px);
+  }
+
+  /* ── 2. Vertical rhythm ────────────────────────────────────────────────
+     Pull the CTA block ~28% closer to the headline, and the stats ~50%
+     closer to the buttons, so the whole group reads as one centered unit. */
+  .hero-cta-block {
+    margin-top: 1.5rem; /* was 2rem (mt-8) */
+  }
+  .hero-cta-subheader {
+    margin-top: 0.625rem; /* was 1.25rem (mt-5) */
+  }
+  /* Nudge content up slightly so flex-centered group doesn't feel low
+     against the fixed navbar — counterweights the absolute scroll cue. */
+  .hero-section > .relative.z-10 {
+    transform: translateY(-2vh);
+  }
+
+  /* ── 3. Stats row treatment ────────────────────────────────────────────
+     - Tighten gap so all three stats fit on one line on iPhone SE (~320px).
+     - Replace faint dots with thin vertical dividers in low-opacity cyan.
+     - Lift label color one step out of "disabled" range. */
+  .hero-cta-subheader {
+    gap: 0.5rem;
+    color: rgba(156, 163, 175, 0.95); /* lift from --color-text-muted */
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .hero-cta-stat {
+    line-height: 1.1;
+  }
+  .hero-cta-divider {
+    width: 1px !important;
+    height: 11px !important;
+    border-radius: 0 !important;
+    background: rgba(34, 211, 238, 0.35) !important;
+    flex: 0 0 auto;
+  }
+  /* Tiniest screens: drop to 11px so nothing wraps. */
+  @media (max-width: 360px) {
+    .hero-cta-subheader { font-size: 11px; gap: 0.4rem; }
+  }
+
+  /* ── 4. Scroll indicator ───────────────────────────────────────────────
+     Lift the label out of the muted range and add a soft fade-pulse so it
+     reads as an interactive cue, not dead text. The track dot keeps its
+     existing scrollDotLoop. */
+  .hero-scroll-label {
+    color: rgba(237, 237, 237, 0.6) !important;
+    animation: heroScrollLabelPulse 2.4s ease-in-out infinite;
+    animation-delay: 2.1s;
+  }
+}
+
+@keyframes heroScrollLabelPulse {
+  0%, 100% { opacity: 0.45; transform: translateY(0); }
+  50%      { opacity: 0.85; transform: translateY(2px); }
 }
