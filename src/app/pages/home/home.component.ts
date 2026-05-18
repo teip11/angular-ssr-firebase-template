@@ -1,6 +1,7 @@
-import { Component, HostListener, AfterViewInit, ElementRef, ViewChild, ViewChildren, QueryList, Inject, PLATFORM_ID, NgZone } from '@angular/core';
+import { Component, HostListener, AfterViewInit, OnInit, ElementRef, ViewChild, ViewChildren, QueryList, Inject, PLATFORM_ID, NgZone } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   hasScrolled = false;
 
   // Process section state
@@ -23,8 +24,13 @@ export class HomeComponent implements AfterViewInit {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private seo: SeoService
   ) {}
+
+  ngOnInit(): void {
+    this.seo.setPageSEO('home');
+  }
 
   // Track last known mouse position (viewport-relative clientX/Y)
   private _lastMouseClientX = -9999;

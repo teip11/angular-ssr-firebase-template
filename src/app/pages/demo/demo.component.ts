@@ -1,8 +1,9 @@
-import { Component, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, AfterViewInit, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EmailjsService, TEMPLATE_DEMO, TEMPLATE_AUTO_REPLY } from '../../services/emailjs.service';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-demo',
@@ -11,7 +12,7 @@ import { EmailjsService, TEMPLATE_DEMO, TEMPLATE_AUTO_REPLY } from '../../servic
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.css']
 })
-export class DemoComponent implements AfterViewInit, OnDestroy {
+export class DemoComponent implements OnInit, AfterViewInit, OnDestroy {
   private observers: IntersectionObserver[] = [];
 
   sending = false;
@@ -36,8 +37,13 @@ export class DemoComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private emailjs: EmailjsService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private seo: SeoService
   ) {}
+
+  ngOnInit(): void {
+    this.seo.setPageSEO('demo');
+  }
 
   ngOnDestroy() {
     this.observers.forEach(o => o.disconnect());

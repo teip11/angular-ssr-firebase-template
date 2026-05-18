@@ -1,5 +1,6 @@
-import { Component, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, AfterViewInit, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-blog',
@@ -7,10 +8,17 @@ import { isPlatformBrowser } from '@angular/common';
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.css']
 })
-export class BlogComponent implements AfterViewInit, OnDestroy {
+export class BlogComponent implements OnInit, AfterViewInit, OnDestroy {
   private observers: IntersectionObserver[] = [];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private seo: SeoService
+  ) {}
+
+  ngOnInit(): void {
+    this.seo.setPageSEO('blog');
+  }
 
   ngOnDestroy() {
     this.observers.forEach(o => o.disconnect());

@@ -1,6 +1,7 @@
-import { Component, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, AfterViewInit, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-projekte',
@@ -9,10 +10,17 @@ import { RouterLink } from '@angular/router';
   templateUrl: './projekte.component.html',
   styleUrls: ['./projekte.component.css']
 })
-export class ProjekteComponent implements AfterViewInit, OnDestroy {
+export class ProjekteComponent implements OnInit, AfterViewInit, OnDestroy {
   private observers: IntersectionObserver[] = [];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private seo: SeoService
+  ) {}
+
+  ngOnInit(): void {
+    this.seo.setPageSEO('projekte');
+  }
 
   ngOnDestroy() {
     this.observers.forEach(o => o.disconnect());
