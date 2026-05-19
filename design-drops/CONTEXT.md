@@ -34,7 +34,9 @@ Paste this into a fresh Claude Code session to continue the redesign without re-
 - **CSS budget bumped** in `angular.json` to 200kb warn / 300kb error during transition (legacy CSS still in component file, will shrink as cleanup happens).
 - Angular's emulated view encapsulation scopes component CSS via attribute selectors. For rules that need to beat that, put them in global `src/styles.css`.
 
-## What's done (committed in `d9f4385` on `redesign` branch)
+## What's done
+
+### Initial redesign (commit `d9f4385`)
 
 - Full homepage redesign, all 7 sections + footer (hero, value, process, quote bridge, showcase, honesty, FAQ, final)
 - Global navbar: static top + floating pill (auto-appears after ~80vh scroll)
@@ -42,6 +44,14 @@ Paste this into a fresh Claude Code session to continue the redesign without re-
 - Site footer
 - Favicons (`public/Favicon.png`), logo (`public/logo.png`), OG image (`public/OG_image.png`)
 - Showcase cards now use real screenshots from `public/showcase/*.png`
+
+### Mobile + nav + CTA polish (commit `1ef249c`)
+
+- **Mobile homepage (≤ 480px)** — full `@media` block in `home.component.css` covering every section, prefixed with the matching `.X-new` wrapper. Hero cluster → 2-col grid, CTAs stack full-width, process filmstrip becomes touch-swipe with scroll-snap, value/showcase/honest/faq/final all reflowed.
+- **Mobile footer overrides** in `footer.component.css`.
+- **Mobile nav drawer** — burger button (static + floating pill), full-screen overlay drawer. Closes on link tap, route change, backdrop tap, Esc. Body scroll-lock via global `body.drawer-open` class in `src/styles.css`.
+- **Navbar polish** — per-letter wave-flip hover on every nav link (static + floating). Brand letters have clip-box padding so cap-tops aren't cropped. Uniform 18px gap between floating-pill entities (brand, sep, links, CTA). Static brand center-aligned (was baseline).
+- **CTA hover effect** — diagonal shine sweep + arrow send-off (original flies top-right out, duplicate slides in from bottom-left) + stronger lift with subtle overshoot. Applied to hero `.btn-primary`, `.sn-cta`, `.fn-cta`.
 
 ## Where things live
 
@@ -52,7 +62,7 @@ Paste this into a fresh Claude Code session to continue the redesign without re-
 | Footer | `src/app/components/footer/` |
 | Cookie banner | `src/app/components/cookie-consent/` |
 | Global styles + font links | `src/styles.css`, `src/index.html` |
-| Design intake | `design-drops/Hero.html` (latest drop) |
+| Design intake | `design-drops/Homepage-Mobile.html` (latest drop — includes mobile + desktop) |
 | Routes | `src/app/app.routes.ts` |
 
 ## What's still blocking publish
@@ -67,7 +77,7 @@ Paste this into a fresh Claude Code session to continue the redesign without re-
 
 ### High priority
 
-6. Mobile responsive sweep (process filmstrip + quote bridge most likely to misbehave).
+6. Mobile QA on real devices — hero + nav are reviewed and approved; sections 2–8 (value, process, qbridge, showcase, honest, faq, final) had their mobile @media rules ported from the drop but haven't been visually verified per-section yet. **Next session starts here.**
 7. Cross-browser smoke (Safari ✓ so far, Chrome + Firefox pending; `backdrop-filter` renders differently across engines).
 8. Confirm cookie banner still fires GTM/GA correctly after redesign.
 9. Per-page SEO meta via `SeoService` — home was updated, other pages weren't.
@@ -104,8 +114,20 @@ Both are still relevant. Remove once redesign is merged and live.
 3. To preview locally: `npx ng serve --port 4201` (4200 sometimes in use). Open `http://localhost:4201`.
 4. Hot-reload picks up CSS/HTML/TS changes automatically.
 
-## Open question for next session
+## Next session — section-by-section mobile QA
 
-Pick one before starting:
+Hero + navbar mobile are signed off. Walk through the remaining sections at ≤480px in the browser device toolbar and address visual issues per section:
+
+1. **Value** — cards have an "always-revealed" mobile state (no hover). Check stagger looks intentional, not janky.
+2. **Process** — filmstrip should swipe horizontally with scroll-snap. The desktop's fancy progress rail is hidden on mobile; verify nothing else slips through.
+3. **Quote bridge** — large script text + giant quote mark. Watch for overflow at narrow widths.
+4. **Showcase** — show-cards stack; the "all projects" CTA goes full-width.
+5. **Honest** — finale paragraph type is huge (38px); confirm it doesn't ladder.
+6. **FAQ** — rail decoration hidden on mobile; tap targets must be comfortable.
+7. **Final** — ghost number was sized 60vw; check it doesn't collide with the foot row.
+
+## Open question (kept for reference)
+
+Pick one before final launch:
 - **Ship homepage only** — fastest path, accept that nav links lead to legacy pages.
 - **Redesign all pages first** — bigger lift, consistent UX before launch.
