@@ -1,6 +1,6 @@
 import { Component, HostListener, signal, inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterModule, Router, NavigationStart } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,43 +11,23 @@ import { RouterModule, Router, NavigationStart } from '@angular/router';
 })
 export class NavbarComponent {
   private platformId = inject(PLATFORM_ID);
-  private router = inject(Router);
 
-  scrolled = signal(false);
-  menuOpen = signal(false);
+  /** Floating nav fades in after scrolling past ~80% of first viewport. */
+  visible = signal(false);
 
-  constructor() {
-    // Close menu on route change
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        this.menuOpen.set(false);
-        if (isPlatformBrowser(this.platformId)) {
-          document.body.style.overflow = '';
-        }
-      }
-    });
-  }
+  private ticking = false;
 
   @HostListener('window:scroll', [])
   onScroll(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      const scrollOffset = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-      this.scrolled.set(scrollOffset > 50);
-    }
-  }
-
-  toggleMenu(): void {
-    const next = !this.menuOpen();
-    this.menuOpen.set(next);
-    if (isPlatformBrowser(this.platformId)) {
-      document.body.style.overflow = next ? 'hidden' : '';
-    }
-  }
-
-  closeMenu(): void {
-    this.menuOpen.set(false);
-    if (isPlatformBrowser(this.platformId)) {
-      document.body.style.overflow = '';
-    }
+    if (!isPlatformBrowser(this.platformId)) return;
+    if (this.ticking) return;
+    this.ticking = true;
+    window.requestAnimationFrame(() => {
+      this.ticking = false;
+      const doc = document.documentElement;
+      const scrollTop = window.scrollY || doc.scrollTop;
+      const threshold = window.innerHeight * 0.80;
+      this.visible.set(scrollTop > threshold);
+    });
   }
 }

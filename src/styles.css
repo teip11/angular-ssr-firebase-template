@@ -296,6 +296,21 @@ html, body {
   border-radius: 4px;
 }
 
+/* Suppress focus / selection on decorative honesty seal — not Angular-scoped
+   so it wins over the rule above regardless of component encapsulation. */
+.honest-new .seal,
+.honest-new .seal *,
+.honest-new .seal:focus,
+.honest-new .seal:focus-visible,
+.honest-new .seal *:focus,
+.honest-new .seal *:focus-visible,
+.honest-new .seal *:focus-within {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 /* ─── Prevent horizontal scroll globally ───────────────────────────────── */
 * {
   box-sizing: border-box;
