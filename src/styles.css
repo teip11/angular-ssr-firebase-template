@@ -322,6 +322,12 @@ img, video, iframe {
   height: auto;
 }
 
+/* ─── Body scroll lock while the mobile drawer is open ─────────────────── */
+body.drawer-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
 /* ─── Reduced motion ────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,

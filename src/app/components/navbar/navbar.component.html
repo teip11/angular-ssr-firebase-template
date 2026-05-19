@@ -7,16 +7,37 @@
       <span>Gehrke<strong>&nbsp;Studio</strong></span>
     </a>
     <div class="sn-links">
-      <a routerLink="/projekte"  routerLinkActive="is-active">Projekte</a>
-      <a routerLink="/leistungen" routerLinkActive="is-active">Leistungen</a>
-      <a routerLink="/ueber-uns"  routerLinkActive="is-active">Über uns</a>
-      <a routerLink="/blog"       routerLinkActive="is-active">Blog</a>
-      <a routerLink="/kontakt"    routerLinkActive="is-active">Kontakt</a>
+      @for (link of navLinks; track link.path) {
+        <a [routerLink]="link.path" routerLinkActive="is-active">
+          <span class="fn-text" [attr.aria-label]="link.label">
+            <span class="row" aria-hidden="true">
+              @for (ch of link.chars; track $index) {
+                <span class="ch">{{ ch }}</span>
+              }
+            </span>
+            <span class="row" aria-hidden="true">
+              @for (ch of link.chars; track $index) {
+                <span class="ch">{{ ch }}</span>
+              }
+            </span>
+          </span>
+        </a>
+      }
     </div>
     <a routerLink="/demo" class="sn-cta">
       Vorlage anfordern
-      <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      <span class="arr-stack">
+        <svg class="arr a1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+        <svg class="arr a2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </span>
     </a>
+    <button class="nav-burger" type="button"
+            aria-label="Menü"
+            [attr.aria-expanded]="drawerOpen()"
+            aria-controls="navDrawer"
+            (click)="toggleDrawer()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -43,14 +64,57 @@
   </a>
   <span class="fn-sep"></span>
   <div class="fn-links">
-    <a routerLink="/projekte"  routerLinkActive="is-active">Projekte</a>
-    <a routerLink="/leistungen" routerLinkActive="is-active">Leistungen</a>
-    <a routerLink="/ueber-uns"  routerLinkActive="is-active">Über uns</a>
-    <a routerLink="/blog"       routerLinkActive="is-active">Blog</a>
-    <a routerLink="/kontakt"    routerLinkActive="is-active">Kontakt</a>
+    @for (link of navLinks; track link.path) {
+      <a [routerLink]="link.path" routerLinkActive="is-active">
+        <span class="fn-text" [attr.aria-label]="link.label">
+          <span class="row" aria-hidden="true">
+            @for (ch of link.chars; track $index) {
+              <span class="ch">{{ ch }}</span>
+            }
+          </span>
+          <span class="row" aria-hidden="true">
+            @for (ch of link.chars; track $index) {
+              <span class="ch">{{ ch }}</span>
+            }
+          </span>
+        </span>
+      </a>
+    }
   </div>
   <a routerLink="/demo" class="fn-cta">
     Vorlage anfordern
-    <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+    <span class="arr-stack">
+      <svg class="arr a1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      <svg class="arr a2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+    </span>
   </a>
+  <button class="fn-burger" type="button"
+          aria-label="Menü"
+          [attr.aria-expanded]="drawerOpen()"
+          aria-controls="navDrawer"
+          (click)="toggleDrawer()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile drawer overlay (full-screen). Sits outside both navs so it overlays everything.
+     Tapping the backdrop (anywhere outside the link list) closes the drawer. -->
+<div class="nav-drawer" id="navDrawer"
+     [class.is-open]="drawerOpen()"
+     [attr.aria-hidden]="!drawerOpen()"
+     role="dialog"
+     aria-modal="true"
+     aria-label="Navigation"
+     (click)="closeDrawer()">
+  <div class="nav-drawer-inner" (click)="$event.stopPropagation()">
+    <a routerLink="/projekte"   (click)="closeDrawer()">Projekte<span class="arr">↗</span></a>
+    <a routerLink="/leistungen" (click)="closeDrawer()">Leistungen<span class="arr">↗</span></a>
+    <a routerLink="/ueber-uns"  (click)="closeDrawer()">Über uns<span class="arr">↗</span></a>
+    <a routerLink="/blog"       (click)="closeDrawer()">Blog<span class="arr">↗</span></a>
+    <a routerLink="/kontakt"    (click)="closeDrawer()">Kontakt<span class="arr">↗</span></a>
+    <a routerLink="/demo" class="drawer-cta" (click)="closeDrawer()">
+      Vorlage anfordern
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>

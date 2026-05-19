@@ -40,7 +40,7 @@
 
 .static-nav .sn-brand {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
   font-weight: 700;
   font-size: 20px;
@@ -69,20 +69,13 @@
   text-decoration: none;
   transition: color .2s ease;
 }
-.static-nav .sn-links a:hover { color: var(--ink); }
-.static-nav .sn-links a::after {
-  content: "";
-  position: absolute;
-  left: 0; bottom: 0;
-  height: 1px; width: 0;
-  background: var(--orange);
-  transition: width .25s ease;
-}
-.static-nav .sn-links a:hover::after,
-.static-nav .sn-links a.is-active::after { width: 100%; }
+.static-nav .sn-links a:hover,
 .static-nav .sn-links a.is-active { color: var(--ink); }
 
 .static-nav .sn-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* keep ::before behind content but above background */
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -95,22 +88,167 @@
   box-shadow:
     0 10px 30px -10px rgba(242, 107, 31, 0.55),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+  transition: transform .3s cubic-bezier(.3, 1.4, .4, 1), background .25s ease, box-shadow .3s ease;
   text-decoration: none;
   white-space: nowrap;
 }
+/* Diagonal shine sweep — a slanted white gradient parks off-screen left
+   and slides across to off-screen right on hover. */
+.static-nav .sn-cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 100%);
+  transform: skewX(-14deg);
+  transition: left .7s cubic-bezier(.4, 0, .2, 1);
+  pointer-events: none;
+  z-index: 1;
+}
 .static-nav .sn-cta:hover {
-  background: var(--orange-soft);
-  transform: translateY(-1px);
+  transform: translateY(-3px);
   box-shadow:
-    0 14px 40px -10px rgba(242, 107, 31, 0.7),
+    0 22px 50px -14px rgba(242, 107, 31, 0.55),
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
-.static-nav .sn-cta .arr { width: 16px; height: 16px; }
+.static-nav .sn-cta:hover::before { left: 130%; }
+
+/* Arrow send-off stack — original arrow flies out top-right while a duplicate
+   slides in from bottom-left into the centered position. */
+.static-nav .sn-cta .arr-stack {
+  position: relative;
+  overflow: hidden;   /* clip the resting duplicate arrow out of view */
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+.static-nav .sn-cta .arr-stack .arr {
+  position: absolute;
+  inset: 0;
+  width: 16px;
+  height: 16px;
+  transition: transform .45s cubic-bezier(.55, 0, .25, 1);
+}
+.static-nav .sn-cta .arr-stack .a1 { transform: translate(0, 0); }
+.static-nav .sn-cta .arr-stack .a2 { transform: translate(-130%, 130%); }
+.static-nav .sn-cta:hover .arr-stack .a1 { transform: translate(130%, -130%); }
+.static-nav .sn-cta:hover .arr-stack .a2 { transform: translate(0, 0); }
 
 @media (max-width: 1080px) {
   .static-nav .sn-inner { padding: 24px 24px 12px; }
   .static-nav .sn-links { display: none; }
+}
+
+/* ── Mobile burger button (shared style for static + floating nav) ─────── */
+.nav-burger,
+.fn-burger {
+  display: none;
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(246, 241, 236, 0.18);
+  background: rgba(246, 241, 236, 0.03);
+  flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  cursor: pointer;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 210; /* above .nav-drawer (200) so the burger-turned-X stays tappable */
+}
+.nav-burger span,
+.fn-burger span {
+  display: block; width: 18px; height: 1.5px;
+  background: var(--ink); border-radius: 1px;
+  transition: transform .28s ease, opacity .2s ease;
+}
+.fn-burger {
+  width: 38px; height: 38px;
+  border-radius: 999px;
+}
+/* Floating-nav burger sits where the CTA does — only swap visibility at the mobile breakpoint */
+.fn-burger { display: none; }
+
+/* Open-state morph (burger → X). Uses :host-context so emulated encapsulation
+   still matches a body-level class. */
+:host-context(body.drawer-open) .nav-burger span:nth-child(1),
+:host-context(body.drawer-open) .fn-burger span:nth-child(1) {
+  transform: translateY(5.5px) rotate(45deg);
+}
+:host-context(body.drawer-open) .nav-burger span:nth-child(2),
+:host-context(body.drawer-open) .fn-burger span:nth-child(2) { opacity: 0; }
+:host-context(body.drawer-open) .nav-burger span:nth-child(3),
+:host-context(body.drawer-open) .fn-burger span:nth-child(3) {
+  transform: translateY(-5.5px) rotate(-45deg);
+}
+
+/* ── Full-screen drawer overlay ────────────────────────────────────────── */
+.nav-drawer {
+  position: fixed; inset: 0;
+  background: rgba(13, 11, 10, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 200;
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s ease;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-drawer.is-open { opacity: 1; pointer-events: auto; }
+
+/* While the drawer is open, raise both navs above the drawer so the
+   burger-turned-X stays tappable. The nav backgrounds are transparent /
+   pointer-events:none, so clicks on empty nav area still fall through and
+   trigger the drawer's backdrop-close handler. */
+:host-context(body.drawer-open) .static-nav,
+:host-context(body.drawer-open) .floating-nav { z-index: 210; }
+.nav-drawer-inner {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 0 32px;
+  width: 100%; max-width: 420px;
+}
+.nav-drawer-inner a {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(246, 241, 236, 0.10);
+  font-size: 24px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--ink);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .4s ease, transform .4s cubic-bezier(.2,.7,.2,1);
+  text-decoration: none;
+}
+.nav-drawer-inner a .arr { color: var(--orange); font-size: 18px; font-weight: 500; }
+.nav-drawer.is-open .nav-drawer-inner a { opacity: 1; transform: translateY(0); }
+.nav-drawer.is-open .nav-drawer-inner a:nth-child(1) { transition-delay: 0.08s; }
+.nav-drawer.is-open .nav-drawer-inner a:nth-child(2) { transition-delay: 0.13s; }
+.nav-drawer.is-open .nav-drawer-inner a:nth-child(3) { transition-delay: 0.18s; }
+.nav-drawer.is-open .nav-drawer-inner a:nth-child(4) { transition-delay: 0.23s; }
+.nav-drawer.is-open .nav-drawer-inner a:nth-child(5) { transition-delay: 0.28s; }
+.nav-drawer.is-open .nav-drawer-inner a:nth-child(6) { transition-delay: 0.33s; }
+.nav-drawer-inner a.drawer-cta {
+  margin-top: 18px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 14px;
+  padding: 18px 22px;
+  font-size: 16px;
+  border-bottom: 0;
+  box-shadow: 0 18px 40px -16px rgba(242, 107, 31, 0.65);
+}
+
+/* ── Mobile (≤ 480px): hide static CTA + show burger; swap CTA → burger in pill ── */
+@media (max-width: 480px) {
+  .static-nav .sn-inner { padding: 16px 20px 6px; gap: 14px; }
+  .static-nav .sn-brand { font-size: 16px; }
+  .static-nav .sn-brand .sn-logo { width: 28px; height: 28px; }
+  .static-nav .sn-cta { display: none; }
+  .nav-burger { display: inline-flex; }
+
+  /* Floating pill on phones: brand + burger only */
+  .fn-cta { display: none; }
+  .fn-burger { display: inline-flex; }
 }
 
 /* ── Floating sticky pill navbar ─────────────────────────────────────── */
@@ -124,7 +262,7 @@
   pointer-events: none;
   display: inline-flex;
   align-items: center;
-  gap: 0;
+  gap: 18px; /* uniform gap between brand, separator, link group, and CTA */
   padding: 8px 8px 8px 22px;
   background: rgba(13, 11, 10, 0.7);
   backdrop-filter: blur(20px) saturate(180%);
@@ -160,12 +298,10 @@
 .fn-brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   font-weight: 700;
   font-size: 15px;
   letter-spacing: -0.01em;
   color: var(--ink);
-  margin-right: 6px;
   text-decoration: none;
 }
 .fn-brand .fn-logo {
@@ -173,6 +309,7 @@
   border-radius: 5px;
   display: block;
   flex: none;
+  margin-right: 10px;
   opacity: 0;
   transform: scale(0.6);
   transition: opacity .4s ease .15s, transform .55s cubic-bezier(.4, 1.6, .5, 1) .15s;
@@ -182,8 +319,13 @@
 .fn-brand .word {
   display: inline-flex;
   overflow: hidden;
+  /* Vertical padding gives the clip box room for cap-tops + descenders;
+     negative margin keeps the visual layout (pill height/baseline) unchanged. */
+  padding: 0.18em 0;
+  margin-block: -0.18em;
+  line-height: 1.1;
 }
-.fn-brand .word + .word { margin-left: 0.15em; }
+.fn-brand .word + .word { margin-left: 0.28em; } /* natural word-space, not flex gap */
 .fn-brand .word .char {
   display: inline-block;
   transform: translateY(110%);
@@ -195,7 +337,6 @@
   width: 1px;
   height: 18px;
   background: rgba(246, 241, 236, 0.12);
-  margin: 0 14px 0 12px;
   transform: scaleY(0);
   transition: transform .5s cubic-bezier(.2, .7, .2, 1) .25s;
 }
@@ -204,43 +345,84 @@
 .fn-links {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 18px; /* match the floating-nav top-level gap so links sit at the same rhythm */
   font-size: 13.5px;
   color: var(--ink-dim);
-  margin-right: 14px;
 }
 .fn-links a {
   position: relative;
-  padding: 4px 0;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
   color: var(--ink-dim);
   opacity: 0;
   transform: translateY(6px);
-  transition: color .25s ease, opacity .4s ease, transform .5s cubic-bezier(.2, .7, .2, 1);
+  /* Hover-driven props (color, border-color) animate immediately; reveal-driven
+     props (opacity, transform) get a per-link stagger via transition-delay below. */
+  transition:
+    color .2s ease,
+    border-color .25s ease,
+    opacity .4s ease,
+    transform .5s cubic-bezier(.2, .7, .2, 1);
   text-decoration: none;
   white-space: nowrap;
 }
-.fn-links a:hover { color: var(--ink); }
-.fn-links a::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: -3px;
-  height: 1px;
-  background: var(--orange);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform .3s cubic-bezier(.2, .7, .2, 1);
+.fn-links a:hover,
+.fn-links a.is-active {
+  color: var(--ink);
+  border-color: var(--orange);
 }
-.fn-links a:hover::after,
-.fn-links a.is-active::after { transform: scaleX(1); }
-.fn-links a.is-active { color: var(--ink); }
+
+/* Per-letter wave-flip — two stacked rows of individual letter spans inside a
+   clipped window. Container height includes descender room (1.25em) so glyphs
+   like g/j don't bleed across rows. On hover each character translates up by
+   one row-height, with a small stagger creating a left-to-right wave.
+   Shared by both .fn-links (floating pill) and .sn-links (static top nav). */
+.fn-text {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 1.25em;
+  line-height: 1.25;
+  overflow: hidden;
+}
+.fn-text .row {
+  display: inline-flex;
+  white-space: pre; /* preserve spaces in labels like "Über uns" */
+  flex: none;       /* don't let the column flex shrink each row — would leak row 2 into row 1's area */
+}
+.fn-text .row .ch {
+  display: inline-block;
+  transition: transform .42s cubic-bezier(.7, 0, .2, 1);
+}
+.fn-links a:hover .fn-text .row .ch,
+.sn-links a:hover .fn-text .row .ch { transform: translateY(-100%); }
+
+/* Stagger per character. Selector applies independently within each row, so a
+   given column's top + bottom char share the same delay and move as a pair. */
+.fn-text .row .ch:nth-child(1)  { transition-delay:   0ms; }
+.fn-text .row .ch:nth-child(2)  { transition-delay:  22ms; }
+.fn-text .row .ch:nth-child(3)  { transition-delay:  44ms; }
+.fn-text .row .ch:nth-child(4)  { transition-delay:  66ms; }
+.fn-text .row .ch:nth-child(5)  { transition-delay:  88ms; }
+.fn-text .row .ch:nth-child(6)  { transition-delay: 110ms; }
+.fn-text .row .ch:nth-child(7)  { transition-delay: 132ms; }
+.fn-text .row .ch:nth-child(8)  { transition-delay: 154ms; }
+.fn-text .row .ch:nth-child(9)  { transition-delay: 176ms; }
+.fn-text .row .ch:nth-child(10) { transition-delay: 198ms; }
+
 .floating-nav.is-visible .fn-links a { opacity: 1; transform: translateY(0); }
-.floating-nav.is-visible .fn-links a:nth-child(1) { transition-delay: 0.28s, 0.28s, 0.28s; }
-.floating-nav.is-visible .fn-links a:nth-child(2) { transition-delay: 0.33s, 0.33s, 0.33s; }
-.floating-nav.is-visible .fn-links a:nth-child(3) { transition-delay: 0.38s, 0.38s, 0.38s; }
-.floating-nav.is-visible .fn-links a:nth-child(4) { transition-delay: 0.43s, 0.43s, 0.43s; }
-.floating-nav.is-visible .fn-links a:nth-child(5) { transition-delay: 0.48s, 0.48s, 0.48s; }
+/* Delays map to the transition list: color=0s, border-color=0s, opacity=stagger, transform=stagger */
+.floating-nav.is-visible .fn-links a:nth-child(1) { transition-delay: 0s, 0s, 0.28s, 0.28s; }
+.floating-nav.is-visible .fn-links a:nth-child(2) { transition-delay: 0s, 0s, 0.33s, 0.33s; }
+.floating-nav.is-visible .fn-links a:nth-child(3) { transition-delay: 0s, 0s, 0.38s, 0.38s; }
+.floating-nav.is-visible .fn-links a:nth-child(4) { transition-delay: 0s, 0s, 0.43s, 0.43s; }
+.floating-nav.is-visible .fn-links a:nth-child(5) { transition-delay: 0s, 0s, 0.48s, 0.48s; }
 
 .fn-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -253,17 +435,59 @@
   box-shadow: 0 6px 18px -6px rgba(242, 107, 31, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.22);
   transform: scale(0.85);
   opacity: 0;
-  transition: transform .55s cubic-bezier(.4, 1.5, .5, 1) .5s, opacity .4s ease .5s, background .25s ease;
+  transition:
+    transform .55s cubic-bezier(.4, 1.5, .5, 1) .5s,
+    opacity .4s ease .5s,
+    background .25s ease,
+    box-shadow .3s ease;
   white-space: nowrap;
   text-decoration: none;
 }
-.fn-cta:hover { background: var(--orange-soft); }
 .floating-nav.is-visible .fn-cta { transform: scale(1); opacity: 1; }
-.fn-cta .arr {
-  width: 14px; height: 14px;
-  transition: transform .25s ease;
+/* Hover lift — needs higher specificity to beat the .is-visible scale rule. */
+.floating-nav.is-visible .fn-cta:hover {
+  transform: scale(1) translateY(-2px);
+  box-shadow: 0 14px 30px -8px rgba(242, 107, 31, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
-.fn-cta:hover .arr { transform: translate(2px, -2px); }
+
+/* Shine sweep */
+.fn-cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 100%);
+  transform: skewX(-14deg);
+  transition: left .65s cubic-bezier(.4, 0, .2, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+.fn-cta:hover::before { left: 130%; }
+
+/* Arrow send-off stack */
+.fn-cta .arr-stack {
+  position: relative;
+  overflow: hidden;   /* clip the resting duplicate arrow out of view */
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+.fn-cta .arr-stack .arr {
+  position: absolute;
+  inset: 0;
+  width: 14px;
+  height: 14px;
+  transition: transform .42s cubic-bezier(.55, 0, .25, 1);
+}
+.fn-cta .arr-stack .a1 { transform: translate(0, 0); }
+.fn-cta .arr-stack .a2 { transform: translate(-130%, 130%); }
+.fn-cta:hover .arr-stack .a1 { transform: translate(130%, -130%); }
+.fn-cta:hover .arr-stack .a2 { transform: translate(0, 0); }
 
 @media (max-width: 760px) {
   .floating-nav { padding: 6px 6px 6px 18px; }
