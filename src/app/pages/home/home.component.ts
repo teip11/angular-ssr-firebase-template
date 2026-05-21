@@ -98,7 +98,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   // the section enters view.
   @ViewChild('vhHeadline', { read: ElementRef }) vhHeadline?: ElementRef<HTMLElement>;
   @ViewChild('vhSub',      { read: ElementRef }) vhSub?:      ElementRef<HTMLElement>;
-  @ViewChild('vhArrow',    { read: ElementRef }) vhArrow?:    ElementRef<HTMLElement>;
   @ViewChildren('valueCardItem', { read: ElementRef }) valueCardItems?: QueryList<ElementRef<HTMLElement>>;
 
   private observers: IntersectionObserver[] = [];
@@ -295,8 +294,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     observe(this.vhHeadline?.nativeElement, 0.55);
     observe(this.vhSub?.nativeElement,      0.65);
-    observe(this.vhArrow?.nativeElement,    0.4);
-    this.valueCardItems?.forEach(ref => observe(ref.nativeElement, 0.4));
+    this.valueCardItems?.forEach(ref => observe(ref.nativeElement, 0.35));
   }
 
   // ─── Honesty: IntersectionObserver-driven sentence reveal ──────────────
