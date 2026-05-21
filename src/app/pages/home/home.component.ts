@@ -92,6 +92,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('finalHeadline', { read: ElementRef }) finalHeadline?: ElementRef<HTMLElement>;
   @ViewChild('finalCtaRow',   { read: ElementRef }) finalCtaRow?: ElementRef<HTMLElement>;
 
+  // ─── Leistungen (value) stanzas — per-element scroll-triggered reveals ─
+  // Each animatable element gets its own observer so the choreography
+  // sequences with the reader's scroll position, not in a single burst when
+  // the section enters view.
+  @ViewChild('vhHeadline', { read: ElementRef }) vhHeadline?: ElementRef<HTMLElement>;
+  @ViewChild('vhSub',      { read: ElementRef }) vhSub?:      ElementRef<HTMLElement>;
+  @ViewChild('vhArrow',    { read: ElementRef }) vhArrow?:    ElementRef<HTMLElement>;
+  @ViewChildren('valueCardItem', { read: ElementRef }) valueCardItems?: QueryList<ElementRef<HTMLElement>>;
+
   private observers: IntersectionObserver[] = [];
   private scrollTicking = false;
 
@@ -114,6 +123,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!isPlatformBrowser(this.platformId)) return;
     // Defer to ensure layout is settled
     setTimeout(() => {
+      this.setupValueReveal();
       this.setupHonestyReveal();
       this.setupFaqReveal();
       this.setupFinalReveal();
@@ -258,6 +268,35 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.quoteRevealed = newRevealed;
       });
     }
+  }
+
+  // ─── Leistungen: per-element observers ─────────────────────────────────
+  // Each element animates as IT enters view (not when the section does), so
+  // the eye is guided down the page beat by beat. Thresholds are tuned per
+  // element: the headline + sub need ~40% visible so the slide-in catches
+  // the eye as the user looks at them; the arrow uses a smaller threshold
+  // because it sits at the section seam and is shorter; the cards are
+  // horizontally aligned so they trigger ~simultaneously, with the L→R
+  // stagger provided by CSS nth-child animation-delays.
+  private setupValueReveal(): void {
+    const observe = (el: Element | undefined | null, threshold: number, rootMargin = '0px') => {
+      if (!el) return;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('has-entered');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold, rootMargin });
+      io.observe(el);
+      this.observers.push(io);
+    };
+
+    observe(this.vhHeadline?.nativeElement, 0.55);
+    observe(this.vhSub?.nativeElement,      0.65);
+    observe(this.vhArrow?.nativeElement,    0.4);
+    this.valueCardItems?.forEach(ref => observe(ref.nativeElement, 0.4));
   }
 
   // ─── Honesty: IntersectionObserver-driven sentence reveal ──────────────

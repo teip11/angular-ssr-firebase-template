@@ -435,19 +435,17 @@
   box-shadow: 0 6px 18px -6px rgba(242, 107, 31, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.22);
   transform: scale(0.85);
   opacity: 0;
-  transition:
-    transform .55s cubic-bezier(.4, 1.5, .5, 1) .5s,
-    opacity .4s ease .5s,
-    background .25s ease,
-    box-shadow .3s ease;
+  transition: background .25s ease, box-shadow .25s ease;
   white-space: nowrap;
   text-decoration: none;
 }
-.floating-nav.is-visible .fn-cta { transform: scale(1); opacity: 1; }
-/* Hover lift — needs higher specificity to beat the .is-visible scale rule. */
-.floating-nav.is-visible .fn-cta:hover {
-  transform: scale(1) translateY(-2px);
-  box-shadow: 0 14px 30px -8px rgba(242, 107, 31, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+.floating-nav.is-visible .fn-cta {
+  transform: scale(1);
+  opacity: 1;
+  animation: fn-cta-reveal .55s cubic-bezier(.4, 1.5, .5, 1) .5s backwards;
+}
+@keyframes fn-cta-reveal {
+  from { transform: scale(0.85); opacity: 0; }
 }
 
 /* Shine sweep */
