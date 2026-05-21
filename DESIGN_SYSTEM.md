@@ -919,6 +919,166 @@ touched.
 - More than once per section — it loses meaning if repeated. One arrow per
   scroll-revealed moment, max.
 
+### §7.14 Auto-scrolling card marquee (`.prj-marquee`)
+
+A horizontal row of cards that drifts at a constant pixel-per-second rate
+when idle, but yields to the user the moment they interact horizontally.
+The user can wheel, two-finger swipe, or touch-swipe through the cards at
+any time; the auto-scroll pauses for 1.5s after the last horizontal input,
+then resumes.
+
+**Used on:** [/projekte](src/app/pages/projekte/) project gallery (first appearance). Reuse anywhere
+you have a horizontal list that benefits from a passive showcase rhythm
+but must remain manually scrollable.
+
+#### Markup
+
+```html
+<div class="prj-marquee prj-marquee-right" aria-label="...">
+  <div class="prj-marquee-track">
+    @for (project of projectsLoop; track $index; let i = $index) {
+      <!-- one card markup; duplicates are marked aria-hidden + tabindex=-1
+           when i >= projects.length -->
+      <a class="prj-card prj-card-real" ...>...</a>
+    }
+  </div>
+</div>
+```
+
+Key authoring rules:
+
+- **The track must contain the card list twice** — the auto-scroll loop
+  wraps `scrollLeft` when it crosses the half-track boundary, and the
+  duplicate set makes the wrap invisible.
+- **Mark the duplicate cards `aria-hidden="true"` and `tabindex="-1"`** so
+  they don't appear twice in the accessibility tree or Tab order.
+- **One marquee per section.** Two competing rows of motion across the
+  same viewport stretch the eye thin (we tried it and removed it).
+
+#### CSS
+
+The CSS provides the scrollable container only — the motion is JS-driven.
+
+```css
+.prj-marquee {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 12px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+  cursor: grab;
+}
+.prj-marquee::-webkit-scrollbar { display: none; }
+.prj-marquee-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+}
+.prj-marquee .prj-card { flex: 0 0 380px; }
+```
+
+The mask-image fades the left and right edges so cards drift in and out
+under a gradient rather than popping in at a hard cutoff.
+
+#### Motion (TypeScript)
+
+A `requestAnimationFrame` loop increments `scrollLeft`. The seed position
+is the **middle** of the doubled track so the user has scroll room in
+both directions before hitting a wrap boundary.
+
+```ts
+private readonly AUTO_SCROLL_PX_PER_SEC = 35;
+private readonly IDLE_RESUME_DELAY_MS = 1500;
+
+private startMarqueeAutoScroll(): void {
+  const el = this.marqueeRef?.nativeElement;
+  if (!el) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Seed to middle of duplicated track. Retry until layout settles.
+  const seed = () => {
+    const half = el.scrollWidth / 2;
+    if (half > 0) el.scrollLeft = half;
+    else requestAnimationFrame(seed);
+  };
+  seed();
+
+  // Pause on user input ...
+  this.attachUserInputListeners(el);
+
+  const tick = (now: number) => {
+    const dt = now - this.lastFrameTime;
+    this.lastFrameTime = now;
+    const focused = !!el.querySelector(':focus-visible');
+    if (!this.isUserInteracting && !focused) {
+      const half = el.scrollWidth / 2;
+      let next = el.scrollLeft - (this.AUTO_SCROLL_PX_PER_SEC * dt) / 1000;
+      if (next < 0) next += half;          // wrap leftward edge
+      else if (next >= half * 2) next -= half;  // wrap rightward edge
+      el.scrollLeft = next;
+    }
+    this.autoScrollHandle = requestAnimationFrame(tick);
+  };
+  this.autoScrollHandle = requestAnimationFrame(tick);
+}
+```
+
+#### User input gating
+
+Only **horizontal** input pauses the auto-scroll. Vertical wheel events
+fire on the marquee too (the element receives wheel events whenever the
+cursor is over it), so a naïve listener pauses every time someone scrolls
+the page past the section.
+
+```ts
+el.addEventListener('wheel', (e: WheelEvent) => {
+  // shiftKey covers Firefox's shift+wheel→horizontal convention;
+  // Chrome rewrites deltaX/deltaY directly, so the magnitude check
+  // catches that case too.
+  if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey) {
+    markInteract();
+  }
+}, { passive: true });
+
+let touchStartX = 0, touchStartY = 0;
+el.addEventListener('touchstart', (e: TouchEvent) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+el.addEventListener('touchmove', (e: TouchEvent) => {
+  const dx = Math.abs(e.touches[0].clientX - touchStartX);
+  const dy = Math.abs(e.touches[0].clientY - touchStartY);
+  if (dx > dy) markInteract();
+}, { passive: true });
+```
+
+#### Why not CSS `@keyframes` + `animation-play-state: paused`?
+
+We tried it. Two problems made it unworkable:
+
+1. **CSS `transform: translateX()` on the track conflicts with `overflow-x: auto` on the parent.** Native horizontal scroll and the transform animation compound into nonsense motion.
+2. **`:hover` pause stops the row on mouse click** (focus lands on the card, stays after a `target="_blank"` navigation). Switching to `:has(:focus-visible)` only helps for keyboard focus — mouse interactions still couldn't trigger a brief pause cleanly.
+
+JS-driven `scrollLeft` solves both: native scroll works for free, and the auto-scroll is paused/resumed by explicit timer logic.
+
+#### Reduced motion
+
+The TS check `prefers-reduced-motion: reduce` short-circuits before the
+rAF loop starts. The user can still scroll the cards manually via the
+native overflow.
+
+#### When NOT to use
+
+- As a primary navigation surface. The cards move; users may misclick.
+- For ranked or ordered content. The wrap is invisible but the *first
+  card* isn't visually distinguished from the others — readers can't
+  rely on a stable "front of the list" position.
+- For a single card or two. Auto-scroll only makes sense when the row
+  exceeds the viewport width.
+
 ---
 
 ## §8. States & Interactions

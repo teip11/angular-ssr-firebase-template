@@ -82,6 +82,18 @@ Paste this into a fresh Claude Code session to continue the redesign without re-
 - **Per-element IntersectionObservers** (`setupReveal()` in `leistungen.component.ts`) — every animatable element gets its own observer; thresholds follow DESIGN_SYSTEM §9.3.
 - **Visuals are placeholder boxes** (4:5 ratio, sectional gradient, "Bild folgt" label) — real images to follow.
 
+### Projekte page redesign
+
+- Full visual redesign of `/projekte` matching the homepage vocabulary. Five sections, all scoped under `.prj-*-new` wrappers:
+  1. **Hero** (`.prj-hero-new`) — warm graphite, mirrors home hero.
+  2. **Projekt-marquee** (`.prj-grid-new`) — graphite-deep section housing the new `.prj-marquee` auto-scrolling row (DESIGN_SYSTEM §7.14). 3 real cards (Trattoria, Schreinerei, Praxis) + 9 placeholder slots ("Weitere Projekte folgen" with category tags).
+  3. **Case study 01** (`.prj-case-1-new`) — cream, vorher/nachher placeholder boxes with red/green tag chips.
+  4. **Case study 02** (`.prj-case-2-new`) — paper-light, alternating layout.
+  5. **Final CTA** (`.prj-final-new`) — graphite, same shine + arrow-send-off `.btn-primary` as homepage hero.
+- **`.prj-marquee` is JS-driven** — a `requestAnimationFrame` loop increments `scrollLeft` at 35px/s. Native horizontal scroll (overflow-x: auto) lets the user wheel or swipe through the cards; auto-scroll pauses 1.5s after horizontal input. Only horizontal gestures pause (vertical wheel/touch over the marquee is ignored). Keyboard `:focus-visible` also pauses for a11y. Loop wraps invisibly via duplicate card sets and scrollLeft normalization. Full spec in DESIGN_SYSTEM §7.14.
+- **Cards use "Echt" label** (not "Real") in the foot of real cards. Card direction-of-content flow is left-to-right to match German LTR reading.
+- **Case-study content stayed fictional** (Elite Real Estate, GreenTech Solutions) per user direction — redesigned scaffold with placeholder vorher/nachher boxes ready for real images.
+
 ## Where things live
 
 | Thing | Location |
@@ -89,6 +101,7 @@ Paste this into a fresh Claude Code session to continue the redesign without re-
 | **Canonical design reference** | `DESIGN_SYSTEM.md` (repo root) |
 | Homepage all sections | `src/app/pages/home/home.component.{html,css,ts}` |
 | Leistungen (redesigned) | `src/app/pages/leistungen/leistungen.component.{html,css,ts}` |
+| Projekte (redesigned) | `src/app/pages/projekte/projekte.component.{html,css,ts}` |
 | Navbar (static + floating) | `src/app/components/navbar/` |
 | Footer | `src/app/components/footer/` |
 | Cookie banner | `src/app/components/cookie-consent/` |
@@ -100,12 +113,13 @@ Paste this into a fresh Claude Code session to continue the redesign without re-
 
 ### Blockers (must do)
 
-1. **7 pages still on legacy design** — Projekte, Über uns, Blog, Kontakt, Demo, plus Impressum, Datenschutz, 404. Leistungen ✓ done. Either redesign the rest or accept the jarring inconsistency.
+1. **6 pages still on legacy design** — Über uns, Blog, Kontakt, Demo, plus Impressum, Datenschutz, 404. Leistungen ✓ done, Projekte ✓ done. Either redesign the rest or accept the jarring inconsistency.
 2. **Leistungen visuals are placeholder boxes** — 4:5 boxes labelled "Bild folgt" sit where the pillar visuals should go. Need either real product screenshots (lead-form, CRM flow, search results) or designed mockups.
-3. **4 hero tiles still show striped placeholders** — need real images at `public/hero/` (t1, t3, t4, t5). Specs: 800–1200px long side, JPG/PNG/WebP. See earlier image-spec section.
-4. **Static nav contrast on legacy pages** — transparent bg + light text only works on dark hero. Other pages need either redesign or a dark fallback bg on the static nav. Leistungen's hero is dark warm graphite so it's fine there.
-5. **Test `/demo` and `/kontakt` forms end-to-end** — they're the primary CTAs. Verify EmailJS + reCAPTCHA still fire.
-6. **404 page** — currently legacy, anyone with a wrong URL sees it.
+3. **Projekte case-study visuals are placeholder boxes** — vorher/nachher 3:4 boxes with red/green tag chips on both case studies, plus 9 marquee placeholder cards. Real before/after images don't exist for any of the 3 real showcase sites; either generate mockups or replace case studies with a different structure.
+4. **4 hero tiles still show striped placeholders** — need real images at `public/hero/` (t1, t3, t4, t5). Specs: 800–1200px long side, JPG/PNG/WebP. See earlier image-spec section.
+5. **Static nav contrast on legacy pages** — transparent bg + light text only works on dark hero. Other pages need either redesign or a dark fallback bg on the static nav. Leistungen + Projekte heroes are dark warm graphite so they're fine.
+6. **Test `/demo` and `/kontakt` forms end-to-end** — they're the primary CTAs. Verify EmailJS + reCAPTCHA still fire.
+7. **404 page** — currently legacy, anyone with a wrong URL sees it.
 
 ### High priority
 
@@ -148,15 +162,14 @@ Both are still relevant. Remove once redesign is merged and live.
 
 ## Next session — pick the next legacy page
 
-Leistungen ✓ done and approved. Seven pages still on the legacy cyan/SaaS look. Suggested order (by impact + risk):
+Leistungen ✓ done, Projekte ✓ done. Six pages still on the legacy cyan/SaaS look. Suggested order (by impact + risk):
 
-1. **Projekte** — heavy visual page (showcase grid). Sets the tone for case-study pages. Vocabulary from homepage `.showcase-new` can be reused.
-2. **Über uns** — content-heavy, low interactivity. Safe to redesign once design language is set.
-3. **Kontakt** — form risk. Must verify EmailJS + reCAPTCHA after redesign.
-4. **Demo** — form risk. Same caveats as Kontakt.
-5. **Blog** — content. Likely needs its own card/list pattern in DESIGN_SYSTEM.
-6. **Impressum / Datenschutz** — legal, low priority but easy: typography-only pages on the paper-light palette.
-7. **404 (not-found)** — small, single-screen, can be quick.
+1. **Über uns** — content-heavy, low interactivity. Safe to redesign now that design language is set.
+2. **Kontakt** — form risk. Must verify EmailJS + reCAPTCHA after redesign.
+3. **Demo** — form risk. Same caveats as Kontakt.
+4. **Blog** — content. Likely needs its own card/list pattern in DESIGN_SYSTEM.
+5. **Impressum / Datenschutz** — legal, low priority but easy: typography-only pages on the paper-light palette.
+6. **404 (not-found)** — small, single-screen, can be quick.
 
 For each, the recipe is in `DESIGN_SYSTEM.md` §12. After each page lands, **update DESIGN_SYSTEM.md** with any new §7 component or §9.4 keyframe — don't let the doc drift.
 
