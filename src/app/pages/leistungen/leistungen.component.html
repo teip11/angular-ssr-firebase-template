@@ -1,210 +1,320 @@
-<!-- Hero Section -->
-<section class="relative pt-36 sm:pt-44 pb-12 sm:pb-16 flex flex-col items-center justify-center text-center px-4 sm:px-6 overflow-hidden">
-  <!-- Subtle glow matching home hero -->
-  <div class="absolute inset-0 pointer-events-none z-[1] overflow-hidden">
-    <div class="absolute w-full h-full bg-[radial-gradient(ellipse_80%_70%_at_50%_40%,var(--color-accent-primary-glow)_0%,transparent_70%)]"></div>
-  </div>
-
-  <div class="relative z-10 max-w-4xl mx-auto space-y-8">
-    <h1 class="lst-hero-title text-4xl sm:text-6xl md:text-8xl font-headline font-semibold text-text-primary tracking-[-0.02em] leading-[1.1]">
-      Leistungen, die <span class="inline-block py-[0.35em] pr-[0.4em] pl-[0.1em] -my-[0.35em] -mr-[0.4em] -ml-[0.1em] font-accent italic font-medium drop-shadow-[0_0_24px_var(--color-accent-primary-glow)] text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary">Ergebnisse</span> liefern.
-    </h1>
-    <p class="lst-hero-sub text-base sm:text-xl md:text-2xl text-text-secondary font-light max-w-2xl mx-auto leading-relaxed">
-      Wir kombinieren präzises Design mit datengetriebener Strategie, um digitale Erlebnisse zu schaffen, die wachsen.
-    </p>
-  </div>
-</section>
-
-<!-- Services Overview Grid -->
-<section class="px-4 sm:px-8 md:px-12 pb-16 sm:pb-24 pt-8 relative overflow-hidden">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 relative z-10">
-    <!-- Card 1 -->
-    <div class="lst-overview-card content-card group">
-      <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-8 transition-colors duration-300 group-hover:bg-primary/20">
-        <span class="material-symbols-outlined text-secondary" data-icon="web">web</span>
-      </div>
-      <h3 class="text-2xl font-headline font-bold text-text-primary mb-4">Webdesign</h3>
-      <p class="text-text-secondary leading-relaxed font-body">Ästhetische Benutzeroberflächen, die Ihre Markenidentität perfekt widerspiegeln.</p>
-    </div>
-    <!-- Card 2 -->
-    <div class="lst-overview-card content-card group">
-      <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-8 transition-colors duration-300 group-hover:bg-primary/20">
-        <span class="material-symbols-outlined text-secondary" data-icon="search">search</span>
-      </div>
-      <h3 class="text-2xl font-headline font-bold text-text-primary mb-4">SEO</h3>
-      <p class="text-text-secondary leading-relaxed font-body">Maximale Sichtbarkeit in Suchmaschinen durch technische Exzellenz und Content.</p>
-    </div>
-    <!-- Card 3 -->
-    <div class="lst-overview-card content-card group">
-      <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-8 transition-colors duration-300 group-hover:bg-primary/20">
-        <span class="material-symbols-outlined text-secondary" data-icon="bolt">bolt</span>
-      </div>
-      <h3 class="text-2xl font-headline font-bold text-text-primary mb-4">Performance</h3>
-      <p class="text-text-secondary leading-relaxed font-body">Hochgeschwindigkeits-Lösungen für eine optimale User Experience und Conversion.</p>
-    </div>
-  </div>
-</section>
-
-<!-- Detailed Service 1: Webdesign -->
-<section class="py-16 sm:py-32 relative overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-20 items-center">
-    <div class="lst-detail-text space-y-8 relative z-10">
-      <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-2">
-        <span class="w-8 h-px bg-secondary/40"></span>
-        Expertise
-      </div>
-      <h2 class="text-3xl sm:text-5xl font-headline font-semibold text-text-primary tracking-[-0.02em] leading-[1.1]">Webdesign</h2>
-      <p class="text-lg text-text-secondary leading-relaxed font-body">
-          Ein erstklassiges Design ist das Fundament Ihres digitalen Erfolgs. Wir kreieren Interfaces, die nicht nur gut aussehen, sondern Ihre Nutzer intuitiv führen.
-      </p>
-      <ul class="space-y-4">
-        <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
-          <span class="font-medium text-text-primary font-body">Klar strukturiert</span>
-        </li>
-        <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
-          <span class="font-medium text-text-primary font-body">Conversion-optimiert</span>
-        </li>
-        <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
-          <span class="font-medium text-text-primary font-body">Modernes Design</span>
-        </li>
-      </ul>
-    </div>
-    <div class="lst-detail-visual relative z-10">
-      <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full z-0 pointer-events-none"></div>
-      <div class="relative content-card p-2 !rounded-2xl overflow-hidden">
-        <img class="w-full rounded-xl" data-alt="webdesign preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNjrBVg-_JEvUjMZjF7Fezfv9KCGsoguRAtTZTgRM5ZEn_x4eCvNZujt-OGTkSoyB1c4a3CBGolymhc3uID2PSQnrNWqBNPGdNgw65Bsldqzn1bDzQGoGFxv9SCB0dTXxOpG81AD6emMssGF4oc2UKDEFyOunGl2jNePCittz6qvsR2thHFVeOtsA1zaNW0q4W3RPRR1RgfB0jH-FLtw0zTvYTa6xcghCnwpYU6PSfYWlf5U-psztXGri9y3fNpR-IEYlTBLk1r84"/>
+<!-- ============== 01 HERO ============== -->
+<section class="lst-hero-new">
+  <div class="lst-hero">
+    <div class="guides"></div>
+    <div class="container">
+      <div class="lst-hero-stage">
+        <div class="eyebrow">
+          <span class="bar"></span>
+          <span class="num">01</span> · Leistungen
+        </div>
+        <h1 #lstHeroTitle class="lst-hero-title">
+          Leistungen, die <span class="accent">Ergebnisse</span> liefern.
+        </h1>
+        <p #lstHeroSub class="lst-hero-sub">
+          Drei Hebel, an denen wir für Sie ziehen: Anfragen, Abläufe und Sichtbarkeit.
+          Vom ersten Klick bis zur fertigen Kundenbeziehung — alles aus einer Hand.
+        </p>
+        <div #lstHeroNav class="lst-hero-nav">
+          <a href="#anfragen" class="lst-hero-chip" data-num="01">
+            <span class="ch-num">01</span>
+            <span class="ch-label">Anfragen<br/>&amp; Kunden</span>
+          </a>
+          <a href="#ablaeufe" class="lst-hero-chip" data-num="02">
+            <span class="ch-num">02</span>
+            <span class="ch-label">Abläufe<br/>&amp; Automatisierung</span>
+          </a>
+          <a href="#sichtbarkeit" class="lst-hero-chip" data-num="03">
+            <span class="ch-num">03</span>
+            <span class="ch-label">Sichtbarkeit<br/>&amp; Performance</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Detailed Service 2: Performance -->
-<section class="py-16 sm:py-32 relative overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-20 items-center">
-    <div class="lst-detail-visual order-2 md:order-1 relative z-10">
-      <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full z-0 pointer-events-none"></div>
-      <div class="relative content-card p-2 !rounded-2xl overflow-hidden">
-        <img class="w-full rounded-xl" data-alt="performance preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChrDixdy0RHjA3yOlP4F0g8v910E4VQdnPckjB2ZCdnPaNZaWcW2HmF2xm8Cm7YSboFBX_AhJAXrPnDJC9ykJH7AzcASJO9wHZwbBcfk6rKe8REZltijDt3zLhPp_ZfYItYSf-gQgiDqQHU-2lmwW5XO9oSY1I6MiqRV1p4VHOqVh6fWIB5ux8VaeCUtfetGwoyRTOGf84u2_sobUS4f5x0e6FROnUy5j9eNSFef-4XiztR-d5ywL_7x_5zTjRCKZ2RcVLlTRI04k"/>
-      </div>
-    </div>
-    <div class="lst-detail-text order-1 md:order-2 space-y-8 relative z-10">
-      <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-2">
-        <span class="w-8 h-px bg-secondary/40"></span>
-        Optimierung
-      </div>
-      <h2 class="text-3xl sm:text-5xl font-headline font-semibold text-text-primary tracking-[-0.02em] leading-[1.1]">Performance</h2>
-      <p class="text-lg text-text-secondary leading-relaxed font-body">
-          In der digitalen Welt zählen Millisekunden. Wir optimieren Ihre Website für maximale Ladegeschwindigkeit und technische Perfektion.
-      </p>
-      <ul class="space-y-4">
-        <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-secondary" data-icon="speed">speed</span>
-          <span class="font-medium text-text-primary font-body">Core Web Vitals Optimierung</span>
-        </li>
-        <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-secondary" data-icon="rocket_launch">rocket_launch</span>
-          <span class="font-medium text-text-primary font-body">Skalierbare Infrastruktur</span>
-        </li>
-        <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-secondary" data-icon="security">security</span>
-          <span class="font-medium text-text-primary font-body">Höchste Sicherheitsstandards</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-</section>
+<!-- ============== 02 PILLAR 1 — ANFRAGEN & KUNDEN ============== -->
+<section id="anfragen" class="lst-pillar-new lst-pillar-1-new">
+  <div class="lst-pillar">
+    <div class="guides"></div>
+    <div class="container">
+      <div class="lst-pillar-grid">
 
-<!-- Detailed Service 3: SEO -->
-<section class="py-16 sm:py-32 relative overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-20 items-center">
-    <div class="lst-detail-text space-y-8 relative z-10">
-      <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-2">
-        <span class="w-8 h-px bg-secondary/40"></span>
-        Sichtbarkeit
-      </div>
-      <h2 class="text-3xl sm:text-5xl font-headline font-semibold text-text-primary tracking-[-0.02em] leading-[1.1]">SEO</h2>
-      <p class="text-lg text-text-secondary leading-relaxed font-body">
-          Dauerhafte Präsenz in den Suchmaschinen ist kein Zufall. Wir unterstützen Sie durch technische Exzellenz und eine schlagkräftige Content-Strategie, um genau dort dominant aufzutreten, wo Ihre Kunden suchen.
-      </p>
-      <ul class="space-y-4">
-        <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-secondary" data-icon="troubleshoot">troubleshoot</span>
-          <span class="font-medium text-text-primary font-body">Technisches SEO &amp; Audits</span>
-        </li>
-        <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-secondary" data-icon="text_snippet">text_snippet</span>
-          <span class="font-medium text-text-primary font-body">Content- &amp; Keyword-Strategie</span>
-        </li>
-        <li class="lst-check-item flex items-center gap-3">
-          <span class="material-symbols-outlined text-secondary" data-icon="auto_graph">auto_graph</span>
-          <span class="font-medium text-text-primary font-body">Organisches, planbares Wachstum</span>
-        </li>
-      </ul>
-    </div>
-    <div class="lst-detail-visual relative z-10">
-      <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full z-0 pointer-events-none"></div>
-      <div class="relative content-card p-2 !rounded-2xl overflow-hidden">
-        <img class="w-full rounded-xl md:grayscale md:hover:grayscale-0 transition-all duration-700" data-alt="SEO Analytics preview showing dashboard metrics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLCXvg0UHdoy1O6tWOQl001uecbkAiRorHg2raXHf6CGKysTCqJqHHGN7zhy-ur-hYhtv7dnx4vm2K_33NRsB3S6iwnSjxNDCc9vfcWeahQPdlutLNphgL5spca0eB5IV4eYiAwa0ZUZV0FVLL1SHBVkrXkQYKo8si0xdvtnZEf1RFs3eZzflOwX835NVAjTUwiOqNj-nuT9PykRjsA1_88MWPxU40q5-WmAQKGhxLGriDKbQQ1MkEghkJC5V9_Vs2J6zfgkO_Qsc"/>
+        <div #lstPillarText class="lst-pillar-text">
+          <div class="eyebrow">
+            <span class="bar"></span>
+            <span class="num">02</span> · Anfragen &amp; Kunden
+          </div>
+          <h2>
+            Mehr qualifizierte <span class="accent">Anfragen</span>
+          </h2>
+          <p class="lst-pillar-lead">
+            <span class="lead-bar"></span>
+            Ein erstklassiges Design ist das Fundament Ihres digitalen Erfolgs.
+            Wir gestalten Interfaces, die nicht nur gut aussehen, sondern Besucher
+            intuitiv durch die richtigen Fragen führen — bis zur passenden Anfrage.
+          </p>
+          <ul class="lst-checklist">
+            <li class="lst-check-item">
+              <span class="ck">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Klar strukturiert.</strong>
+                Jede Seite hat ein Ziel — der Weg dahin ist offensichtlich.
+              </div>
+            </li>
+            <li class="lst-check-item">
+              <span class="ck">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Conversion-optimiert.</strong>
+                Texte und Layout, die Vertrauen schaffen und zur Anfrage führen.
+              </div>
+            </li>
+            <li class="lst-check-item">
+              <span class="ck">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Echte Interessenten.</strong>
+                Sie bekommen Anfragen, die wirklich zu Ihnen passen — nicht nur Klickzahlen.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div #lstPillarVisual class="lst-pillar-visual">
+          <div class="lst-visual-placeholder" aria-hidden="true">
+            <span class="ph-bar"></span>
+            <span class="ph-label">Bild folgt</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
-<!-- Process Section -->
-<section class="py-16 sm:py-32 relative overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 relative z-10">
-    <div class="lst-process-header text-center mb-12 sm:mb-20">
-      <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-5">
-        <span class="w-8 h-px bg-secondary/40"></span>
-        Unser Prozess
-        <span class="w-8 h-px bg-secondary/40"></span>
-      </div>
-      <h2 class="text-3xl sm:text-4xl font-headline font-bold text-text-primary mb-4 tracking-[-0.02em] leading-[1.1]">Vom ersten Konzept bis zur finalen Optimierung.</h2>
-    </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 relative">
-      <!-- Step 1 -->
-      <div class="lst-process-step process-step-card space-y-4 sm:space-y-6">
-        <span class="text-3xl sm:text-4xl font-accent italic font-medium bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">01</span>
-        <h4 class="text-lg sm:text-xl font-bold font-headline text-text-primary">Analyse</h4>
-        <p class="text-sm text-text-secondary font-body leading-relaxed">Wir verstehen Ihre Ziele, den Markt und Ihre Zielgruppe bis ins Detail.</p>
-      </div>
-      <!-- Step 2 -->
-      <div class="lst-process-step process-step-card space-y-4 sm:space-y-6">
-        <span class="text-3xl sm:text-4xl font-accent italic font-medium bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">02</span>
-        <h4 class="text-lg sm:text-xl font-bold font-headline text-text-primary">Strategie</h4>
-        <p class="text-sm text-text-secondary font-body leading-relaxed">Entwicklung eines maßgeschneiderten Blueprints für Ihr Projekt.</p>
-      </div>
-      <!-- Step 3 -->
-      <div class="lst-process-step process-step-card space-y-4 sm:space-y-6">
-        <span class="text-3xl sm:text-4xl font-accent italic font-medium bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">03</span>
-        <h4 class="text-lg sm:text-xl font-bold font-headline text-text-primary">Umsetzung</h4>
-        <p class="text-sm text-text-secondary font-body leading-relaxed">Präzise Entwicklung und Design mit Fokus auf Perfektion.</p>
-      </div>
-      <!-- Step 4 -->
-      <div class="lst-process-step process-step-card space-y-4 sm:space-y-6">
-        <span class="text-3xl sm:text-4xl font-accent italic font-medium bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">04</span>
-        <h4 class="text-lg sm:text-xl font-bold font-headline text-text-primary">Optimierung</h4>
-        <p class="text-sm text-text-secondary font-body leading-relaxed">Kontinuierliche Verbesserung basierend auf echtem Nutzerfeedback.</p>
+<!-- ============== 03 PILLAR 2 — ABLÄUFE & AUTOMATISIERUNG ============== -->
+<section id="ablaeufe" class="lst-pillar-new lst-pillar-2-new">
+  <div class="lst-pillar">
+    <div class="guides"></div>
+    <div class="container">
+      <div class="lst-pillar-grid lst-pillar-grid-reverse">
+
+        <div #lstPillarText class="lst-pillar-text">
+          <div class="eyebrow">
+            <span class="bar"></span>
+            <span class="num">03</span> · Abläufe &amp; Automatisierung
+          </div>
+          <h2>
+            Weniger <span class="accent">Aufwand</span> für Sie
+          </h2>
+          <p class="lst-pillar-lead">
+            <span class="lead-bar"></span>
+            Jede Anfrage soll direkt am richtigen Platz landen — nicht in einem Postfach,
+            das niemand mehr öffnet. Wir verbinden Ihre Website mit den Systemen, die Sie
+            ohnehin nutzen, und lassen wiederkehrende Aufgaben im Hintergrund passieren.
+          </p>
+          <ul class="lst-checklist">
+            <li class="lst-check-item">
+              <span class="ck">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Anfragen direkt im Postfach.</strong>
+                Formular abgeschickt, Sie sind informiert — ohne Umweg über ein Backend.
+              </div>
+            </li>
+            <li class="lst-check-item">
+              <span class="ck">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>CRM-Anbindung ohne Aufwand.</strong>
+                Kontakte fließen in das System, mit dem Sie ohnehin arbeiten.
+              </div>
+            </li>
+            <li class="lst-check-item">
+              <span class="ck">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Wartung &amp; Updates inklusive.</strong>
+                Sicherheitsupdates, Backups, kleine Korrekturen — kümmern wir uns.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div #lstPillarVisual class="lst-pillar-visual">
+          <div class="lst-visual-placeholder" aria-hidden="true">
+            <span class="ph-bar"></span>
+            <span class="ph-label">Bild folgt</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA Section -->
-<section class="py-16 sm:py-32 px-4 sm:px-8 md:px-12 relative overflow-hidden">
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,var(--color-accent-primary-glow)_0%,transparent_70%)] pointer-events-none z-0"></div>
-  <div class="lst-cta-panel cta-glass-panel max-w-5xl mx-auto rounded-[1.5rem] sm:rounded-[2rem] p-8 sm:p-16 text-center space-y-6 sm:space-y-8 relative z-10">
-    <h2 class="text-3xl sm:text-4xl md:text-5xl font-headline font-bold text-text-primary leading-[1.1] tracking-[-0.02em]">
-      Lassen Sie uns Ihre Website <span class="font-accent italic font-medium drop-shadow-[0_0_24px_var(--color-accent-primary-glow)] text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary">verbessern.</span>
-    </h2>
-    <p class="text-base sm:text-xl text-text-secondary font-body max-w-xl mx-auto leading-relaxed">
-      Bereit für den nächsten Schritt? Entdecken Sie in einer kostenlosen Demo, wie wir Ihr Projekt auf das nächste Level heben.
-    </p>
-    <div class="pt-4 sm:pt-6">
-      <a class="btn-primary inline-flex items-center px-8 sm:px-10 py-4 text-base sm:text-lg" routerLink="/demo">Kostenlose Demo anfordern</a>
+<!-- ============== 04 PILLAR 3 — SICHTBARKEIT & PERFORMANCE ============== -->
+<section id="sichtbarkeit" class="lst-pillar-new lst-pillar-3-new">
+  <div class="lst-pillar">
+    <div class="guides"></div>
+    <div class="container">
+      <div class="lst-pillar-grid">
+
+        <div #lstPillarText class="lst-pillar-text">
+          <div class="eyebrow">
+            <span class="bar"></span>
+            <span class="num">04</span> · Sichtbarkeit &amp; Performance
+          </div>
+          <h2>
+            Online <span class="accent">gefunden</span> werden
+          </h2>
+          <p class="lst-pillar-lead">
+            <span class="lead-bar"></span>
+            Dauerhafte Präsenz in den Suchmaschinen ist kein Zufall. Wir verbinden
+            technische Exzellenz mit einer schlagkräftigen Content-Strategie, damit
+            Sie genau dort sichtbar sind, wo Ihre Kunden suchen — und der erste
+            Eindruck nicht an Ladezeiten scheitert.
+          </p>
+          <ul class="lst-checklist">
+            <li class="lst-check-item">
+              <span class="ck">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Technisches SEO &amp; Core Web Vitals.</strong>
+                Saubere Struktur, schnelle Ladezeiten, alle Häkchen für Google.
+              </div>
+            </li>
+            <li class="lst-check-item">
+              <span class="ck">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Content- &amp; Keyword-Strategie.</strong>
+                Inhalte, die Ihre Kunden suchen — und Antworten geben, die sie überzeugen.
+              </div>
+            </li>
+            <li class="lst-check-item">
+              <span class="ck">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Tracking, das echte Erkenntnisse liefert.</strong>
+                Datenschutzkonform — und so eingerichtet, dass Sie tatsächlich sehen,
+                was funktioniert.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div #lstPillarVisual class="lst-pillar-visual">
+          <div class="lst-visual-placeholder" aria-hidden="true">
+            <span class="ph-bar"></span>
+            <span class="ph-label">Bild folgt</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 05 PROZESS ============== -->
+<section class="lst-process-new">
+  <div class="lst-process">
+    <div class="guides"></div>
+    <div class="container">
+      <div #lstProcessHeader class="lst-process-header">
+        <div class="eyebrow">
+          <span class="bar"></span>
+          <span class="num">05</span> · Prozess
+        </div>
+        <h2>
+          Vom ersten <span class="accent">Konzept</span> bis zur finalen Optimierung
+        </h2>
+        <p class="lst-process-sub">
+          Vier Phasen, die ineinandergreifen — nicht starr, aber strukturiert.
+        </p>
+      </div>
+
+      <div class="lst-process-grid">
+        <div #lstProcessStep class="lst-process-step">
+          <span class="step-num">01</span>
+          <h3 class="step-title">Analyse</h3>
+          <p class="step-text">
+            Wir verstehen Ihre Ziele, den Markt und Ihre Zielgruppe bis ins Detail —
+            bevor irgendjemand ein Pixel bewegt.
+          </p>
+        </div>
+        <div #lstProcessStep class="lst-process-step">
+          <span class="step-num">02</span>
+          <h3 class="step-title">Strategie</h3>
+          <p class="step-text">
+            Ein maßgeschneiderter Blueprint: Struktur, Inhalte, Funktionen.
+            Festgehalten, bevor wir bauen.
+          </p>
+        </div>
+        <div #lstProcessStep class="lst-process-step">
+          <span class="step-num">03</span>
+          <h3 class="step-title">Umsetzung</h3>
+          <p class="step-text">
+            Design und Entwicklung Hand in Hand — mit Zwischenständen,
+            die Sie jederzeit live sehen können.
+          </p>
+        </div>
+        <div #lstProcessStep class="lst-process-step">
+          <span class="step-num">04</span>
+          <h3 class="step-title">Optimierung</h3>
+          <p class="step-text">
+            Nach dem Launch wird gemessen, gelernt, verbessert.
+            Eine Website ist nie fertig — wir kümmern uns weiter.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 06 FINAL CTA ============== -->
+<section class="lst-final-new">
+  <div class="lst-final">
+    <div class="guides"></div>
+    <div class="container">
+      <div #lstFinalCard class="lst-final-card">
+        <div class="eyebrow">
+          <span class="bar"></span>
+          <span class="num">06</span> · Bereit?
+        </div>
+        <h2 #lstFinalHeadline>
+          Lassen Sie uns Ihre Website <span class="accent">verbessern.</span>
+        </h2>
+        <p class="lst-final-sub">
+          Entdecken Sie in einer kostenlosen Demo, wie wir Ihr Projekt
+          auf das nächste Level heben.
+        </p>
+        <div #lstFinalCtaRow class="lst-final-cta-row">
+          <a routerLink="/demo" class="btn-primary lst-cta-btn">
+            <span class="btn-label">Kostenlose Demo anfordern</span>
+            <span class="icon-circ" aria-hidden="true">
+              <svg class="a a1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+              <svg class="a a2" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+          <a routerLink="/kontakt" class="lst-cta-ghost">
+            <span>Lieber direkt schreiben?</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>

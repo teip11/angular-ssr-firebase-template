@@ -1,4 +1,8 @@
-import { Component, AfterViewInit, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component, AfterViewInit, OnInit, OnDestroy,
+  Inject, PLATFORM_ID,
+  ViewChild, ViewChildren, ElementRef, QueryList,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../services/seo.service';
@@ -8,117 +12,75 @@ import { SeoService } from '../../services/seo.service';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './leistungen.component.html',
-  styleUrls: ['./leistungen.component.css']
+  styleUrls: ['./leistungen.component.css'],
 })
 export class LeistungenComponent implements OnInit, AfterViewInit, OnDestroy {
+  // ── Per-element template refs ──────────────────────────────────────────
+  @ViewChild('lstHeroTitle',     { read: ElementRef }) lstHeroTitle?:     ElementRef<HTMLElement>;
+  @ViewChild('lstHeroSub',       { read: ElementRef }) lstHeroSub?:       ElementRef<HTMLElement>;
+  @ViewChild('lstHeroNav',       { read: ElementRef }) lstHeroNav?:       ElementRef<HTMLElement>;
+  @ViewChildren('lstPillarText',   { read: ElementRef }) lstPillarTexts?:   QueryList<ElementRef<HTMLElement>>;
+  @ViewChildren('lstPillarVisual', { read: ElementRef }) lstPillarVisuals?: QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('lstProcessHeader', { read: ElementRef }) lstProcessHeader?: ElementRef<HTMLElement>;
+  @ViewChildren('lstProcessStep',  { read: ElementRef }) lstProcessSteps?:  QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('lstFinalCard',     { read: ElementRef }) lstFinalCard?:     ElementRef<HTMLElement>;
+
   private observers: IntersectionObserver[] = [];
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private seo: SeoService
+    private seo: SeoService,
   ) {}
 
   ngOnInit(): void {
     this.seo.setPageSEO('leistungen');
   }
 
-  ngOnDestroy() {
-    this.observers.forEach(o => o.disconnect());
-  }
-
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    setTimeout(() => this.initAnimations(), 150);
+    setTimeout(() => this.setupReveal(), 50);
   }
 
-  private initAnimations() {
-    const observe = (selector: string, options: IntersectionObserverInit = {}) => {
-      const els = Array.from(document.querySelectorAll(selector)) as HTMLElement[];
-      if (!els.length) return;
-      const obs = new IntersectionObserver((entries) => {
+  ngOnDestroy(): void {
+    this.observers.forEach(o => o.disconnect());
+    this.observers = [];
+  }
+
+  // ── Per-element observers ──────────────────────────────────────────────
+  // Each animatable element gets its own observer so the choreography
+  // sequences with the reader's scroll position, not in a burst when the
+  // section enters view. Thresholds follow DESIGN_SYSTEM §9.3.
+  private setupReveal(): void {
+    const observe = (el: Element | undefined | null, threshold: number, rootMargin = '0px') => {
+      if (!el) return;
+      const io = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
-            (e.target as HTMLElement).classList.add('is-visible');
-            obs.unobserve(e.target);
+            e.target.classList.add('has-entered');
+            io.unobserve(e.target);
           }
         });
-      }, { threshold: 0, ...options });
-      this.observers.push(obs);
-      els.forEach(el => obs.observe(el));
+      }, { threshold, rootMargin });
+      io.observe(el);
+      this.observers.push(io);
     };
 
-    // ── Hero: already in viewport on load ────────────────────────────────────
-    observe('.lst-hero-title');
-    observe('.lst-hero-sub');
+    // Hero — title + sub are in viewport on load; observer still used to
+    // trigger the staged animation rather than firing on raw page load.
+    observe(this.lstHeroTitle?.nativeElement, 0.1);
+    observe(this.lstHeroSub?.nativeElement,   0.1);
+    observe(this.lstHeroNav?.nativeElement,   0.1);
 
-    // ── Overview cards: staggered ─────────────────────────────────────────────
-    const overviewCards = Array.from(document.querySelectorAll('.lst-overview-card')) as HTMLElement[];
-    if (overviewCards.length) {
-      const cardObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const idx = parseInt((e.target as HTMLElement).dataset['index'] || '0', 10);
-            setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), idx * 120);
-            cardObs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-      this.observers.push(cardObs);
-      overviewCards.forEach((el, i) => {
-        el.dataset['index'] = String(i);
-        cardObs.observe(el);
-      });
-    }
+    // Pillars — text + visual per pillar, each observed independently.
+    this.lstPillarTexts?.forEach(ref   => observe(ref.nativeElement, 0.35));
+    this.lstPillarVisuals?.forEach(ref => observe(ref.nativeElement, 0.35));
 
-    // ── Detail sections: text + visual ───────────────────────────────────────
-    observe('.lst-detail-text',   { rootMargin: '0px 0px -40px 0px' });
-    observe('.lst-detail-visual', { rootMargin: '0px 0px -40px 0px' });
+    // Process — header observed at higher threshold (catch the eye), steps
+    // at lower (let stagger feel tight as the row enters).
+    observe(this.lstProcessHeader?.nativeElement, 0.55);
+    this.lstProcessSteps?.forEach(ref => observe(ref.nativeElement, 0.4));
 
-    // ── Check list items: staggered per section ───────────────────────────────
-    // Group items by their parent <ul> so each section's items stagger from 0
-    const checkLists = Array.from(document.querySelectorAll('.lst-detail-text ul')) as HTMLElement[];
-    checkLists.forEach(ul => {
-      const items = Array.from(ul.querySelectorAll('.lst-check-item')) as HTMLElement[];
-      if (!items.length) return;
-      const checkObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const idx = parseInt((e.target as HTMLElement).dataset['index'] || '0', 10);
-            setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), 150 + idx * 100);
-            checkObs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0, rootMargin: '0px 0px -20px 0px' });
-      this.observers.push(checkObs);
-      items.forEach((el, i) => {
-        el.dataset['index'] = String(i);
-        checkObs.observe(el);
-      });
-    });
-
-    // ── Process header ────────────────────────────────────────────────────────
-    observe('.lst-process-header', { rootMargin: '0px 0px -40px 0px' });
-
-    // ── Process steps: staggered ──────────────────────────────────────────────
-    const processSteps = Array.from(document.querySelectorAll('.lst-process-step')) as HTMLElement[];
-    if (processSteps.length) {
-      const stepObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const idx = parseInt((e.target as HTMLElement).dataset['index'] || '0', 10);
-            setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), idx * 120);
-            stepObs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-      this.observers.push(stepObs);
-      processSteps.forEach((el, i) => {
-        el.dataset['index'] = String(i);
-        stepObs.observe(el);
-      });
-    }
-
-    // ── CTA panel ─────────────────────────────────────────────────────────────
-    observe('.lst-cta-panel', { rootMargin: '0px 0px -40px 0px' });
+    // Final card — single unit at lower threshold since it's the page closer.
+    observe(this.lstFinalCard?.nativeElement, 0.3);
   }
 }
