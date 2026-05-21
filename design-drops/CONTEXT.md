@@ -82,6 +82,17 @@ Paste this into a fresh Claude Code session to continue the redesign without re-
 - **Per-element IntersectionObservers** (`setupReveal()` in `leistungen.component.ts`) — every animatable element gets its own observer; thresholds follow DESIGN_SYSTEM §9.3.
 - **Visuals are placeholder boxes** (4:5 ratio, sectional gradient, "Bild folgt" label) — real images to follow.
 
+### Homepage value section → poster bands (commit `b2f1a29`)
+
+- **Replaces `.value-statement-new` + `.value-cards-new`** with a single `.value-bands-new` layout.
+- New header: "Was Ihre Website für Sie *leistet*" (cursive accent on "leistet").
+- Three alternating-direction bands (5fr/7fr → 7fr/5fr → 5fr/7fr); demo placement flips with the columns each row.
+- Each band is a plain `<article>`; the inner "Mehr erfahren" link is the only clickable element and routes to `/leistungen` with the matching fragment (`#anfragen`, `#ablaeufe`, `#sichtbarkeit`).
+- Numerals carry a clipped vertical gradient (warm-gray → near-transparent) modeled on the footer wordmark — architectural markers, not competing with the band h3.
+- Demos retuned to a **light theme** so they blend with the cream section (previously dark cards punching out).
+- Section background shifts cream → warm-cream (`#e6c9ad`) at the bottom, previewing the terra of the following Process section so the seam reads as a continuation, not a cut.
+- **Removed**: `vhArrow` ViewChild + observer (no longer in template). The `.drawn-arrow` / `.vh-arrow` component (DESIGN_SYSTEM §7.13) is currently NOT in use anywhere — it exists as a documented pattern only.
+
 ### Projekte page redesign
 
 - Full visual redesign of `/projekte` matching the homepage vocabulary. Five sections, all scoped under `.prj-*-new` wrappers:

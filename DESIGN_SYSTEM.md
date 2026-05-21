@@ -903,13 +903,13 @@ choreography rather than competing for attention.
 The arrow renders fully drawn at rest with no draw-on motion. The gesture is
 still visible — just static.
 
-#### Current implementation note
+#### Current implementation status
 
-On the homepage value section the SVG carries the alias class `.vh-arrow`
-(value-headline-arrow) rather than the canonical `.drawn-arrow`, because it
-predates the canonical name. New uses should prefer `.drawn-arrow`; the
-value-section selector should be aliased to it the next time that file is
-touched.
+Originally appeared in the homepage value section as `.vh-arrow`, but that
+section was reworked into poster bands (commit `b2f1a29`) and the arrow
+was removed. **The pattern is currently unused in production** — it
+remains documented here as a reusable gesture for any future section
+that needs a hand-drawn connector across an empty diagonal.
 
 #### When NOT to use
 
