@@ -1398,7 +1398,11 @@
    card stack once the cards release. */
 .process-new .ps-cta {
   position: relative;
-  margin-top: 96px;
+  /* Negative margin-top pulls the CTA up under the stacked cards instead
+     of waiting for the full 80vh card-3 dwell + 96px gap (~816px of dead
+     terra). At -73vh, CTA top lands ~25px below card 3's visual bottom
+     (120 sticky + 76vh height + 40 translateY) when the stack lands. */
+  margin-top: -73vh;
   padding: 0 56px;
   text-align: center;
 }
