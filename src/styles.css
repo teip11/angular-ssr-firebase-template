@@ -14,12 +14,12 @@
   --color-text-muted: #6B7280;
   
   /* Accents */
-  --color-accent-primary: #22D3EE;   /* Cyan */
-  --color-accent-secondary: #67E8F9; /* Light Cyan */
-  --color-accent-primary-glow: rgba(34, 211, 238, 0.25);
-  --color-accent-secondary-glow: rgba(103, 232, 249, 0.15);
+  --color-accent-primary: #f26b1f;   /* Brand orange */
+  --color-accent-secondary: #f5895a; /* Light orange */
+  --color-accent-primary-glow: rgba(242, 107, 31, 0.25);
+  --color-accent-secondary-glow: rgba(245, 137, 90, 0.15);
   /* Alias for convenience */
-  --color-accent-glow: rgba(34, 211, 238, 0.25);
+  --color-accent-glow: rgba(242, 107, 31, 0.25);
   
   /* Borders & Glass */
   --color-border: rgba(255, 255, 255, 0.08);

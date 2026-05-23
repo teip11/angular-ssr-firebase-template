@@ -87,9 +87,41 @@
         </div>
 
         <div #lstPillarVisual class="lst-pillar-visual">
-          <div class="lst-visual-placeholder" aria-hidden="true">
-            <span class="ph-bar"></span>
-            <span class="ph-label">Bild folgt</span>
+          <div class="lstm-panel lstm-inbox" aria-hidden="true">
+            <header class="lstm-inbox-head">
+              <span class="lstm-inbox-title">Neue Anfragen</span>
+              <span class="lstm-inbox-count">3</span>
+            </header>
+            <ul class="lstm-inbox-list">
+              <li class="lstm-inbox-row lstm-inbox-row--hl">
+                <span class="lstm-avatar">SM</span>
+                <div class="lstm-row-body">
+                  <div class="lstm-row-name">Sarah M.</div>
+                  <div class="lstm-row-snip">Möchte ein Angebot für Webdesign + SEO</div>
+                </div>
+                <span class="lstm-pill">Qualifiziert</span>
+              </li>
+              <li class="lstm-inbox-row">
+                <span class="lstm-avatar">TK</span>
+                <div class="lstm-row-body">
+                  <div class="lstm-row-name">Tobias K.</div>
+                  <div class="lstm-row-snip">Anfrage Renovierung</div>
+                </div>
+                <span class="lstm-time">10:14</span>
+              </li>
+              <li class="lstm-inbox-row">
+                <span class="lstm-avatar">HL</span>
+                <div class="lstm-row-body">
+                  <div class="lstm-row-name">Hannah L.</div>
+                  <div class="lstm-row-snip">Beratungsanfrage</div>
+                </div>
+                <span class="lstm-time">09:22</span>
+              </li>
+            </ul>
+            <footer class="lstm-inbox-foot">
+              <span class="lstm-dot"></span>
+              +12 qualifizierte Anfragen diese Woche
+            </footer>
           </div>
         </div>
 
@@ -151,9 +183,44 @@
         </div>
 
         <div #lstPillarVisual class="lst-pillar-visual">
-          <div class="lst-visual-placeholder" aria-hidden="true">
-            <span class="ph-bar"></span>
-            <span class="ph-label">Bild folgt</span>
+          <div class="lstm-panel lstm-flow" aria-hidden="true">
+            <header class="lstm-flow-head">
+              <span class="lstm-flow-title">Workflow</span>
+              <span class="lstm-flow-pill">automatisiert</span>
+            </header>
+            <ol class="lstm-flow-list">
+              <li class="lstm-flow-step">
+                <span class="lstm-flow-icon">→</span>
+                <div class="lstm-flow-body">
+                  <div class="lstm-flow-name">Anfrage gesendet</div>
+                  <div class="lstm-flow-sub">Formular auf Ihrer Website</div>
+                </div>
+              </li>
+              <li class="lstm-flow-step">
+                <span class="lstm-flow-icon">✓</span>
+                <div class="lstm-flow-body">
+                  <div class="lstm-flow-name">Auto-Antwort</div>
+                  <div class="lstm-flow-sub">Bestätigung in 0,2 s</div>
+                </div>
+              </li>
+              <li class="lstm-flow-step">
+                <span class="lstm-flow-icon">≡</span>
+                <div class="lstm-flow-body">
+                  <div class="lstm-flow-name">CRM gespeichert</div>
+                  <div class="lstm-flow-sub">Kontakt + Notiz</div>
+                </div>
+              </li>
+              <li class="lstm-flow-step lstm-flow-step--final">
+                <span class="lstm-flow-icon">◉</span>
+                <div class="lstm-flow-body">
+                  <div class="lstm-flow-name">Termin gebucht</div>
+                  <div class="lstm-flow-sub">In Ihrem Kalender</div>
+                </div>
+              </li>
+            </ol>
+            <footer class="lstm-flow-foot">
+              ~3 h pro Woche zurückgewonnen
+            </footer>
           </div>
         </div>
 
@@ -217,9 +284,28 @@
         </div>
 
         <div #lstPillarVisual class="lst-pillar-visual">
-          <div class="lst-visual-placeholder" aria-hidden="true">
-            <span class="ph-bar"></span>
-            <span class="ph-label">Bild folgt</span>
+          <div class="lstm-panel lstm-rank" aria-hidden="true">
+            <header class="lstm-rank-head">
+              <span class="lstm-rank-title">Google · Suchergebnis</span>
+              <span class="lstm-rank-badge">Position 1</span>
+            </header>
+            <div class="lstm-rank-result">
+              <div class="lstm-rank-url">www.ihre-marke.de › leistungen</div>
+              <div class="lstm-rank-name">Webdesign Hamburg — Ihre Marke</div>
+              <div class="lstm-rank-snip">Maßgeschneiderte Websites, die qualifizierte Anfragen bringen — schnell, sichtbar, ehrlich.</div>
+            </div>
+            <div class="lstm-rank-chart">
+              <span class="lstm-rank-axis">Pos.</span>
+              <svg viewBox="0 0 240 60" preserveAspectRatio="none" class="lstm-rank-svg">
+                <path d="M0,50 L40,42 L80,32 L120,22 L160,14 L200,8 L240,5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                <circle cx="240" cy="5" r="3.5" fill="currentColor"/>
+              </svg>
+              <span class="lstm-rank-months">Jan · Feb · Mär · Apr · Mai · Jun</span>
+            </div>
+            <footer class="lstm-rank-foot">
+              <span class="lstm-rank-score">99</span>
+              <span class="lstm-rank-score-label">PageSpeed · Core Web Vitals</span>
+            </footer>
           </div>
         </div>
 

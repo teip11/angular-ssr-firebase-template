@@ -962,3 +962,337 @@
     font-size: 15px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §9 Pillar mockups — HTML/CSS UI panels replacing "Bild folgt" placeholders.
+   Each pillar renders a different data-vis ("inbox" / "flow" / "rank"); they
+   share the .lstm-panel scaffold (4:5, padded, rounded, paper-light bg).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.lst-pillar-new .lstm-panel {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  border-radius: 20px;
+  padding: 32px 28px;
+  display: flex; flex-direction: column;
+  gap: 18px;
+  overflow: hidden;
+  background: #fbf4ea;
+  color: #1a1612;
+  border: 1px solid rgba(26, 22, 18, 0.08);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.22);
+}
+.lst-pillar-new .lstm-panel::after {
+  /* Subtle warm wash in one corner to give each panel a focal point */
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(55% 45% at 80% 12%, rgba(242, 107, 31, 0.10), transparent 60%);
+  pointer-events: none;
+}
+
+/* Pillar 1 — Lead inbox ────────────────────────────────────────────── */
+.lstm-inbox-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(26, 22, 18, 0.08);
+}
+.lstm-inbox-title {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #6b625a;
+}
+.lstm-inbox-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 22px; height: 22px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: #f26b1f;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+.lstm-inbox-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.lstm-inbox-row {
+  display: flex; align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(26, 22, 18, 0.06);
+}
+.lstm-inbox-row--hl {
+  background: #fff;
+  border-color: rgba(242, 107, 31, 0.35);
+  box-shadow: 0 6px 16px -8px rgba(242, 107, 31, 0.25);
+}
+.lstm-avatar {
+  flex: none;
+  width: 32px; height: 32px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #e6c9ad 0%, #d8b08a 100%);
+  color: #4a3a2a;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.lstm-inbox-row--hl .lstm-avatar {
+  background: linear-gradient(135deg, #f26b1f 0%, #d8551a 100%);
+  color: #fff;
+}
+.lstm-row-body { flex: 1; min-width: 0; }
+.lstm-row-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1612;
+  line-height: 1.2;
+}
+.lstm-row-snip {
+  font-size: 11.5px;
+  color: #6b625a;
+  line-height: 1.3;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lstm-pill {
+  flex: none;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(242, 107, 31, 0.14);
+  color: #d8551a;
+}
+.lstm-time {
+  flex: none;
+  font-size: 11px;
+  color: #8a8278;
+  font-variant-numeric: tabular-nums;
+}
+.lstm-inbox-foot {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11.5px;
+  color: #6b625a;
+  padding-top: 4px;
+}
+.lstm-dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 999px;
+  background: #f26b1f;
+  box-shadow: 0 0 0 4px rgba(242, 107, 31, 0.18);
+  animation: lstm-pulse 2.4s ease-in-out infinite;
+}
+@keyframes lstm-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(242, 107, 31, 0.18); }
+  50%      { box-shadow: 0 0 0 7px rgba(242, 107, 31, 0.08); }
+}
+
+/* Pillar 2 — Workflow ──────────────────────────────────────────────── */
+.lstm-flow-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(26, 22, 18, 0.08);
+}
+.lstm-flow-title {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #6b625a;
+}
+.lstm-flow-pill {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(242, 107, 31, 0.14);
+  color: #d8551a;
+}
+.lstm-flow-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column;
+  gap: 0;
+  flex: 1;
+  position: relative;
+}
+.lstm-flow-step {
+  display: flex; align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+  position: relative;
+}
+.lstm-flow-step + .lstm-flow-step::before {
+  /* Connector line between each step */
+  content: "";
+  position: absolute;
+  left: 15px; top: -10px;
+  width: 2px; height: 20px;
+  background: linear-gradient(to bottom, rgba(242, 107, 31, 0.4), rgba(242, 107, 31, 0.15));
+}
+.lstm-flow-icon {
+  flex: none;
+  width: 32px; height: 32px;
+  border-radius: 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(242, 107, 31, 0.12);
+  color: #d8551a;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+.lstm-flow-step--final .lstm-flow-icon {
+  background: linear-gradient(135deg, #f26b1f 0%, #d8551a 100%);
+  color: #fff;
+  box-shadow: 0 6px 16px -6px rgba(242, 107, 31, 0.45);
+}
+.lstm-flow-body { flex: 1; min-width: 0; }
+.lstm-flow-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1612;
+  line-height: 1.2;
+}
+.lstm-flow-sub {
+  font-size: 11.5px;
+  color: #6b625a;
+  line-height: 1.3;
+  margin-top: 2px;
+}
+.lstm-flow-foot {
+  font-size: 11.5px;
+  color: #6b625a;
+  padding-top: 8px;
+  border-top: 1px solid rgba(26, 22, 18, 0.06);
+  text-align: center;
+  font-style: italic;
+}
+
+/* Pillar 3 — Rankings + PageSpeed ──────────────────────────────────── */
+.lstm-rank-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(26, 22, 18, 0.08);
+}
+.lstm-rank-title {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #6b625a;
+}
+.lstm-rank-badge {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(242, 107, 31, 0.14);
+  color: #d8551a;
+}
+.lstm-rank-result {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(26, 22, 18, 0.06);
+}
+.lstm-rank-url {
+  font-size: 11px;
+  color: #6b625a;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lstm-rank-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a4ea3;
+  line-height: 1.25;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lstm-rank-snip {
+  font-size: 11.5px;
+  color: #444;
+  line-height: 1.4;
+}
+.lstm-rank-chart {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 4px 10px;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(26, 22, 18, 0.06);
+  flex: 1;
+  min-height: 0;
+}
+.lstm-rank-axis {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #8a8278;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  align-self: center;
+}
+.lstm-rank-svg {
+  width: 100%;
+  height: 100%;
+  min-height: 50px;
+  color: #f26b1f;
+  display: block;
+}
+.lstm-rank-months {
+  grid-column: 2;
+  font-size: 10px;
+  color: #8a8278;
+  font-variant-numeric: tabular-nums;
+  display: flex; justify-content: space-between;
+  padding: 0 2px;
+}
+.lstm-rank-foot {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(242, 107, 31, 0.12) 0%, rgba(242, 107, 31, 0.04) 100%);
+  border: 1px solid rgba(242, 107, 31, 0.2);
+}
+.lstm-rank-score {
+  flex: none;
+  font-family: 'Sacramento', cursive;
+  font-size: 56px;
+  line-height: 0.8;
+  color: #f26b1f;
+  transform: rotate(-3deg);
+  transform-origin: center;
+}
+.lstm-rank-score-label {
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #6b625a;
+  line-height: 1.3;
+}

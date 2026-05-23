@@ -151,10 +151,9 @@
 }
 
 .abt-bio-new .abt-bio-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 80px;
-  align-items: center;
+  /* Single column since portrait was dropped — keeps reading flow uninterrupted,
+     signature sits below the bullets as a closing flourish. */
+  max-width: 760px;
 }
 
 .abt-bio-new .eyebrow {
@@ -232,45 +231,9 @@
   color: var(--ink-h);
 }
 
-/* Portrait visual — placeholder until photo arrives */
-.abt-bio-new .abt-bio-visual {
-  position: relative;
-  display: flex; flex-direction: column;
-  gap: 24px;
-}
-.abt-bio-new .abt-portrait-placeholder {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  width: 100%;
-  border-radius: 20px;
-  background: linear-gradient(140deg, #f7f1e7 0%, #e1d6c4 100%);
-  border: 1px solid var(--line-h);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 16px;
-  overflow: hidden;
-}
-.abt-bio-new .abt-portrait-placeholder::after {
-  /* Subtle orange wash in one corner to suggest a portrait highlight */
-  content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(60% 50% at 30% 30%, rgba(242, 107, 31, 0.08), transparent 65%);
-  pointer-events: none;
-}
-.abt-bio-new .abt-portrait-placeholder .ph-bar {
-  width: 48px; height: 2px;
-  background: var(--orange);
-}
-.abt-bio-new .abt-portrait-placeholder .ph-label {
-  font-size: 13px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--ink-h-dim);
-}
-
-/* Signature block under the portrait — Sacramento name + role label. */
+/* Signature block — Sacramento name + role label, closes the bio column. */
 .abt-bio-new .abt-bio-signature {
+  margin-top: 48px;
   display: flex; flex-direction: column;
   gap: 4px;
   padding-left: 4px;
@@ -614,16 +577,11 @@
   animation: abt-fade-up .8s cubic-bezier(0.22, 1, 0.36, 1) .2s backwards;
 }
 
-/* Bio — text slides in from left, visual from right; points stagger after text */
-.abt-bio-new .abt-bio-text   { opacity: 0; transform: translateX(-40px); }
-.abt-bio-new .abt-bio-visual { opacity: 0; transform: translateX(40px); }
+/* Bio — single column now (portrait dropped); fade up like the hero. */
+.abt-bio-new .abt-bio-text { opacity: 0; transform: translateY(28px); }
 .abt-bio-new .abt-bio-text.has-entered {
   opacity: 1; transform: none;
-  animation: abt-slide-in-left .8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
-}
-.abt-bio-new .abt-bio-visual.has-entered {
-  opacity: 1; transform: none;
-  animation: abt-slide-in-right .8s cubic-bezier(0.22, 1, 0.36, 1) .15s backwards;
+  animation: abt-fade-up .8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 .abt-bio-new .abt-bio-point {
   opacity: 0;
@@ -680,7 +638,6 @@
   .abt-hero-new .abt-hero-title,
   .abt-hero-new .abt-hero-sub,
   .abt-bio-new .abt-bio-text,
-  .abt-bio-new .abt-bio-visual,
   .abt-bio-new .abt-bio-point,
   .abt-values-new .abt-values-header,
   .abt-values-new .abt-value-card,
@@ -692,7 +649,6 @@
   .abt-hero-new .abt-hero-title.has-entered,
   .abt-hero-new .abt-hero-sub.has-entered,
   .abt-bio-new .abt-bio-text.has-entered,
-  .abt-bio-new .abt-bio-visual.has-entered,
   .abt-bio-new .abt-bio-text.has-entered .abt-bio-point,
   .abt-values-new .abt-values-header.has-entered,
   .abt-values-new .abt-value-card.has-entered,
@@ -713,13 +669,6 @@
   .abt-final-new .container { padding: 0 32px; }
 
   .abt-bio-new .abt-bio { padding: 100px 0 110px; }
-  .abt-bio-new .abt-bio-grid {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-  /* On tablet, portrait + signature stack horizontally below the text. */
-  .abt-bio-new .abt-bio-visual { flex-direction: row; align-items: center; gap: 32px; }
-  .abt-bio-new .abt-portrait-placeholder { max-width: 320px; flex: 0 0 320px; }
 
   .abt-values-new .abt-values { padding: 100px 0 120px; }
   .abt-values-new .abt-values-grid {
@@ -751,7 +700,6 @@
   .abt-bio-new .abt-bio { padding: 72px 0 84px; }
   .abt-bio-new .container { padding: 0 20px; }
   .abt-bio-new .guides { background-size: calc(100% / 6) 100%; opacity: 0.45; }
-  .abt-bio-new .abt-bio-grid { gap: 36px; }
   .abt-bio-new h2 {
     font-size: clamp(28px, 9vw, 40px);
     line-height: 1.06;
@@ -764,9 +712,7 @@
   }
   .abt-bio-new .abt-bio-points { gap: 14px; }
   .abt-bio-new .abt-bio-point { font-size: 15px; }
-  /* Portrait + signature: portrait full-width, signature below. */
-  .abt-bio-new .abt-bio-visual { flex-direction: column; gap: 20px; }
-  .abt-bio-new .abt-portrait-placeholder { max-width: none; flex: none; aspect-ratio: 4 / 5; }
+  .abt-bio-new .abt-bio-signature { margin-top: 36px; }
   .abt-bio-new .abt-bio-signature .sig-line { font-size: 38px; }
 
   /* Values ─────────────────────────────────────────────────────────── */

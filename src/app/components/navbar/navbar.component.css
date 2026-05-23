@@ -318,9 +318,10 @@
 
 .fn-brand .word {
   display: inline-flex;
-  overflow: hidden;
-  /* Vertical padding gives the clip box room for cap-tops + descenders;
-     negative margin keeps the visual layout (pill height/baseline) unchanged. */
+  /* Clip only vertically (to hide chars while they're at translateY(110%)).
+     Horizontal bleed stays open via clip-path's negative inset — Safari was
+     clipping the rightmost glyph when we used overflow:hidden. */
+  clip-path: inset(0 -1em);
   padding: 0.18em 0;
   margin-block: -0.18em;
   line-height: 1.1;

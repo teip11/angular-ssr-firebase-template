@@ -18,7 +18,6 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('abtHeroTitle',    { read: ElementRef }) abtHeroTitle?:   ElementRef<HTMLElement>;
   @ViewChild('abtHeroSub',      { read: ElementRef }) abtHeroSub?:     ElementRef<HTMLElement>;
   @ViewChild('abtBioText',      { read: ElementRef }) abtBioText?:     ElementRef<HTMLElement>;
-  @ViewChild('abtBioVisual',    { read: ElementRef }) abtBioVisual?:   ElementRef<HTMLElement>;
   @ViewChild('abtValuesHeader', { read: ElementRef }) abtValuesHeader?: ElementRef<HTMLElement>;
   @ViewChildren('abtValueCard', { read: ElementRef }) abtValueCards?:   QueryList<ElementRef<HTMLElement>>;
   @ViewChild('abtFinalCard',    { read: ElementRef }) abtFinalCard?:   ElementRef<HTMLElement>;
@@ -63,9 +62,8 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
     observe(this.abtHeroTitle?.nativeElement, 0.1);
     observe(this.abtHeroSub?.nativeElement,   0.1);
 
-    // Bio — text + visual observed independently, slide in from opposite sides.
+    // Bio — text observed; reveals from below as a single column now.
     observe(this.abtBioText?.nativeElement,   0.35);
-    observe(this.abtBioVisual?.nativeElement, 0.35);
 
     // Values — header catches the eye, cards stagger as the row enters.
     observe(this.abtValuesHeader?.nativeElement, 0.55);

@@ -125,14 +125,15 @@ Paste this into a fresh Claude Code session to continue the redesign without re-
 - Each form step has a Sacramento numeral 01–04 with rotated -3deg, matching the value-card and process-step pattern.
 - New patterns introduced (not yet in DESIGN_SYSTEM.md §7): toggle switch on paper-light (`.dmo-toggle`), multi-select pill with check badge (`.dmo-pill`), trust-row item with orange bar (`.dmo-trust`).
 
-### reCAPTCHA v3 service (live)
+### reCAPTCHA v2 invisible service (live, migrated from v3 on 2026-05-23)
 
-- New `src/app/services/recaptcha.service.ts` — lazy-loads `https://www.google.com/recaptcha/api.js` on first use, exposes `execute(action)` returning a v3 token, exposes `preload()` for form-page `ngOnInit` to warm the script before submit. SSR-safe (no DOM access in constructor).
-- Site key configured: `6LeTIPUsAAAAAAv5Zr1b70uIonwyBKxEKxQ0yDln`. Secret key configured by user inside the EmailJS template's CAPTCHA settings — EmailJS does the server-side verification.
-- Per-action labels: `'contact'` on Kontakt, `'demo'` on Demo, so Google's score model can differentiate the two flows.
+- `src/app/services/recaptcha.service.ts` — lazy-loads `https://www.google.com/recaptcha/api.js?render=explicit`, lazily renders a hidden invisible widget on first `execute()` call, returns the verification token via the widget's callback. SSR-safe (no DOM access in constructor). API surface kept (`execute(action)`, `preload()`) for call-site compatibility — the `action` arg is unused in v2.
+- Site key (v2 invisible) in `recaptcha.service.ts:33`. Secret key configured by user inside EmailJS template `template_ok970si` → Settings → reCAPTCHA Secret Key.
 - Disclaimer text rendered above each submit button: *"Geschützt durch reCAPTCHA — Datenschutz & Nutzungsbedingungen von Google gelten."*
 - Floating badge hidden globally via `.grecaptcha-badge { visibility: hidden !important; }` in `src/styles.css`. Hiding is compliant because the disclaimer text is shown near each form (Google's policy). **The attribution text is now load-bearing — don't remove it without un-hiding the badge first.**
-- **For local testing:** add `localhost` to the allowlist in https://www.google.com/recaptcha/admin → key settings → Domains, otherwise tokens score as invalid.
+- **Domain allowlist:** add `localhost` AND `gehrkestudio.com` at https://www.google.com/recaptcha/admin → key settings → Domains. Missing entries cause silent verification failures.
+- **Why v2 not v3:** EmailJS only supports v2 server-side verification in its dashboard. v3 tokens validated against a v2 secret return `reCAPTCHA: browser-error` and the send fails. Migration loses per-action scoring (v2 is pass/fail) — fine for a low-traffic contact form.
+- **Auto-reply template (`template_yxsrs34`) must NOT have reCAPTCHA enabled** — it fires after the main template already cleared verification; toggling it on silently blocks delivery (no History entry created).
 
 ### Blog redesign (filter pills + newsletter dropped)
 
@@ -262,6 +263,34 @@ Selected on design quality from the templates folder: bredow → maps onto the n
 - **Stand-Datum is `21. Mai 2026`** — update it whenever the text changes.
 - **Not yet legally reviewed.** Marked as DRAFT in the HTML comment at the top of the file. Pricing intentionally absent per user direction (always per-Angebot). User wants lawyer review before publication.
 
+### Angular framework: 19.2 → 21.2 upgrade (committed 2026-05-23)
+
+Sequential upgrade via `ng update` schematics in two clean commits:
+- **19.2 → 20.3** (`18a9845`): `provideServerRendering` moved from `@angular/platform-server` to `@angular/ssr`; `provideServerRoutesConfig` replaced with `withRoutes()` arg; `DOCUMENT` moved from `@angular/common` to `@angular/core` (seo + recaptcha services); TypeScript bumped 5.7 → 5.9.
+- **20.3 → 21.2** (`fa8dc33`): control-flow migration ran as **mandatory** in v21 — `*ngIf`/`*ngFor`/`*ngSwitch` converted to `@if`/`@for`/`@switch` across 8 files (home, contact, demo components + navbar + cookie-consent); deprecated bootstrap options in `main.server.ts` migrated to providers.
+
+Optional migrations verified no-op for this codebase: `use-application-builder` (already on `@angular-devkit/build-angular:application`), `router-current-navigation` (no usages of `Router.getCurrentNavigation()`).
+
+**Heads-up for future sessions:** Node 24.14.1 is flagged "Unsupported" by Angular CLI. Build works today (5.0s, all 11 routes prerendered) but Angular 21's officially supported Node versions are 20.x and 22.x LTS. If you hit weirdness, downgrade Node first.
+
+### Forms hardening + reCAPTCHA v3 → v2 invisible migration (uncommitted, 2026-05-23)
+
+End-to-end test of `/demo` and `/kontakt` revealed `reCAPTCHA: browser-error` once the EmailJS template's V2 verification toggle was enabled — cross-version mismatch (v3 token validated against v2 secret). EmailJS only supports v2 server-side verification natively, so the frontend was migrated to v2 invisible. See `### reCAPTCHA v2 invisible service` above for the keeper details.
+
+Bundled into the same session:
+- **Demo + Kontakt success states** now hide the eyebrow + h2 + lead via `@if (!sent)` so the green-tick + title + thank-you text stand alone. (`demo.component.html`, `contact.component.html`)
+- **Demo submit `scrollIntoView({ block: 'center' })`** on the form card via `setTimeout(0)` after `sent = true` — the form-height collapse on success was dumping the viewport into the footer. Kontakt didn't need it (form shorter, success state stays in view). (`demo.component.ts`)
+- **Both submit `catch` blocks** and both auto-reply `catch` chains now log the actual error (`console.error('[demo|contact] submit failed:', err)` / `console.warn('[demo|contact] auto-reply failed:', err)`) instead of swallowing silently. Critical for debugging EmailJS failures since they're otherwise invisible.
+- **Auto-reply payload** gained a `to_email: this.form.email` field — `template_yxsrs34` can route by either `{{from_email}}` or `{{to_email}}`.
+- **Auto-reply template (`template_yxsrs34`) config** finalized in EmailJS dashboard: subject `Ihre Anfrage ist bei uns eingegangen, {{from_name}}!`; To Email `{{from_email}}`; reCAPTCHA verification toggle **disabled** (mandatory — toggling it on silently blocks delivery with no History entry).
+
+**Known issue, deferred:** one test run produced two main-template sends 2 seconds apart (one populated, one empty payload). Couldn't reproduce on retry. Possibly a missed-click on the invisible recaptcha challenge popup, possibly hydration-related double-fire. Re-verify in production after deploy.
+
+### Navbar Safari clip fix + showcase eyebrow tweak (uncommitted, 2026-05-23)
+
+- **`.fn-brand .word` `overflow: hidden` → `clip-path: inset(0 -1em)`**: floating navbar's per-letter slide-up animation clipped the rightmost glyph in Safari ("Gehrk Studi" instead of "Gehrke Studio") — kerning/subpixel overhang past the inline-flex content-box. Chrome rendered fine. Fix keeps `inline-flex` layout (chars on one line, parent sizes to content) but swaps `overflow: hidden` (clips both axes) for `clip-path: inset(0 -1em)` (vertical only, horizontal bleeds). (`navbar.component.css:319`)
+- **Homepage showcase eyebrow:** "Drei Branchen · Ein Maßstab" → "Jede Branche · Ein Maßstab". Wheel now has 6 unique cards (not 3), and dropping the number future-proofs the line. (`home.component.html:510`)
+
 ## Where things live
 
 | Thing | Location |
@@ -314,7 +343,7 @@ Net new assets needed: ~**3 leistungen visuals + ~10 projekte visuals + 1 portra
 2. **Projekte case-study visuals are placeholder boxes** — vorher/nachher 3:4 boxes with red/green tag chips on both case studies, plus 9 marquee placeholder cards. Real before/after images don't exist for any of the 3 real showcase sites; either generate mockups or replace case studies with a different structure. **This is the focus of the next session — see "Next session" below.**
 3. **About — portrait of Piet** needs to land at the `.abt-portrait-placeholder` slot. The placeholder already has the right shape (4:5 gradient + "Portrait folgt" label) — drop a real photo into `public/portrait.jpg` and swap the placeholder for an `<img>`.
 4. **Blog — 6 article covers** (`.blg-article-cover` variants 1–6). Until real covers exist, the palette-rotating gradients give visual variety; replace with real cover photography/illustrations when articles are written.
-5. **End-to-end test of `/demo` and `/kontakt` forms** — reCAPTCHA v3 is wired and the disclaimer is in place, but no real submission has been tested with the live site key + EmailJS secret yet. Verify a token reaches EmailJS, the score check passes, the lead email arrives, and the auto-reply fires. Also add `localhost` to the reCAPTCHA admin allowlist for local testing if you haven't.
+5. ~~End-to-end test of `/demo` and `/kontakt` forms~~ — **Done 2026-05-23 on localhost.** Both forms verified end-to-end: lead email arrives, customer auto-reply delivers, reCAPTCHA verifies. Required v3 → v2 invisible migration (see "Forms hardening + reCAPTCHA migration" above) because EmailJS only supports v2 server-side. **Re-verify in production after deploy** — one test run produced a duplicate main-template send (one empty payload) that didn't reproduce on retry. Could be a missed-click on the recaptcha challenge popup or a hydration double-fire; worth confirming in the live environment.
 6. **AGB needs lawyer review before publication** — drafted on the Gehrke Studio MVP Agreement framework. Stand-Datum currently `21. Mai 2026`. Specific clauses to confirm with counsel: §7 (payment), §8 (IP split / perpetual non-exclusive license language), §10 (30-day bugfix window vs statutory Gewährleistung), §11 (Auftragswert cap).
 7. **Bild- und Drittanbieter-Nachweise** — once real images, stock photos, or third-party assets land on the site, add a Bildnachweise/Quellen subsection (Impressum or a separate Credits page). Note: the 3 new showcase templates (altstahl, bredow, werft-11) use external Unsplash photography — log credits when this page is created.
 8. **Re-deploy + Search Console re-indexing** — the canonical-tag bug from a prior deployment caused `/demo`, `/kontakt`, `/leistungen`, `/ueber-uns` to be reported as duplicates of `/`. The current build has correct self-canonicals. After the next deploy: URL-Inspection + "Indexierung beantragen" on each of those 4 URLs, plus resubmit the sitemap.
@@ -327,13 +356,15 @@ Net new assets needed: ~**3 leistungen visuals + ~10 projekte visuals + 1 portra
 - AGB page added (didn't exist before).
 - ~~Hero cluster needs 4 real images~~ → hero rebuilt as `.stage3d` (variant 08). Three frames are self-contained (typography mockup + UI mockups), zero real images required.
 - ~~Showcase carousel 3 placeholder cards (Friseur/Kanzlei/Café)~~ → all three replaced with real templates (Altstahl, Bredow & Partner, Werft 11) from the templates folder. Wheel is now 6 unique real cards, fully populated. See "Showcase wheel — 3 new templates integrated" above for the template-side fixes applied before copying.
+- ~~Angular 19.2 framework~~ → upgraded to 21.2 via sequential `ng update` schematics (commits `18a9845`, `fa8dc33`). Control-flow migration ran as mandatory in v21.
+- ~~Safari floating-navbar brand clip~~ → fixed via `clip-path: inset(0 -1em)` on `.fn-brand .word`.
 
 ### High priority
 
 6. Mobile QA on real devices — hero + nav are reviewed and approved; sections 2–8 (value, process, qbridge, showcase, honest, faq, final) had their mobile @media rules ported from the drop but haven't been visually verified per-section yet. **Next session starts here.**
 7. Cross-browser smoke (Safari ✓ so far, Chrome + Firefox pending; `backdrop-filter` renders differently across engines).
 8. Confirm cookie banner still fires GTM/GA correctly after redesign.
-9. Per-page SEO meta via `SeoService` — home was updated, other pages weren't.
+9. ~~Per-page SEO meta via `SeoService`~~ — **Done.** All 12 page components call `seo.setPageSEO(...)` in `ngOnInit`.
 10. `sticky-cta` component (`src/app/components/sticky-cta/`) — check if still in use or clashes with floating nav.
 11. Mystery `src/app/pages/bundle/` — no route, possibly dead.
 
