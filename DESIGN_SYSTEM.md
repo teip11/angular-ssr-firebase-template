@@ -919,17 +919,24 @@ that needs a hand-drawn connector across an empty diagonal.
 - More than once per section — it loses meaning if repeated. One arrow per
   scroll-revealed moment, max.
 
-### §7.14 Auto-scrolling card marquee (`.prj-marquee`)
+### §7.14 Auto-scrolling card marquee (`.prj-marquee`) — REMOVED
 
-A horizontal row of cards that drifts at a constant pixel-per-second rate
-when idle, but yields to the user the moment they interact horizontally.
-The user can wheel, two-finger swipe, or touch-swipe through the cards at
-any time; the auto-scroll pauses for 1.5s after the last horizontal input,
-then resumes.
+**This pattern has been removed from production.** Originally introduced
+on `/projekte` as a 12-card auto-scrolling row (3 real + 9 placeholders),
+it was replaced by the §7.15 case-study chapter pattern when the page was
+reworked into a dedicated portfolio view. The marquee gave too much
+real-estate to placeholder cards and read as "we don't have enough work
+to show" — the opposite of what a portfolio page should communicate.
 
-**Used on:** [/projekte](src/app/pages/projekte/) project gallery (first appearance). Reuse anywhere
-you have a horizontal list that benefits from a passive showcase rhythm
-but must remain manually scrollable.
+The pattern remains documented here as a reusable horizontal-showcase
+component for any future surface that has **a long list of equally-weighted
+items** and benefits from a passive scrolling rhythm (a brand carousel, a
+press-mention strip, etc.). Don't reuse it for portfolio items where the
+list is short or where individual items deserve narrative weight — use
+§7.15 instead.
+
+**Used on:** No production surface currently. First appearance was on
+`/projekte`, removed when the chapter pattern landed.
 
 #### Markup
 
@@ -1079,6 +1086,165 @@ native overflow.
 - For a single card or two. Auto-scroll only makes sense when the row
   exceeds the viewport width.
 
+### §7.15 Case-study chapter (`.prj-chap-new`)
+
+A full-viewport asymmetric layout dedicated to a single project: text
+column carrying the narrative on one side, a large screenshot inside a
+browser-chrome frame on the other. Each chapter is a section of its own
+with its own palette, so a portfolio page reads as a sequence of distinct
+beats rather than a uniform grid.
+
+**Used on:** [/projekte](src/app/pages/projekte/) (3 chapters: Trattoria
+Marconi cream, Schreinerei Hollmann graphite-deep, Praxis Lindner
+paper-light). Reuse for any page that wants to walk a visitor through a
+small set of projects, products, or features that each deserve their own
+"chapter feel" — long-form weight per item, not card-grid density.
+
+#### Markup
+
+```html
+<section class="prj-chap-new prj-chap-1-new" #prjChapter>
+  <div class="prj-chap">
+    <div class="guides"></div>
+    <div class="container">
+      <div class="prj-chap-grid">             <!-- or prj-chap-grid-reverse -->
+
+        <div class="prj-chap-text">
+          <div class="prj-chap-marker">       <!-- Sacramento kapitel spine -->
+            <span class="kapitel">Kapitel</span>
+            <span class="kapitel-num">01</span>
+          </div>
+          <div class="prj-chap-eyebrow">
+            <span class="bar"></span>Restaurant &amp; Gastronomie · Live seit 2024
+          </div>
+          <h2 class="prj-chap-title">
+            Trattoria <span class="accent">Marconi</span>
+          </h2>
+          <div class="prj-chap-chips">
+            <span class="chip">Webdesign</span>
+            <span class="chip">SEO-Grundlagen</span>
+            <span class="chip">Reservierung</span>
+          </div>
+          <div class="prj-chap-prose">
+            <p class="prj-chap-lead"><span class="lead-bar"></span>...</p>
+            <div class="prj-chap-beat">
+              <span class="beat-label">Problem</span><p>...</p>
+            </div>
+            <div class="prj-chap-beat">
+              <span class="beat-label">Lösung</span><p>...</p>
+            </div>
+            <div class="prj-chap-beat">
+              <span class="beat-label">Ergebnis</span><p>...</p>
+            </div>
+          </div>
+          <a href="..." class="prj-chap-link">
+            <span class="link-label">trattoria-marconi.de</span>
+            <span class="link-host">Live ansehen</span>
+            <svg>...</svg>
+          </a>
+        </div>
+
+        <a href="..." class="prj-chap-visual" aria-label="...">
+          <span class="prj-chap-callout" aria-hidden="true">
+            <span class="callout-script">Atmosphäre</span>
+            <svg class="callout-arrow">...</svg>
+          </span>
+          <div class="prj-chap-frame">
+            <div class="frame-chrome">
+              <i></i><i></i><i></i>
+              <span class="frame-url">trattoria-marconi.de</span>
+              <span class="frame-live"><span class="dot"></span>Live</span>
+            </div>
+            <img class="frame-shot" src="/showcase/...png" alt="..." />
+            <span class="frame-hover-cta" aria-hidden="true">Live ansehen <svg/></span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+Key authoring rules:
+
+- **One palette per chapter.** Each chapter is a full section with its own
+  background and ink tokens declared on `.prj-chap-N-new`. The page reads
+  as a sequence of distinct sections, not a single multi-row block.
+- **Alternate `.prj-chap-grid-reverse` per chapter** so the eye doesn't
+  track in the same direction twice in a row.
+- **One callout per chapter, max.** The Sacramento word + hand-drawn arrow
+  near the frame is a gesture; multiple callouts read as decoration.
+  Pick the one feature the chapter pivots on (the value the project
+  delivers — "Atmosphäre", "Werkschau", "Vertrauen").
+- **Three beats — Problem / Lösung / Ergebnis** is the canonical prose
+  structure. If a chapter doesn't have a clear before-state, write the
+  Problem as "what the industry typically gets wrong"; don't pad.
+- **Browser frame holds the live screenshot, never a hand-built mockup.**
+  Inside the chrome, the URL + a pulsing green "Live" indicator makes the
+  screenshot read as a real site, not a mockup. If a project isn't live
+  yet, it doesn't belong in a chapter — use the §7.14-replacement
+  text-pill pipeline instead.
+
+#### Sacramento kapitel marker
+
+The large rotated Sacramento numeral above each chapter's eyebrow is the
+visual spine of the page — same pattern as the Datenschutz section
+numerals, but larger and warmer. Per the cursive-accent rules in §3.3 the
+rotation is `-3deg` and the colour is `var(--orange)` (or `var(--gold)`
+inside a graphite-deep chapter, mirroring the §7.6 process-card pattern).
+
+#### Browser frame (`.prj-chap-frame`)
+
+A minimal browser-chrome wrapper around the screenshot. Three coloured
+dots (left), URL pill (center), pulsing green "Live" indicator (right).
+The "Live" dot uses a `box-shadow` pulse animation (`prj-live-pulse`,
+2s loop, §9.4) — load-bearing because it's the cue that the screenshot is
+a real site, not a designed mockup.
+
+The frame is itself the link surface. Hover lifts the whole frame `-6px`
+with a tinted shadow, scales the screenshot `+3%`, and slides in the
+`Live ansehen` pill at the bottom. Don't put a separate "Open" CTA inside
+or alongside the frame — the whole frame is the affordance.
+
+#### Hand-drawn callout
+
+A Sacramento word + a single short hand-drawn arrow gesturing to the
+frame. Inherits the §7.13 arrow vocabulary (open stroke segments forming
+the head, slight Bézier curve in the body). Different from §7.13: this is
+a callout for a *single feature*, not a section-spanning connector, so the
+arrow is short (~64×48px) and sits in the chapter's corner.
+
+Use `.prj-chap-callout-right` when the visual sits on the right side of
+the layout (`prj-chap-grid-reverse`) so the arrow points inward.
+
+#### Mobile
+
+At `≤1080px` the grid collapses to single column, **text first regardless
+of source order**: a story-then-screenshot read works better on mobile
+than the alternating layout. The callout repositions to sit just outside
+the frame edge (top -28px, left -10px) so it doesn't overflow on narrow
+viewports. The `frame-hover-cta` is hidden on touch (`display: none`).
+
+#### Reduced motion
+
+All chapter sub-elements resolve to their resting state. The Live-dot
+`prj-live-pulse` animation is also short-circuited to a static dot — a
+pulse loop violates `prefers-reduced-motion`. See the section's @media
+block.
+
+#### When NOT to use
+
+- For a single project. One chapter alone reads as an unfinished portfolio.
+  Use the §7.5 dark click-through card grid pattern instead.
+- For >5 projects. Each chapter is one full viewport on mobile; six of
+  them is a page that never ends. Pick a featured subset for chapters and
+  surface the rest as a pipeline (see /projekte §05 pattern: compact
+  text-pill list).
+- When the project doesn't have a real screenshot. The browser frame +
+  "Live" indicator is load-bearing — a chapter built around a placeholder
+  box would read as a lie.
+
 ---
 
 ## §8. States & Interactions
@@ -1225,6 +1391,10 @@ slide-in starts).
 | `fn-cta-reveal`             | navbar      | Floating CTA scale-in (§7.8)             |
 | `drawn-arrow-draw`          | global      | Reusable §7.13 arrow path draw-on        |
 | `drawn-arrow-head`          | global      | Reusable §7.13 arrowhead fade            |
+| `prj-fade-up`               | projekte    | Y-translate + fade entry, all chapter blocks |
+| `prj-slide-in-x`            | projekte    | X-translate entry for the chapter visual (via `--prj-from-x`) |
+| `prj-callout-pop`           | projekte    | Sacramento callout pop after frame settles |
+| `prj-live-pulse`            | projekte    | Live-dot box-shadow ring pulse in §7.15 chrome (2s loop) |
 
 ### §9.5 `animation: ... backwards` rationale
 

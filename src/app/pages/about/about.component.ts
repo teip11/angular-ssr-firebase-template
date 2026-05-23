@@ -1,4 +1,8 @@
-import { Component, AfterViewInit, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component, AfterViewInit, OnInit, OnDestroy,
+  Inject, PLATFORM_ID,
+  ViewChild, ViewChildren, ElementRef, QueryList,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../services/seo.service';
@@ -8,97 +12,66 @@ import { SeoService } from '../../services/seo.service';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+  styleUrls: ['./about.component.css'],
 })
 export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('abtHeroTitle',    { read: ElementRef }) abtHeroTitle?:   ElementRef<HTMLElement>;
+  @ViewChild('abtHeroSub',      { read: ElementRef }) abtHeroSub?:     ElementRef<HTMLElement>;
+  @ViewChild('abtBioText',      { read: ElementRef }) abtBioText?:     ElementRef<HTMLElement>;
+  @ViewChild('abtBioVisual',    { read: ElementRef }) abtBioVisual?:   ElementRef<HTMLElement>;
+  @ViewChild('abtValuesHeader', { read: ElementRef }) abtValuesHeader?: ElementRef<HTMLElement>;
+  @ViewChildren('abtValueCard', { read: ElementRef }) abtValueCards?:   QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('abtFinalCard',    { read: ElementRef }) abtFinalCard?:   ElementRef<HTMLElement>;
+
   private observers: IntersectionObserver[] = [];
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private seo: SeoService
+    private seo: SeoService,
   ) {}
 
   ngOnInit(): void {
     this.seo.setPageSEO('about');
   }
 
-  ngOnDestroy() {
-    this.observers.forEach(o => o.disconnect());
-  }
-
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    setTimeout(() => this.initAnimations(), 150);
+    setTimeout(() => this.setupReveal(), 50);
   }
 
-  private initAnimations() {
-    const observe = (selector: string, options: IntersectionObserverInit = {}) => {
-      const els = Array.from(document.querySelectorAll(selector)) as HTMLElement[];
-      if (!els.length) return;
-      const obs = new IntersectionObserver((entries) => {
+  ngOnDestroy(): void {
+    this.observers.forEach(o => o.disconnect());
+    this.observers = [];
+  }
+
+  private setupReveal(): void {
+    const observe = (el: Element | undefined | null, threshold: number, rootMargin = '0px') => {
+      if (!el) return;
+      const io = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
-            (e.target as HTMLElement).classList.add('is-visible');
-            obs.unobserve(e.target);
+            e.target.classList.add('has-entered');
+            io.unobserve(e.target);
           }
         });
-      }, { threshold: 0, ...options });
-      this.observers.push(obs);
-      els.forEach(el => obs.observe(el));
+      }, { threshold, rootMargin });
+      io.observe(el);
+      this.observers.push(io);
     };
 
-    // ── Hero: already in viewport on load ────────────────────────────────────
-    observe('.abt-hero-title');
-    observe('.abt-hero-sub');
+    // Hero — already in viewport on load; observer kicks off staged animation.
+    observe(this.abtHeroTitle?.nativeElement, 0.1);
+    observe(this.abtHeroSub?.nativeElement,   0.1);
 
-    // ── Philosophy section header ─────────────────────────────────────────────
-    observe('.abt-section-header', { rootMargin: '0px 0px -40px 0px' });
+    // Bio — text + visual observed independently, slide in from opposite sides.
+    observe(this.abtBioText?.nativeElement,   0.35);
+    observe(this.abtBioVisual?.nativeElement, 0.35);
 
-    // ── Philosophy cards: staggered ───────────────────────────────────────────
-    const philCards = Array.from(document.querySelectorAll('.abt-philosophy-card')) as HTMLElement[];
-    if (philCards.length) {
-      const philObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const idx = parseInt((e.target as HTMLElement).dataset['idx'] || '0', 10);
-            setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), idx * 130);
-            philObs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-      this.observers.push(philObs);
-      philCards.forEach((el, i) => {
-        el.dataset['idx'] = String(i);
-        philObs.observe(el);
-      });
-    }
+    // Values — header catches the eye, cards stagger as the row enters.
+    observe(this.abtValuesHeader?.nativeElement, 0.55);
+    this.abtValueCards?.forEach(ref => observe(ref.nativeElement, 0.4));
 
-    // ── Approach header: slide from left ──────────────────────────────────────
-    observe('.abt-approach-header', { rootMargin: '0px 0px -40px 0px' });
-
-    // ── Process steps: staggered ──────────────────────────────────────────────
-    const steps = Array.from(document.querySelectorAll('.abt-process-step')) as HTMLElement[];
-    if (steps.length) {
-      const stepObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const idx = parseInt((e.target as HTMLElement).dataset['idx'] || '0', 10);
-            setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), idx * 120);
-            stepObs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-      this.observers.push(stepObs);
-      steps.forEach((el, i) => {
-        el.dataset['idx'] = String(i);
-        stepObs.observe(el);
-      });
-    }
-
-    // ── Bio panel ─────────────────────────────────────────────────────────────
-    observe('.abt-bio-panel', { rootMargin: '0px 0px -40px 0px' });
-
-    // ── CTA panel ─────────────────────────────────────────────────────────────
-    observe('.abt-cta-panel', { rootMargin: '0px 0px -40px 0px' });
+    // Final card — single unit, page closer.
+    observe(this.abtFinalCard?.nativeElement, 0.3);
   }
 }

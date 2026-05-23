@@ -1,75 +1,680 @@
-/* ─── Contact Page — Animation Classes Only ─────────────────────────────
-   All card/panel/button styles are now in global styles.css:
-   .content-card, .btn-primary
-   ─────────────────────────────────────────────────────────────────────── */
+/* ───────────────────────────────────────────────────────────────────────────
+   Kontakt — redesigned page
 
-/* =============================================
-   SCROLL & LOAD ANIMATIONS
-   ============================================= */
+   Two sections, each wrapped in `.knt-X-new` and scoped to it:
+     01 Hero        (knt-hero-new)   — warm graphite, mirrors home hero
+     02 Form        (knt-form-new)   — paper-light, 2-col form + side info
 
-/* --- Hero Title: fade up + blur --- */
-.cnt-hero-title {
-  opacity: 0;
-  transform: translateY(40px);
-  filter: blur(6px);
-  transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+   The TS form contract (ngModel keys, submit handler, sent/error/sending
+   states) is preserved verbatim from the legacy component — only the
+   markup vocabulary and styles change.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §1 Hero — Warm graphite
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.knt-hero-new {
+  --orange: #f26b1f;
+  --orange-soft: #ff8a47;
+  --orange-deep: #d8551a;
+  --bg: #0d0b0a;
+  --bg-2: #15110e;
+  --ink: #f6f1ec;
+  --ink-dim: #a7a09a;
+  --ink-soft: #6a6360;
+  --line: rgba(246, 241, 236, 0.07);
+  --line-strong: rgba(246, 241, 236, 0.14);
+  display: block;
+  font-family: 'Manrope', system-ui, sans-serif;
 }
-.cnt-hero-title.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
+.knt-hero-new .knt-hero {
+  position: relative;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 140px 0 100px;
+  overflow: hidden;
+}
+.knt-hero-new .knt-hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(80% 70% at 50% 30%, rgba(242, 107, 31, 0.16), transparent 60%);
+  pointer-events: none;
+}
+.knt-hero-new .guides {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.knt-hero-new .container {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 56px;
+}
+.knt-hero-new .knt-hero-stage {
+  max-width: 880px;
+  position: relative;
+}
+.knt-hero-new .eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--ink-dim);
+  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+.knt-hero-new .eyebrow .bar { width: 32px; height: 2px; background: var(--orange); flex: none; }
+.knt-hero-new .eyebrow .num { font-weight: 600; font-size: 14px; color: var(--orange); }
+.knt-hero-new .knt-hero-title {
+  font-weight: 800;
+  font-size: clamp(48px, 6.4vw, 96px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  margin: 0 0 32px;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.knt-hero-new .knt-hero-title .accent {
+  font-family: 'Sacramento', cursive;
+  font-weight: 400;
+  color: var(--orange);
+  font-size: 1.32em;
+  line-height: 0.85;
+  display: inline-block;
+  transform: rotate(-2deg);
+  transform-origin: left center;
+  margin: 0 0 0 4px;
+  padding-right: 0.3em;
+}
+.knt-hero-new .knt-hero-sub {
+  color: var(--ink-dim);
+  font-size: clamp(18px, 1.4vw, 22px);
+  line-height: 1.55;
+  font-weight: 400;
+  max-width: 620px;
+  margin: 0;
+  text-wrap: pretty;
 }
 
-/* --- Hero Subtitle: fade up, delayed --- */
-.cnt-hero-sub {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.2s,
-              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+/* ═══════════════════════════════════════════════════════════════════════════
+   §2 Form — Paper-light, 2-col grid (form card / side info)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.knt-form-new {
+  --orange: #f26b1f;
+  --orange-soft: #ff8a47;
+  --paper-bg: #f4ede1;
+  --card-bg: #fbf6f0;
+  --ink-h: #1a1612;
+  --ink-h-dim: #635a52;
+  --ink-h-soft: #8a8077;
+  --line-h: rgba(26, 22, 18, 0.10);
+  --line-h-strong: rgba(26, 22, 18, 0.22);
+  --line-h-input: rgba(26, 22, 18, 0.18);
+  --success: #2f7d3a;
+  --success-bg: rgba(47, 125, 58, 0.08);
+  --error: #c4341f;
+  --error-bg: rgba(196, 52, 31, 0.08);
+  display: block;
+  font-family: 'Manrope', system-ui, sans-serif;
 }
-.cnt-hero-sub.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.knt-form-new .knt-form {
+  position: relative;
+  background: var(--paper-bg);
+  color: var(--ink-h);
+  padding: 120px 0 160px;
+  overflow: hidden;
+}
+.knt-form-new .knt-form::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(70% 60% at 80% 20%, rgba(242, 107, 31, 0.08), transparent 65%);
+  pointer-events: none;
+}
+.knt-form-new .guides {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(to right, var(--line-h) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.knt-form-new .container {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 56px;
 }
 
-/* --- Form card: scale up from below + blur --- */
-.cnt-form-card {
-  opacity: 0;
-  transform: translateY(48px) scale(0.97);
-  filter: blur(4px);
-  transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.95s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.cnt-form-card.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
+.knt-form-new .knt-form-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 56px;
+  align-items: start;
 }
 
-/* --- Email card: fade up, slightly delayed --- */
-.cnt-email-card {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+/* ── Shared inside-form vocabulary ─────────────────────────────────────── */
+.knt-form-new .eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--ink-h-dim);
+  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 24px;
 }
-.cnt-email-card.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.knt-form-new .eyebrow .bar { width: 32px; height: 2px; background: var(--orange); flex: none; }
+.knt-form-new .eyebrow .num { font-weight: 600; font-size: 14px; color: var(--orange); }
+
+/* ── Form card (light card on paper-light surface) ─────────────────────── */
+.knt-form-new .knt-form-card {
+  position: relative;
+  padding: 56px 56px 48px;
+  background: var(--card-bg);
+  border: 1px solid var(--line-h);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px -32px rgba(26, 22, 18, 0.18);
+}
+.knt-form-new .knt-form-card h2 {
+  font-weight: 800;
+  font-size: clamp(34px, 3.4vw, 52px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  margin: 0 0 24px;
+  color: var(--ink-h);
+  text-wrap: balance;
+}
+.knt-form-new .knt-form-card h2 .accent {
+  font-family: 'Sacramento', cursive;
+  font-weight: 400;
+  color: var(--orange);
+  font-size: 1.32em;
+  line-height: 0.85;
+  display: inline-block;
+  transform: rotate(-2deg);
+  transform-origin: left center;
+  margin: 0 0 0 4px;
+  padding-right: 0.2em;
+}
+.knt-form-new .knt-form-lead {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-h-dim);
+  margin: 0 0 40px;
+  text-wrap: pretty;
+  max-width: 520px;
+}
+.knt-form-new .knt-form-lead .lead-bar {
+  display: block;
+  width: 28px; height: 2px;
+  background: var(--orange);
+  margin-bottom: 20px;
 }
 
-/* Respect reduced-motion preference */
+/* ── Fields ────────────────────────────────────────────────────────────── */
+.knt-form-new .knt-form-fields {
+  display: flex; flex-direction: column;
+  gap: 32px;
+}
+.knt-form-new .knt-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.knt-form-new .knt-field {
+  display: flex; flex-direction: column;
+  gap: 8px;
+}
+.knt-form-new .knt-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink-h-dim);
+}
+.knt-form-new .knt-input {
+  appearance: none;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line-h-input);
+  border-radius: 0;
+  padding: 12px 0;
+  font-family: inherit;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--ink-h);
+  transition: border-color .25s ease, box-shadow .25s ease;
+  outline: none;
+}
+.knt-form-new .knt-input::placeholder {
+  color: var(--ink-h-soft);
+}
+.knt-form-new .knt-input:hover {
+  border-bottom-color: var(--line-h-strong);
+}
+.knt-form-new .knt-input:focus {
+  border-bottom-color: var(--orange);
+  box-shadow: 0 1px 0 0 var(--orange);
+}
+.knt-form-new .knt-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.55;
+}
+
+/* ── Submit button — primary CTA with shine + arrow ────────────────────── */
+.knt-form-new .knt-submit-row {
+  display: flex;
+  margin-top: 8px;
+}
+.knt-form-new .knt-submit-btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 28px;
+  background: var(--orange);
+  color: #fff;
+  border: 0;
+  border-radius: 14px;
+  font-family: inherit;
+  font-weight: 600; font-size: 16px;
+  cursor: pointer;
+  box-shadow:
+    0 18px 40px -16px rgba(242, 107, 31, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition:
+    transform .3s cubic-bezier(.3, 1.4, .4, 1),
+    background .25s ease,
+    box-shadow .3s ease,
+    opacity .2s ease;
+}
+.knt-form-new .knt-submit-btn:hover:not(:disabled) {
+  transform: translateY(-4px);
+  box-shadow:
+    0 30px 60px -16px rgba(242, 107, 31, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+.knt-form-new .knt-submit-btn:disabled {
+  cursor: progress;
+  opacity: 0.82;
+}
+.knt-form-new .knt-submit-btn::before {
+  content: "";
+  position: absolute; top: 0; left: -120%;
+  width: 60%; height: 100%;
+  background: linear-gradient(115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 100%);
+  transform: skewX(-14deg);
+  transition: left .75s cubic-bezier(.4, 0, .2, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+.knt-form-new .knt-submit-btn:hover:not(:disabled)::before { left: 130%; }
+.knt-form-new .knt-submit-btn .icon-circ {
+  position: relative; overflow: hidden;
+  width: 28px; height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  flex: none;
+}
+.knt-form-new .knt-submit-btn .icon-circ .a {
+  position: absolute;
+  top: 50%; left: 50%;
+  transition: transform .48s cubic-bezier(.55, 0, .25, 1);
+}
+.knt-form-new .knt-submit-btn .icon-circ .a.a1 { transform: translate(-50%, -50%); }
+.knt-form-new .knt-submit-btn .icon-circ .a.a2 { transform: translate(-150%, 50%); }
+.knt-form-new .knt-submit-btn:hover:not(:disabled) .icon-circ .a.a1 { transform: translate(50%, -150%); }
+.knt-form-new .knt-submit-btn:hover:not(:disabled) .icon-circ .a.a2 { transform: translate(-50%, -50%); }
+
+/* reCAPTCHA disclaimer — Google's required text when the badge is used */
+.knt-form-new .knt-recaptcha-note {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-h-soft);
+  margin: 0;
+  max-width: 480px;
+}
+.knt-form-new .knt-recaptcha-note a {
+  color: var(--ink-h-dim);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.knt-form-new .knt-recaptcha-note a:hover { color: var(--orange); }
+
+/* Sending state — spinner inside the label */
+.knt-form-new .knt-sending {
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.knt-form-new .knt-spinner {
+  animation: knt-spin 0.9s linear infinite;
+}
+@keyframes knt-spin { to { transform: rotate(360deg); } }
+
+/* ── Success state — replaces the form once sent ───────────────────────── */
+.knt-form-new .knt-state-success {
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
+  gap: 16px;
+  padding: 40px 0 8px;
+}
+.knt-form-new .knt-state-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px;
+  border-radius: 999px;
+  background: var(--success-bg);
+  color: var(--success);
+}
+.knt-form-new .knt-state-title {
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink-h);
+}
+.knt-form-new .knt-state-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-h-dim);
+  margin: 0;
+  max-width: 420px;
+}
+
+/* ── Error banner — appears above the form when send fails ─────────────── */
+.knt-form-new .knt-state-error {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px;
+  background: var(--error-bg);
+  border: 1px solid rgba(196, 52, 31, 0.25);
+  border-radius: 12px;
+  color: var(--error);
+  font-size: 14px;
+  line-height: 1.55;
+  margin-bottom: 32px;
+}
+.knt-form-new .knt-state-error .knt-err-icon {
+  flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 999px;
+  background: var(--error);
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1;
+}
+.knt-form-new .knt-state-error p { margin: 0; }
+.knt-form-new .knt-state-error a {
+  color: var(--error);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §3 Form side — Direct email + promise + signature
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.knt-form-new .knt-form-side {
+  display: flex; flex-direction: column;
+  gap: 28px;
+  position: sticky;
+  top: 120px;
+}
+
+.knt-form-new .knt-direct-card {
+  position: relative;
+  padding: 32px 28px 28px;
+  background: var(--card-bg);
+  border: 1px solid var(--line-h);
+  border-radius: 16px;
+  transition: border-color .3s ease, box-shadow .3s ease;
+}
+.knt-form-new .knt-direct-card:hover {
+  border-color: rgba(242, 107, 31, 0.4);
+  box-shadow: 0 16px 36px -20px rgba(26, 22, 18, 0.15);
+}
+.knt-form-new .knt-direct-title {
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin: 0 0 10px;
+  color: var(--ink-h);
+}
+.knt-form-new .knt-direct-title .accent {
+  font-family: 'Sacramento', cursive;
+  font-weight: 400;
+  color: var(--orange);
+  font-size: 1.28em;
+  line-height: 0.85;
+  display: inline-block;
+  transform: rotate(-3deg);
+  transform-origin: left center;
+  margin: 0 0 0 2px;
+  padding-right: 0.2em;
+}
+.knt-form-new .knt-direct-text {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-h-dim);
+  margin: 0 0 20px;
+}
+.knt-form-new .knt-direct-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-h);
+  text-decoration: none;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--line-h-input);
+  transition: gap .25s ease, border-color .25s ease, color .2s ease;
+}
+.knt-form-new .knt-direct-link:hover {
+  gap: 16px;
+  color: var(--orange);
+  border-bottom-color: var(--orange);
+}
+
+/* ── Promise rows — 24h answer / 0€ initial chat ───────────────────────── */
+.knt-form-new .knt-promise {
+  display: flex; flex-direction: column;
+  gap: 18px;
+  padding: 4px 4px 0;
+}
+.knt-form-new .knt-promise-row {
+  display: flex; align-items: flex-start; gap: 16px;
+}
+.knt-form-new .knt-promise-num {
+  flex: none;
+  font-family: 'Sacramento', cursive;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 0.85;
+  color: var(--orange);
+  transform: rotate(-3deg);
+  transform-origin: center;
+  min-width: 52px;
+}
+.knt-form-new .knt-promise-row p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-h-dim);
+  margin: 0;
+  padding-top: 4px;
+}
+
+/* ── Signature ─────────────────────────────────────────────────────────── */
+.knt-form-new .knt-signature {
+  display: flex; flex-direction: column;
+  gap: 6px;
+  padding: 8px 4px 0;
+}
+.knt-form-new .knt-signature .sig-line {
+  font-family: 'Sacramento', cursive;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 0.9;
+  color: var(--orange);
+  transform: rotate(-3deg);
+  transform-origin: left center;
+  width: fit-content;
+}
+.knt-form-new .knt-signature .sig-role {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--ink-h-soft);
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §4 Motion — per-element scroll reveals (.has-entered pattern)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.knt-hero-new .knt-hero-title { opacity: 0; transform: translateY(36px); filter: blur(4px); }
+.knt-hero-new .knt-hero-title.has-entered {
+  opacity: 1; transform: none; filter: none;
+  animation: knt-fade-up .9s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+.knt-hero-new .knt-hero-sub { opacity: 0; transform: translateY(24px); }
+.knt-hero-new .knt-hero-sub.has-entered {
+  opacity: 1; transform: none;
+  animation: knt-fade-up .8s cubic-bezier(0.22, 1, 0.36, 1) .2s backwards;
+}
+
+.knt-form-new .knt-form-card { opacity: 0; transform: translateY(32px); }
+.knt-form-new .knt-form-card.has-entered {
+  opacity: 1; transform: none;
+  animation: knt-fade-up .8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+.knt-form-new .knt-form-side { opacity: 0; transform: translateX(40px); }
+.knt-form-new .knt-form-side.has-entered {
+  opacity: 1; transform: none;
+  animation: knt-slide-in-right .8s cubic-bezier(0.22, 1, 0.36, 1) .15s backwards;
+}
+
+@keyframes knt-fade-up {
+  from { opacity: 0; transform: translateY(36px); filter: blur(0); }
+}
+@keyframes knt-slide-in-right {
+  from { opacity: 0; transform: translateX(40px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §5 Reduced motion
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @media (prefers-reduced-motion: reduce) {
-  .cnt-hero-title,
-  .cnt-hero-sub,
-  .cnt-form-card,
-  .cnt-email-card {
+  .knt-hero-new .knt-hero-title,
+  .knt-hero-new .knt-hero-sub,
+  .knt-form-new .knt-form-card,
+  .knt-form-new .knt-form-side {
     opacity: 1;
     transform: none;
     filter: none;
-    transition: none;
   }
+  .knt-hero-new .knt-hero-title.has-entered,
+  .knt-hero-new .knt-hero-sub.has-entered,
+  .knt-form-new .knt-form-card.has-entered,
+  .knt-form-new .knt-form-side.has-entered {
+    animation: none;
+  }
+  .knt-form-new .knt-spinner { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §6 Tablet — collapse to single column, tighter padding
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+  .knt-hero-new .knt-hero { padding: 120px 0 80px; }
+  .knt-hero-new .container,
+  .knt-form-new .container { padding: 0 32px; }
+
+  .knt-form-new .knt-form { padding: 96px 0 110px; }
+  .knt-form-new .knt-form-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .knt-form-new .knt-form-side {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .knt-form-new .knt-direct-card { flex: 1 1 280px; }
+  .knt-form-new .knt-promise { flex: 1 1 240px; }
+  .knt-form-new .knt-signature { flex: 1 1 100%; }
+  .knt-form-new .knt-form-card { padding: 44px 36px 40px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §7 Phone (≤480px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  /* Hero */
+  .knt-hero-new .knt-hero { padding: 100px 0 64px; }
+  .knt-hero-new .container { padding: 0 20px; }
+  .knt-hero-new .guides { background-size: calc(100% / 6) 100%; opacity: 0.45; }
+  .knt-hero-new .knt-hero-title {
+    font-size: clamp(34px, 11vw, 48px);
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+  .knt-hero-new .knt-hero-title .accent { font-size: 1.28em; }
+  .knt-hero-new .knt-hero-sub { font-size: 16px; }
+
+  /* Form */
+  .knt-form-new .knt-form { padding: 72px 0 84px; }
+  .knt-form-new .container { padding: 0 20px; }
+  .knt-form-new .guides { background-size: calc(100% / 6) 100%; opacity: 0.45; }
+  .knt-form-new .knt-form-grid { gap: 28px; }
+  .knt-form-new .knt-form-card {
+    padding: 32px 24px 28px;
+    border-radius: 16px;
+  }
+  .knt-form-new .knt-form-card h2 {
+    font-size: clamp(26px, 8vw, 36px);
+    margin-bottom: 20px;
+  }
+  .knt-form-new .knt-form-lead {
+    font-size: 15px;
+    margin-bottom: 32px;
+  }
+  .knt-form-new .knt-form-fields { gap: 24px; }
+  .knt-form-new .knt-field-row {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .knt-form-new .knt-input { font-size: 16px; }
+  .knt-form-new .knt-submit-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 22px;
+    font-size: 15px;
+  }
+  .knt-form-new .knt-form-side {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .knt-form-new .knt-direct-card { padding: 24px 22px 22px; }
+  .knt-form-new .knt-direct-title { font-size: 20px; }
+  .knt-form-new .knt-state-error {
+    font-size: 13px;
+    padding: 12px 14px;
+  }
+  .knt-form-new .knt-state-title { font-size: 20px; }
+  .knt-form-new .knt-state-text { font-size: 15px; }
 }

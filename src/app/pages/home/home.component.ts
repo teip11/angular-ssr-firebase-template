@@ -19,14 +19,16 @@ interface QuoteWord { t: string; accent?: boolean; period?: boolean; s: number; 
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  // ─── Process section state ─────────────────────────────────────────────
+  // ─── Process section state (v2 scroll-stack) ───────────────────────────
   activeStep = 0;
-  progressPercent = 0;
 
-  @ViewChild('processTrack', { read: ElementRef }) processTrack?: ElementRef<HTMLElement>;
-  @ViewChild('filmstrip',    { read: ElementRef }) filmstrip?: ElementRef<HTMLElement>;
-  @ViewChild('railFill',     { read: ElementRef }) railFill?: ElementRef<HTMLElement>;
-  @ViewChild('processBeams', { read: ElementRef }) processBeams?: ElementRef<HTMLElement>;
+  @ViewChildren('psCard', { read: ElementRef }) psCards?: QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('psRail',  { read: ElementRef }) psRail?: ElementRef<HTMLElement>;
+
+  // ─── Showcase carousel — JS-driven slow horizontal scroll ─────────────
+  @ViewChild('showTrack', { read: ElementRef }) showTrack?: ElementRef<HTMLElement>;
+  showcasePaused = false;
+  private showcaseRAF: number | null = null;
 
   // ─── Quote bridge state ────────────────────────────────────────────────
   quoteRevealed = false;
@@ -103,11 +105,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private observers: IntersectionObserver[] = [];
   private scrollTicking = false;
 
-  // Beam positions per process step (passed to CSS via --bx/--by)
-  private readonly beamPositions = [
-    { x: 20, y: 25 }, { x: 78, y: 30 }, { x: 30, y: 75 }, { x: 80, y: 70 },
-  ];
-
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private ngZone: NgZone,
@@ -127,12 +124,36 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.setupFaqReveal();
       this.setupFinalReveal();
       this.measureFaqHeights();
+      this.startShowcaseAutoScroll();
       this.onScroll(); // initial calculation
     }, 100);
   }
 
   ngOnDestroy(): void {
     this.observers.forEach(o => o.disconnect());
+    if (this.showcaseRAF !== null) cancelAnimationFrame(this.showcaseRAF);
+  }
+
+  // ─── Showcase: per-frame scrollLeft nudge for slow auto-scroll. The track
+  // has 12 cards (6 unique + 6 duplicates), so when scrollLeft passes the
+  // halfway mark we wrap back to keep the loop seamless. Hovering pauses
+  // (showcasePaused = true) and native trackpad/touch scrolling still works
+  // because we never block user interaction — we only add to scrollLeft.
+  private startShowcaseAutoScroll(): void {
+    const track = this.showTrack?.nativeElement;
+    if (!track) return;
+    const speed = 0.6; // pixels per frame; ~36 px/s at 60fps
+    const tick = () => {
+      if (!this.showcasePaused) {
+        track.scrollLeft += speed;
+      }
+      const half = track.scrollWidth / 2;
+      if (track.scrollLeft >= half) {
+        track.scrollLeft -= half;
+      }
+      this.showcaseRAF = requestAnimationFrame(tick);
+    };
+    this.showcaseRAF = requestAnimationFrame(tick);
   }
 
   // ─── Scroll handling ───────────────────────────────────────────────────
@@ -156,76 +177,41 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.onScroll();
   }
 
-  // ─── Process: scroll-driven step + filmstrip translate ──────────────────
+  // ─── Process: sticky-stack rail tracker + post-release rail-follow ──────
+  // Two things in one pass:
+  //   1. Set activeStep to the deepest card whose top has crossed the 45%
+  //      viewport line, so the rail highlights the matching step.
+  //   2. Once card 4 begins releasing (its rect.top drops below its sticky
+  //      visual position at y=180), shift the rail up by 0.85× the card's
+  //      displacement. Rail trails the cards slightly — asymmetric feel —
+  //      and exits the viewport well before .ps-grid's natural sticky-end
+  //      point, cutting the dead-scroll between the last card and the next
+  //      section.
   private updateProcess(): void {
-    const track = this.processTrack?.nativeElement;
-    const filmstripEl = this.filmstrip?.nativeElement;
-    if (!track || !filmstripEl) return;
-    const rect = track.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const total = rect.height - vh;
-    if (total <= 0) return;
-    const p = Math.max(0, Math.min(1, -rect.top / total));
+    const cards = this.psCards?.toArray();
+    if (!cards || !cards.length) return;
 
-    const STEPS = 4;
-    const fractional = Math.min(STEPS - 1, p * STEPS);
-    const newActive = Math.max(0, Math.min(STEPS - 1, Math.round(fractional)));
-
-    // Filmstrip translate (center the active card)
-    const cards = filmstripEl.querySelectorAll<HTMLElement>('.p-card');
-    if (cards.length) {
-      const card = cards[0];
-      const cardWidth = card.offsetWidth;
-      const gap = 28;
-      const stride = cardWidth + gap;
-      const wrap = filmstripEl.parentElement;
-      const wrapWidth = wrap ? wrap.clientWidth : 0;
-      const offset = (wrapWidth / 2) - (cardWidth / 2) - (fractional * stride);
-      filmstripEl.style.transform = `translateX(${offset}px)`;
+    const trigger = window.innerHeight * 0.45;
+    let active = 0;
+    cards.forEach((ref, i) => {
+      const rect = ref.nativeElement.getBoundingClientRect();
+      if (rect.top <= trigger) active = i;
+    });
+    if (active !== this.activeStep) {
+      this.ngZone.run(() => { this.activeStep = active; });
     }
 
-    // Rail fill
-    if (this.railFill) {
-      const fillRatio = Math.min(1, Math.max(0, fractional / (STEPS - 1)));
-      // rail steps are stacked vertically with `gap:28px`. Rough rail-fill calc:
-      // we cannot easily measure step offsets without querying DOM, so fall back to %.
-      const railEl = this.railFill.nativeElement.parentElement;
-      if (railEl) {
-        const railHeight = railEl.scrollHeight - 32;
-        this.railFill.nativeElement.style.height = `${fillRatio * railHeight}px`;
-      }
-    }
-
-    // Beam position
-    if (this.processBeams && newActive !== this.activeStep) {
-      const bp = this.beamPositions[newActive];
-      this.processBeams.nativeElement.style.setProperty('--bx', `${bp.x}%`);
-      this.processBeams.nativeElement.style.setProperty('--by', `${bp.y}%`);
-    }
-
-    if (newActive !== this.activeStep) {
-      this.ngZone.run(() => { this.activeStep = newActive; });
-    }
-    const newProgress = p * 100;
-    if (Math.abs(newProgress - this.progressPercent) > 0.5) {
-      this.ngZone.run(() => { this.progressPercent = newProgress; });
-    }
-  }
-
-  isNear(i: number): boolean {
-    return Math.abs(i - this.activeStep) === 1;
-  }
-
-  goToStep(i: number, event: Event): void {
-    event.preventDefault();
-    const track = this.processTrack?.nativeElement;
-    if (!track) return;
-    const rect = track.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const total = rect.height - vh;
-    const targetP = i / 3 * 0.94 + 0.02;
-    const targetY = window.scrollY + rect.top + (targetP * total);
-    window.scrollTo({ top: targetY, behavior: 'smooth' });
+    // Rail follow: waits until card 4 has scrolled up roughly half its own
+    // height before tracking. The cards leave first, the rail follows once
+    // they're visibly halfway out — asymmetric, not synchronous.
+    const railEl = this.psRail?.nativeElement;
+    if (!railEl) return;
+    const lastTop = cards[cards.length - 1].nativeElement.getBoundingClientRect().top;
+    const stickyTop = 160; // last card: top(120) + translateY(40)
+    const delay = window.innerHeight * 0.38; // ~half the 76vh card
+    const startPoint = stickyTop - delay;
+    const shift = lastTop < startPoint ? (startPoint - lastTop) : 0;
+    railEl.style.transform = shift > 0 ? `translateY(-${shift}px)` : '';
   }
 
   // ─── Quote bridge: scroll-driven word reveal ───────────────────────────

@@ -1,12 +1,17 @@
 /* ───────────────────────────────────────────────────────────────────────────
    Projekte — redesigned page
 
-   Five sections, each wrapped in `.prj-X-new` and scoped to it:
-     01 Hero            (prj-hero-new)        — warm graphite, mirrors home hero
-     02 Projekt-grid    (prj-grid-new)        — graphite-deep, .prj-card (real + placeholder variants)
-     03 Case study 01   (prj-case-1-new)      — cream, visual-left layout
-     04 Case study 02   (prj-case-2-new)      — paper-light, visual-right layout
-     05 Final CTA       (prj-final-new)       — warm graphite, closes the loop
+   Six sections, each wrapped in `.prj-X-new` and scoped to it:
+     01 Hero            (.prj-hero-new)        — warm graphite, mirrors home hero
+     02 Kapitel 01      (.prj-chap-1-new)      — cream, Trattoria Marconi (text left)
+     03 Kapitel 02      (.prj-chap-2-new)      — graphite-deep, Schreinerei Hollmann (text right)
+     04 Kapitel 03      (.prj-chap-3-new)      — paper-light, Praxis Lindner (text left)
+     05 In Vorbereitung (.prj-pipeline-new)    — warm graphite seam, compact text-pill list
+     06 Final CTA       (.prj-final-new)       — warm graphite, closes the loop
+
+   Three real projects each get a full asymmetric chapter — that's what makes
+   this view the strongest portfolio page on the site (vs. the homepage's
+   single 3-up card grid).
 
    All tokens are declared on each `.prj-*-new` wrapper.
    ─────────────────────────────────────────────────────────────────────────── */
@@ -31,7 +36,7 @@
   position: relative;
   background: var(--bg);
   color: var(--ink);
-  padding: 140px 0 96px;
+  padding: 140px 0 100px;
   overflow: hidden;
 }
 .prj-hero-new .prj-hero::before {
@@ -56,7 +61,7 @@
   padding: 0 56px;
 }
 .prj-hero-new .prj-hero-stage {
-  max-width: 900px;
+  max-width: 920px;
 }
 .prj-hero-new .eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
@@ -80,55 +85,582 @@
   font-family: 'Sacramento', cursive;
   font-weight: 400;
   color: var(--orange);
-  font-size: 1.3em;
+  font-size: 1.32em;
   line-height: 0.85;
-  display: inline-block;
+  display: block;
   transform: rotate(-2deg);
   transform-origin: left center;
-  margin: 0 8px;
-  padding-right: 0.2em;
+  margin: 4px 0 4px -4px;
+  width: fit-content;
+  padding-right: 0.3em;
 }
 .prj-hero-new .prj-hero-sub {
   color: var(--ink-dim);
   font-size: clamp(17px, 1.3vw, 21px);
   line-height: 1.55;
-  max-width: 620px;
-  margin: 0;
+  max-width: 640px;
+  margin: 0 0 36px;
   text-wrap: pretty;
+}
+.prj-hero-new .prj-hero-meta {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 14px 22px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(246, 241, 236, 0.03);
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+.prj-hero-new .prj-hero-meta .meta-item {
+  display: inline-flex; align-items: baseline; gap: 8px;
+}
+.prj-hero-new .prj-hero-meta .meta-num {
+  font-family: 'Sacramento', cursive;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--orange);
+  transform: rotate(-3deg);
+  transform-origin: left bottom;
+  display: inline-block;
+}
+.prj-hero-new .prj-hero-meta .meta-soft { color: var(--ink-dim); }
+.prj-hero-new .prj-hero-meta .meta-sep {
+  width: 1px; height: 18px;
+  background: var(--line-strong);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   §2 Projekt-grid — Graphite-deep (mirrors homepage .showcase-new card vocabulary)
-   ═══════════════════════════════════════════════════════════════════════════ */
+   §2 Chapter — shared anatomy across the three case studies (§2.x palettes)
+   ═══════════════════════════════════════════════════════════════════════════
+   Each chapter sits in a 5fr/7fr asymmetric grid: the text block and the
+   large screenshot frame. `.prj-chap-grid-reverse` flips the order without
+   changing source ordering.
+   ─────────────────────────────────────────────────────────────────────────── */
 
-.prj-grid-new {
-  --orange: #f26b1f;
-  --gold: #ffc88a;
-  --graphite: #1f1813;
-  --graphite-2: #2a221c;
-  --graphite-deep: #14100c;
-  --paper: #e9dfd2;
-  --paper-dim: rgba(233, 223, 210, 0.6);
-  --paper-soft: rgba(233, 223, 210, 0.4);
-  --line: rgba(233, 223, 210, 0.08);
-  --line-strong: rgba(233, 223, 210, 0.18);
+.prj-chap-new {
   display: block;
   font-family: 'Manrope', system-ui, sans-serif;
 }
-.prj-grid-new .prj-grid-section {
+.prj-chap-new .prj-chap {
   position: relative;
-  background: var(--graphite-deep);
-  color: var(--paper);
-  padding: 140px 0 160px;
   overflow: hidden;
+  padding: 140px 0 160px;
 }
-.prj-grid-new .prj-grid-section::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(60% 50% at 50% 0%, rgba(242, 107, 31, 0.08), transparent 65%);
+.prj-chap-new .container {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 56px;
+}
+.prj-chap-new .prj-chap-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 72px;
+  align-items: start;
+}
+.prj-chap-new .prj-chap-grid-reverse {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+}
+
+/* ─── Text column ──────────────────────────────────────────────────────── */
+
+.prj-chap-new .prj-chap-text {
+  position: relative;
+  max-width: 560px;
+}
+.prj-chap-new .prj-chap-grid-reverse .prj-chap-text {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* Kapitel marker — large Sacramento numeral, top of the text column */
+.prj-chap-new .prj-chap-marker {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.prj-chap-new .prj-chap-marker .kapitel {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--orange);
+}
+.prj-chap-new .prj-chap-marker .kapitel-num {
+  font-family: 'Sacramento', cursive;
+  font-weight: 400;
+  font-size: clamp(64px, 6vw, 96px);
+  line-height: 0.85;
+  color: var(--orange);
+  transform: rotate(-3deg);
+  transform-origin: left center;
+  display: inline-block;
+}
+
+.prj-chap-new .prj-chap-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+.prj-chap-new .prj-chap-eyebrow .bar { width: 28px; height: 2px; background: var(--orange); flex: none; }
+
+.prj-chap-new .prj-chap-title {
+  font-weight: 800;
+  font-size: clamp(36px, 4vw, 60px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin: 0 0 22px;
+  text-wrap: balance;
+}
+.prj-chap-new .prj-chap-title .accent {
+  font-family: 'Sacramento', cursive;
+  font-weight: 400;
+  color: var(--orange);
+  font-size: 1.28em;
+  line-height: 0.85;
+  display: inline-block;
+  transform: rotate(-2deg);
+  transform-origin: left center;
+  margin: 0 4px;
+  padding-right: 0.2em;
+}
+
+/* Tag chips */
+.prj-chap-new .prj-chap-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.prj-chap-new .prj-chap-chips .chip {
+  display: inline-flex; align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  border: 1px solid var(--chip-border);
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+}
+
+/* Prose stack — lead + 3 beats */
+.prj-chap-new .prj-chap-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-bottom: 36px;
+}
+.prj-chap-new .prj-chap-lead {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0;
+  text-wrap: pretty;
+}
+.prj-chap-new .prj-chap-lead .lead-bar {
+  display: block;
+  width: 28px; height: 2px;
+  background: var(--orange);
+  margin-bottom: 16px;
+}
+.prj-chap-new .prj-chap-beat {
+  padding-left: 18px;
+  border-left: 1px solid var(--line-h);
+}
+.prj-chap-new .prj-chap-beat .beat-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.prj-chap-new .prj-chap-beat p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.62;
+  text-wrap: pretty;
+}
+
+/* Live-link button (chapter footer) */
+.prj-chap-new .prj-chap-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px 14px 22px;
+  border: 1px solid var(--link-border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--link-fg);
+  background: var(--link-bg);
+  transition: transform .3s cubic-bezier(.3, 1.4, .4, 1), background .25s ease, border-color .25s ease, color .25s ease;
+}
+.prj-chap-new .prj-chap-link .link-label {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+.prj-chap-new .prj-chap-link .link-host {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--orange);
+  padding-left: 12px;
+  border-left: 1px solid var(--line-h);
+}
+.prj-chap-new .prj-chap-link svg { color: var(--orange); transition: transform .3s ease; }
+.prj-chap-new .prj-chap-link:hover {
+  transform: translateY(-2px);
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.prj-chap-new .prj-chap-link:hover .link-host { color: #fff; border-left-color: rgba(255,255,255,0.4); }
+.prj-chap-new .prj-chap-link:hover svg { color: #fff; transform: translate(3px, -3px); }
+
+/* ─── Visual column — screenshot inside browser frame ─────────────────── */
+
+.prj-chap-new .prj-chap-visual {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  isolation: isolate;
+}
+
+/* Hand-drawn callout — Sacramento word + small arrow pointing at the frame */
+.prj-chap-new .prj-chap-callout {
+  position: absolute;
+  top: -36px;
+  left: -28px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  color: var(--orange);
   pointer-events: none;
 }
-.prj-grid-new .guides {
+.prj-chap-new .prj-chap-callout-right {
+  left: auto;
+  right: -28px;
+  align-items: flex-end;
+}
+.prj-chap-new .prj-chap-callout .callout-script {
+  font-family: 'Sacramento', cursive;
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 0.9;
+  color: var(--orange);
+  transform: rotate(-6deg);
+  transform-origin: left bottom;
+}
+.prj-chap-new .prj-chap-callout-right .callout-script {
+  transform: rotate(6deg);
+  transform-origin: right bottom;
+}
+.prj-chap-new .prj-chap-callout .callout-arrow {
+  width: 64px;
+  height: 48px;
+  margin-top: -8px;
+  margin-left: 36px;
+  color: var(--orange);
+}
+.prj-chap-new .prj-chap-callout-right .callout-arrow {
+  margin-left: 0;
+  margin-right: 36px;
+  transform: scaleX(-1);
+}
+
+/* Browser-chrome frame */
+.prj-chap-new .prj-chap-frame {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--frame-border);
+  background: var(--frame-bg);
+  box-shadow:
+    0 30px 60px -25px rgba(0, 0, 0, 0.35),
+    0 12px 24px -10px rgba(0, 0, 0, 0.15);
+  transition: transform .55s cubic-bezier(.2, .7, .2, 1), box-shadow .55s ease;
+  isolation: isolate;
+}
+.prj-chap-new .prj-chap-visual:hover .prj-chap-frame {
+  transform: translateY(-6px);
+  box-shadow:
+    0 50px 90px -30px rgba(0, 0, 0, 0.45),
+    0 18px 36px -12px rgba(242, 107, 31, 0.22);
+}
+
+.prj-chap-new .frame-chrome {
+  display: flex; align-items: center; gap: 7px;
+  height: 32px;
+  padding: 0 14px;
+  background: var(--frame-chrome-bg);
+  border-bottom: 1px solid var(--frame-border);
+}
+.prj-chap-new .frame-chrome i {
+  width: 9px; height: 9px; border-radius: 999px;
+  background: var(--frame-dot);
+}
+.prj-chap-new .frame-chrome .frame-url {
+  flex: 1;
+  margin-left: 16px;
+  padding: 4px 12px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  background: var(--frame-url-bg);
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--frame-url-fg);
+  max-width: 320px;
+}
+.prj-chap-new .frame-chrome .frame-live {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #22a06b;
+}
+.prj-chap-new .frame-chrome .frame-live .dot {
+  width: 6px; height: 6px; border-radius: 999px;
+  background: #22a06b;
+  box-shadow: 0 0 0 0 rgba(34, 160, 107, 0.5);
+  animation: prj-live-pulse 2s ease-in-out infinite;
+}
+@keyframes prj-live-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 160, 107, 0.5); }
+  50%      { box-shadow: 0 0 0 6px rgba(34, 160, 107, 0); }
+}
+
+.prj-chap-new .frame-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform .9s cubic-bezier(.2, .7, .2, 1);
+}
+.prj-chap-new .prj-chap-visual:hover .frame-shot { transform: scale(1.03); }
+
+.prj-chap-new .frame-hover-cta {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translate(-50%, 14px);
+  opacity: 0;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 22px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  box-shadow: 0 18px 40px -16px rgba(242, 107, 31, 0.6);
+  pointer-events: none;
+  transition: transform .45s cubic-bezier(.2, .7, .2, 1), opacity .35s ease;
+  z-index: 2;
+}
+.prj-chap-new .prj-chap-visual:hover .frame-hover-cta {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ─── §2.1 Kapitel 01 — Cream palette (Trattoria) ─────────────────────── */
+.prj-chap-1-new {
+  --orange: #f26b1f;
+  --cream: #efe7df;
+  --cream-warm: #e6c9ad;
+  --ink-dark: #1a1612;
+  --ink-dark-dim: #6b625a;
+  --line-h: rgba(26, 22, 18, 0.12);
+  --chip-bg: rgba(26, 22, 18, 0.04);
+  --chip-border: rgba(26, 22, 18, 0.14);
+  --chip-fg: var(--ink-dark);
+  --link-bg: transparent;
+  --link-border: rgba(26, 22, 18, 0.22);
+  --link-fg: var(--ink-dark);
+  --frame-bg: #1a1612;
+  --frame-border: rgba(26, 22, 18, 0.18);
+  --frame-chrome-bg: rgba(26, 22, 18, 0.92);
+  --frame-dot: rgba(255, 255, 255, 0.28);
+  --frame-url-bg: rgba(255, 255, 255, 0.08);
+  --frame-url-fg: rgba(255, 255, 255, 0.6);
+}
+.prj-chap-1-new .prj-chap {
+  background: linear-gradient(180deg, var(--cream) 0%, var(--cream) 70%, #ece2d4 100%);
+  color: var(--ink-dark);
+}
+.prj-chap-1-new .prj-chap::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 50% at 15% 20%, rgba(242, 107, 31, 0.08), transparent 65%),
+    radial-gradient(50% 40% at 85% 80%, rgba(242, 107, 31, 0.05), transparent 65%);
+  pointer-events: none;
+}
+.prj-chap-1-new .guides {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(to right, var(--line-h) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.prj-chap-1-new .prj-chap-eyebrow { color: var(--ink-dark-dim); }
+.prj-chap-1-new .prj-chap-title { color: var(--ink-dark); }
+.prj-chap-1-new .prj-chap-lead { color: var(--ink-dark); }
+.prj-chap-1-new .prj-chap-beat p { color: var(--ink-dark-dim); }
+
+/* ─── §2.2 Kapitel 02 — Graphite-deep palette (Schreinerei) ───────────── */
+.prj-chap-2-new {
+  --orange: #f26b1f;
+  --gold: #ffc88a;
+  --graphite: #1f1813;
+  --graphite-deep: #14100c;
+  --graphite-soft: #2a221c;
+  --paper: #e9dfd2;
+  --paper-dim: rgba(233, 223, 210, 0.62);
+  --line-h: rgba(233, 223, 210, 0.10);
+  --chip-bg: rgba(233, 223, 210, 0.06);
+  --chip-border: rgba(233, 223, 210, 0.18);
+  --chip-fg: var(--paper);
+  --link-bg: rgba(233, 223, 210, 0.04);
+  --link-border: rgba(233, 223, 210, 0.22);
+  --link-fg: var(--paper);
+  --frame-bg: #2a221c;
+  --frame-border: rgba(233, 223, 210, 0.14);
+  --frame-chrome-bg: rgba(13, 11, 10, 0.92);
+  --frame-dot: rgba(255, 255, 255, 0.28);
+  --frame-url-bg: rgba(255, 255, 255, 0.06);
+  --frame-url-fg: rgba(233, 223, 210, 0.55);
+}
+.prj-chap-2-new .prj-chap {
+  background:
+    linear-gradient(180deg, #1d1611 0%, var(--graphite-deep) 60%, #100c08 100%);
+  color: var(--paper);
+}
+.prj-chap-2-new .prj-chap::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(70% 60% at 80% 30%, rgba(242, 107, 31, 0.10), transparent 60%),
+    radial-gradient(50% 40% at 20% 80%, rgba(255, 200, 138, 0.06), transparent 65%);
+  pointer-events: none;
+}
+.prj-chap-2-new .guides {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(to right, var(--line-h) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+.prj-chap-2-new .prj-chap-marker .kapitel { color: var(--gold); }
+.prj-chap-2-new .prj-chap-marker .kapitel-num { color: var(--gold); }
+.prj-chap-2-new .prj-chap-eyebrow { color: var(--paper-dim); }
+.prj-chap-2-new .prj-chap-title { color: var(--paper); }
+.prj-chap-2-new .prj-chap-title .accent { color: var(--gold); }
+.prj-chap-2-new .prj-chap-callout { color: var(--gold); }
+.prj-chap-2-new .prj-chap-callout .callout-script { color: var(--gold); }
+.prj-chap-2-new .prj-chap-callout .callout-arrow { color: var(--gold); }
+.prj-chap-2-new .prj-chap-lead { color: var(--paper); }
+.prj-chap-2-new .prj-chap-beat p { color: var(--paper-dim); }
+.prj-chap-2-new .prj-chap-link .link-host { color: var(--gold); }
+.prj-chap-2-new .prj-chap-link svg { color: var(--gold); }
+
+/* ─── §2.3 Kapitel 03 — Paper-light palette (Praxis) ──────────────────── */
+.prj-chap-3-new {
+  --orange: #f26b1f;
+  --paper-bg: #f4ede1;
+  --ink-h: #1a1612;
+  --ink-h-dim: #635a52;
+  --line-h: rgba(26, 22, 18, 0.10);
+  --chip-bg: rgba(26, 22, 18, 0.04);
+  --chip-border: rgba(26, 22, 18, 0.14);
+  --chip-fg: var(--ink-h);
+  --link-bg: transparent;
+  --link-border: rgba(26, 22, 18, 0.22);
+  --link-fg: var(--ink-h);
+  --frame-bg: #1a1612;
+  --frame-border: rgba(26, 22, 18, 0.18);
+  --frame-chrome-bg: rgba(26, 22, 18, 0.92);
+  --frame-dot: rgba(255, 255, 255, 0.28);
+  --frame-url-bg: rgba(255, 255, 255, 0.08);
+  --frame-url-fg: rgba(255, 255, 255, 0.6);
+}
+.prj-chap-3-new .prj-chap {
+  background: linear-gradient(180deg, var(--paper-bg) 0%, var(--paper-bg) 60%, #f0e7d8 100%);
+  color: var(--ink-h);
+}
+.prj-chap-3-new .prj-chap::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(70% 60% at 80% 20%, rgba(242, 107, 31, 0.08), transparent 65%),
+    radial-gradient(50% 40% at 15% 80%, rgba(242, 107, 31, 0.05), transparent 65%);
+  pointer-events: none;
+}
+.prj-chap-3-new .guides {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(to right, var(--line-h) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.prj-chap-3-new .prj-chap-eyebrow { color: var(--ink-h-dim); }
+.prj-chap-3-new .prj-chap-title { color: var(--ink-h); }
+.prj-chap-3-new .prj-chap-lead { color: var(--ink-h); }
+.prj-chap-3-new .prj-chap-beat p { color: var(--ink-h-dim); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §3 Pipeline — Warm graphite, compact text-pill list (replaces marquee)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.prj-pipeline-new {
+  --orange: #f26b1f;
+  --bg: #0d0b0a;
+  --ink: #f6f1ec;
+  --ink-dim: #a7a09a;
+  --line: rgba(246, 241, 236, 0.07);
+  --line-strong: rgba(246, 241, 236, 0.14);
+  display: block;
+  font-family: 'Manrope', system-ui, sans-serif;
+}
+.prj-pipeline-new .prj-pipeline {
+  position: relative;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 120px 0 120px;
+  overflow: hidden;
+}
+.prj-pipeline-new .prj-pipeline::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(60% 50% at 50% 50%, rgba(242, 107, 31, 0.08), transparent 65%);
+  pointer-events: none;
+}
+.prj-pipeline-new .guides {
   position: absolute; inset: 0;
   background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
   background-size: calc(100% / 12) 100%;
@@ -137,566 +669,92 @@
   opacity: 0.55;
   pointer-events: none;
 }
-.prj-grid-new .container {
+.prj-pipeline-new .container {
   position: relative;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 56px;
 }
-
-.prj-grid-new .prj-grid-head {
-  max-width: 860px;
-  margin: 0 auto 72px;
+.prj-pipeline-new .prj-pipeline-card {
+  max-width: 920px;
+  margin: 0 auto;
   text-align: center;
 }
-.prj-grid-new .eyebrow {
+.prj-pipeline-new .prj-pipeline-head { margin-bottom: 40px; }
+.prj-pipeline-new .eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
-  color: var(--paper-dim);
+  color: var(--ink-dim);
   font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
   font-weight: 500;
-  margin-bottom: 28px;
+  margin-bottom: 22px;
 }
-.prj-grid-new .eyebrow .bar { width: 32px; height: 2px; background: var(--orange); flex: none; }
-.prj-grid-new .eyebrow .num { font-weight: 600; font-size: 14px; color: var(--orange); }
-.prj-grid-new h2 {
+.prj-pipeline-new .eyebrow .bar { width: 32px; height: 2px; background: var(--orange); flex: none; }
+.prj-pipeline-new .eyebrow .num { font-weight: 600; font-size: 14px; color: var(--orange); }
+.prj-pipeline-new .prj-pipeline-title {
   font-weight: 800;
-  font-size: clamp(40px, 4.4vw, 72px);
-  line-height: 1.02;
+  font-size: clamp(32px, 3.4vw, 52px);
+  line-height: 1.04;
   letter-spacing: -0.03em;
-  margin: 0 0 20px;
-  color: var(--paper);
+  margin: 0 0 16px;
+  color: var(--ink);
   text-wrap: balance;
 }
-.prj-grid-new h2 .accent {
+.prj-pipeline-new .prj-pipeline-title .accent {
   font-family: 'Sacramento', cursive;
   font-weight: 400;
-  color: var(--gold);
+  color: var(--orange);
   font-size: 1.32em;
   line-height: 0.85;
   display: inline-block;
   transform: rotate(-2deg);
   transform-origin: left center;
-  margin: 0 6px;
+  margin: 0 4px;
   padding-right: 0.2em;
 }
-.prj-grid-new .prj-grid-sub {
-  font-size: 17px;
-  color: var(--paper-dim);
-  line-height: 1.55;
-  margin: 0;
-  max-width: 540px;
-  margin-left: auto; margin-right: auto;
-  text-wrap: pretty;
-}
-
-/* ─── Marquees ──────────────────────────────────────────────────────────
-   Two horizontal rows of cards scrolling in opposite directions. Hover
-   (or focus inside) pauses the track so a visitor can click a real card.
-   Tracks contain each card list twice; the loop translates from 0 to
-   -50% so the reset is invisible. */
-
-.prj-grid-new .prj-marquees {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  z-index: 1;
-}
-/* Native horizontal scroll. The auto-scroll is driven from TypeScript
-   (requestAnimationFrame incrementing scrollLeft) so the user can wheel
-   or swipe through the cards at any time and the auto-scroll pauses
-   briefly, then resumes after 1.5s of idle time.
-
-   The track keeps two copies of the card list; the TS loop wraps
-   scrollLeft invisibly when it crosses the duplicate-set boundary. */
-.prj-grid-new .prj-marquee {
-  position: relative;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding: 12px 0;
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
-          mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
-  cursor: grab;
-}
-.prj-grid-new .prj-marquee::-webkit-scrollbar { display: none; }
-.prj-grid-new .prj-marquee:active { cursor: grabbing; }
-.prj-grid-new .prj-marquee-track {
-  display: flex;
-  gap: 24px;
-  width: max-content;
-}
-
-/* Card sizing inside a marquee — fixed width so the layout doesn't
-   reflow as cards animate. */
-.prj-grid-new .prj-marquee .prj-card {
-  flex: 0 0 380px;
-  /* The general .prj-card rule below sets opacity: 0 for the scroll-reveal
-     pattern, but marquee cards must be visible at rest — override. */
-  opacity: 1;
-  transform: none;
-}
-
-/* ─── Project card (base) ─────────────────────────────────────────────── */
-
-.prj-grid-new .prj-card {
-  position: relative;
-  isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  background: var(--graphite);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  overflow: hidden;
-  color: var(--paper);
-  text-decoration: none;
-  transition:
-    transform .45s cubic-bezier(.2, .7, .2, 1),
-    border-color .3s ease,
-    box-shadow .3s ease;
-}
-.prj-grid-new .prj-card-real { cursor: pointer; }
-.prj-grid-new .prj-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(242, 107, 31, 0.4);
-  box-shadow:
-    0 30px 60px -20px rgba(0, 0, 0, 0.5),
-    0 12px 28px -10px rgba(242, 107, 31, 0.3);
-}
-
-/* Corner arrow chip — top-right, rotates orange on hover */
-.prj-grid-new .prj-card .corner {
-  position: absolute;
-  top: 14px; right: 14px;
-  width: 28px; height: 28px;
-  border-radius: 999px;
-  background: rgba(233, 223, 210, 0.08);
-  border: 1px solid var(--line-strong);
-  color: var(--paper);
-  display: inline-flex; align-items: center; justify-content: center;
-  transition: background .3s ease, border-color .3s ease, color .3s ease, transform .35s ease;
-  z-index: 2;
-}
-.prj-grid-new .prj-card-real:hover .corner {
-  background: var(--orange);
-  border-color: var(--orange);
-  color: #fff;
-  transform: rotate(-45deg);
-}
-
-/* Preview — chrome bar + screenshot + hover overlay */
-.prj-grid-new .prj-preview {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-bottom: 1px solid var(--line);
-  background: var(--graphite-deep);
-}
-.prj-grid-new .prj-preview .chrome {
-  position: absolute; top: 0; left: 0; right: 0;
-  display: flex; align-items: center; gap: 6px;
-  padding: 10px 14px;
-  background: rgba(20, 16, 12, 0.85);
-  backdrop-filter: blur(8px);
-  z-index: 1;
-}
-.prj-grid-new .prj-preview .chrome i {
-  width: 7px; height: 7px; border-radius: 999px;
-  background: rgba(255, 255, 255, 0.25);
-}
-.prj-grid-new .prj-preview .chrome .url {
-  margin-left: 12px; flex: 1;
-  height: 14px; padding: 0 10px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 999px;
-  font-size: 9px;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.5);
-  display: flex; align-items: center;
-}
-.prj-grid-new .prj-preview .mock {
-  position: absolute;
-  top: 32px; left: 0; right: 0; bottom: 0;
-  width: 100%;
-  height: calc(100% - 32px);
-  object-fit: cover;
-  object-position: top center;
-  transition: transform .55s cubic-bezier(.2, .7, .2, 1);
-}
-.prj-grid-new .prj-card-real:hover .prj-preview .mock { transform: scale(1.05); }
-.prj-grid-new .prj-preview .overlay {
-  position: absolute;
-  bottom: 16px; left: 50%;
-  transform: translate(-50%, 12px);
-  opacity: 0;
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 18px;
-  background: rgba(13, 11, 10, 0.85);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--paper);
-  transition: transform .45s cubic-bezier(.2, .7, .2, 1), opacity .35s ease;
-  z-index: 2;
-}
-.prj-grid-new .prj-card-real:hover .prj-preview .overlay {
-  transform: translate(-50%, 0);
-  opacity: 1;
-}
-
-/* Empty placeholder preview — grid texture instead of screenshot */
-.prj-grid-new .prj-preview-empty {
-  background:
-    radial-gradient(40% 30% at 50% 50%, rgba(255, 200, 138, 0.06), transparent 70%),
-    var(--graphite-deep);
-  position: relative;
-}
-.prj-grid-new .prj-preview-empty .ph-grid {
-  position: absolute;
-  top: 32px; left: 0; right: 0; bottom: 0;
-  background-image:
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size: 24px 24px;
-  opacity: 0.45;
-  -webkit-mask-image: radial-gradient(60% 60% at 50% 50%, #000 0, transparent 75%);
-          mask-image: radial-gradient(60% 60% at 50% 50%, #000 0, transparent 75%);
-}
-.prj-grid-new .prj-preview-empty .ph-tag {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 8px 16px;
-  background: rgba(242, 107, 31, 0.12);
-  border: 1px solid rgba(242, 107, 31, 0.35);
-  border-radius: 999px;
-  color: var(--orange);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-/* Card meta — category, title, desc, foot */
-.prj-grid-new .prj-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 28px 26px 26px;
-  flex: 1;
-}
-.prj-grid-new .prj-cat {
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--gold);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-.prj-grid-new .prj-cat::before {
-  content: "";
-  width: 18px; height: 1px;
-  background: var(--orange);
-}
-.prj-grid-new .prj-name {
-  font-weight: 700;
-  font-size: 24px;
-  letter-spacing: -0.015em;
-  line-height: 1.1;
-  margin: 0;
-  color: var(--paper);
-}
-.prj-grid-new .prj-desc {
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--paper-dim);
-  margin: 0;
-  text-wrap: pretty;
-}
-.prj-grid-new .prj-foot {
-  margin-top: auto;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-.prj-grid-new .prj-idx { color: var(--paper-soft); }
-.prj-grid-new .prj-ansehen {
-  color: var(--orange);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: gap .3s ease;
-}
-.prj-grid-new .prj-card-real:hover .prj-ansehen { gap: 12px; }
-.prj-grid-new .prj-ansehen .arr { transition: transform .3s ease; }
-
-/* Placeholder card de-emphasised */
-.prj-grid-new .prj-card-placeholder {
-  background: rgba(31, 24, 19, 0.5);
-  border-style: dashed;
-  border-color: var(--line-strong);
-  cursor: default;
-}
-.prj-grid-new .prj-card-placeholder:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 200, 138, 0.3);
-  box-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.4);
-}
-.prj-grid-new .prj-card-placeholder .prj-name {
-  color: var(--paper-soft);
-}
-.prj-grid-new .prj-card-placeholder .prj-foot { border-top-color: var(--line); }
-.prj-grid-new .prj-card-placeholder .prj-cat { color: var(--paper-dim); }
-.prj-grid-new .prj-card-placeholder .prj-cat::before { background: rgba(242, 107, 31, 0.5); }
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   §3 Case study shared base — 2-col grid, before/after placeholder boxes
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.prj-case-new {
-  display: block;
-  font-family: 'Manrope', system-ui, sans-serif;
-}
-.prj-case-new .prj-case {
-  position: relative;
-  overflow: hidden;
-  padding: 140px 0 160px;
-}
-.prj-case-new .container {
-  position: relative;
-  max-width: 1440px;
+.prj-pipeline-new .prj-pipeline-sub {
+  font-size: 16px;
+  color: var(--ink-dim);
+  line-height: 1.6;
+  max-width: 560px;
   margin: 0 auto;
-  padding: 0 56px;
-}
-.prj-case-new .prj-case-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: 80px;
-  align-items: center;
-}
-.prj-case-new .prj-case-grid-reverse {
-  grid-template-columns: 1.05fr 1fr;
-}
-.prj-case-new .prj-case-grid-reverse .prj-case-text { order: 1; }
-.prj-case-new .prj-case-grid-reverse .prj-case-visual { order: 2; }
-
-.prj-case-new .eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
-  font-weight: 500;
-  margin-bottom: 28px;
-}
-.prj-case-new .eyebrow .bar { width: 32px; height: 2px; background: var(--orange); flex: none; }
-.prj-case-new .eyebrow .num { font-weight: 600; font-size: 14px; color: var(--orange); }
-
-.prj-case-new h2 {
-  font-weight: 800;
-  font-size: clamp(36px, 4vw, 60px);
-  line-height: 1.04;
-  letter-spacing: -0.03em;
-  margin: 0 0 32px;
-  text-wrap: balance;
-}
-.prj-case-new h2 .accent {
-  font-family: 'Sacramento', cursive;
-  font-weight: 400;
-  color: var(--orange);
-  font-size: 1.3em;
-  line-height: 0.85;
-  display: block;
-  transform: rotate(-3deg);
-  transform-origin: left center;
-  margin: 4px 0 4px -4px;
-  width: fit-content;
-  padding-right: 0.3em;
-}
-
-.prj-case-new .prj-case-lead {
-  font-size: 17px;
-  line-height: 1.65;
-  margin: 0 0 36px;
   text-wrap: pretty;
-  max-width: 540px;
 }
-.prj-case-new .prj-case-lead .lead-bar {
-  display: block;
-  width: 28px; height: 2px;
-  background: var(--orange);
-  margin-bottom: 20px;
-}
-
-.prj-case-new .prj-stat-list {
+.prj-pipeline-new .prj-pipeline-list {
   list-style: none;
   margin: 0; padding: 0;
-  display: flex; flex-direction: column;
-  gap: 18px;
-  max-width: 540px;
-}
-.prj-case-new .prj-stat-item {
-  display: flex; align-items: flex-start; gap: 14px;
-  font-size: 16px;
-  line-height: 1.55;
-}
-.prj-case-new .prj-stat-item .ck {
-  flex: none;
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 22px; height: 22px;
-  border-radius: 999px;
-  background: var(--orange);
-  color: #fff;
-  margin-top: 2px;
-}
-.prj-case-new .prj-stat-item strong {
-  font-weight: 700;
-  margin-right: 4px;
-}
-
-/* Before/after visual grid */
-.prj-case-new .prj-case-visual {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  align-items: start;
-}
-.prj-case-new .ba-card {
-  position: relative;
-  aspect-ratio: 3 / 4;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--line-h);
-}
-.prj-case-new .ba-card.ba-nachher {
-  margin-top: 48px;  /* offset second card so they don't sit flat */
-}
-.prj-case-new .ba-tag {
-  position: absolute;
-  top: 14px; left: 14px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 700;
-  z-index: 2;
-  backdrop-filter: blur(8px);
-}
-.prj-case-new .ba-vorher .ba-tag {
-  background: rgba(160, 50, 36, 0.6);
-  border: 1px solid rgba(220, 80, 56, 0.45);
-  color: #ffdcd2;
-}
-.prj-case-new .ba-nachher .ba-tag {
-  background: rgba(28, 90, 60, 0.6);
-  border: 1px solid rgba(40, 150, 100, 0.45);
-  color: #d3f5e1;
-}
-.prj-case-new .ba-ph {
-  position: absolute;
-  inset: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 14px;
+  gap: 10px;
 }
-.prj-case-new .ba-ph .ph-bar {
-  width: 36px; height: 2px;
+.prj-pipeline-new .prj-pipeline-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--ink-dim);
+  background: rgba(246, 241, 236, 0.02);
+  transition: border-color .25s ease, color .25s ease, background .25s ease;
+}
+.prj-pipeline-new .prj-pipeline-item::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 999px;
   background: var(--orange);
-}
-.prj-case-new .ba-ph .ph-label {
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-/* ─── Case 01 — Cream (matches .value-new) ──────────────────────────── */
-.prj-case-1-new {
-  --orange: #f26b1f;
-  --cream: #efe7df;
-  --ink-dark: #1a1612;
-  --ink-dark-dim: #6b625a;
-  --line-h: rgba(26, 22, 18, 0.12);
-}
-.prj-case-1-new .prj-case {
-  background: var(--cream);
-  color: var(--ink-dark);
-}
-.prj-case-1-new .prj-case::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(70% 60% at 20% 30%, rgba(242, 107, 31, 0.08), transparent 65%);
-  pointer-events: none;
-}
-.prj-case-1-new .guides {
-  position: absolute; inset: 0;
-  background-image: linear-gradient(to right, var(--line-h) 1px, transparent 1px);
-  background-size: calc(100% / 12) 100%;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
-          mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
   opacity: 0.55;
-  pointer-events: none;
 }
-.prj-case-1-new .eyebrow { color: var(--ink-dark-dim); }
-.prj-case-1-new h2 { color: var(--ink-dark); }
-.prj-case-1-new .prj-case-lead { color: var(--ink-dark-dim); }
-.prj-case-1-new .prj-stat-item { color: var(--ink-dark); }
-.prj-case-1-new .ba-card {
-  background: linear-gradient(140deg, #fbf6f0 0%, #e7ddd1 100%);
+.prj-pipeline-new .prj-pipeline-item:hover {
+  border-color: rgba(242, 107, 31, 0.5);
+  color: var(--ink);
+  background: rgba(242, 107, 31, 0.06);
 }
-.prj-case-1-new .ba-ph .ph-label { color: var(--ink-dark-dim); }
-
-/* ─── Case 02 — Paper-light (matches .honest-new) ──────────────────── */
-.prj-case-2-new {
-  --orange: #f26b1f;
-  --paper-bg: #f4ede1;
-  --ink-h: #1a1612;
-  --ink-h-dim: #635a52;
-  --line-h: rgba(26, 22, 18, 0.10);
-}
-.prj-case-2-new .prj-case {
-  background: var(--paper-bg);
-  color: var(--ink-h);
-}
-.prj-case-2-new .prj-case::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(70% 60% at 80% 30%, rgba(242, 107, 31, 0.08), transparent 65%);
-  pointer-events: none;
-}
-.prj-case-2-new .guides {
-  position: absolute; inset: 0;
-  background-image: linear-gradient(to right, var(--line-h) 1px, transparent 1px);
-  background-size: calc(100% / 12) 100%;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
-          mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
-  opacity: 0.55;
-  pointer-events: none;
-}
-.prj-case-2-new .eyebrow { color: var(--ink-h-dim); }
-.prj-case-2-new h2 { color: var(--ink-h); }
-.prj-case-2-new .prj-case-lead { color: var(--ink-h-dim); }
-.prj-case-2-new .prj-stat-item { color: var(--ink-h); }
-.prj-case-2-new .ba-card {
-  background: linear-gradient(140deg, #f7f1e7 0%, #e7ddd1 100%);
-}
-.prj-case-2-new .ba-ph .ph-label { color: var(--ink-h-dim); }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   §5 Final CTA — Warm graphite (matches .final-new vocabulary)
+   §4 Final CTA — Warm graphite (matches .final-new vocabulary)
    ═══════════════════════════════════════════════════════════════════════════ */
 
 .prj-final-new {
@@ -862,7 +920,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   §6 Motion — per-element .has-entered reveals
+   §5 Motion — per-element .has-entered reveals
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* Hero */
@@ -874,50 +932,98 @@
 .prj-hero-new .prj-hero-sub { opacity: 0; transform: translateY(24px); }
 .prj-hero-new .prj-hero-sub.has-entered {
   opacity: 1; transform: none;
-  animation: prj-fade-up .8s cubic-bezier(0.22, 1, 0.36, 1) .2s backwards;
+  animation: prj-fade-up .8s cubic-bezier(0.22, 1, 0.36, 1) .15s backwards;
+}
+.prj-hero-new .prj-hero-meta { opacity: 0; transform: translateY(18px); }
+.prj-hero-new .prj-hero-meta.has-entered {
+  opacity: 1; transform: none;
+  animation: prj-fade-up .7s cubic-bezier(0.22, 1, 0.36, 1) .3s backwards;
 }
 
-/* Grid head + marquee container reveal */
-.prj-grid-new .prj-grid-head { opacity: 0; transform: translateY(28px); }
-.prj-grid-new .prj-grid-head.has-entered {
+/* Chapter — section-level observer drives child staggers. The section itself
+   doesn't transform; only its inner pieces do, so the layout doesn't shift. */
+.prj-chap-new .prj-chap-marker,
+.prj-chap-new .prj-chap-eyebrow,
+.prj-chap-new .prj-chap-title,
+.prj-chap-new .prj-chap-chips,
+.prj-chap-new .prj-chap-prose,
+.prj-chap-new .prj-chap-link {
+  opacity: 0; transform: translateY(20px);
+}
+.prj-chap-new .prj-chap-visual {
+  opacity: 0; transform: translateX(40px);
+}
+.prj-chap-new.prj-chap-1-new .prj-chap-visual,
+.prj-chap-new.prj-chap-3-new .prj-chap-visual {
+  transform: translateX(40px);
+}
+.prj-chap-new.prj-chap-2-new .prj-chap-visual {
+  transform: translateX(-40px);
+}
+
+.prj-chap-new.has-entered .prj-chap-marker,
+.prj-chap-new.has-entered .prj-chap-eyebrow,
+.prj-chap-new.has-entered .prj-chap-title,
+.prj-chap-new.has-entered .prj-chap-chips,
+.prj-chap-new.has-entered .prj-chap-prose,
+.prj-chap-new.has-entered .prj-chap-link {
+  opacity: 1; transform: none;
+  animation: prj-fade-up .7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+.prj-chap-new.has-entered .prj-chap-marker  { animation-delay: 0ms;   }
+.prj-chap-new.has-entered .prj-chap-eyebrow { animation-delay: 80ms;  }
+.prj-chap-new.has-entered .prj-chap-title   { animation-delay: 160ms; }
+.prj-chap-new.has-entered .prj-chap-chips   { animation-delay: 260ms; }
+.prj-chap-new.has-entered .prj-chap-prose   { animation-delay: 320ms; }
+.prj-chap-new.has-entered .prj-chap-link    { animation-delay: 420ms; }
+
+.prj-chap-new.has-entered .prj-chap-visual {
+  opacity: 1; transform: none;
+  animation: prj-slide-in-x .9s cubic-bezier(0.22, 1, 0.36, 1) 200ms backwards;
+}
+.prj-chap-new.prj-chap-1-new.has-entered .prj-chap-visual,
+.prj-chap-new.prj-chap-3-new.has-entered .prj-chap-visual {
+  --prj-from-x: 40px;
+}
+.prj-chap-new.prj-chap-2-new.has-entered .prj-chap-visual {
+  --prj-from-x: -40px;
+}
+
+/* Callout pops in after the frame settles */
+.prj-chap-new .prj-chap-callout {
+  opacity: 0;
+  transform: scale(0.6) rotate(-8deg);
+  transform-origin: left bottom;
+  transition: none;
+}
+.prj-chap-new.prj-chap-2-new .prj-chap-callout {
+  transform-origin: right bottom;
+}
+.prj-chap-new.has-entered .prj-chap-callout {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+  animation: prj-callout-pop .55s cubic-bezier(.5, 1.6, .4, 1) 900ms backwards;
+}
+
+/* Pipeline + final */
+.prj-pipeline-new .prj-pipeline-card { opacity: 0; transform: translateY(28px); }
+.prj-pipeline-new .prj-pipeline-card.has-entered {
   opacity: 1; transform: none;
   animation: prj-fade-up .8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
-/* Marquee fades in as a unit. Individual cards inside don't have a
-   scroll reveal because they're constantly moving in and out of view;
-   the marquee container handles the fade-in. */
-.prj-grid-new .prj-marquee { opacity: 0; transform: translateY(24px); }
-.prj-grid-new .prj-marquee.has-entered {
-  opacity: 1; transform: none;
-  animation: prj-fade-up .8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+.prj-pipeline-new .prj-pipeline-card.has-entered .prj-pipeline-item {
+  animation: prj-fade-up .55s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
+.prj-pipeline-new .prj-pipeline-card.has-entered .prj-pipeline-item:nth-child(1) { animation-delay: .3s; }
+.prj-pipeline-new .prj-pipeline-card.has-entered .prj-pipeline-item:nth-child(2) { animation-delay: .35s; }
+.prj-pipeline-new .prj-pipeline-card.has-entered .prj-pipeline-item:nth-child(3) { animation-delay: .4s; }
+.prj-pipeline-new .prj-pipeline-card.has-entered .prj-pipeline-item:nth-child(4) { animation-delay: .45s; }
+.prj-pipeline-new .prj-pipeline-card.has-entered .prj-pipeline-item:nth-child(5) { animation-delay: .5s; }
+.prj-pipeline-new .prj-pipeline-card.has-entered .prj-pipeline-item:nth-child(6) { animation-delay: .55s; }
+.prj-pipeline-new .prj-pipeline-card.has-entered .prj-pipeline-item:nth-child(7) { animation-delay: .6s; }
+.prj-pipeline-new .prj-pipeline-card.has-entered .prj-pipeline-item:nth-child(8) { animation-delay: .65s; }
+.prj-pipeline-new .prj-pipeline-card.has-entered .prj-pipeline-item:nth-child(9) { animation-delay: .7s; }
 
-/* Case study text + visual */
-.prj-case-new .prj-case-text   { opacity: 0; transform: translateX(-40px); }
-.prj-case-new .prj-case-visual { opacity: 0; transform: translateX(40px); }
-.prj-case-new .prj-case-grid-reverse .prj-case-text   { transform: translateX(40px); }
-.prj-case-new .prj-case-grid-reverse .prj-case-visual { transform: translateX(-40px); }
-
-.prj-case-new .prj-case-text.has-entered {
-  opacity: 1; transform: none;
-  animation: prj-slide-in-x .8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
-}
-.prj-case-new .prj-case-visual.has-entered {
-  opacity: 1; transform: none;
-  animation: prj-slide-in-x .8s cubic-bezier(0.22, 1, 0.36, 1) .15s backwards;
-}
-
-/* Stat items stagger after text block enters */
-.prj-case-new .prj-stat-item { opacity: 0; transform: translateX(-12px); }
-.prj-case-new .prj-case-text.has-entered .prj-stat-item {
-  opacity: 1; transform: none;
-  animation: prj-fade-in-x .55s cubic-bezier(0.22, 1, 0.36, 1) backwards;
-}
-.prj-case-new .prj-case-text.has-entered .prj-stat-item:nth-child(1) { animation-delay: .45s; }
-.prj-case-new .prj-case-text.has-entered .prj-stat-item:nth-child(2) { animation-delay: .55s; }
-.prj-case-new .prj-case-text.has-entered .prj-stat-item:nth-child(3) { animation-delay: .65s; }
-
-/* Final card */
 .prj-final-new .prj-final-card { opacity: 0; transform: translateY(36px); }
 .prj-final-new .prj-final-card.has-entered {
   opacity: 1; transform: none;
@@ -928,24 +1034,30 @@
   from { opacity: 0; transform: translateY(36px); filter: blur(0); }
 }
 @keyframes prj-slide-in-x {
-  from { opacity: 0; transform: translateX(var(--prj-from-x, -40px)); }
+  from { opacity: 0; transform: translateX(var(--prj-from-x, 40px)); }
 }
-@keyframes prj-fade-in-x {
-  from { opacity: 0; transform: translateX(-12px); }
+@keyframes prj-callout-pop {
+  from { opacity: 0; transform: scale(0.6) rotate(-8deg); }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   §7 Reduced motion
+   §6 Reduced motion
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @media (prefers-reduced-motion: reduce) {
   .prj-hero-new .prj-hero-title,
   .prj-hero-new .prj-hero-sub,
-  .prj-grid-new .prj-grid-head,
-  .prj-grid-new .prj-marquee,
-  .prj-case-new .prj-case-text,
-  .prj-case-new .prj-case-visual,
-  .prj-case-new .prj-stat-item,
+  .prj-hero-new .prj-hero-meta,
+  .prj-chap-new .prj-chap-marker,
+  .prj-chap-new .prj-chap-eyebrow,
+  .prj-chap-new .prj-chap-title,
+  .prj-chap-new .prj-chap-chips,
+  .prj-chap-new .prj-chap-prose,
+  .prj-chap-new .prj-chap-link,
+  .prj-chap-new .prj-chap-visual,
+  .prj-chap-new .prj-chap-callout,
+  .prj-pipeline-new .prj-pipeline-card,
+  .prj-pipeline-new .prj-pipeline-item,
   .prj-final-new .prj-final-card {
     opacity: 1;
     transform: none;
@@ -953,53 +1065,53 @@
   }
   .prj-hero-new .prj-hero-title.has-entered,
   .prj-hero-new .prj-hero-sub.has-entered,
-  .prj-grid-new .prj-grid-head.has-entered,
-  .prj-grid-new .prj-marquee.has-entered,
-  .prj-case-new .prj-case-text.has-entered,
-  .prj-case-new .prj-case-visual.has-entered,
-  .prj-case-new .prj-case-text.has-entered .prj-stat-item,
+  .prj-hero-new .prj-hero-meta.has-entered,
+  .prj-chap-new.has-entered .prj-chap-marker,
+  .prj-chap-new.has-entered .prj-chap-eyebrow,
+  .prj-chap-new.has-entered .prj-chap-title,
+  .prj-chap-new.has-entered .prj-chap-chips,
+  .prj-chap-new.has-entered .prj-chap-prose,
+  .prj-chap-new.has-entered .prj-chap-link,
+  .prj-chap-new.has-entered .prj-chap-visual,
+  .prj-chap-new.has-entered .prj-chap-callout,
+  .prj-pipeline-new .prj-pipeline-card.has-entered,
+  .prj-pipeline-new .prj-pipeline-card.has-entered .prj-pipeline-item,
   .prj-final-new .prj-final-card.has-entered { animation: none; }
-  /* Auto-scrolling of the marquee is suppressed in TS when reduced-motion
-     is set; the user can still manually scroll via the native overflow. */
+  .prj-chap-new .frame-chrome .frame-live .dot { animation: none; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   §8 Tablet — collapse grids, single-column case studies
+   §7 Tablet — collapse the asymmetric grids to single column
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Touch devices get native horizontal scroll for free (the marquee is
-   already overflow-x: auto). The TS auto-scroll pauses on touchstart for
-   1.5s so the user has uncontested manual control during a swipe. */
-@media (hover: none), (pointer: coarse) {
-  .prj-grid-new .prj-marquee { cursor: default; }
+@media (max-width: 1080px) {
+  .prj-chap-new .prj-chap-grid,
+  .prj-chap-new .prj-chap-grid-reverse {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+  /* Keep visual after text on every chapter when collapsed (reads more
+     naturally as "story → screenshot" on mobile). */
+  .prj-chap-new .prj-chap-grid-reverse .prj-chap-text { order: 1; }
+  .prj-chap-new .prj-chap-grid-reverse .prj-chap-visual { order: 2; }
+  .prj-chap-new .prj-chap-text { max-width: none; }
+  .prj-chap-new .prj-chap-grid-reverse .prj-chap-text { margin: 0; }
 }
 
 @media (max-width: 900px) {
   .prj-hero-new .prj-hero { padding: 120px 0 80px; }
   .prj-hero-new .container,
-  .prj-grid-new .container,
-  .prj-case-new .container,
+  .prj-chap-new .container,
+  .prj-pipeline-new .container,
   .prj-final-new .container { padding: 0 32px; }
 
-  .prj-grid-new .prj-grid-section { padding: 100px 0 120px; }
-  .prj-grid-new .prj-grid-head { margin-bottom: 56px; }
-
-  .prj-case-new .prj-case { padding: 100px 0 110px; }
-  .prj-case-new .prj-case-grid,
-  .prj-case-new .prj-case-grid-reverse {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-  .prj-case-new .prj-case-grid-reverse .prj-case-text { order: 1; }
-  .prj-case-new .prj-case-grid-reverse .prj-case-visual { order: 2; }
-  .prj-case-new .prj-case-grid-reverse .prj-case-text { transform: translateX(-40px); }
-  .prj-case-new .prj-case-grid-reverse .prj-case-visual { transform: translateX(40px); }
-
+  .prj-chap-new .prj-chap { padding: 100px 0 110px; }
+  .prj-pipeline-new .prj-pipeline { padding: 90px 0 90px; }
   .prj-final-new .prj-final { padding: 100px 0 120px; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   §9 Phone (≤480px) — single-column grids, tighter padding everywhere
+   §8 Phone (≤480px) — tight padding, callout repositioned, frame stays readable
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 480px) {
@@ -1012,43 +1124,74 @@
     line-height: 1;
     margin-bottom: 24px;
   }
-  .prj-hero-new .prj-hero-title .accent { margin: 0 4px; }
-  .prj-hero-new .prj-hero-sub { font-size: 16px; }
+  .prj-hero-new .prj-hero-sub { font-size: 16px; margin-bottom: 28px; }
+  .prj-hero-new .prj-hero-meta {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 12px 16px;
+    gap: 10px;
+    font-size: 12px;
+  }
+  .prj-hero-new .prj-hero-meta .meta-num { font-size: 20px; }
+  .prj-hero-new .prj-hero-meta .meta-sep { display: none; }
 
-  /* Grid */
-  .prj-grid-new .prj-grid-section { padding: 72px 0 84px; }
-  .prj-grid-new .container { padding: 0 20px; }
-  .prj-grid-new .guides { background-size: calc(100% / 6) 100%; opacity: 0.45; }
-  .prj-grid-new .prj-grid-head { margin-bottom: 48px; }
-  .prj-grid-new h2 {
+  /* Chapters */
+  .prj-chap-new .prj-chap { padding: 72px 0 84px; }
+  .prj-chap-new .container { padding: 0 20px; }
+  .prj-chap-new .guides { background-size: calc(100% / 6) 100%; opacity: 0.45; }
+  .prj-chap-new .prj-chap-grid,
+  .prj-chap-new .prj-chap-grid-reverse { gap: 40px; }
+  .prj-chap-new .prj-chap-marker { gap: 12px; margin-bottom: 16px; }
+  .prj-chap-new .prj-chap-marker .kapitel-num { font-size: clamp(48px, 16vw, 64px); }
+  .prj-chap-new .prj-chap-title {
     font-size: clamp(28px, 9vw, 40px);
-    line-height: 1.06;
+    line-height: 1.04;
+    margin-bottom: 18px;
   }
-  .prj-grid-new h2 .accent { font-size: 1.26em; margin: 0 4px; }
-  .prj-grid-new .prj-grid-sub { font-size: 15px; }
-  .prj-grid-new .prj-marquees { gap: 20px; }
-  .prj-grid-new .prj-marquee-track { gap: 14px; }
-  .prj-grid-new .prj-marquee .prj-card { flex: 0 0 78vw; }
-  .prj-grid-new .prj-meta { padding: 22px 20px 20px; gap: 10px; }
-  .prj-grid-new .prj-name { font-size: 20px; }
-  .prj-grid-new .prj-desc { font-size: 13px; }
-  .prj-grid-new .prj-preview .mock { transform: none; }  /* no hover scale on touch */
+  .prj-chap-new .prj-chap-title .accent { font-size: 1.24em; }
+  .prj-chap-new .prj-chap-chips { margin-bottom: 24px; }
+  .prj-chap-new .prj-chap-lead { font-size: 16px; }
+  .prj-chap-new .prj-chap-beat p { font-size: 14px; }
+  .prj-chap-new .prj-chap-link { padding: 12px 18px; gap: 10px; flex-wrap: wrap; }
+  .prj-chap-new .prj-chap-link .link-label { font-size: 12px; }
+  .prj-chap-new .prj-chap-link .link-host { font-size: 10px; padding-left: 10px; }
+  /* Callout: reposition so it doesn't overflow the smaller frame */
+  .prj-chap-new .prj-chap-callout {
+    top: -28px;
+    left: -10px;
+  }
+  .prj-chap-new .prj-chap-callout-right {
+    left: auto;
+    right: -10px;
+  }
+  .prj-chap-new .prj-chap-callout .callout-script { font-size: 32px; }
+  .prj-chap-new .prj-chap-callout .callout-arrow {
+    width: 44px; height: 32px; margin-left: 22px;
+  }
+  .prj-chap-new .prj-chap-callout-right .callout-arrow { margin-right: 22px; }
+  .prj-chap-new .frame-chrome { height: 26px; padding: 0 10px; }
+  .prj-chap-new .frame-chrome .frame-url {
+    font-size: 9px;
+    height: 14px;
+    margin-left: 10px;
+    max-width: 180px;
+  }
+  .prj-chap-new .frame-chrome .frame-live { font-size: 9px; }
+  .prj-chap-new .frame-shot { aspect-ratio: 4 / 3; }
+  .prj-chap-new .frame-hover-cta { display: none; }  /* no hover on touch */
 
-  /* Case studies */
-  .prj-case-new .prj-case { padding: 72px 0 84px; }
-  .prj-case-new .container { padding: 0 20px; }
-  .prj-case-new .guides { background-size: calc(100% / 6) 100%; opacity: 0.45; }
-  .prj-case-new h2 {
+  /* Pipeline */
+  .prj-pipeline-new .prj-pipeline { padding: 72px 0 84px; }
+  .prj-pipeline-new .container { padding: 0 20px; }
+  .prj-pipeline-new .guides { background-size: calc(100% / 6) 100%; opacity: 0.45; }
+  .prj-pipeline-new .prj-pipeline-head { margin-bottom: 28px; }
+  .prj-pipeline-new .prj-pipeline-title {
     font-size: clamp(26px, 8vw, 36px);
-    line-height: 1.06;
-    margin-bottom: 24px;
   }
-  .prj-case-new h2 .accent { font-size: 1.26em; margin-top: 4px; }
-  .prj-case-new .prj-case-lead { font-size: 16px; margin-bottom: 32px; }
-  .prj-case-new .prj-stat-item { font-size: 15px; }
-  .prj-case-new .prj-case-visual { gap: 14px; }
-  .prj-case-new .ba-card.ba-nachher { margin-top: 28px; }
-  .prj-case-new .ba-card { border-radius: 14px; }
+  .prj-pipeline-new .prj-pipeline-sub { font-size: 15px; }
+  .prj-pipeline-new .prj-pipeline-list { gap: 8px; }
+  .prj-pipeline-new .prj-pipeline-item { padding: 8px 14px; font-size: 12px; }
 
   /* Final CTA */
   .prj-final-new .prj-final { padding: 80px 0 96px; }

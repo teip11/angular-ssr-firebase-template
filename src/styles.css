@@ -328,6 +328,15 @@ body.drawer-open {
   touch-action: none;
 }
 
+/* ─── reCAPTCHA badge — hidden globally; attribution lives near the form ── */
+/* Google's policy: you may hide the floating badge as long as the
+   "Geschützt durch reCAPTCHA / Privacy / Terms" disclaimer is shown
+   near each form that uses it. That disclaimer ships with both the
+   Kontakt and Demo form cards. */
+.grecaptcha-badge {
+  visibility: hidden !important;
+}
+
 /* ─── Reduced motion ────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,

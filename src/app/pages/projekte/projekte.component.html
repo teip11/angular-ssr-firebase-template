@@ -9,256 +9,396 @@
           <span class="num">01</span> · Projekte
         </div>
         <h1 #prjHeroTitle class="prj-hero-title">
-          Ausgewählte <span class="accent">Projekte</span> &amp; Beispiele
+          Drei Branchen.
+          <span class="accent">Eine Handschrift.</span>
         </h1>
         <p #prjHeroSub class="prj-hero-sub">
-          Drei Branchen, ein Maßstab: klare Konzepte, klare Wirkung. Jede Website auf
-          das Ziel zugeschnitten — nicht auf eine Vorlage.
+          Drei live geschaltete Websites — Restaurant, Schreinerei, Praxis. Jede auf das
+          Ziel ihrer Branche zugeschnitten, nicht auf eine Vorlage. Hier ist der Hintergrund
+          zu jedem Projekt.
         </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============== 02 PROJEKT-MARQUEE ============== -->
-<!-- A single horizontal row of cards scrolling leftward. Hover (or focus
-     inside) pauses the row so the visitor can click through to a real
-     example. The track contains the card list twice so the loop is
-     seamless: translateX goes from 0 to -50% over one cycle, and the
-     reset to 0 is invisible. -->
-<section class="prj-grid-new">
-  <div class="prj-grid-section">
-    <div class="guides"></div>
-    <div class="container">
-      <div #prjGridHead class="prj-grid-head">
-        <div class="eyebrow">
-          <span class="bar"></span>
-          <span class="num">02</span> · Beispiel-Websites
-        </div>
-        <h2>
-          Websites, die <span class="accent">wirken</span>
-        </h2>
-        <p class="prj-grid-sub">
-          Ein Einblick in unsere Arbeit und Ergebnisse. Beispiele, die bereits live sind.
-          Jede Website auf das Ziel ihrer Branche hin entworfen.
-        </p>
-      </div>
-    </div>
-
-    <!-- Marquee sits outside .container so it bleeds edge-to-edge. The
-         mask-image fades the edges so cards appear/disappear gracefully
-         behind the gradient. -->
-    <div class="prj-marquees">
-      <div #prjMarquee class="prj-marquee prj-marquee-right" aria-label="Beispiele aus drei Branchen, plus weitere Projekte in Arbeit">
-        <div class="prj-marquee-track">
-          @for (project of projectsLoop; track $index; let i = $index) {
-            @if (project.placeholder) {
-              <article class="prj-card prj-card-placeholder" [attr.aria-hidden]="i >= projects.length ? 'true' : null" aria-label="Weiteres Projekt — folgt">
-                <div class="prj-preview prj-preview-empty">
-                  <span class="ph-grid" aria-hidden="true"></span>
-                  <span class="ph-tag">In Arbeit</span>
-                </div>
-                <div class="prj-meta">
-                  <span class="prj-cat">{{ project.category }}</span>
-                  <h3 class="prj-name">{{ project.name }}</h3>
-                  <p class="prj-desc">{{ project.desc }}</p>
-                  <div class="prj-foot">
-                    <span class="prj-idx">Bald verfügbar</span>
-                  </div>
-                </div>
-              </article>
-            } @else {
-              <a [href]="project.url" target="_blank" rel="noopener"
-                 class="prj-card prj-card-real"
-                 [attr.aria-hidden]="i >= projects.length ? 'true' : null"
-                 [attr.tabindex]="i >= projects.length ? -1 : null">
-                <span class="corner" aria-hidden="true">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
-                </span>
-                <div class="prj-preview">
-                  <div class="chrome">
-                    <i></i><i></i><i></i>
-                    <span class="url">{{ project.domain }}</span>
-                  </div>
-                  <img class="mock" [src]="project.image"
-                       [alt]="'Website Beispiel — ' + project.name" loading="lazy" />
-                  <span class="overlay">
-                    Ansehen
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
-                  </span>
-                </div>
-                <div class="prj-meta">
-                  <span class="prj-cat">{{ project.category }}</span>
-                  <h3 class="prj-name">{{ project.name }}</h3>
-                  <p class="prj-desc">{{ project.desc }}</p>
-                  <div class="prj-foot">
-                    <span class="prj-idx">Echt</span>
-                    <span class="prj-ansehen">Ansehen <span class="arr">→</span></span>
-                  </div>
-                </div>
-              </a>
-            }
-          }
+        <div #prjHeroMeta class="prj-hero-meta">
+          <span class="meta-item"><span class="meta-num">03</span> live</span>
+          <span class="meta-sep" aria-hidden="true"></span>
+          <span class="meta-item"><span class="meta-num">09</span> in Vorbereitung</span>
+          <span class="meta-sep" aria-hidden="true"></span>
+          <span class="meta-item meta-soft">weitere folgen</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============== 03 CASE STUDY 01 ============== -->
-<section class="prj-case-new prj-case-1-new">
-  <div class="prj-case">
+<!-- ============== 02 KAPITEL 01 — Trattoria Marconi ============== -->
+<!-- Cream palette. Text left, screenshot right. -->
+<section class="prj-chap-new prj-chap-1-new" #prjChapter>
+  <div class="prj-chap">
     <div class="guides"></div>
     <div class="container">
-      <div class="prj-case-grid">
+      <div class="prj-chap-grid">
 
-        <!-- Visual: vorher / nachher placeholder boxes -->
-        <div #prjCaseVisual class="prj-case-visual">
-          <div class="ba-card ba-vorher">
-            <span class="ba-tag">Vorher</span>
-            <span class="ba-ph" aria-hidden="true">
-              <span class="ph-bar"></span>
-              <span class="ph-label">Bild folgt</span>
-            </span>
+        <div class="prj-chap-text">
+          <div class="prj-chap-marker">
+            <span class="kapitel">Kapitel</span>
+            <span class="kapitel-num">01</span>
           </div>
-          <div class="ba-card ba-nachher">
-            <span class="ba-tag">Nachher</span>
-            <span class="ba-ph" aria-hidden="true">
-              <span class="ph-bar"></span>
-              <span class="ph-label">Bild folgt</span>
-            </span>
+          <div class="prj-chap-eyebrow">
+            <span class="bar"></span>
+            Restaurant &amp; Gastronomie · Live seit 2024
           </div>
+          <h2 class="prj-chap-title">
+            Trattoria <span class="accent">Marconi</span>
+          </h2>
+          <div class="prj-chap-chips">
+            <span class="chip">Webdesign</span>
+            <span class="chip">SEO-Grundlagen</span>
+            <span class="chip">Reservierung</span>
+          </div>
+
+          <div class="prj-chap-prose">
+            <p class="prj-chap-lead">
+              <span class="lead-bar"></span>
+              Eine Trattoria gewinnt Stammgäste nicht über ein Foto‑Karussell und ein
+              Speisekarten‑PDF. Sie braucht Atmosphäre, einen klaren Weg zum Tisch und
+              das Vertrauen, dass am anderen Ende jemand wirklich kocht.
+            </p>
+
+            <div class="prj-chap-beat">
+              <span class="beat-label">Problem</span>
+              <p>
+                Die bisherige Präsenz wirkte austauschbar: ein Galerie‑Slider, eine PDF
+                der Speisekarte, eine Telefonnummer im Footer. Wer abends einen Tisch
+                wollte, landete auf einer Drittanbieter‑Plattform — mit Provision pro
+                Reservierung.
+              </p>
+            </div>
+
+            <div class="prj-chap-beat">
+              <span class="beat-label">Lösung</span>
+              <p>
+                Atmosphärisches Layout, das den Charakter des Hauses trägt. Die
+                Reservierung wird zum Hauptpfad — nicht versteckt im Untermenü, sondern
+                in jedem Abschnitt direkt erreichbar. Die Speisekarte ist Teil der Seite,
+                kein Download.
+              </p>
+            </div>
+
+            <div class="prj-chap-beat">
+              <span class="beat-label">Ergebnis</span>
+              <p>
+                Reservierungen laufen wieder direkt beim Haus auf. Das Telefon‑Pingpong
+                zur Bestätigung von Tischzeiten ist deutlich seltener geworden. Stammgäste
+                buchen Wochen im Voraus — neue Gäste finden über die Karte zum Tisch,
+                nicht über Vergleichsportale.
+              </p>
+            </div>
+          </div>
+
+          <a href="/showcase/trattoria-marconi/" target="_blank" rel="noopener" class="prj-chap-link">
+            <span class="link-label">trattoria-marconi.de</span>
+            <span class="link-host">Live ansehen</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17 17 7"/><path d="M8 7h9v9"/>
+            </svg>
+          </a>
         </div>
 
-        <!-- Details -->
-        <div #prjCaseText class="prj-case-text">
+        <a href="/showcase/trattoria-marconi/" target="_blank" rel="noopener"
+           class="prj-chap-visual"
+           aria-label="Live-Vorschau öffnen: trattoria-marconi.de">
+          <span class="prj-chap-callout" aria-hidden="true">
+            <span class="callout-script">Atmosphäre</span>
+            <svg class="callout-arrow" viewBox="0 0 80 60" fill="none" aria-hidden="true">
+              <path d="M 8 8 C 25 16, 42 24, 60 40"
+                    stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" fill="none" />
+              <path d="M 56 30 L 60 40 L 50 42"
+                    stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            </svg>
+          </span>
+          <div class="prj-chap-frame">
+            <div class="frame-chrome">
+              <i></i><i></i><i></i>
+              <span class="frame-url">trattoria-marconi.de</span>
+              <span class="frame-live"><span class="dot"></span>Live</span>
+            </div>
+            <img class="frame-shot" src="/showcase/trattoria-marconi.png"
+                 alt="Website Trattoria Marconi — Screenshot der Startseite"
+                 loading="lazy" />
+            <span class="frame-hover-cta" aria-hidden="true">
+              Live ansehen
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 03 KAPITEL 02 — Schreinerei Hollmann ============== -->
+<!-- Graphite-deep palette. Screenshot left, text right. -->
+<section class="prj-chap-new prj-chap-2-new" #prjChapter>
+  <div class="prj-chap">
+    <div class="guides"></div>
+    <div class="container">
+      <div class="prj-chap-grid prj-chap-grid-reverse">
+
+        <a href="/showcase/schreinerei-hollmann/" target="_blank" rel="noopener"
+           class="prj-chap-visual"
+           aria-label="Live-Vorschau öffnen: schreinerei-hollmann.de">
+          <span class="prj-chap-callout prj-chap-callout-right" aria-hidden="true">
+            <span class="callout-script">Werkschau</span>
+            <svg class="callout-arrow" viewBox="0 0 80 60" fill="none" aria-hidden="true">
+              <path d="M 72 8 C 55 16, 38 24, 20 40"
+                    stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" fill="none" />
+              <path d="M 24 30 L 20 40 L 30 42"
+                    stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            </svg>
+          </span>
+          <div class="prj-chap-frame">
+            <div class="frame-chrome">
+              <i></i><i></i><i></i>
+              <span class="frame-url">schreinerei-hollmann.de</span>
+              <span class="frame-live"><span class="dot"></span>Live</span>
+            </div>
+            <img class="frame-shot" src="/showcase/schreinerei-hollmann.png"
+                 alt="Website Schreinerei Hollmann — Screenshot der Startseite"
+                 loading="lazy" />
+            <span class="frame-hover-cta" aria-hidden="true">
+              Live ansehen
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <div class="prj-chap-text">
+          <div class="prj-chap-marker">
+            <span class="kapitel">Kapitel</span>
+            <span class="kapitel-num">02</span>
+          </div>
+          <div class="prj-chap-eyebrow">
+            <span class="bar"></span>
+            Handwerk &amp; Innenausbau · Live seit 2024
+          </div>
+          <h2 class="prj-chap-title">
+            Schreinerei <span class="accent">Hollmann</span>
+          </h2>
+          <div class="prj-chap-chips">
+            <span class="chip">Webdesign</span>
+            <span class="chip">Werkschau</span>
+            <span class="chip">SEO-Grundlagen</span>
+          </div>
+
+          <div class="prj-chap-prose">
+            <p class="prj-chap-lead">
+              <span class="lead-bar"></span>
+              Eine Schreinerei wird auf Preis verglichen, sobald Bilder fehlen. Eine
+              Werkschau ohne Geschichte hinter dem Möbel zieht Schnäppchen‑Anfragen
+              statt Auftraggeber, die das Material verstehen.
+            </p>
+
+            <div class="prj-chap-beat">
+              <span class="beat-label">Problem</span>
+              <p>
+                Die alte Seite war eine Bilderliste — schöne Fotos, aber ohne Kontext:
+                kein Material, kein Auftrag, kein Detail. Wer wirklich plant, hatte keine
+                Anhaltspunkte, ob das Haus für sein Projekt passt.
+              </p>
+            </div>
+
+            <div class="prj-chap-beat">
+              <span class="beat-label">Lösung</span>
+              <p>
+                Werkschau‑fokussierte Struktur: jedes Projekt erzählt Material, Auftrag,
+                Detail. Vertrauensbildende Elemente — Werkstattbilder, Prozess, persönliche
+                Ansprechperson — kommen vor dem Kontakt‑CTA, nicht danach.
+              </p>
+            </div>
+
+            <div class="prj-chap-beat">
+              <span class="beat-label">Ergebnis</span>
+              <p>
+                Anfragen aus dem hochwertigen Segment nehmen zu — weniger pauschale
+                Preisanfragen ohne Bezug zum Projekt. Die Seite zieht Kunden an, die
+                eine Vorstellung von dem haben, was sie wollen.
+              </p>
+            </div>
+          </div>
+
+          <a href="/showcase/schreinerei-hollmann/" target="_blank" rel="noopener" class="prj-chap-link">
+            <span class="link-label">schreinerei-hollmann.de</span>
+            <span class="link-host">Live ansehen</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17 17 7"/><path d="M8 7h9v9"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 04 KAPITEL 03 — Praxis Lindner ============== -->
+<!-- Paper-light palette. Text left, screenshot right. -->
+<section class="prj-chap-new prj-chap-3-new" #prjChapter>
+  <div class="prj-chap">
+    <div class="guides"></div>
+    <div class="container">
+      <div class="prj-chap-grid">
+
+        <div class="prj-chap-text">
+          <div class="prj-chap-marker">
+            <span class="kapitel">Kapitel</span>
+            <span class="kapitel-num">03</span>
+          </div>
+          <div class="prj-chap-eyebrow">
+            <span class="bar"></span>
+            Gesundheit &amp; Therapie · Live seit 2024
+          </div>
+          <h2 class="prj-chap-title">
+            Praxis <span class="accent">Lindner</span>
+          </h2>
+          <div class="prj-chap-chips">
+            <span class="chip">Webdesign</span>
+            <span class="chip">Team-Strip</span>
+            <span class="chip">Wunschtermine</span>
+          </div>
+
+          <div class="prj-chap-prose">
+            <p class="prj-chap-lead">
+              <span class="lead-bar"></span>
+              Physio‑ und Osteopathie‑Praxen verlieren Wochen‑Planung an Plattformen,
+              die nichts über die Praxis erzählen. Eine eigene Seite, die das auffängt,
+              braucht Vertrauen vor der Buchung — nicht erst danach.
+            </p>
+
+            <div class="prj-chap-beat">
+              <span class="beat-label">Problem</span>
+              <p>
+                Die alte Seite war eine Visitenkarte mit Öffnungszeiten. Wer einen
+                Wunschtermin wollte, musste anrufen — oft erfolglos. Patienten wanderten
+                zu Buchungsplattformen ab, ohne je die Therapeuten gesehen zu haben.
+              </p>
+            </div>
+
+            <div class="prj-chap-beat">
+              <span class="beat-label">Lösung</span>
+              <p>
+                Team‑fokussiertes Design: die Therapeuten sichtbar, mit Schwerpunkten und
+                Werdegang. Klare Wege zu Wunschterminen direkt auf der Startseite. Die
+                Praxis erklärt, was sie tut — bevor der erste Termin gebucht wird.
+              </p>
+            </div>
+
+            <div class="prj-chap-beat">
+              <span class="beat-label">Ergebnis</span>
+              <p>
+                Mehr Voranmeldungen mit Wunschterminen, weniger spontane Akut‑Anrufe.
+                Der Praxisalltag wird planbarer — die Wartezeiten transparenter, der
+                Erstkontakt ruhiger.
+              </p>
+            </div>
+          </div>
+
+          <a href="/showcase/praxis-lindner/" target="_blank" rel="noopener" class="prj-chap-link">
+            <span class="link-label">praxis-lindner.de</span>
+            <span class="link-host">Live ansehen</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17 17 7"/><path d="M8 7h9v9"/>
+            </svg>
+          </a>
+        </div>
+
+        <a href="/showcase/praxis-lindner/" target="_blank" rel="noopener"
+           class="prj-chap-visual"
+           aria-label="Live-Vorschau öffnen: praxis-lindner.de">
+          <span class="prj-chap-callout" aria-hidden="true">
+            <span class="callout-script">Vertrauen</span>
+            <svg class="callout-arrow" viewBox="0 0 80 60" fill="none" aria-hidden="true">
+              <path d="M 8 8 C 25 16, 42 24, 60 40"
+                    stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" fill="none" />
+              <path d="M 56 30 L 60 40 L 50 42"
+                    stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            </svg>
+          </span>
+          <div class="prj-chap-frame">
+            <div class="frame-chrome">
+              <i></i><i></i><i></i>
+              <span class="frame-url">praxis-lindner.de</span>
+              <span class="frame-live"><span class="dot"></span>Live</span>
+            </div>
+            <img class="frame-shot" src="/showcase/praxis-lindner.png"
+                 alt="Website Praxis Lindner — Screenshot der Startseite"
+                 loading="lazy" />
+            <span class="frame-hover-cta" aria-hidden="true">
+              Live ansehen
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 05 BRANCHEN IN VORBEREITUNG ============== -->
+<!-- Replaces the prior auto-scrolling marquee. Honest, compact pipeline view. -->
+<section class="prj-pipeline-new">
+  <div class="prj-pipeline">
+    <div class="guides"></div>
+    <div class="container">
+      <div #prjPipeline class="prj-pipeline-card">
+        <div class="prj-pipeline-head">
           <div class="eyebrow">
             <span class="bar"></span>
-            <span class="num">03</span> · Case Study 01
+            <span class="num">04</span> · In Vorbereitung
           </div>
-          <h2>
-            Digitaler Wandel für <span class="accent">Elite Real Estate</span>
+          <h2 class="prj-pipeline-title">
+            Weitere <span class="accent">Branchen</span> folgen
           </h2>
-          <p class="prj-case-lead">
-            <span class="lead-bar"></span>
-            Die Herausforderung war ein veralteter Webauftritt, der nicht das
-            Premium‑Segment des Kunden widerspiegelte. Durch eine radikale
-            Neugestaltung konnten wir das Vertrauen potenzieller Käufer
-            signifikant steigern.
+          <p class="prj-pipeline-sub">
+            Aktuell in Konzept oder Umsetzung — neun Projekte aus neun Branchen.
+            Sobald sie live sind, bekommen sie hier ihr eigenes Kapitel.
           </p>
-          <ul class="prj-stat-list">
-            <li class="prj-stat-item">
-              <span class="ck">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <div>
-                <strong>Modernes Design</strong>
-                mit Fokus auf Ästhetik und Premium‑Positionierung.
-              </div>
-            </li>
-            <li class="prj-stat-item">
-              <span class="ck">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <div>
-                <strong>4× schnellere Ladezeiten</strong>
-                — alle Core‑Web‑Vitals im grünen Bereich.
-              </div>
-            </li>
-            <li class="prj-stat-item">
-              <span class="ck">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <div>
-                <strong>+65 % qualifizierte Anfragen</strong>
-                im halben Jahr nach dem Relaunch.
-              </div>
-            </li>
-          </ul>
         </div>
-
+        <ul class="prj-pipeline-list" role="list">
+          <li class="prj-pipeline-item">Beratung &amp; Coaching</li>
+          <li class="prj-pipeline-item">Handel &amp; Manufaktur</li>
+          <li class="prj-pipeline-item">Hotellerie &amp; Beherbergung</li>
+          <li class="prj-pipeline-item">Bildung &amp; Akademie</li>
+          <li class="prj-pipeline-item">Sport &amp; Fitness</li>
+          <li class="prj-pipeline-item">Kunst &amp; Kultur</li>
+          <li class="prj-pipeline-item">Finanzen &amp; Versicherung</li>
+          <li class="prj-pipeline-item">Tourismus &amp; Reise</li>
+          <li class="prj-pipeline-item">Mode &amp; Lifestyle</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============== 04 CASE STUDY 02 ============== -->
-<section class="prj-case-new prj-case-2-new">
-  <div class="prj-case">
-    <div class="guides"></div>
-    <div class="container">
-      <div class="prj-case-grid prj-case-grid-reverse">
-
-        <!-- Details -->
-        <div #prjCaseText class="prj-case-text">
-          <div class="eyebrow">
-            <span class="bar"></span>
-            <span class="num">04</span> · Case Study 02
-          </div>
-          <h2>
-            Optimierte Performance für <span class="accent">GreenTech Solutions</span>
-          </h2>
-          <p class="prj-case-lead">
-            <span class="lead-bar"></span>
-            Ein hochkomplexes Produktangebot erforderte eine intuitive
-            Informationsarchitektur. Wir haben die Customer Journey vereinfacht
-            und die technische Basis modernisiert.
-          </p>
-          <ul class="prj-stat-list">
-            <li class="prj-stat-item">
-              <span class="ck">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <div>
-                <strong>Strukturierte Navigation.</strong>
-                Klare Wege durch ein komplexes Produktportfolio.
-              </div>
-            </li>
-            <li class="prj-stat-item">
-              <span class="ck">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <div>
-                <strong>Mobile‑first Responsive Design.</strong>
-                Identische Erfahrung auf jedem Endgerät.
-              </div>
-            </li>
-            <li class="prj-stat-item">
-              <span class="ck">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <div>
-                <strong>Serverless Tech‑Stack.</strong>
-                Maximale Sicherheit und wartungsarme Skalierung.
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Visual: vorher / nachher placeholder boxes -->
-        <div #prjCaseVisual class="prj-case-visual">
-          <div class="ba-card ba-vorher">
-            <span class="ba-tag">Vorher</span>
-            <span class="ba-ph" aria-hidden="true">
-              <span class="ph-bar"></span>
-              <span class="ph-label">Bild folgt</span>
-            </span>
-          </div>
-          <div class="ba-card ba-nachher">
-            <span class="ba-tag">Nachher</span>
-            <span class="ba-ph" aria-hidden="true">
-              <span class="ph-bar"></span>
-              <span class="ph-label">Bild folgt</span>
-            </span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============== 05 FINAL CTA ============== -->
+<!-- ============== 06 FINAL CTA ============== -->
 <section class="prj-final-new">
   <div class="prj-final">
     <div class="guides"></div>
@@ -269,7 +409,7 @@
           <span class="num">05</span> · Bereit?
         </div>
         <h2>
-          Sehen Sie Ihre eigene <span class="accent">Website</span> als Demo
+          Sehen Sie Ihre eigene <span class="accent">Website</span> als Vorlage
         </h2>
         <p class="prj-final-sub">
           Wir erstellen einen kostenlosen Entwurf basierend auf Ihren aktuellen Inhalten.
@@ -277,7 +417,7 @@
         </p>
         <div class="prj-final-cta-row">
           <a routerLink="/demo" class="btn-primary prj-cta-btn">
-            <span class="btn-label">Kostenlose Demo anfordern</span>
+            <span class="btn-label">Kostenlose Vorlage anfordern</span>
             <span class="icon-circ" aria-hidden="true">
               <svg class="a a1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
               <svg class="a a2" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>

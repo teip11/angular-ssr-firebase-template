@@ -1,13 +1,40 @@
-<section class="section text-center">
-  <div class="container" style="max-width:560px;margin-inline:auto">
-    <div style="font-size:5rem;margin-bottom:var(--space-4)">🔍</div>
-    <h1 class="section-title">404 — Seite nicht gefunden</h1>
-    <p class="section-subtitle" style="margin-inline:auto;margin-bottom:var(--space-8)">
-      Diese Seite existiert leider nicht. Zurück zur Startseite oder unsere Projekte ansehen.
-    </p>
-    <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
-      <a routerLink="/" class="btn btn--primary btn--lg">Zur Startseite</a>
-      <a routerLink="/projekte" class="btn btn--ghost btn--lg">Projekte ansehen</a>
+<section class="nf-page-new">
+  <div class="nf-page">
+    <div class="guides"></div>
+    <div class="container">
+      <div #nfCard class="nf-card">
+
+        <div class="nf-code" aria-hidden="true">
+          <span class="nf-code-num">404</span>
+          <span class="nf-code-bar"></span>
+          <span class="nf-code-label">Nicht gefunden</span>
+        </div>
+
+        <h1 class="nf-title">
+          Verirrt? <span class="accent">Kein Problem.</span>
+        </h1>
+
+        <p class="nf-sub">
+          Diese Seite gibt es nicht (mehr). Tippfehler, alter Link,
+          geänderte URL — alles möglich. Zurück zur Startseite oder
+          direkt zu Ihrer kostenlosen Vorlage.
+        </p>
+
+        <div class="nf-cta-row">
+          <a routerLink="/demo" class="btn-primary nf-cta-btn">
+            <span class="btn-label">Kostenlose Vorlage anfordern</span>
+            <span class="icon-circ" aria-hidden="true">
+              <svg class="a a1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+              <svg class="a a2" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+          <a routerLink="/" class="nf-cta-ghost">
+            <span>Zur Startseite</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>

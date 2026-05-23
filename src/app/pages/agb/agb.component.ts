@@ -8,15 +8,15 @@ import { RouterLink } from '@angular/router';
 import { SeoService } from '../../services/seo.service';
 
 @Component({
-  selector: 'app-impressum',
+  selector: 'app-agb',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './impressum.component.html',
-  styleUrls: ['./impressum.component.css'],
+  templateUrl: './agb.component.html',
+  styleUrls: ['./agb.component.css'],
 })
-export class ImpressumComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('impHeader', { read: ElementRef }) impHeader?: ElementRef<HTMLElement>;
-  @ViewChild('impProse',  { read: ElementRef }) impProse?:  ElementRef<HTMLElement>;
+export class AgbComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('agbHeader', { read: ElementRef }) agbHeader?: ElementRef<HTMLElement>;
+  @ViewChild('agbProse',  { read: ElementRef }) agbProse?:  ElementRef<HTMLElement>;
 
   private observers: IntersectionObserver[] = [];
 
@@ -26,7 +26,7 @@ export class ImpressumComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.seo.setPageSEO('impressum');
+    this.seo.setPageSEO('agb');
   }
 
   ngAfterViewInit(): void {
@@ -53,7 +53,7 @@ export class ImpressumComponent implements OnInit, AfterViewInit, OnDestroy {
       io.observe(el);
       this.observers.push(io);
     };
-    observe(this.impHeader?.nativeElement, 0.1);
-    observe(this.impProse?.nativeElement,  0.05);
+    observe(this.agbHeader?.nativeElement, 0.1);
+    observe(this.agbProse?.nativeElement,  0.05);
   }
 }

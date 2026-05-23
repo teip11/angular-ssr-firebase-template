@@ -61,7 +61,9 @@
   <!-- Pre-initialise dataLayer so events queued before consent are not lost -->
   <script>window.dataLayer = window.dataLayer || [];</script>
 
-  <!-- ── reCAPTCHA v3 — loaded lazily by ContactComponent ─────────────────── -->
+  <!-- ── reCAPTCHA v3 — loaded lazily by src/app/services/recaptcha.service.ts
+       on form-page ngOnInit. Site key is configured inside that service;
+       secret key lives in the EmailJS template's CAPTCHA settings. ─────── -->
 
 </head>
 <body class="bg-background text-on-background font-inter selection:bg-primary/30 antialiased dark">

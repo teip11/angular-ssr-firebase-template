@@ -1,0 +1,2974 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALTSTAHL · Velomanufaktur Berlin — handgebaute Stahlrahmen</title>
+  <meta name="description" content="ALTSTAHL Velomanufaktur. Handgebaute Chromoly-Stahlrahmen für Stadt, Land, Pfad und Berg. Maßgefertigt in Berlin-Kreuzberg, lebenslange Rahmen­garantie. Konfigurieren: 030 28 65 11 04." />
+  <meta name="theme-color" content="#0A0A09" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & tokens ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Light technical world */
+      --bg:           #F4F4F1;
+      --bg-paper:     #FAFAF7;
+      --bg-tone:      #E8E8E4;
+      --bg-warm:      #DEDEDA;
+
+      /* Cinematic dark world */
+      --bg-deep:      #0A0A09;
+      --bg-deep-2:    #141413;
+      --bg-deep-3:    #1E1E1B;
+
+      /* Text */
+      --text:         #0A0A09;
+      --text-soft:    #2A2925;
+      --text-muted:   #6B6A64;
+      --text-faint:   #A8A6A0;
+      --text-on-dark: #F4F4F1;
+      --text-on-dark-soft: #BFBFB8;
+      --text-on-dark-muted: #7F7E78;
+
+      /* Safety orange — single signal */
+      --signal:       #E66A2C;
+      --signal-d:     #BF5320;
+      --signal-soft:  #F08A55;
+      --signal-bg:    rgba(230, 106, 44, 0.10);
+
+      /* Lines */
+      --line:         #DEDEDA;
+      --line-soft:    #E8E8E4;
+      --line-faint:   #EEEEEB;
+      --line-dark:    #2A2925;
+      --line-dark-2:  #1A1A18;
+
+      --font-sans:    'Geist', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+      --font-mono:    'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.55;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+    ::selection { background: var(--signal); color: var(--bg); }
+
+    .num, .mono, time {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: 'tnum' 1, 'lnum' 1;
+    }
+
+    /* ─── Reveal — cinematic slow ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, opacity;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d-1 { transition-delay: 120ms; }
+    .reveal-d-2 { transition-delay: 220ms; }
+    .reveal-d-3 { transition-delay: 320ms; }
+    .reveal-d-4 { transition-delay: 420ms; }
+    .reveal-d-5 { transition-delay: 520ms; }
+
+    .img-mask {
+      overflow: hidden;
+      position: relative;
+    }
+    .img-mask img {
+      transform: scale(1.10);
+      opacity: 0;
+      transition: transform 1900ms cubic-bezier(0.22, 1, 0.36, 1),
+                  opacity 1300ms ease;
+    }
+    .img-mask.visible img { transform: scale(1.0); opacity: 1; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .img-mask img { transform: none; opacity: 1; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ─── Containers ─────────────────────────────────────────────────────── */
+    .wrap        { max-width: 1380px; margin: 0 auto; padding: 0 40px; }
+    .wrap-wide   { max-width: 1560px; margin: 0 auto; padding: 0 40px; }
+    .wrap-tight  { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+    @media (max-width: 720px) {
+      .wrap, .wrap-wide, .wrap-tight { padding: 0 22px; }
+    }
+
+    /* ─── Type roles ─────────────────────────────────────────────────────── */
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--signal);
+      text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    .eyebrow .d {
+      width: 8px; height: 8px;
+      background: var(--signal);
+    }
+    .eyebrow.on-dark { color: var(--signal-soft); }
+    .eyebrow.on-dark .d { background: var(--signal-soft); }
+    .eyebrow.muted { color: var(--text-muted); }
+    .eyebrow.muted .d { background: var(--text-muted); }
+
+    .chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 10px;
+      background: var(--bg-tone);
+      border: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+    .chip .d {
+      width: 6px; height: 6px;
+      background: var(--signal);
+    }
+    .chip.on-dark {
+      background: var(--bg-deep-3);
+      border-color: var(--line-dark);
+      color: var(--text-on-dark);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      letter-spacing: -0.022em;
+      line-height: 1.0;
+      color: var(--text);
+    }
+    h1.display-xl { font-size: clamp(3.2rem, 9.6vw, 8.4rem); letter-spacing: -0.030em; line-height: 0.92; }
+    h1.display    { font-size: clamp(2.8rem, 7vw, 6.4rem); letter-spacing: -0.026em; line-height: 0.95; }
+    h2.display    { font-size: clamp(2.2rem, 4.8vw, 4.4rem); letter-spacing: -0.024em; line-height: 0.96; }
+    h3.display    { font-size: clamp(1.5rem, 2.6vw, 2.2rem); letter-spacing: -0.014em; line-height: 1.05; }
+
+    h1 em, h2 em, h3 em, h4 em {
+      color: var(--signal);
+      font-style: normal;
+      font-weight: 500;
+    }
+    h1 .light, h2 .light, h3 .light {
+      font-weight: 300;
+      color: var(--text-muted);
+      letter-spacing: -0.022em;
+    }
+
+    .lead {
+      font-family: var(--font-sans);
+      font-size: 1.08rem;
+      line-height: 1.6;
+      color: var(--text-soft);
+      max-width: 60ch;
+      font-weight: 400;
+    }
+
+    /* ─── Buttons (Cinematic Product — clean, refined) ───────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 14px;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      padding: 14px 22px;
+      border-radius: 4px;
+      transition: background 240ms ease, color 240ms ease,
+                  border-color 240ms ease, transform 220ms cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 280ms ease;
+      cursor: pointer;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn .arrow {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 14px; height: 14px;
+      position: relative;
+    }
+    .btn .arrow::before {
+      content: '';
+      position: absolute; left: 0; top: 50%;
+      width: 12px; height: 1.5px;
+      background: currentColor;
+      transform: translateY(-50%);
+      transition: width 320ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .btn .arrow::after {
+      content: '';
+      position: absolute; right: 0; top: 50%;
+      width: 6px; height: 6px;
+      border-top: 1.5px solid currentColor;
+      border-right: 1.5px solid currentColor;
+      transform: translateY(-50%) rotate(45deg) translate(1px, -1px);
+    }
+    .btn:hover .arrow::before { width: 18px; }
+
+    .btn-signal {
+      background: var(--signal);
+      color: #fff;
+      border: 1px solid var(--signal);
+    }
+    .btn-signal:hover {
+      background: var(--signal-d);
+      border-color: var(--signal-d);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px -10px rgba(230,106,44,0.35);
+    }
+
+    .btn-dark {
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--text);
+    }
+    .btn-dark:hover { background: var(--bg-deep-2); transform: translateY(-1px); box-shadow: 0 12px 24px -10px rgba(10,10,9,0.30); }
+
+    .btn-ghost {
+      color: var(--text);
+      border: 1px solid var(--line);
+      background: var(--bg);
+    }
+    .btn-ghost:hover { border-color: var(--text); background: var(--bg-tone); }
+
+    .btn-light {
+      color: var(--bg);
+      border: 1px solid var(--text-on-dark-soft);
+      background: transparent;
+    }
+    .btn-light:hover { background: var(--bg); color: var(--text); border-color: var(--bg); }
+
+    .btn-light-solid {
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--bg);
+    }
+    .btn-light-solid:hover { background: var(--signal); color: #fff; border-color: var(--signal); }
+
+    .link-line {
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      color: var(--text);
+      display: inline-flex; align-items: center; gap: 10px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--text);
+      transition: gap 280ms ease, color 220ms ease, border-color 220ms ease;
+    }
+    .link-line:hover { gap: 16px; color: var(--signal); border-bottom-color: var(--signal); }
+    .link-line.on-dark { color: var(--text-on-dark); border-bottom-color: var(--text-on-dark); }
+    .link-line.on-dark:hover { color: var(--signal-soft); border-bottom-color: var(--signal-soft); }
+    .link-line .tick {
+      width: 14px; height: 1px; background: currentColor; position: relative; align-self: center;
+    }
+    .link-line .tick::after {
+      content: ''; position: absolute; right: 0; top: 50%;
+      width: 6px; height: 6px;
+      border-top: 1px solid currentColor;
+      border-right: 1px solid currentColor;
+      transform: translateY(-50%) rotate(45deg) translate(1px, -1px);
+    }
+
+    /* ─── Navigation — refined top rail ──────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 10px 40px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 32px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+    /* hero is dark — nav stays light by default but text is light when over hero */
+    .nav.on-hero { color: var(--text-on-dark); }
+    .nav.on-hero .nav-brand .word,
+    .nav.on-hero .nav-link,
+    .nav.on-hero .nav-phone,
+    .nav.on-hero .nav-lang { color: var(--text-on-dark); }
+    .nav.on-hero .nav-brand .mark {
+      background: var(--text-on-dark);
+      color: var(--text);
+    }
+    .nav.scrolled.on-hero { color: var(--text); }
+    .nav.scrolled.on-hero .nav-brand .word,
+    .nav.scrolled.on-hero .nav-link,
+    .nav.scrolled.on-hero .nav-phone,
+    .nav.scrolled.on-hero .nav-lang { color: var(--text); }
+    .nav.scrolled.on-hero .nav-brand .mark {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .nav-left { display: flex; align-items: center; gap: 24px; }
+    .nav-brand {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.98rem;
+      letter-spacing: -0.01em;
+    }
+    .nav-brand .mark {
+      width: 28px; height: 28px;
+      background: var(--text);
+      color: var(--bg);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      border-radius: 4px;
+    }
+    .nav-brand .word {
+      display: inline-flex; align-items: baseline; gap: 8px;
+      letter-spacing: 0;
+    }
+    .nav-brand .word .sub {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 400;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding-left: 8px;
+      border-left: 1px solid currentColor;
+      opacity: 0.7;
+    }
+
+    .nav-center {
+      display: flex; align-items: center; gap: 6px;
+      justify-self: center;
+    }
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      color: var(--text-soft);
+      transition: background 220ms ease, color 220ms ease;
+      display: inline-flex; align-items: baseline; gap: 6px;
+    }
+    .nav-link:hover { color: var(--text); background: rgba(10,10,9,0.05); }
+    .nav.on-hero .nav-link:hover { background: rgba(244,244,241,0.10); color: var(--text-on-dark); }
+    .nav.scrolled.on-hero .nav-link:hover { background: rgba(10,10,9,0.05); color: var(--text); }
+    .nav-link .ix {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      color: var(--text-faint);
+      letter-spacing: 0.06em;
+      font-weight: 400;
+    }
+    .nav.on-hero .nav-link .ix { color: var(--text-on-dark-muted); }
+
+    .nav-right {
+      display: flex; justify-content: flex-end; align-items: center; gap: 14px;
+    }
+    .nav-lang {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      display: inline-flex; gap: 4px;
+    }
+    .nav-lang .a { color: var(--text); }
+    .nav.on-hero .nav-lang { color: var(--text-on-dark-muted); }
+    .nav.on-hero .nav-lang .a { color: var(--text-on-dark); }
+    .nav-lang .sep { color: var(--text-faint); }
+
+    .nav-phone {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background 220ms ease;
+      display: inline-flex; align-items: center; gap: 8px;
+      white-space: nowrap;
+    }
+    .nav-phone:hover { background: rgba(10,10,9,0.05); }
+    .nav.on-hero .nav-phone:hover { background: rgba(244,244,241,0.10); }
+    .nav.scrolled.on-hero .nav-phone:hover { background: rgba(10,10,9,0.05); }
+    .nav-phone .d {
+      width: 6px; height: 6px;
+      background: var(--signal);
+      border-radius: 50%;
+    }
+
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      color: #fff;
+      background: var(--signal);
+      padding: 10px 18px;
+      border-radius: 4px;
+      transition: background 220ms ease, transform 220ms ease;
+    }
+    .nav-cta:hover {
+      background: var(--signal-d);
+      transform: translateY(-1px);
+    }
+    .nav-cta .ar {
+      width: 12px; height: 1.5px; background: currentColor; position: relative;
+    }
+    .nav-cta .ar::after {
+      content: ''; position: absolute; right: 0; top: 50%;
+      width: 6px; height: 6px;
+      border-top: 1.5px solid currentColor;
+      border-right: 1.5px solid currentColor;
+      transform: translateY(-50%) rotate(45deg) translate(1px, -1px);
+    }
+
+    .nav-burger {
+      display: none;
+      width: 40px; height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--bg);
+      align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .nav.on-hero .nav-burger { background: rgba(244,244,241,0.1); border-color: var(--text-on-dark-muted); }
+    .nav.scrolled.on-hero .nav-burger { background: var(--bg); border-color: var(--line); }
+    .nav-burger span {
+      position: relative; display: block;
+      width: 16px; height: 1.5px; background: var(--text);
+    }
+    .nav.on-hero .nav-burger span { background: var(--text-on-dark); }
+    .nav.scrolled.on-hero .nav-burger span { background: var(--text); }
+    .nav-burger span::before,
+    .nav-burger span::after {
+      content: ''; position: absolute; left: 0; width: 16px; height: 1.5px;
+      background: currentColor;
+      transition: transform 200ms ease, top 200ms ease;
+    }
+    .nav-burger span::before { top: -5px; }
+    .nav-burger span::after  { top: 5px; }
+
+    @media (max-width: 1180px) {
+      .nav-center { display: none; }
+      .nav-phone .lbl { display: none; }
+    }
+    @media (max-width: 720px) {
+      .nav { grid-template-columns: 1fr auto; padding: 14px 22px; gap: 12px; }
+      .nav-center, .nav-phone, .nav-lang, .nav-cta { display: none; }
+      .nav-burger { display: inline-flex; }
+      .nav-brand .word .sub { display: none; }
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed; inset: 0; z-index: 99;
+      background: var(--bg);
+      padding: 100px 22px 32px;
+      transform: translateY(-100%);
+      transition: transform 460ms cubic-bezier(0.22,1,0.36,1);
+      pointer-events: none;
+      flex-direction: column;
+    }
+    @media (max-width: 720px) {
+      .mobile-menu { display: flex; }
+    }
+    .mobile-menu.open { transform: translateY(0); pointer-events: auto; }
+    .mobile-menu a {
+      display: flex; align-items: baseline; justify-content: space-between;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--font-sans);
+      font-size: 1.6rem;
+      font-weight: 500;
+      letter-spacing: -0.018em;
+      color: var(--text);
+    }
+    .mobile-menu a em { color: var(--signal); font-style: normal; }
+    .mobile-menu a .ix {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+    .mobile-menu .m-foot {
+      margin-top: auto;
+      padding-top: 36px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .mobile-menu .m-foot .p {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--signal);
+      font-weight: 500;
+    }
+    .mobile-menu .m-foot .l {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── Section frame ──────────────────────────────────────────────────── */
+    section { position: relative; }
+    .section-pad-lg { padding: 160px 0 140px; }
+    .section-pad    { padding: 130px 0 110px; }
+    .section-pad-sm { padding: 90px 0 80px; }
+    @media (max-width: 980px) {
+      .section-pad-lg { padding: 100px 0 88px; }
+      .section-pad    { padding: 80px 0 70px; }
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 64px;
+      margin-bottom: 80px;
+      align-items: end;
+    }
+    .section-head .copy {
+      font-family: var(--font-sans);
+      font-size: 1.06rem;
+      line-height: 1.6;
+      color: var(--text-soft);
+      max-width: 56ch;
+    }
+    .section-head.on-dark .copy { color: var(--text-on-dark-soft); }
+    @media (max-width: 980px) {
+      .section-head { grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
+    }
+
+    /* ─── HERO — CINEMATIC DARK STAGE ────────────────────────────────────── */
+    .hero {
+      position: relative;
+      margin-top: 55px;
+      min-height: calc(100dvh - 55px);
+      padding-top: 96px;
+      background: var(--bg-deep);
+      color: var(--text-on-dark);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    @media (max-width: 720px) {
+      .hero { margin-top: 62px; min-height: calc(100dvh - 62px); padding-top: 64px; }
+    }
+    .hero-stage {
+      position: absolute; inset: 0;
+      z-index: 1;
+    }
+    .hero-stage img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: contrast(1.08) saturate(0.92) brightness(0.85);
+      transform: scale(1.06);
+      transition: transform 2400ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .hero.loaded .hero-stage img { transform: scale(1.0); }
+    .hero-stage::after {
+      content: ''; position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, rgba(10,10,9,0.55) 0%, transparent 30%, transparent 55%, rgba(10,10,9,0.85) 100%),
+        radial-gradient(80% 60% at 70% 100%, rgba(230,106,44,0.10), transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-meta {
+      position: relative;
+      z-index: 5;
+      padding: 28px 40px 0;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--text-on-dark-muted);
+      text-transform: uppercase;
+      gap: 24px;
+    }
+    .hero-meta .center {
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      letter-spacing: -0.005em;
+      text-transform: none;
+      color: var(--text-on-dark-soft);
+      font-weight: 400;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      margin-top: auto;
+      padding: 0 0 56px;
+      flex-shrink: 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 8fr 4fr;
+      gap: 48px;
+      align-items: end;
+    }
+
+    .hero-text {
+      display: flex; flex-direction: column; gap: 28px;
+    }
+    .hero-text .chips {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .hero-text h1 {
+      font-family: var(--font-sans);
+      font-size: clamp(2.8rem, 8.4vw, 7.6rem);
+      letter-spacing: -0.030em;
+      line-height: 0.92;
+      font-weight: 500;
+      color: var(--text-on-dark);
+      max-width: 16ch;
+    }
+    .hero-text h1 .line { display: block; }
+    .hero-text h1 em { color: var(--signal); font-style: normal; font-weight: 500; }
+    .hero-text h1 .light { color: var(--text-on-dark-soft); font-weight: 300; }
+
+    .hero-text .lede {
+      font-family: var(--font-sans);
+      font-size: 1.08rem;
+      line-height: 1.6;
+      color: var(--text-on-dark-soft);
+      max-width: 48ch;
+      font-weight: 400;
+    }
+    .hero-text .actions {
+      display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+    }
+
+    /* Right column — model spec card floating */
+    .hero-card {
+      background: rgba(20, 20, 19, 0.72);
+      border: 1px solid var(--line-dark);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      padding: 24px 24px 22px;
+      border-radius: 6px;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .hero-card .hc-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 12px;
+    }
+    .hero-card .hc-head .ix {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.10em;
+      color: var(--signal-soft);
+      text-transform: uppercase;
+    }
+    .hero-card .hc-head .name {
+      font-family: var(--font-sans);
+      font-size: 1.0rem;
+      font-weight: 600;
+      color: var(--text-on-dark);
+      letter-spacing: -0.012em;
+    }
+    .hero-card .hc-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-on-dark-muted);
+      letter-spacing: 0.04em;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line-dark);
+    }
+    .hero-card .hc-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 18px;
+    }
+    .hero-card .hc-specs .s { display: flex; flex-direction: column; gap: 3px; }
+    .hero-card .hc-specs .k {
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-on-dark-muted);
+    }
+    .hero-card .hc-specs .v {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: var(--text-on-dark);
+      letter-spacing: 0;
+      font-variant-numeric: tabular-nums;
+      font-weight: 500;
+    }
+    .hero-card .hc-foot {
+      padding-top: 14px;
+      border-top: 1px solid var(--line-dark);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .hero-card .hc-price {
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--text-on-dark);
+      letter-spacing: -0.012em;
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-card .hc-price .from {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.10em;
+      color: var(--text-on-dark-muted);
+      text-transform: uppercase;
+      font-weight: 400;
+      margin-right: 6px;
+    }
+    .hero-card .hc-arrow {
+      width: 32px; height: 32px;
+      background: var(--signal);
+      border-radius: 4px;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: background 220ms ease, transform 220ms ease;
+    }
+    .hero-card .hc-arrow:hover { background: var(--signal-soft); transform: translateY(-1px); }
+    .hero-card .hc-arrow::after {
+      content: '';
+      width: 7px; height: 7px;
+      border-top: 1.5px solid #fff;
+      border-right: 1.5px solid #fff;
+      transform: rotate(45deg) translate(-1px, 1px);
+    }
+
+    /* Hero stat ledger band — bottom */
+    .hero-ledger {
+      position: relative;
+      z-index: 5;
+      background: rgba(10,10,9,0.78);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--line-dark);
+      padding: 18px 40px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr) auto;
+      gap: 32px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .hero-ledger .item {
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .hero-ledger .item .k {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-on-dark-muted);
+    }
+    .hero-ledger .item .v {
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      color: var(--text-on-dark);
+      letter-spacing: 0;
+      font-variant-numeric: tabular-nums;
+      font-weight: 500;
+    }
+    .hero-ledger .item .v .unit {
+      font-size: 0.74rem;
+      color: var(--text-on-dark-muted);
+      margin-left: 4px;
+    }
+    .hero-ledger .badge {
+      justify-self: end;
+      padding: 8px 14px;
+      background: var(--signal);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+      .hero-card { max-width: 100%; }
+    }
+    @media (max-width: 980px) {
+      .hero-meta { padding: 20px 22px 0; }
+      .hero-ledger {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        padding: 18px 22px;
+      }
+      .hero-ledger .badge { grid-column: 1 / -1; justify-self: start; margin-top: 4px; }
+    }
+    @media (max-width: 720px) {
+      .hero-meta { font-size: 0.66rem; }
+      .hero-meta .center { display: none; }
+      .hero-content { padding-bottom: 36px; }
+      .hero-card { display: none; }
+      .hero-ledger {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 20px 22px;
+      }
+      .hero-ledger .item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: baseline;
+        gap: 16px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--line-dark-2);
+      }
+      .hero-ledger .item:nth-last-child(2) { border-bottom: none; padding-bottom: 0; }
+    }
+
+    /* ─── MODELS — product grid ──────────────────────────────────────────── */
+    .models {
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+    }
+
+    .models-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .model {
+      background: var(--bg-paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color 280ms ease, transform 280ms cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 280ms ease;
+    }
+    .model:hover {
+      border-color: var(--text);
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px -32px rgba(10,10,9,0.25);
+    }
+
+    .model-img {
+      aspect-ratio: 16 / 11;
+      position: relative;
+      overflow: hidden;
+      background: var(--bg-tone);
+      border-bottom: 1px solid var(--line);
+    }
+    .model-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 1300ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .model:hover .model-img img { transform: scale(1.04); }
+    .model-img .badge {
+      position: absolute;
+      top: 18px; left: 18px;
+      padding: 6px 10px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      display: inline-flex; align-items: center; gap: 7px;
+    }
+    .model-img .badge .d {
+      width: 6px; height: 6px;
+      background: var(--signal);
+      border-radius: 50%;
+    }
+    .model-img .badge.dark {
+      background: var(--bg-deep);
+      color: var(--text-on-dark);
+      border-color: var(--line-dark);
+    }
+    .model-img .num {
+      position: absolute;
+      top: 18px; right: 22px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .model-body {
+      padding: 28px 28px 28px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .model-body .m-top {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 16px;
+    }
+    .model-body .name {
+      font-family: var(--font-sans);
+      font-size: 1.55rem;
+      font-weight: 500;
+      letter-spacing: -0.020em;
+      color: var(--text);
+    }
+    .model-body .tag {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      color: var(--text-muted);
+    }
+    .model-body p {
+      font-family: var(--font-sans);
+      font-size: 0.96rem;
+      line-height: 1.55;
+      color: var(--text-soft);
+      max-width: 48ch;
+    }
+
+    .model-specs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      margin-top: 6px;
+    }
+    .model-specs .s {
+      padding: 14px 14px;
+      border-right: 1px solid var(--line);
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .model-specs .s:first-child { padding-left: 0; }
+    .model-specs .s:last-child { border-right: none; padding-right: 0; }
+    .model-specs .k {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .model-specs .v {
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      color: var(--text);
+      letter-spacing: 0;
+      font-variant-numeric: tabular-nums;
+      font-weight: 500;
+    }
+
+    .model-foot {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px;
+      padding-top: 4px;
+    }
+    .model-foot .price {
+      font-family: var(--font-sans);
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: -0.018em;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+    .model-foot .price .from {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.10em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 400;
+      margin-right: 6px;
+    }
+    .model-foot .actions {
+      display: flex; gap: 8px;
+    }
+
+    @media (max-width: 720px) {
+      .models-grid { grid-template-columns: 1fr; }
+      .model-specs { grid-template-columns: repeat(2, 1fr); }
+      .model-specs .s:nth-child(2n) { border-right: none; }
+      .model-specs .s:nth-child(1), .model-specs .s:nth-child(2) { border-bottom: 1px solid var(--line); }
+    }
+
+    /* ─── KONFIGURATOR (dark callout) ────────────────────────────────────── */
+    .konfig {
+      background: var(--bg-deep);
+      color: var(--text-on-dark);
+      border-top: 1px solid var(--line);
+      overflow: hidden;
+      position: relative;
+    }
+    .konfig::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(60% 80% at 80% 50%, rgba(230,106,44,0.12), transparent 60%);
+      pointer-events: none;
+    }
+    .konfig-grid {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .konfig-text {
+      display: flex; flex-direction: column; gap: 28px;
+    }
+    .konfig-text h2 {
+      font-family: var(--font-sans);
+      font-size: clamp(2.4rem, 5.4vw, 4.6rem);
+      letter-spacing: -0.026em;
+      line-height: 0.96;
+      font-weight: 500;
+      color: var(--text-on-dark);
+      max-width: 18ch;
+    }
+    .konfig-text h2 em { color: var(--signal); font-style: normal; }
+    .konfig-text h2 .light { color: var(--text-on-dark-muted); font-weight: 300; }
+    .konfig-text .lead {
+      color: var(--text-on-dark-soft);
+      max-width: 50ch;
+    }
+
+    .konfig-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      padding-top: 16px;
+      border-top: 1px solid var(--line-dark);
+    }
+    .konfig-steps .step {
+      padding: 22px 0;
+      border-right: 1px solid var(--line-dark);
+      display: flex; flex-direction: column; gap: 8px;
+      padding-right: 18px;
+    }
+    .konfig-steps .step:first-child { padding-left: 0; }
+    .konfig-steps .step:last-child { border-right: none; padding-right: 0; }
+    .konfig-steps .step .ix {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.10em;
+      color: var(--signal-soft);
+      font-weight: 500;
+    }
+    .konfig-steps .step .t {
+      font-family: var(--font-sans);
+      font-size: 1.0rem;
+      font-weight: 500;
+      color: var(--text-on-dark);
+      letter-spacing: -0.012em;
+    }
+    .konfig-steps .step .d {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      line-height: 1.45;
+      color: var(--text-on-dark-muted);
+      max-width: 22ch;
+    }
+
+    .konfig-actions {
+      display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+      padding-top: 4px;
+    }
+
+    .konfig-visual {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg-deep-2);
+      border: 1px solid var(--line-dark);
+    }
+    .konfig-visual img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: contrast(1.1) saturate(0.92) brightness(0.92);
+    }
+    .konfig-visual .preview-meta {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 18px 22px;
+      background: rgba(10,10,9,0.78);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--line-dark);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-on-dark-soft);
+    }
+    .konfig-visual .preview-meta .k {
+      color: var(--text-on-dark-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.64rem;
+    }
+    .konfig-visual .preview-meta .v {
+      color: var(--text-on-dark);
+      font-variant-numeric: tabular-nums;
+    }
+    .konfig-visual .live-dot {
+      position: absolute; top: 20px; right: 22px;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-on-dark);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      background: rgba(10,10,9,0.78);
+      backdrop-filter: blur(6px);
+      border-radius: 4px;
+      border: 1px solid var(--line-dark);
+    }
+    .konfig-visual .live-dot .d {
+      width: 7px; height: 7px;
+      background: var(--signal);
+      border-radius: 50%;
+      animation: pulseDot 2.4s ease-in-out infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    @media (max-width: 1080px) {
+      .konfig-grid { grid-template-columns: 1fr; gap: 48px; }
+      .konfig-steps { grid-template-columns: repeat(2, 1fr); }
+      .konfig-steps .step:nth-child(2) { border-right: none; }
+      .konfig-steps .step:nth-child(2n+1) { padding-left: 0; }
+    }
+    @media (max-width: 540px) {
+      .konfig-steps { grid-template-columns: 1fr; }
+      .konfig-steps .step { border-right: none; border-bottom: 1px solid var(--line-dark); padding-right: 0; padding-left: 0 !important; }
+      .konfig-steps .step:last-child { border-bottom: none; }
+    }
+
+    /* ─── HANDWERK / Workshop ────────────────────────────────────────────── */
+    .handwerk { background: var(--bg); border-top: 1px solid var(--line); }
+
+    .handwerk-grid {
+      display: grid;
+      grid-template-columns: 6fr 6fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .handwerk-img {
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: var(--bg-tone);
+      border-radius: 8px;
+      position: relative;
+    }
+    .handwerk-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: contrast(1.05) saturate(0.92);
+    }
+    .handwerk-img .corner {
+      position: absolute;
+      top: 22px; left: 22px;
+      padding: 7px 12px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .handwerk-img .corner .d {
+      width: 6px; height: 6px; background: var(--signal);
+    }
+    .handwerk-img .corner-r {
+      position: absolute;
+      bottom: 22px; right: 22px;
+      padding: 7px 12px;
+      background: rgba(10,10,9,0.85);
+      backdrop-filter: blur(6px);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--text-on-dark);
+    }
+
+    .handwerk-text {
+      display: flex; flex-direction: column; gap: 26px;
+    }
+    .handwerk-text h2 { max-width: 14ch; }
+    .handwerk-text p {
+      font-family: var(--font-sans);
+      font-size: 1.06rem;
+      line-height: 1.65;
+      color: var(--text-soft);
+      max-width: 52ch;
+    }
+    .handwerk-text p strong {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .handwerk-list {
+      list-style: none;
+      display: flex; flex-direction: column;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+    .handwerk-list li {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      gap: 18px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .handwerk-list li .ix {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--signal);
+      letter-spacing: 0.04em;
+      font-weight: 500;
+    }
+    .handwerk-list li .t {
+      font-family: var(--font-sans);
+      font-size: 1.0rem;
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .handwerk-list li .t .d {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      color: var(--text-soft);
+      font-weight: 400;
+      margin-top: 4px;
+    }
+    .handwerk-list li .v {
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (max-width: 980px) {
+      .handwerk-grid { grid-template-columns: 1fr; gap: 40px; }
+      .handwerk-img { max-width: 540px; }
+    }
+
+    /* ─── TECH SPECS — Apple-style spec sheet ────────────────────────────── */
+    .specs {
+      background: var(--bg-paper);
+      border-top: 1px solid var(--line);
+    }
+
+    .specs-head {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 64px;
+      align-items: end;
+      margin-bottom: 56px;
+    }
+    .specs-head h2 { max-width: 14ch; }
+    .specs-head .selector {
+      display: flex; gap: 6px;
+      flex-wrap: wrap;
+    }
+    .spec-tab {
+      padding: 9px 16px;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-soft);
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 220ms ease, color 220ms ease, border-color 220ms ease;
+    }
+    .spec-tab:hover { color: var(--text); border-color: var(--text); }
+    .spec-tab.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    .specs-table {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .specs-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .specs-row:last-child { border-bottom: none; }
+    .specs-row.header {
+      background: var(--bg-tone);
+      border-bottom: 1px solid var(--text);
+    }
+    .specs-row .cell {
+      padding: 18px 20px;
+      border-right: 1px solid var(--line);
+      font-family: var(--font-sans);
+      font-size: 0.94rem;
+      color: var(--text);
+    }
+    .specs-row .cell:last-child { border-right: none; }
+    .specs-row.header .cell {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+      padding: 14px 20px;
+    }
+    .specs-row.header .cell.model {
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--text);
+      text-transform: none;
+      letter-spacing: -0.005em;
+    }
+    .specs-row .cell.label {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      font-weight: 500;
+      background: var(--bg-paper);
+    }
+    .specs-row .cell.value {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: var(--text);
+      letter-spacing: 0;
+      font-variant-numeric: tabular-nums;
+      font-weight: 500;
+    }
+    .specs-row .cell.value.signal {
+      color: var(--signal);
+    }
+    .specs-row .cell.value .small {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      font-weight: 400;
+      margin-top: 3px;
+    }
+
+    @media (max-width: 980px) {
+      .specs-head { grid-template-columns: 1fr; gap: 24px; }
+      .specs-table {
+        overflow-x: auto;
+      }
+      .specs-row {
+        grid-template-columns: 200px repeat(4, 160px);
+        min-width: 840px;
+      }
+    }
+
+    /* ─── COMPONENTS / Bill of materials ─────────────────────────────────── */
+    .bom { background: var(--bg); border-top: 1px solid var(--line); overflow: hidden; }
+    .bom-head {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 64px;
+      align-items: end;
+      margin-bottom: 64px;
+    }
+    .bom-head h2 { max-width: 16ch; }
+    .bom-head .copy {
+      font-family: var(--font-sans);
+      font-size: 1.04rem;
+      line-height: 1.6;
+      color: var(--text-soft);
+      max-width: 50ch;
+    }
+
+    .bom-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .part {
+      background: var(--bg-paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color 280ms ease;
+    }
+    .part:hover { border-color: var(--text); }
+    .part-img {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      position: relative;
+      background: var(--bg-tone);
+      border-bottom: 1px solid var(--line);
+    }
+    .part-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: contrast(1.04) saturate(0.95);
+      transition: transform 1100ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .part:hover .part-img img { transform: scale(1.04); }
+    .part-img .ix {
+      position: absolute;
+      top: 14px; left: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      padding: 4px 8px;
+      background: var(--bg);
+      border-radius: 4px;
+    }
+    .part-img .origin {
+      position: absolute;
+      top: 14px; right: 16px;
+      padding: 4px 9px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .part-img .origin .d {
+      width: 5px; height: 5px;
+      background: var(--signal);
+      border-radius: 50%;
+    }
+
+    .part-body {
+      padding: 22px 22px 24px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .part-body .cat {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--signal);
+      text-transform: uppercase;
+    }
+    .part-body .name {
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: -0.012em;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .part-body .desc {
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text-soft);
+      max-width: 42ch;
+    }
+    .part-body .meta {
+      margin-top: 6px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+    .part-body .meta .v { color: var(--text); }
+
+    @media (max-width: 980px) { .bom-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .bom-grid { grid-template-columns: 1fr; } .bom-head { grid-template-columns: 1fr; gap: 24px; } }
+
+    /* ─── PROMISE / Lifetime warranty ────────────────────────────────────── */
+    .promise {
+      background: var(--bg-paper);
+      border-top: 1px solid var(--line);
+    }
+    .promise-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .promise-cell {
+      padding: 56px 32px 52px;
+      border-right: 1px solid var(--line);
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .promise-cell:last-child { border-right: none; }
+    .promise-cell .pix {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.06em;
+      color: var(--signal);
+      font-weight: 500;
+    }
+    .promise-cell h3 {
+      font-family: var(--font-sans);
+      font-size: 1.55rem;
+      font-weight: 500;
+      letter-spacing: -0.020em;
+      line-height: 1.0;
+      color: var(--text);
+      max-width: 14ch;
+    }
+    .promise-cell h3 em { color: var(--signal); font-style: normal; }
+    .promise-cell p {
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--text-soft);
+      max-width: 36ch;
+    }
+    .promise-cell .value {
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+    .promise-cell .value .v {
+      font-family: var(--font-sans);
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: -0.018em;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (max-width: 980px) {
+      .promise-row { grid-template-columns: repeat(2, 1fr); }
+      .promise-cell { border-bottom: 1px solid var(--line); }
+      .promise-cell:nth-child(2n) { border-right: none; }
+      .promise-cell:nth-last-child(-n+2) { border-bottom: none; }
+    }
+    @media (max-width: 600px) {
+      .promise-row { grid-template-columns: 1fr; }
+      .promise-cell { border-right: none; border-bottom: 1px solid var(--line); padding: 36px 24px; }
+      .promise-cell:last-child { border-bottom: none; }
+    }
+
+    /* ─── STORY / FOUNDER ────────────────────────────────────────────────── */
+    .story { background: var(--bg); border-top: 1px solid var(--line); }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 4fr 8fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .story-img {
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--bg-tone);
+      position: sticky; top: 100px;
+    }
+    .story-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: contrast(1.06) saturate(0.92);
+    }
+    .story-body {
+      display: flex; flex-direction: column; gap: 32px;
+      padding-top: 12px;
+    }
+    .story-body .quote {
+      font-family: var(--font-sans);
+      font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+      font-weight: 500;
+      letter-spacing: -0.022em;
+      line-height: 1.18;
+      color: var(--text);
+      max-width: 26ch;
+    }
+    .story-body .quote em { color: var(--signal); font-style: normal; }
+    .story-body p {
+      font-family: var(--font-sans);
+      font-size: 1.08rem;
+      line-height: 1.7;
+      color: var(--text-soft);
+      max-width: 62ch;
+    }
+    .story-body p strong { color: var(--text); font-weight: 500; }
+
+    .story-sig {
+      display: flex; align-items: center; gap: 18px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+    .story-sig .who {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .story-sig .who .n {
+      font-family: var(--font-sans);
+      font-size: 1.0rem;
+      font-weight: 500;
+      letter-spacing: -0.010em;
+      color: var(--text);
+    }
+    .story-sig .who .r {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 980px) {
+      .story-grid { grid-template-columns: 1fr; gap: 40px; }
+      .story-img { position: static; max-width: 460px; }
+    }
+
+    /* ─── PRESS / Testimonials strip ─────────────────────────────────────── */
+    .press {
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+      padding: 80px 0;
+    }
+    .press-grid {
+      display: grid;
+      grid-template-columns: 1fr 4fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .press-grid .label {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding-top: 8px;
+    }
+    .press-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px 48px;
+    }
+    .press-card {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .press-card .src {
+      font-family: var(--font-sans);
+      font-size: 0.96rem;
+      font-weight: 600;
+      letter-spacing: -0.012em;
+      color: var(--text);
+    }
+    .press-card .src .y {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      margin-left: 8px;
+    }
+    .press-card .quote {
+      font-family: var(--font-sans);
+      font-size: 0.98rem;
+      line-height: 1.55;
+      color: var(--text-soft);
+      max-width: 38ch;
+    }
+    .press-card .quote em { color: var(--text); font-style: normal; font-weight: 500; }
+    @media (max-width: 980px) {
+      .press-grid { grid-template-columns: 1fr; gap: 28px; }
+      .press-list { grid-template-columns: repeat(2, 1fr); gap: 28px 24px; }
+    }
+    @media (max-width: 600px) {
+      .press-list { grid-template-columns: 1fr; gap: 28px; }
+    }
+
+    /* ─── CONTACT / Inquiry (final dark band) ────────────────────────────── */
+    .contact {
+      background: var(--bg-deep);
+      color: var(--text-on-dark);
+      border-top: 1px solid var(--line);
+      overflow: hidden;
+      position: relative;
+    }
+    .contact::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(60% 70% at 20% 20%, rgba(230,106,44,0.08), transparent 60%);
+      pointer-events: none;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 80px;
+      align-items: start;
+      position: relative;
+      z-index: 2;
+    }
+    .contact-left {
+      display: flex; flex-direction: column; gap: 28px;
+    }
+    .contact-left h2 {
+      font-family: var(--font-sans);
+      font-size: clamp(2.2rem, 4.6vw, 3.8rem);
+      letter-spacing: -0.024em;
+      line-height: 0.98;
+      font-weight: 500;
+      color: var(--text-on-dark);
+      max-width: 14ch;
+    }
+    .contact-left h2 em { color: var(--signal); font-style: normal; }
+    .contact-left h2 .light { color: var(--text-on-dark-muted); font-weight: 300; }
+    .contact-left .lede {
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: var(--text-on-dark-soft);
+      max-width: 48ch;
+    }
+
+    .contact-steps {
+      list-style: none;
+      display: flex; flex-direction: column;
+      padding-top: 10px;
+      border-top: 1px solid var(--line-dark);
+    }
+    .contact-steps li {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line-dark);
+      font-family: var(--font-sans);
+      font-size: 0.94rem;
+      color: var(--text-on-dark);
+    }
+    .contact-steps li .ix {
+      font-family: var(--font-mono);
+      color: var(--signal-soft);
+      letter-spacing: 0.04em;
+    }
+    .contact-steps li em { color: var(--signal-soft); font-style: normal; font-weight: 500; }
+
+    .contact-form {
+      background: var(--bg-deep-2);
+      border: 1px solid var(--line-dark);
+      border-radius: 8px;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+    .cfield { display: flex; flex-direction: column; gap: 10px; }
+    .cfield.full { grid-column: 1 / -1; }
+    .cfield label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-on-dark-muted);
+      font-weight: 500;
+    }
+    .cfield label .req { color: var(--signal-soft); margin-left: 4px; }
+    .cfield input, .cfield select, .cfield textarea {
+      background: var(--bg-deep);
+      border: 1px solid var(--line-dark);
+      border-radius: 4px;
+      padding: 12px 14px;
+      color: var(--text-on-dark);
+      font-family: var(--font-sans);
+      font-size: 0.96rem;
+      letter-spacing: -0.005em;
+      outline: none;
+      transition: border-color 220ms ease, background 220ms ease;
+      width: 100%;
+    }
+    .cfield input:focus, .cfield select:focus, .cfield textarea:focus {
+      border-color: var(--signal);
+      background: var(--bg-deep-3);
+    }
+    .cfield select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23BFBFB8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .cfield textarea { resize: vertical; min-height: 110px; }
+    .cfield input::placeholder, .cfield textarea::placeholder { color: var(--text-on-dark-muted); }
+
+    .cform-foot {
+      grid-column: 1 / -1;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap;
+      gap: 22px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line-dark);
+    }
+    .cform-foot .legal {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-on-dark-muted);
+      max-width: 38ch;
+      line-height: 1.55;
+      letter-spacing: 0.02em;
+    }
+    .cform-foot .legal a {
+      color: var(--text-on-dark-soft);
+      border-bottom: 1px solid var(--line-dark);
+    }
+
+    @media (max-width: 1080px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+    @media (max-width: 600px) {
+      .contact-form { padding: 28px 22px; grid-template-columns: 1fr; }
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────── */
+    .foot {
+      background: var(--bg);
+      padding: 96px 0 32px;
+      border-top: 1px solid var(--line);
+    }
+    .foot-top {
+      display: grid;
+      grid-template-columns: 2.4fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 64px;
+    }
+    .foot-brand {
+      display: flex; flex-direction: column; gap: 22px;
+    }
+    .foot-brand .mark {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: var(--font-sans);
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.022em;
+      color: var(--text);
+    }
+    .foot-brand .mark .b {
+      width: 36px; height: 36px;
+      background: var(--text);
+      color: var(--bg);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      font-weight: 600;
+      border-radius: 6px;
+    }
+    .foot-brand .tag {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--text-soft);
+      max-width: 38ch;
+    }
+    .foot-brand .socials {
+      display: flex; gap: 8px;
+    }
+    .foot-brand .socials a {
+      width: 36px; height: 36px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0;
+      transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+      border-radius: 4px;
+    }
+    .foot-brand .socials a:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+    .foot-col h5 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .foot-col li a {
+      font-family: var(--font-sans);
+      font-size: 0.94rem;
+      color: var(--text);
+      transition: color 220ms ease;
+    }
+    .foot-col li a:hover { color: var(--signal); }
+
+    .foot-bottom {
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 28px;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+    .foot-bottom .c { display: flex; gap: 22px; }
+    .foot-bottom .c a:hover { color: var(--text); }
+    .foot-bottom .r {
+      text-align: right;
+      display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px;
+    }
+    .foot-bottom .r .d {
+      width: 6px; height: 6px;
+      background: var(--signal);
+      border-radius: 50%;
+    }
+
+    @media (max-width: 1080px) {
+      .foot-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .foot-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 600px) {
+      .foot-top { grid-template-columns: 1fr; gap: 32px; margin-bottom: 56px; }
+      .foot-bottom { grid-template-columns: 1fr; text-align: left; }
+      .foot-bottom .r { justify-content: flex-start; text-align: left; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ NAV ═══════════════ -->
+  <header class="nav" id="nav">
+
+    <div class="nav-left">
+      <a href="#top" class="nav-brand" aria-label="Altstahl — Startseite">
+        <span class="mark">A·</span>
+        <span class="word">ALTSTAHL <span class="sub">Velomanufaktur Berlin</span></span>
+      </a>
+    </div>
+
+    <nav class="nav-center" aria-label="Hauptnavigation">
+      <a href="#modelle" class="nav-link"><span class="ix">01</span>Modelle</a>
+      <a href="#konfigurator" class="nav-link"><span class="ix">02</span>Konfigurator</a>
+      <a href="#handwerk" class="nav-link"><span class="ix">03</span>Handwerk</a>
+      <a href="#specs" class="nav-link"><span class="ix">04</span>Specs</a>
+      <a href="#service" class="nav-link"><span class="ix">05</span>Service</a>
+      <a href="#story" class="nav-link"><span class="ix">06</span>Story</a>
+    </nav>
+
+    <div class="nav-right">
+      <a href="tel:+4930286511" class="nav-phone">
+        <span class="d" aria-hidden="true"></span>
+        <span class="lbl">Werkstatt ·</span>
+        <span class="num">030 28 65 11 04</span>
+      </a>
+      <a href="#konfigurator" class="nav-cta">
+        Konfigurieren
+        <span class="ar" aria-hidden="true"></span>
+      </a>
+      <button class="nav-burger" id="burger" aria-label="Menü" aria-expanded="false">
+        <span></span>
+      </button>
+    </div>
+
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="#modelle"><span>Modelle</span><span class="ix">01</span></a>
+    <a href="#konfigurator"><span><em>Konfigurator</em></span><span class="ix">02</span></a>
+    <a href="#handwerk"><span>Handwerk</span><span class="ix">03</span></a>
+    <a href="#specs"><span>Specs</span><span class="ix">04</span></a>
+    <a href="#service"><span>Service</span><span class="ix">05</span></a>
+    <a href="#story"><span>Story</span><span class="ix">06</span></a>
+    <a href="#kontakt"><span>Kontakt</span><span class="ix">07</span></a>
+    <div class="m-foot">
+      <span class="l">Werkstatt</span>
+      <a class="p num" href="tel:+4930286511">030 28 65 11 04</a>
+      <span class="l">Adalbertstraße 19 · 10999 Berlin</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section class="hero" id="top">
+
+    <div class="hero-stage">
+      <img
+        src="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=2200&q=85&auto=format&fit=crop"
+        alt="Handgefertigtes Stahlrahmen-Fahrrad mit Detail des Lenkers" />
+    </div>
+
+    <div class="hero-content">
+      <div class="wrap-wide">
+
+        <div class="hero-grid">
+
+          <div class="hero-text">
+            <h1 class="reveal reveal-d-1">
+              <span class="line">Stahl, der <em>länger</em></span>
+              <span class="line">hält als jeder</span>
+              <span class="line"><span class="light">Trend.</span></span>
+            </h1>
+
+            <p class="lede reveal reveal-d-2">
+              Vier Basismodelle, hundertfünfzig Konfigurationen, eine Werkstatt. Wir bauen Chromoly-Stahlrahmen für Stadt, Land, Pfad und Berg — von Hand, in Berlin-Kreuzberg, seit 2014.
+            </p>
+
+            <div class="actions reveal reveal-d-3">
+              <a href="#konfigurator" class="btn btn-signal">
+                Rad konfigurieren
+                <span class="arrow" aria-hidden="true"></span>
+              </a>
+              <a href="#modelle" class="btn btn-light">
+                Modelle ansehen
+                <span class="arrow" aria-hidden="true"></span>
+              </a>
+            </div>
+          </div>
+
+          <aside class="hero-card reveal reveal-d-4" aria-label="Vorgestelltes Modell">
+            <div class="hc-head">
+              <span class="ix">М · 04</span>
+              <span class="name">PFAD · Gravel</span>
+            </div>
+            <span class="hc-tag">Im Bild · Konfiguration „Espresso Matt"</span>
+
+            <div class="hc-specs">
+              <div class="s">
+                <span class="k">Rahmen</span>
+                <span class="v">Reynolds 853</span>
+              </div>
+              <div class="s">
+                <span class="k">Gewicht</span>
+                <span class="v">9,8 kg</span>
+              </div>
+              <div class="s">
+                <span class="k">Reifen</span>
+                <span class="v">650b · 47 mm</span>
+              </div>
+              <div class="s">
+                <span class="k">Gruppe</span>
+                <span class="v">SRAM Rival XPLR</span>
+              </div>
+            </div>
+
+            <div class="hc-foot">
+              <span class="hc-price"><span class="from">Ab</span>€ 4.290</span>
+              <a href="#konfigurator" class="hc-arrow" aria-label="Zum Modell"></a>
+            </div>
+          </aside>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="hero-ledger">
+      <div class="item">
+        <span class="k">Modelle</span>
+        <span class="v">04 <span class="unit">+ custom</span></span>
+      </div>
+      <div class="item">
+        <span class="k">Rahmen gebaut</span>
+        <span class="v">1.184 <span class="unit">/ 2014–26</span></span>
+      </div>
+      <div class="item">
+        <span class="k">Lieferzeit</span>
+        <span class="v">14 <span class="unit">Wochen</span></span>
+      </div>
+      <div class="item">
+        <span class="k">Werkstatt</span>
+        <span class="v">07 <span class="unit">Rahmenbauer</span></span>
+      </div>
+      <span class="badge">ECF Rad des Jahres · 2025</span>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════ MODELS ═══════════════ -->
+  <section class="models section-pad-lg" id="modelle">
+    <div class="wrap-wide">
+
+      <div class="section-head reveal">
+        <h2 class="display">Vier Räder.<br/><span class="light">Vier</span> <em>Wege</em>.</h2>
+        <p class="copy">
+          Wir bauen keine Sport-Sondereditionen, sondern vier Basismodelle für die vier Wege, die ein Rad realistisch geht: durch die Stadt, übers Land, über Schotter, in die Berge. Jedes Modell ist voll konfigurierbar.
+        </p>
+      </div>
+
+      <div class="models-grid">
+
+        <article class="model reveal">
+          <div class="model-img img-mask">
+            <span class="badge"><span class="d"></span>Modell №01</span>
+            <span class="num">M—01 · STADT</span>
+            <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=1100&q=85&auto=format&fit=crop"
+                 alt="Altstahl Stadt — Urban Bike" />
+          </div>
+          <div class="model-body">
+            <div class="m-top">
+              <span class="name">STADT</span>
+              <span class="tag">Urban · Singlespeed / Riemen</span>
+            </div>
+            <p>Das alltägliche Rad. Singlespeed oder Pinion-Riemen, Schutzbleche serienmäßig, Lampe verkabelt. Für den Berliner Asphalt gemacht.</p>
+            <div class="model-specs">
+              <div class="s"><span class="k">Rahmen</span><span class="v">Cromo 4130</span></div>
+              <div class="s"><span class="k">Gewicht</span><span class="v">10,4 kg</span></div>
+              <div class="s"><span class="k">Reifen</span><span class="v">700×35</span></div>
+              <div class="s"><span class="k">Antrieb</span><span class="v">SS / Pinion</span></div>
+            </div>
+            <div class="model-foot">
+              <span class="price"><span class="from">Ab</span>€ 2.890</span>
+              <div class="actions">
+                <a href="#konfigurator" class="btn btn-dark">Konfigurieren <span class="arrow" aria-hidden="true"></span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="model reveal reveal-d-1">
+          <div class="model-img img-mask">
+            <span class="badge"><span class="d"></span>Modell №02</span>
+            <span class="num">M—02 · LAND</span>
+            <img src="https://images.unsplash.com/photo-1571333250630-f0230c320b6d?w=1100&q=85&auto=format&fit=crop"
+                 alt="Altstahl Land — Allroad / Rennrad" />
+          </div>
+          <div class="model-body">
+            <div class="m-top">
+              <span class="name">LAND</span>
+              <span class="tag">Allroad · Endurance</span>
+            </div>
+            <p>Das schnelle Rad. Endurance-Geometrie, Schaltgruppe der gehobenen Klasse, Reifenfreiheit bis 35 Millimeter. Für lange Wochenend­touren.</p>
+            <div class="model-specs">
+              <div class="s"><span class="k">Rahmen</span><span class="v">Columbus Spirit</span></div>
+              <div class="s"><span class="k">Gewicht</span><span class="v">8,9 kg</span></div>
+              <div class="s"><span class="k">Reifen</span><span class="v">700×32</span></div>
+              <div class="s"><span class="k">Gruppe</span><span class="v">Shimano 105</span></div>
+            </div>
+            <div class="model-foot">
+              <span class="price"><span class="from">Ab</span>€ 3.640</span>
+              <div class="actions">
+                <a href="#konfigurator" class="btn btn-dark">Konfigurieren <span class="arrow" aria-hidden="true"></span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="model reveal">
+          <div class="model-img img-mask">
+            <span class="badge dark"><span class="d"></span>Bestseller · №03</span>
+            <span class="num">M—03 · PFAD</span>
+            <img src="https://images.unsplash.com/photo-1534146789009-76ed5060ec70?w=1100&q=85&auto=format&fit=crop"
+                 alt="Altstahl Pfad — Gravel" />
+          </div>
+          <div class="model-body">
+            <div class="m-top">
+              <span class="name">PFAD</span>
+              <span class="tag">Gravel · 650b oder 700c</span>
+            </div>
+            <p>Das vielseitige Rad. Gravel-Geometrie, Reifenfreiheit 700×47 oder 650×54, drei Flaschenhalter, Bikepacking-fähig. Unser meist­konfigu­rier­tes Modell.</p>
+            <div class="model-specs">
+              <div class="s"><span class="k">Rahmen</span><span class="v">Reynolds 853</span></div>
+              <div class="s"><span class="k">Gewicht</span><span class="v">9,8 kg</span></div>
+              <div class="s"><span class="k">Reifen</span><span class="v">700×47</span></div>
+              <div class="s"><span class="k">Gruppe</span><span class="v">SRAM Rival</span></div>
+            </div>
+            <div class="model-foot">
+              <span class="price"><span class="from">Ab</span>€ 4.290</span>
+              <div class="actions">
+                <a href="#konfigurator" class="btn btn-dark">Konfigurieren <span class="arrow" aria-hidden="true"></span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="model reveal reveal-d-1">
+          <div class="model-img img-mask">
+            <span class="badge"><span class="d"></span>Modell №04</span>
+            <span class="num">M—04 · BERG</span>
+            <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?w=1100&q=85&auto=format&fit=crop"
+                 alt="Altstahl Berg — Mountainbike" />
+          </div>
+          <div class="model-body">
+            <div class="m-top">
+              <span class="name">BERG</span>
+              <span class="tag">Hardtail · 29″ / Tourer</span>
+            </div>
+            <p>Das robuste Rad. Klassisches Hardtail, vorne mit Federgabel, Geometrie auf Alpen­durch­quer­ungen ausgelegt. Wenig modisch, mehr Werkzeug.</p>
+            <div class="model-specs">
+              <div class="s"><span class="k">Rahmen</span><span class="v">Cromo 4130 OS</span></div>
+              <div class="s"><span class="k">Gewicht</span><span class="v">12,4 kg</span></div>
+              <div class="s"><span class="k">Reifen</span><span class="v">29×2,35</span></div>
+              <div class="s"><span class="k">Gruppe</span><span class="v">Shimano Deore</span></div>
+            </div>
+            <div class="model-foot">
+              <span class="price"><span class="from">Ab</span>€ 3.890</span>
+              <div class="actions">
+                <a href="#konfigurator" class="btn btn-dark">Konfigurieren <span class="arrow" aria-hidden="true"></span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ KONFIGURATOR ═══════════════ -->
+  <section class="konfig section-pad-lg" id="konfigurator">
+    <div class="wrap-wide">
+
+      <div class="konfig-grid">
+
+        <div class="konfig-text reveal">
+          <span class="eyebrow on-dark"><span class="d"></span>Konfigurator · 150+ Varianten</span>
+
+          <h2>Sie bauen das Rad.<br/><span class="light">Wir</span> <em>schweißen</em> es.</h2>
+
+          <p class="lead">
+            Jedes unserer vier Modelle lässt sich vollständig konfigurieren: Rahmen­größe, Farbe, Schaltung, Lenker, Sattel, Reifen, Lichtanlage. Sie kombinieren — wir bauen.
+          </p>
+
+          <div class="konfig-steps">
+            <div class="step">
+              <span class="ix">01</span>
+              <span class="t">Modell wählen</span>
+              <span class="d">Stadt · Land · Pfad · Berg.</span>
+            </div>
+            <div class="step">
+              <span class="ix">02</span>
+              <span class="t">Maß nehmen</span>
+              <span class="d">Online oder bei uns vor Ort in 30 Minuten.</span>
+            </div>
+            <div class="step">
+              <span class="ix">03</span>
+              <span class="t">Konfigurieren</span>
+              <span class="d">3D-Vorschau in Echtzeit, jeder Klick erscheint live.</span>
+            </div>
+            <div class="step">
+              <span class="ix">04</span>
+              <span class="t">Bauen lassen</span>
+              <span class="d">14 Wochen Bauzeit. Hand­geliefert oder Versand DE / EU.</span>
+            </div>
+          </div>
+
+          <div class="konfig-actions">
+            <a href="#" class="btn btn-signal">
+              Jetzt konfigurieren
+              <span class="arrow" aria-hidden="true"></span>
+            </a>
+            <a href="#" class="btn btn-light">
+              Termin Werkstatt
+              <span class="arrow" aria-hidden="true"></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="konfig-visual reveal reveal-d-2 img-mask">
+          <span class="live-dot"><span class="d"></span>Live 3D · Beta</span>
+          <img src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=1100&q=85&auto=format&fit=crop"
+               alt="3D-Vorschau eines konfigurierten Pfad-Rades" />
+          <div class="preview-meta">
+            <span class="k">Modell</span><span class="v">PFAD · M—03</span>
+            <span class="k">Lackierung</span><span class="v">Espresso Matt</span>
+            <span class="k">Rahmengröße</span><span class="v">54 cm · ML</span>
+            <span class="k">Konfig.-Stand</span><span class="v">€ 4.890,—</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ HANDWERK ═══════════════ -->
+  <section class="handwerk section-pad-lg" id="handwerk">
+    <div class="wrap">
+
+      <div class="handwerk-grid">
+
+        <div class="handwerk-img reveal img-mask">
+          <span class="corner"><span class="d"></span>Werkstatt · Adalbertstraße 19</span>
+          <span class="corner-r">07 Rahmenbauer · 184 m²</span>
+          <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1100&q=85&auto=format&fit=crop"
+               alt="Detail des Schweißens eines Stahlrahmens in der Werkstatt" />
+        </div>
+
+        <div class="handwerk-text reveal reveal-d-1">
+          <span class="eyebrow"><span class="d"></span>Handwerk · seit 2014</span>
+
+          <h2 class="display">Sieben Hände,<br/><span class="light">ein</span> <em>Schweißbrenner</em>.</h2>
+
+          <p>
+            Wir sind sieben Rahmenbauer in einer einzigen Werkstatt in Berlin-Kreuzberg. <strong>Jeder Rahmen wird vom selben Menschen zusammengeschweißt — vom ersten Heften bis zur Endschicht.</strong> Wir geben Rahmen nicht in Tranchen weiter, wir geben sie nicht nach Taiwan, und wir machen kein OEM für andere Marken.
+          </p>
+
+          <p>
+            Was am Ende mit unserem Logo verkauft wird, ist auch bei uns gebaut. Das ist langsam. Das ist teuer. <strong>Das ist der Grund, warum wir nur etwa 140 Räder im Jahr bauen.</strong>
+          </p>
+
+          <ul class="handwerk-list">
+            <li>
+              <span class="ix">01</span>
+              <span class="t">Heften &amp; Justieren<span class="d">Rohre auf Lehre, Winkel auf 0,2°.</span></span>
+              <span class="v">Tag 1–2</span>
+            </li>
+            <li>
+              <span class="ix">02</span>
+              <span class="t">TIG-Schweißung<span class="d">Argon, 130 A, gefügt vom Rahmenbauer.</span></span>
+              <span class="v">Tag 3–4</span>
+            </li>
+            <li>
+              <span class="ix">03</span>
+              <span class="t">Spannungsfreiglühen<span class="d">220 °C über sechs Stunden.</span></span>
+              <span class="v">Tag 5</span>
+            </li>
+            <li>
+              <span class="ix">04</span>
+              <span class="t">Strahlen &amp; Pulverbeschichtung<span class="d">Hauseigene Anlage, jede Farbe nach RAL.</span></span>
+              <span class="v">Tag 6–9</span>
+            </li>
+            <li>
+              <span class="ix">05</span>
+              <span class="t">Montage &amp; Probefahrt<span class="d">Gabel, Antrieb, Cockpit. Letzte Probefahrt um den Block.</span></span>
+              <span class="v">Tag 10–14</span>
+            </li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ SPECS TABLE ═══════════════ -->
+  <section class="specs section-pad-lg" id="specs">
+    <div class="wrap-wide">
+
+      <div class="specs-head reveal">
+        <h2 class="display">Technische <em>Daten</em></h2>
+        <div class="selector">
+          <button class="spec-tab active">Rahmen</button>
+          <button class="spec-tab">Geometrie</button>
+          <button class="spec-tab">Komponenten</button>
+          <button class="spec-tab">Gewicht</button>
+        </div>
+      </div>
+
+      <div class="specs-table reveal reveal-d-1">
+
+        <div class="specs-row header">
+          <div class="cell">— · Spezifikation</div>
+          <div class="cell model">M—01 · STADT</div>
+          <div class="cell model">M—02 · LAND</div>
+          <div class="cell model">M—03 · PFAD</div>
+          <div class="cell model">M—04 · BERG</div>
+        </div>
+
+        <div class="specs-row">
+          <div class="cell label">Rahmenmaterial</div>
+          <div class="cell value">Chromoly 4130</div>
+          <div class="cell value">Columbus Spirit</div>
+          <div class="cell value signal">Reynolds 853</div>
+          <div class="cell value">Chromoly 4130 OS</div>
+        </div>
+
+        <div class="specs-row">
+          <div class="cell label">Rahmengewicht</div>
+          <div class="cell value">2.140 g <span class="small">Größe M</span></div>
+          <div class="cell value">1.860 g <span class="small">Größe M</span></div>
+          <div class="cell value">1.940 g <span class="small">Größe M</span></div>
+          <div class="cell value">2.380 g <span class="small">Größe M</span></div>
+        </div>
+
+        <div class="specs-row">
+          <div class="cell label">Rohre</div>
+          <div class="cell value">Konisch · TIG</div>
+          <div class="cell value">Doppelt konifiziert</div>
+          <div class="cell value">Dreifach konif. · OS</div>
+          <div class="cell value">Konisch · Verstärkt</div>
+        </div>
+
+        <div class="specs-row">
+          <div class="cell label">Gabel</div>
+          <div class="cell value">Stahl · starr · CrMo</div>
+          <div class="cell value">Carbon · Enve</div>
+          <div class="cell value">Stahl · Columbus Futura</div>
+          <div class="cell value">Fox 32 · 100 mm</div>
+        </div>
+
+        <div class="specs-row">
+          <div class="cell label">Maximale Reifenbreite</div>
+          <div class="cell value">700×40</div>
+          <div class="cell value">700×35</div>
+          <div class="cell value">700×47 / 650×54</div>
+          <div class="cell value">29×2,4</div>
+        </div>
+
+        <div class="specs-row">
+          <div class="cell label">Bremsen</div>
+          <div class="cell value">Disc · Hydr.</div>
+          <div class="cell value">Disc · Hydr.</div>
+          <div class="cell value">Disc · Hydr.</div>
+          <div class="cell value">Disc · Hydr. · 4-Kolben</div>
+        </div>
+
+        <div class="specs-row">
+          <div class="cell label">Innenlager</div>
+          <div class="cell value">BSA 68 · Hollowtech II</div>
+          <div class="cell value">BSA 68 · Pressfit-frei</div>
+          <div class="cell value">T47 · 86 mm</div>
+          <div class="cell value">BSA 73 · Outboard</div>
+        </div>
+
+        <div class="specs-row">
+          <div class="cell label">Größen</div>
+          <div class="cell value">XS — XL <span class="small">5 Stufen</span></div>
+          <div class="cell value">XS — XL <span class="small">5 Stufen</span></div>
+          <div class="cell value">XS — XXL <span class="small">6 Stufen</span></div>
+          <div class="cell value">S — XL <span class="small">4 Stufen</span></div>
+        </div>
+
+        <div class="specs-row">
+          <div class="cell label">Maßanfertigung</div>
+          <div class="cell value">+ € 480</div>
+          <div class="cell value">+ € 480</div>
+          <div class="cell value">+ € 480</div>
+          <div class="cell value">+ € 480</div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ BOM / Komponenten ═══════════════ -->
+  <section class="bom section-pad-lg">
+    <div class="wrap-wide">
+
+      <div class="bom-head reveal">
+        <h2 class="display">Was an einem<br/>Rad <em>steckt</em>.</h2>
+        <p class="copy">
+          Sechs Komponenten, die für ein Altstahl unverhandelbar sind. Alle anderen Teile sind frei konfigurierbar — diese hier nicht.
+        </p>
+      </div>
+
+      <div class="bom-grid">
+
+        <article class="part reveal img-mask">
+          <div class="part-img">
+            <span class="ix">P—01</span>
+            <span class="origin"><span class="d"></span>UK</span>
+            <img src="https://images.unsplash.com/photo-1502744688674-c619d1586c9e?w=900&q=85&auto=format&fit=crop"
+                 alt="Reynolds 853 Stahlrohr" />
+          </div>
+          <div class="part-body">
+            <span class="cat">RAHMENROHR</span>
+            <span class="name">Reynolds 853</span>
+            <span class="desc">Luft­fahrt­zertifizierter Chromoly-Stahl aus Birmingham. Air-hardening, beim Schweißen härtet das Material nach.</span>
+            <div class="meta"><span>Herkunft</span><span class="v">Birmingham · UK</span></div>
+          </div>
+        </article>
+
+        <article class="part reveal reveal-d-1 img-mask">
+          <div class="part-img">
+            <span class="ix">P—02</span>
+            <span class="origin"><span class="d"></span>DE</span>
+            <img src="https://images.unsplash.com/photo-1585159700376-9b9247c6bc39?w=900&q=85&auto=format&fit=crop"
+                 alt="Brooks Sattel Detail" />
+          </div>
+          <div class="part-body">
+            <span class="cat">SATTEL</span>
+            <span class="name">Brooks B17 · Standard</span>
+            <span class="desc">Echtleder, in Birmingham gegerbt, in Sheffield genietet. Wird mit Ihnen geformt — die ersten dreihundert Kilometer sind Einlauf­zeit.</span>
+            <div class="meta"><span>Garantie</span><span class="v">10 Jahre</span></div>
+          </div>
+        </article>
+
+        <article class="part reveal reveal-d-2 img-mask">
+          <div class="part-img">
+            <span class="ix">P—03</span>
+            <span class="origin"><span class="d"></span>DE</span>
+            <img src="https://images.unsplash.com/photo-1559348349-86f1f65817fe?w=900&q=85&auto=format&fit=crop"
+                 alt="Speichen-Detail" />
+          </div>
+          <div class="part-body">
+            <span class="cat">LAUFRADSATZ</span>
+            <span class="name">SON 28 · DT Swiss</span>
+            <span class="desc">Nabendynamo aus dem Schwarzwald, DT Swiss XR 361 Felgen, hand­einge­speicht in unserer Werkstatt.</span>
+            <div class="meta"><span>Aufbau</span><span class="v">Hauseigen</span></div>
+          </div>
+        </article>
+
+        <article class="part reveal img-mask">
+          <div class="part-img">
+            <span class="ix">P—04</span>
+            <span class="origin"><span class="d"></span>DE</span>
+            <img src="https://images.unsplash.com/photo-1562486033-14af01d4add5?w=900&q=85&auto=format&fit=crop"
+                 alt="Pinion Getriebe" />
+          </div>
+          <div class="part-body">
+            <span class="cat">ANTRIEB · OPTION</span>
+            <span class="name">Pinion C1.12</span>
+            <span class="desc">Tret­lager­ge­triebe aus Denkendorf bei Stuttgart. Wartungsarm, geschützt, 600 % Übersetzungs­band­breite.</span>
+            <div class="meta"><span>Wartung</span><span class="v">10.000 km</span></div>
+          </div>
+        </article>
+
+        <article class="part reveal reveal-d-1 img-mask">
+          <div class="part-img">
+            <span class="ix">P—05</span>
+            <span class="origin"><span class="d"></span>JP</span>
+            <img src="https://images.unsplash.com/photo-1684237070788-46598a69192c?w=900&q=85&auto=format&fit=crop"
+                 alt="Shimano Bremshebel Detail" />
+          </div>
+          <div class="part-body">
+            <span class="cat">SCHALTGRUPPE</span>
+            <span class="name">Shimano · SRAM · ab Ultegra</span>
+            <span class="desc">Aus dem oberen Mittelfeld aufwärts. Alles darunter verbauen wir nicht — die Verschleißkosten holen den Preisvorteil ein.</span>
+            <div class="meta"><span>Ab</span><span class="v">105 / Rival</span></div>
+          </div>
+        </article>
+
+        <article class="part reveal reveal-d-2 img-mask">
+          <div class="part-img">
+            <span class="ix">P—06</span>
+            <span class="origin"><span class="d"></span>DE</span>
+            <img src="https://images.unsplash.com/photo-1593764592116-bfb2a97c642a?w=900&q=85&auto=format&fit=crop"
+                 alt="B&M Lichtanlage" />
+          </div>
+          <div class="part-body">
+            <span class="cat">LICHTANLAGE</span>
+            <span class="name">Busch &amp; Müller · IQ-XS</span>
+            <span class="desc">Frontleuchte mit Tagfahrlicht, StVZO-konform, in Meinerzhagen produziert. Standlicht beim Halten.</span>
+            <div class="meta"><span>Lichtstärke</span><span class="v">80 Lux</span></div>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ PROMISE ═══════════════ -->
+  <section class="promise" id="service">
+    <div class="wrap-wide">
+
+      <div class="section-head reveal" style="padding-top: 100px;">
+        <h2 class="display">Vier <em>Versprechen</em>.</h2>
+        <p class="copy">
+          Das, was wir Ihnen schriftlich geben — über den Kassenzettel hinaus. Unverhandelbar, weil sonst lebenslang ein leeres Wort ist.
+        </p>
+      </div>
+
+      <div class="promise-row">
+
+        <div class="promise-cell reveal">
+          <span class="pix">№ 01</span>
+          <h3>Lebens-<br/>lange <em>Rahmen­garantie</em></h3>
+          <p>Wenn der Rahmen bricht, bauen wir ihn nach. Ohne Wenn, ohne Stunden­satz. Solange unsere Werkstatt steht.</p>
+          <div class="value"><span>Laufzeit</span><span class="v">∞</span></div>
+        </div>
+
+        <div class="promise-cell reveal reveal-d-1">
+          <span class="pix">№ 02</span>
+          <h3>Inspektion <em>im 1. Jahr inklusive</em></h3>
+          <p>Innerhalb des ersten Jahres bringen Sie das Rad zu uns. Wir warten es, ziehen nach, justieren — kostenfrei. Auch der Versand.</p>
+          <div class="value"><span>Preis</span><span class="v">€ 0</span></div>
+        </div>
+
+        <div class="promise-cell reveal reveal-d-2">
+          <span class="pix">№ 03</span>
+          <h3>Hand-<br/>geliefert <em>in Berlin</em></h3>
+          <p>Innerhalb Berlins bringen wir Ihr Rad persönlich an die Haustür, einstellen, übergeben. Sie fahren los, wir fahren zurück.</p>
+          <div class="value"><span>Im Stadtgebiet</span><span class="v">€ 0</span></div>
+        </div>
+
+        <div class="promise-cell reveal reveal-d-3">
+          <span class="pix">№ 04</span>
+          <h3>Wider-<br/>rufsrecht <em>nach Probefahrt</em></h3>
+          <p>Sie fahren das Rad vierzehn Tage. Es passt nicht? Wir nehmen es zurück, in Originalzustand, ohne Diskussion.</p>
+          <div class="value"><span>Frist</span><span class="v">14 Tage</span></div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ STORY ═══════════════ -->
+  <section class="story section-pad-lg" id="story">
+    <div class="wrap">
+
+      <div class="story-grid">
+
+        <div class="story-img reveal img-mask">
+          <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=900&q=85&auto=format&fit=crop"
+               alt="Jonas Reiter, Gründer von Altstahl, in der Werkstatt" />
+        </div>
+
+        <div class="story-body reveal reveal-d-1">
+
+          <span class="eyebrow"><span class="d"></span>Story · Anno 2014</span>
+
+          <p class="quote">
+            „Carbon ist leicht. Aluminium ist günstig. <em>Stahl ist beides nicht — aber Stahl bleibt.</em>"
+          </p>
+
+          <p>
+            Ich habe Altstahl 2014 gegründet, ohne Investoren, mit zwei Maschinen aus einer auflösenden Werkstatt in Eberswalde. <strong>In den ersten zwei Jahren habe ich allein gearbeitet</strong>, von einem Hinterhof in der Adalbert­straße aus, einundzwanzig Räder im Jahr.
+          </p>
+
+          <p>
+            Heute sind wir sieben Rahmenbauer und bauen etwa 140 Räder pro Jahr — kontrolliertes Wachstum, hand­geheftet, ohne Auftrags­fertigung. <strong>Wir wachsen langsam, weil ein Rad, das zwanzig Jahre hält, von einer Hand mit zwanzig Jahren Erfahrung geheftet werden sollte.</strong>
+          </p>
+
+          <p>
+            Wenn Sie Berlin besuchen, kommen Sie in der Adalbert­straße vorbei. Die Werkstatt ist Dienstag bis Samstag offen. Wir zeigen Ihnen Lehre, Schweiß­brenner, das nächste Rad auf dem Bock — und Sie bekommen einen Espresso.
+          </p>
+
+          <div class="story-sig">
+            <div class="who">
+              <span class="n">Jonas Reiter</span>
+              <span class="r">Gründer · Rahmenbauer · Berlin-Kreuzberg</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ PRESS ═══════════════ -->
+  <section class="press">
+    <div class="wrap-wide">
+
+      <div class="press-grid">
+
+        <span class="label">— · Press &amp;<br/>Stimmen</span>
+
+        <div class="press-list">
+
+          <article class="press-card reveal">
+            <span class="src">ROADCYCLING.DE <span class="y">2025</span></span>
+            <p class="quote">„Das beste Stahl-Gravel, das wir 2025 in den Händen hatten. <em>Kein Showroom-Bike, sondern ein Werkzeug.</em>"</p>
+          </article>
+
+          <article class="press-card reveal reveal-d-1">
+            <span class="src">DIE ZEIT · MAGAZIN <span class="y">2024</span></span>
+            <p class="quote">„Ein Hinterhof-Betrieb mit einer Wartezeit, die andere Hersteller nicht einmal mit Marketing simulieren können."</p>
+          </article>
+
+          <article class="press-card reveal reveal-d-2">
+            <span class="src">CYCLOTRAVELLER <span class="y">2024</span></span>
+            <p class="quote">„Pfad als Bikepacking-Rad: vermutlich das beste, was wir auf 4000 Kilometern in Kirgisistan unter dem Hintern hatten."</p>
+          </article>
+
+          <article class="press-card reveal">
+            <span class="src">ECF · CYCLING AWARDS <span class="y">2025</span></span>
+            <p class="quote">„Rad des Jahres 2025 — <em>für eine Werkstatt, die nichts beschleunigt.</em>"</p>
+          </article>
+
+          <article class="press-card reveal reveal-d-1">
+            <span class="src">NZZ AM SONNTAG <span class="y">2024</span></span>
+            <p class="quote">„Eine Berliner Antwort auf Schindelhauer und Standert — aber leiser, langsamer, eigensinniger."</p>
+          </article>
+
+          <article class="press-card reveal reveal-d-2">
+            <span class="src">DESIGNED IN GERMANY <span class="y">2023</span></span>
+            <p class="quote">„Form follows freight: jedes Detail dient dem Fahren, nichts der Galerie."</p>
+          </article>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ CONTACT ═══════════════ -->
+  <section class="contact section-pad-lg" id="kontakt">
+    <div class="wrap-wide">
+
+      <div class="contact-grid">
+
+        <div class="contact-left">
+          <span class="eyebrow on-dark"><span class="d"></span>Anfrage · Werkstatt</span>
+
+          <h2>Schreiben Sie<br/><span class="light">uns —</span> <em>persönlich</em>.</h2>
+
+          <p class="lede">
+            Anfragen gehen direkt an die Werkstatt. Wir antworten innerhalb eines Werk­tags — entweder mit einer Terminvorlage für ein Maß­nehmen vor Ort oder mit einem Link in den Online-Konfigurator.
+          </p>
+
+          <ul class="contact-steps">
+            <li><span class="ix">01</span><span>Antwort <em>innerhalb von 24 Stunden</em>, von einem unserer Rahmenbauer.</span></li>
+            <li><span class="ix">02</span><span>Maß nehmen <em>kostenfrei</em> in der Werkstatt, etwa 30 Minuten.</span></li>
+            <li><span class="ix">03</span><span>Konfiguration in Ruhe — keine Auftragsbestätigung ohne Ihre Zweit­durchsicht.</span></li>
+            <li><span class="ix">04</span><span>Anzahlung <em>30 %</em>, Restzahlung bei Übergabe.</span></li>
+          </ul>
+        </div>
+
+        <form class="contact-form" id="contactForm" novalidate>
+
+          <div class="cfield">
+            <label for="c-name">Name <span class="req">*</span></label>
+            <input id="c-name" name="name" type="text" placeholder="Vor- und Nachname" required />
+          </div>
+
+          <div class="cfield">
+            <label for="c-email">E-Mail <span class="req">*</span></label>
+            <input id="c-email" name="email" type="email" placeholder="ihre@adresse.de" required />
+          </div>
+
+          <div class="cfield">
+            <label for="c-phone">Telefon</label>
+            <input id="c-phone" name="phone" type="tel" placeholder="für eine kurze Rückfrage" />
+          </div>
+
+          <div class="cfield">
+            <label for="c-model">Interesse</label>
+            <select id="c-model" name="model">
+              <option>M—01 · STADT</option>
+              <option>M—02 · LAND</option>
+              <option selected>M—03 · PFAD (Bestseller)</option>
+              <option>M—04 · BERG</option>
+              <option>Maß­anfertigung / Custom</option>
+              <option>Reparatur / Service</option>
+            </select>
+          </div>
+
+          <div class="cfield">
+            <label for="c-size">Körpergröße</label>
+            <input id="c-size" name="size" type="text" placeholder="z. B. 178 cm" />
+          </div>
+
+          <div class="cfield">
+            <label for="c-when">Wunsch-Liefertermin</label>
+            <select id="c-when" name="when">
+              <option>Innerhalb von 14 Wochen</option>
+              <option>3–6 Monate</option>
+              <option>Mehr als 6 Monate</option>
+              <option>Lassen wir uns Zeit</option>
+            </select>
+          </div>
+
+          <div class="cfield full">
+            <label for="c-msg">Nachricht</label>
+            <textarea id="c-msg" name="msg" placeholder="Einsatz, Farbe, Schaltgruppe, Termin­wunsch — was wir wissen sollten."></textarea>
+          </div>
+
+          <div class="cform-foot">
+            <span class="legal">
+              Mit dem Versand stimmen Sie unserer <a href="#datenschutz">Datenschutz­erklärung</a> zu. Anfragen gehen direkt an die Werkstatt — kein Weitergabe an Dritte, kein Newsletter ohne Ihr Ja.
+            </span>
+            <button class="btn btn-signal" type="submit">
+              Anfrage senden
+              <span class="arrow" aria-hidden="true"></span>
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="foot">
+    <div class="wrap-wide">
+
+      <div class="foot-top">
+
+        <div class="foot-brand">
+          <div class="mark"><span class="b">A·</span>ALTSTAHL</div>
+          <p class="tag">
+            Velomanufaktur Berlin. Handgebaute Chromoly-Stahlrahmen aus Berlin-Kreuzberg, vier Modelle, 150 Konfigurationen, lebenslange Rahmen­garantie. Seit 2014.
+          </p>
+          <div class="socials">
+            <a href="#" aria-label="Instagram">IG</a>
+            <a href="#" aria-label="YouTube">YT</a>
+            <a href="#" aria-label="Newsletter">NL</a>
+            <a href="#" aria-label="Strava Club">ST</a>
+          </div>
+        </div>
+
+        <div class="foot-col">
+          <h5>Modelle</h5>
+          <ul>
+            <li><a href="#modelle">M—01 · Stadt</a></li>
+            <li><a href="#modelle">M—02 · Land</a></li>
+            <li><a href="#modelle">M—03 · Pfad</a></li>
+            <li><a href="#modelle">M—04 · Berg</a></li>
+            <li><a href="#konfigurator">Maßanfertigung</a></li>
+          </ul>
+        </div>
+
+        <div class="foot-col">
+          <h5>Werkstatt</h5>
+          <ul>
+            <li><a href="#handwerk">Handwerk</a></li>
+            <li><a href="#konfigurator">Konfigurator</a></li>
+            <li><a href="#specs">Tech-Daten</a></li>
+            <li><a href="#service">Service</a></li>
+            <li><a href="#story">Story</a></li>
+          </ul>
+        </div>
+
+        <div class="foot-col">
+          <h5>Werkstatt</h5>
+          <ul>
+            <li>Adalbertstraße 19</li>
+            <li>10999 Berlin · Kreuzberg</li>
+            <li><a href="tel:+4930286511" class="num">030 28 65 11 04</a></li>
+            <li><a href="mailto:werkstatt@altstahl.de">werkstatt@<br/>altstahl.de</a></li>
+            <li>Di–Sa · 10–18 Uhr</li>
+          </ul>
+        </div>
+
+        <div class="foot-col">
+          <h5>Rechtliches</h5>
+          <ul>
+            <li><a href="#impressum">Impressum</a></li>
+            <li><a href="#datenschutz">Datenschutz</a></li>
+            <li><a href="#agb">AGB</a></li>
+            <li><a href="#widerruf">Widerruf</a></li>
+            <li><a href="#garantie">Garantie</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="foot-bottom">
+        <span>© MMXIV — MMXXVI · ALTSTAHL Velomanufaktur GmbH · Berlin</span>
+        <span class="c">
+          <a href="#impressum">Impressum</a>
+          <a href="#datenschutz">Datenschutz</a>
+          <a href="#presse">Presse</a>
+        </span>
+        <span class="r">
+          <span class="d"></span>
+          <span>ECF · ZIV · Made in Berlin</span>
+        </span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ═══════════════ SCRIPTS ═══════════════ -->
+  <script>
+    (function () {
+
+      // Mark hero loaded for image settle
+      const hero = document.querySelector('.hero');
+      window.requestAnimationFrame(() => hero && hero.classList.add('loaded'));
+
+      // Nav scroll state
+      const nav = document.getElementById('nav');
+      const onScroll = () => {
+        if (window.scrollY > 24) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Reveal observer
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduced) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll('.reveal, .img-mask').forEach(el => io.observe(el));
+      } else {
+        document.querySelectorAll('.reveal, .img-mask').forEach(el => el.classList.add('visible'));
+      }
+
+      // Spec tab toggle
+      document.querySelectorAll('.spec-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.spec-tab').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // Mobile burger
+      const burger = document.getElementById('burger');
+      const drawer = document.getElementById('mobileMenu');
+      if (burger && drawer) {
+        burger.addEventListener('click', () => {
+          const open = drawer.classList.toggle('open');
+          burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+          drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+          document.body.style.overflow = open ? 'hidden' : '';
+        });
+        drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+          drawer.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+          drawer.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        }));
+      }
+
+      // Form — submission stub
+      const form = document.getElementById('contactForm');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const btn = form.querySelector('button[type="submit"]');
+          if (!btn) return;
+          const original = btn.innerHTML;
+          btn.innerHTML = 'Anfrage übermittelt · wir melden uns binnen 24 h';
+          btn.disabled = true;
+          form.reset();
+          setTimeout(() => { btn.innerHTML = original; btn.disabled = false; }, 6000);
+        });
+      }
+
+    })();
+  </script>
+
+</body>
+</html>
