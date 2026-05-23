@@ -2151,53 +2151,10 @@
   .hero-new .trust .sep { display: none; }
   .hero-new .trust .check { width: 16px; height: 16px; }
 
-  /* HERO STAGE3D — flattened stack on phones (no 3D tilt) */
-  .hero-new .stage3d {
-    max-width: 100%;
-    width: 100%;
-    aspect-ratio: auto;
-    justify-self: stretch;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    position: relative;
-    perspective: none;
-    padding: 0 4px;
-  }
-  .hero-new .wordmark { display: none; }
-  .hero-new .frame {
-    position: relative; inset: auto;
-    width: 100%; top: auto; left: auto; right: auto; bottom: auto;
-    aspect-ratio: auto;
-  }
-  .hero-new .frame .frame-float { animation: none; }
-  .hero-new .frame .frame-tilt {
-    transform: none;
-    transition: none;
-  }
-  /* Same aspect-ratio across all three frames on mobile so the stack reads
-     as a uniform vertical column (4:3 accommodates the site mockup's title
-     + art panel, the traffic chart's vertical breathing room, and the konv
-     list's 2–3 items without crowding any of them). */
-  .hero-new .frame--site { aspect-ratio: 4 / 3; order: 1; }
-  .hero-new .frame--traffic { aspect-ratio: 4 / 3; order: 2; }
-  .hero-new .frame--konv { aspect-ratio: 4 / 3; order: 3; }
-  /* Hide the decorative body + CTA on phone so the cap-strip footer
-     ("01 · Design / unverwechselbar") fits inside the 4:3 box. The title +
-     cursive script carry the visual story; the body fluff is desktop-only. */
-  .hero-new .frame--site .ms { grid-template-columns: 1fr 30%; gap: 18px; padding: 18px 18px 18px; min-height: 0; }
-  .hero-new .frame--site .ms-title { font-size: 26px; }
-  .hero-new .frame--site .ms-script { font-size: 36px; }
-  .hero-new .frame--site .ms-body,
-  .hero-new .frame--site .ms-cta { display: none; }
-  /* Cap-strip footer should be the same size on all three frames on mobile.
-     Desktop gives the site frame a larger cap-strip because it's a wider
-     banner; on mobile where all three are stacked at the same width, the
-     smaller "card" cap-strip styling reads consistently. */
-  .hero-new .frame--site .cap-strip { height: 30px; padding: 6px 12px; }
-  .hero-new .frame--site .cap-strip .tag { font-size: 8.5px; letter-spacing: 0.2em; }
-  .hero-new .frame--site .cap-strip .desc { font-size: 18px; }
-  .hero-new .tk-traffic .val { font-size: 30px; }
+  /* Hide the 3D cluster entirely on phone — the three frames (Design /
+     Sichtbarkeit / Anfragen) duplicate what the value section right below
+     covers in more detail. The hero stays text-only on mobile. */
+  .hero-new .stage3d { display: none; }
   .hero-new .badge--inline {
     margin: 14px 0 4px;
     font-size: 11px;
