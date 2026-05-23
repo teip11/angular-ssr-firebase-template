@@ -448,6 +448,36 @@ Things the home showcase deliberately keeps simple (because it's one section of 
 
 Hero + navbar mobile are signed off. The other homepage sections (value, process, qbridge, showcase, honest, faq, final) had their mobile @media rules ported from the drop but haven't been visually verified per-section yet. Re-pick this up once the page sweep is further along.
 
+## Currently in progress — mobile process section (2026-05-23)
+
+**What we're doing:** iterating on the mobile version of the homepage `process-new` section. The user wants the desktop sticky-scroll-stack mechanic on phone too (cards pull onto each other as you scroll), with the progress indicator (`.ps-rail`) above and a "Bereit für Ihre Vorlage" CTA after.
+
+**Where the code lives:**
+- HTML: `home.component.html` lines ~345–485 (process section). The new `.ps-cta` block sits inside `.ps-stage` after `.ps-grid`.
+- CSS: `home.component.css`. Mobile rules in `@media (max-width: 480px)` starting around line ~2250. Search for `=== PROCESS (sticky scroll-stack on phone`.
+- TS: `home.component.ts` — `updateProcess()` handles `activeStep` tracking (when a card's `rect.top` crosses 45% of viewport) + smooth-scrolls the rail to center the active step on mobile.
+
+**Current layout state (as of the last iteration):**
+- `.ps-rail` → `position: relative` (in normal flow, scrolls away naturally with the page like the intro text above it). Each step is a text-only chip with a gold underline `::after` bar for the active state. No per-step pill border or background.
+- `.ps-card` → `position: sticky !important; top: 185px !important` for all three. Card 1 has `transform: translateY(20px)`, card 2 has `translateY(40px)` (mirroring desktop staircase peek). `margin-bottom: 20vh` between cards.
+- `.ps-cta` → new CTA block after the cards, "Bereit für Ihre / Kostenlose Website Vorlage anfordern / Individuell für Ihr Unternehmen erstellt". Orange button on the terra orange section. Pattern modeled after `.show-cta` in the showcase section. Appears on desktop too (not gated mobile-only).
+
+**Iteration history (so future-you doesn't repeat what was already tried):**
+- v1: horizontal swipe filmstrip → user wanted desktop sticky-stack mechanic on phone instead.
+- v2: rail sticky at top:78, cards sticky at top:148 → user complained the rail "becomes sticky" and wanted it static.
+- v3: rail static at relative, cards sticky at top:185 → user complained "the viewport doesn't get static in the right place", wanted rail visible during card-stack.
+- v4: rail sticky again → user said "make it behave like the text above it on scroll" (i.e. static).
+- v5 (current): rail static, cards sticky at top:185. User keeps oscillating; commit current state and let them validate.
+
+**Open questions for next session:**
+- The user repeatedly asks for the rail to be both "static" AND "stay visible while cards stack" — these are contradictory with the current document layout (rail above cards in flow → rail must scroll away when cards stick). Worth asking them to clarify which they value more, or proposing an HTML restructure (e.g. nest rail INSIDE `.ps-stack` so they share a release point).
+- Card 3's dwell time was set to 20vh (matching cards 0/1) so it "fully covers card 2" with the same scroll duration, but the user also wants the CTA "pretty close behind card 3" — these are in tension. Current compromise favors card-3 dwell; user may want to tune.
+- The `updateProcess()` JS still applies a `translateY` to the rail for the desktop rail-follow effect — overridden via CSS `transform: none !important` on mobile. If we restructure the layout, this override might need to go.
+
+**Watch out for:**
+- `position: sticky` on `.ps-card` only works because `.ps-stack`'s parent `.ps-grid` has `overflow: visible`. Don't accidentally add `overflow: hidden` anywhere up the tree.
+- The tablet `@media (max-width: 1080px)` rule sets `.ps-card { position: relative; top: 0 !important; margin-bottom: 32px }`. The phone `@media (max-width: 480px)` rule has to use `!important` to override it since both have the same specificity and source order favors the later (phone) rule but the `!important` on top: 0 in the tablet rule is matched by `top: 185px !important` in mobile.
+
 ## Open question (kept for reference)
 
 Pick one before final launch:

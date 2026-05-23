@@ -1390,6 +1390,56 @@
 @media (prefers-reduced-motion: reduce) {
   .process-new .ps-card { position: relative; top: 0 !important; margin-bottom: 32px; transform: none !important; }
 }
+
+/* CTA after the cards — "Bereit für Ihre / Kostenlose Website Vorlage anfordern".
+   Mirrors the .show-cta pattern from the showcase section, restyled for the
+   terra orange backdrop (cream button on terra reads better than orange-on-
+   orange). Sits in normal flow inside .ps-stage so it appears below the
+   card stack once the cards release. */
+.process-new .ps-cta {
+  position: relative;
+  margin-top: 96px;
+  padding: 0 56px;
+  text-align: center;
+}
+.process-new .ps-cta .label {
+  display: flex; justify-content: center; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(255, 245, 234, 0.55);
+  margin-bottom: 22px;
+}
+.process-new .ps-cta .label::before,
+.process-new .ps-cta .label::after {
+  content: ""; width: 24px; height: 1px;
+  background: rgba(255, 245, 234, 0.3);
+}
+.process-new .ps-cta .btn-big {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 22px 32px;
+  background: #f26b1f;
+  color: #fff;
+  border-radius: 16px; font-weight: 700; font-size: 18px;
+  box-shadow: 0 24px 60px -20px rgba(242, 107, 31, 0.55),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+  text-decoration: none;
+}
+.process-new .ps-cta .btn-big:hover {
+  transform: translateY(-2px);
+  background: #ff8a47;
+  box-shadow: 0 32px 80px -20px rgba(242, 107, 31, 0.7),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.process-new .ps-cta .btn-big .ic {
+  width: 32px; height: 32px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.process-new .ps-cta .micro {
+  margin-top: 14px;
+  color: rgba(255, 245, 234, 0.6);
+  font-size: 14px;
+}
 /* ─── Section 03b — Quote bridge ────────────────────────────────────────── */
 .qbridge-new {
   --orange: #f26b1f;
@@ -2199,30 +2249,102 @@
     gap: 8px; font-size: 10.5px;
   }
 
-  /* === PROCESS (horizontal scroll on phone) === */
-  /* Override the tablet rule from @media (max-width: 1080px) that stacks the
-     cards vertically. On phone we want a horizontal swipe-through filmstrip:
-     each card is roughly viewport-width, snaps into place, native scroll. */
-  .process-new .ps-stack {
+  /* === PROCESS (sticky scroll-stack on phone, mirrors desktop) === */
+  /* Rail: in normal document flow — scrolls with the page like the intro
+     text above it. No sticky. The user sees it once on the way into the
+     section, then it scrolls off-screen as cards take over the viewport. */
+  .process-new .ps-rail {
+    position: relative;
+    top: 0;
+    z-index: 1;
     flex-direction: row;
-    gap: 14px;
     overflow-x: auto;
-    overflow-y: visible;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding: 4px 20px 20px;
-    margin: 0 -20px;  /* let the track bleed to the screen edge */
+    flex-wrap: nowrap;
+    gap: 0;
+    margin: 0 -20px;
+    padding: 12px 20px;
+    background: transparent;
+    transform: none !important;  /* override JS-applied rail-follow translateY */
     scrollbar-width: none;
   }
-  .process-new .ps-stack::-webkit-scrollbar { display: none; }
-  .process-new .ps-card {
-    flex: 0 0 86vw;
-    max-width: 360px;
-    min-height: 0;
-    scroll-snap-align: start;
-    margin-bottom: 0 !important;
-    /* Reset the tablet rule's min-height: 480px so cards size to content */
+  .process-new .ps-rail::-webkit-scrollbar { display: none; }
+  /* Hide the left vertical bar — wrong orientation for horizontal layout.
+     Active state gets its own bottom bar (the ::after below). */
+  .process-new .ps-rail .r::before { display: none; }
+  .process-new .ps-rail .r {
+    position: relative;
+    min-width: 0;
+    flex: 0 0 auto;
+    padding: 6px 18px 10px;
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    color: rgba(255, 245, 234, 0.5);
+    transition: color .35s ease;
   }
+  .process-new .ps-rail .r::after {
+    content: "";
+    position: absolute;
+    left: 18px; right: 18px; bottom: 2px;
+    height: 2px; border-radius: 2px;
+    background: transparent;
+    transition: background .35s ease, box-shadow .35s ease;
+  }
+  .process-new .ps-rail .r.is-active { color: #fff5ea; background: transparent; }
+  .process-new .ps-rail .r.is-active::after {
+    background: var(--gold);
+    box-shadow: 0 0 10px rgba(255, 200, 138, 0.55);
+  }
+  .process-new .ps-rail .r.is-done { color: rgba(255, 245, 234, 0.78); }
+  .process-new .ps-rail .r.is-done::after { background: rgba(255, 200, 138, 0.45); }
+  .process-new .ps-rail .r .ord { color: var(--gold); }
+  .process-new .ps-rail .r .lbl { color: inherit; }
+  .process-new .ps-rail .r .dur { color: rgba(255, 245, 234, 0.5); }
+
+  /* Stack: flex column, no horizontal scroll, no gap (cards stack via sticky) */
+  .process-new .ps-stack {
+    flex-direction: column;
+    gap: 0;
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+    scroll-snap-type: none;
+  }
+  /* Cards: sticky scroll-stack. Stuck below navbar (~70px) + rail (~70px)
+     so both stay visible above the card while it's pinned. */
+  .process-new .ps-card {
+    position: sticky !important;
+    width: 100%;
+    max-width: 100% !important;
+    height: 64vh;
+    min-height: 420px !important;
+    max-height: 560px;
+    /* Snappier card-to-card transitions on phone — 50vh made each step
+       require ~1000px of scroll which felt like "the whole page is moving"
+       instead of "the next card slides on". 20vh keeps the dwell short. */
+    margin-bottom: 20vh !important;
+    scroll-snap-align: none;
+  }
+  /* All three share top so they release together as a unit. Card-1/2 get
+     translateY offsets for the staircase peek (mirroring desktop). The top
+     value clears the navbar (~70px) + the rail's actual height (~85px) +
+     small breathing room. Card 2 gets a tiny margin-bottom so the CTA
+     below appears almost immediately after card 3 stacks — the viewer is
+     "already seeing the button" as the last card lands. */
+  .process-new .ps-card[data-i="0"] { top: 185px !important; z-index: 1; transform: none; }
+  .process-new .ps-card[data-i="1"] { top: 185px !important; z-index: 2; transform: translateY(20px); }
+  /* Card 3 (data-i="2") gets the same margin-bottom as cards 0/1 so it
+     has the same dwell time — fully covers card 2 for the same scroll
+     duration before the section releases. */
+  .process-new .ps-card[data-i="2"] { top: 185px !important; z-index: 3; transform: translateY(40px); }
+
+  /* CTA after the cards — full-width on phone, smaller padding */
+  .process-new .ps-cta { margin-top: 56px; padding: 0 20px; }
+  .process-new .ps-cta .btn-big {
+    padding: 16px 22px; font-size: 15px;
+    width: 100%; justify-content: space-between;
+  }
+  .process-new .ps-cta .btn-big .ic { width: 26px; height: 26px; }
 
   /* === QUOTE BRIDGE === */
   .qbridge-new .quote-stage { min-height: 56vh; padding: 70px 0; }

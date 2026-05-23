@@ -199,6 +199,16 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     if (active !== this.activeStep) {
       this.ngZone.run(() => { this.activeStep = active; });
+      // Mobile only: nudge the rail so the active step's neighbours (especially
+      // the not-yet-active next step) become visible. The rail is horizontally
+      // scrollable on phone; on desktop it's a vertical sidebar and this scroll
+      // is a no-op. centerInline keeps the active pill roughly centered.
+      const railEl = this.psRail?.nativeElement;
+      const activeItem = railEl?.children.item(active) as HTMLElement | null;
+      if (railEl && activeItem) {
+        const target = activeItem.offsetLeft + activeItem.offsetWidth / 2 - railEl.clientWidth / 2;
+        railEl.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+      }
     }
 
     // Rail follow: waits until card 4 has scrolled up roughly half its own
