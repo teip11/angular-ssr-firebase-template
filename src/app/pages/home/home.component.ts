@@ -211,14 +211,20 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    // Rail follow: waits until card 4 has scrolled up roughly half its own
-    // height before tracking. The cards leave first, the rail follows once
-    // they're visibly halfway out — asymmetric, not synchronous.
+    // Rail follow: pulls the rail up at 1:1 with the last card's exit so
+    // the rail "stays above the cards" even as they scroll off — without
+    // this, the rail stays pinned at the top long after the cards have
+    // left, which reads as a stale UI element.
+    //   Desktop: triggers once the card has scrolled up roughly half its
+    //   height (asymmetric, cards lead).
+    //   Mobile: triggers immediately when the card unsticks — card 3 has
+    //   zero dwell on phone, so the rail leaves with it in lockstep.
     const railEl = this.psRail?.nativeElement;
     if (!railEl) return;
     const lastTop = cards[cards.length - 1].nativeElement.getBoundingClientRect().top;
-    const stickyTop = 160; // last card: top(120) + translateY(40)
-    const delay = window.innerHeight * 0.38; // ~half the 76vh card
+    const isMobile = window.innerWidth <= 480;
+    const stickyTop = isMobile ? 225 : 160; // mobile: top(185) + translateY(40)
+    const delay = isMobile ? 0 : window.innerHeight * 0.38; // mobile: no asymmetric lag
     const startPoint = stickyTop - delay;
     const shift = lastTop < startPoint ? (startPoint - lastTop) : 0;
     railEl.style.transform = shift > 0 ? `translateY(-${shift}px)` : '';

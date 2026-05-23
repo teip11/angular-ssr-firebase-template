@@ -2250,13 +2250,14 @@
   }
 
   /* === PROCESS (sticky scroll-stack on phone, mirrors desktop) === */
-  /* Rail: in normal document flow — scrolls with the page like the intro
-     text above it. No sticky. The user sees it once on the way into the
-     section, then it scrolls off-screen as cards take over the viewport. */
+  /* Rail: sticky right below the floating navbar pill (top:18 + ~55 height).
+     Stays pinned WHILE cards stack, then follows the cards out of viewport
+     via the JS rail-follow in updateProcess() (no CSS transform override —
+     intentional, the JS owns the translateY). Transparent bg by design. */
   .process-new .ps-rail {
-    position: relative;
-    top: 0;
-    z-index: 1;
+    position: sticky;
+    top: 80px;
+    z-index: 5;
     flex-direction: row;
     overflow-x: auto;
     flex-wrap: nowrap;
@@ -2264,7 +2265,6 @@
     margin: 0 -20px;
     padding: 12px 20px;
     background: transparent;
-    transform: none !important;  /* override JS-applied rail-follow translateY */
     scrollbar-width: none;
   }
   .process-new .ps-rail::-webkit-scrollbar { display: none; }
@@ -2327,15 +2327,18 @@
   }
   /* All three share top so they release together as a unit. Card-1/2 get
      translateY offsets for the staircase peek (mirroring desktop). The top
-     value clears the navbar (~70px) + the rail's actual height (~85px) +
-     small breathing room. Card 2 gets a tiny margin-bottom so the CTA
-     below appears almost immediately after card 3 stacks — the viewer is
-     "already seeing the button" as the last card lands. */
+     value clears the floating navbar (~75px) + the sticky rail (~75px) +
+     small breathing room. Cards are at z-index 1/2/3, rail is at z-index 5
+     so the rail always wins if anything were to overlap (cards never reach
+     y < 185 in practice, so no actual overlap — defensive). */
   .process-new .ps-card[data-i="0"] { top: 185px !important; z-index: 1; transform: none; }
   .process-new .ps-card[data-i="1"] { top: 185px !important; z-index: 2; transform: translateY(20px); }
-  /* Card 3 (data-i="2") gets the same margin-bottom as cards 0/1 so it
-     has the same dwell time — fully covers card 2 for the same scroll
-     duration before the section releases. */
+  /* Card 3 (data-i="2"): inherits the 20vh margin-bottom from .ps-card so
+     it visibly lands on top of card 2 (matching the 1→2 stack moment).
+     After that dwell, all three cards release together — and the rail-follow
+     JS pulls the rail up at 1:1 with card 3's exit (mobile branch uses
+     startPoint=225, delay=0 so the rail moves the same scroll-pixel the
+     card does). */
   .process-new .ps-card[data-i="2"] { top: 185px !important; z-index: 3; transform: translateY(40px); }
 
   /* CTA after the cards — full-width on phone, smaller padding */
