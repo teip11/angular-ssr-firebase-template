@@ -1,103 +1,68 @@
-import { Component, AfterViewInit, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import {
+  Component, AfterViewInit, OnInit, OnDestroy,
+  Inject, PLATFORM_ID,
+  ViewChild, ViewChildren, ElementRef, QueryList,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-projekte',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   templateUrl: './projekte.component.html',
-  styleUrls: ['./projekte.component.css']
+  styleUrls: ['./projekte.component.css'],
 })
 export class ProjekteComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('prjHeroTitle',  { read: ElementRef }) prjHeroTitle?:  ElementRef<HTMLElement>;
+  @ViewChild('prjHeroSub',    { read: ElementRef }) prjHeroSub?:    ElementRef<HTMLElement>;
+  @ViewChild('prjHeroMeta',   { read: ElementRef }) prjHeroMeta?:   ElementRef<HTMLElement>;
+  @ViewChildren('prjChapter', { read: ElementRef }) prjChapters?:   QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('prjPipeline',   { read: ElementRef }) prjPipeline?:   ElementRef<HTMLElement>;
+  @ViewChild('prjFinalCard',  { read: ElementRef }) prjFinalCard?:  ElementRef<HTMLElement>;
+
   private observers: IntersectionObserver[] = [];
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private seo: SeoService
+    private seo: SeoService,
   ) {}
 
   ngOnInit(): void {
     this.seo.setPageSEO('projekte');
   }
 
-  ngOnDestroy() {
-    this.observers.forEach(o => o.disconnect());
-  }
-
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-
-    // Wrap in setTimeout to ensure the DOM is fully rendered and
-    // the browser has laid out the page before we start observing.
-    setTimeout(() => this.initAnimations(), 150);
+    setTimeout(() => this.setupReveal(), 50);
   }
 
-  private initAnimations() {
-    // Helper: create an observer, track it, and observe matching elements
-    const observe = (selector: string, options: IntersectionObserverInit = {}) => {
-      const els = Array.from(document.querySelectorAll(selector)) as HTMLElement[];
-      if (!els.length) return;
-      const obs = new IntersectionObserver((entries) => {
+  ngOnDestroy(): void {
+    this.observers.forEach(o => o.disconnect());
+    this.observers = [];
+  }
+
+  private setupReveal(): void {
+    const observe = (el: Element | undefined | null, threshold: number, rootMargin = '0px') => {
+      if (!el) return;
+      const io = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
-            (e.target as HTMLElement).classList.add('is-visible');
-            obs.unobserve(e.target);
+            e.target.classList.add('has-entered');
+            io.unobserve(e.target);
           }
         });
-      }, { threshold: 0, ...options });
-      this.observers.push(obs);
-      els.forEach(el => obs.observe(el));
+      }, { threshold, rootMargin });
+      io.observe(el);
+      this.observers.push(io);
     };
 
-    // ── Hero: already in viewport, trigger right away ─────────────────────────
-    observe('.proj-hero-title');
-    observe('.proj-hero-sub');
-
-    // ── Project grid cards — staggered by index ───────────────────────────────
-    const gridItems = Array.from(document.querySelectorAll('.proj-grid-item')) as HTMLElement[];
-    if (gridItems.length) {
-      const gridObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const idx = parseInt((e.target as HTMLElement).dataset['index'] || '0', 10);
-            setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), idx * 130);
-            gridObs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-      this.observers.push(gridObs);
-      gridItems.forEach((el, i) => {
-        el.dataset['index'] = String(i);
-        gridObs.observe(el);
-      });
-    }
-
-    // ── Case study sections ───────────────────────────────────────────────────
-    observe('.proj-case-visual',  { rootMargin: '0px 0px -40px 0px' });
-    observe('.proj-case-details', { rootMargin: '0px 0px -40px 0px' });
-
-    // ── Stat / list items — staggered ────────────────────────────────────────
-    const statItems = Array.from(document.querySelectorAll('.proj-stat-item')) as HTMLElement[];
-    if (statItems.length) {
-      const statObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const idx = parseInt((e.target as HTMLElement).dataset['index'] || '0', 10);
-            setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), 150 + idx * 110);
-            statObs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0, rootMargin: '0px 0px -20px 0px' });
-      this.observers.push(statObs);
-      statItems.forEach((el, i) => {
-        el.dataset['index'] = String(i);
-        statObs.observe(el);
-      });
-    }
-
-    // ── CTA panel ─────────────────────────────────────────────────────────────
-    observe('.proj-cta-panel', { rootMargin: '0px 0px -40px 0px' });
+    observe(this.prjHeroTitle?.nativeElement, 0.1);
+    observe(this.prjHeroSub?.nativeElement,   0.1);
+    observe(this.prjHeroMeta?.nativeElement,  0.1);
+    this.prjChapters?.forEach(ref => observe(ref.nativeElement, 0.2));
+    observe(this.prjPipeline?.nativeElement,  0.3);
+    observe(this.prjFinalCard?.nativeElement, 0.3);
   }
 }

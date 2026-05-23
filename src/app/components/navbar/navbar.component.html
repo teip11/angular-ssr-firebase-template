@@ -1,80 +1,120 @@
-<!-- Outer wrapper: fixed, full-width, transparent, handles sticky positioning -->
-<header
-  class="navbar-header"
-  [class.navbar-scrolled]="scrolled()"
-  aria-label="Hauptnavigation">
-
-  <!-- Inner nav: transitions from full-width to pill container -->
-  <nav
-    class="navbar-inner"
-    [class.navbar-inner-scrolled]="scrolled()">
-
-    <!-- Logo -->
-    <a routerLink="/" class="navbar-logo" (click)="closeMenu()">
-      Gehrke Studio
+<!-- Static top navbar — sits at the top of every page in document flow.
+     Scrolls away with the page; the floating pill takes over after 80vh. -->
+<nav class="static-nav" aria-label="Hauptnavigation">
+  <div class="sn-inner">
+    <a routerLink="/" class="sn-brand">
+      <img src="/logo.png" alt="Gehrke Studio" class="sn-logo" />
+      <span><span class="sn-brand-full">Gehrke</span><span class="sn-brand-short" aria-hidden="true">G</span><strong>&nbsp;Studio</strong></span>
     </a>
-
-    <!-- Desktop Links -->
-    <div class="navbar-links">
-      <a class="navbar-link" routerLink="/projekte"   routerLinkActive="navbar-link-active">Projekte</a>
-      <a class="navbar-link" routerLink="/leistungen" routerLinkActive="navbar-link-active">Leistungen</a>
-      <a class="navbar-link" routerLink="/ueber-uns"  routerLinkActive="navbar-link-active">Über uns</a>
-      <a class="navbar-link" routerLink="/blog"       routerLinkActive="navbar-link-active">Blog</a>
-      <a class="navbar-link" routerLink="/kontakt"    routerLinkActive="navbar-link-active">Kontakt</a>
+    <div class="sn-links">
+      @for (link of navLinks; track link.path) {
+        <a [routerLink]="link.path" routerLinkActive="is-active">
+          <span class="fn-text" [attr.aria-label]="link.label">
+            <span class="row" aria-hidden="true">
+              @for (ch of link.chars; track $index) {
+                <span class="ch">{{ ch }}</span>
+              }
+            </span>
+            <span class="row" aria-hidden="true">
+              @for (ch of link.chars; track $index) {
+                <span class="ch">{{ ch }}</span>
+              }
+            </span>
+          </span>
+        </a>
+      }
     </div>
-
-    <!-- CTA (desktop) -->
-    <a routerLink="/demo" class="navbar-cta" id="navbar-cta-btn">
+    <a routerLink="/demo" class="sn-cta">
       Vorlage anfordern
+      <span class="arr-stack">
+        <svg class="arr a1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+        <svg class="arr a2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </span>
     </a>
-
-    <!-- Hamburger Button (mobile only) -->
-    <button
-      class="navbar-hamburger"
-      [class.is-open]="menuOpen()"
-      (click)="toggleMenu()"
-      aria-label="Menü öffnen/schließen"
-      [attr.aria-expanded]="menuOpen()">
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
+    <button class="nav-burger" type="button"
+            aria-label="Menü"
+            [attr.aria-expanded]="drawerOpen()"
+            aria-controls="navDrawer"
+            (click)="toggleDrawer()">
+      <span></span><span></span><span></span>
     </button>
+  </div>
+</nav>
 
-  </nav>
-</header>
+<!-- Floating sticky pill navbar -->
+<nav class="floating-nav" [class.is-visible]="visible()" aria-label="Hauptnavigation">
+  <a routerLink="/" class="fn-brand">
+    <img src="/logo.png" alt="Gehrke Studio" class="fn-logo" />
+    <span class="word">
+      <span class="char" style="transition-delay:.20s">G</span>
+      <span class="char" style="transition-delay:.23s">e</span>
+      <span class="char" style="transition-delay:.26s">h</span>
+      <span class="char" style="transition-delay:.29s">r</span>
+      <span class="char" style="transition-delay:.32s">k</span>
+      <span class="char" style="transition-delay:.35s">e</span>
+    </span>
+    <span class="word">
+      <span class="char" style="transition-delay:.38s">S</span>
+      <span class="char" style="transition-delay:.41s">t</span>
+      <span class="char" style="transition-delay:.44s">u</span>
+      <span class="char" style="transition-delay:.47s">d</span>
+      <span class="char" style="transition-delay:.50s">i</span>
+      <span class="char" style="transition-delay:.53s">o</span>
+    </span>
+  </a>
+  <span class="fn-sep"></span>
+  <div class="fn-links">
+    @for (link of navLinks; track link.path) {
+      <a [routerLink]="link.path" routerLinkActive="is-active">
+        <span class="fn-text" [attr.aria-label]="link.label">
+          <span class="row" aria-hidden="true">
+            @for (ch of link.chars; track $index) {
+              <span class="ch">{{ ch }}</span>
+            }
+          </span>
+          <span class="row" aria-hidden="true">
+            @for (ch of link.chars; track $index) {
+              <span class="ch">{{ ch }}</span>
+            }
+          </span>
+        </span>
+      </a>
+    }
+  </div>
+  <a routerLink="/demo" class="fn-cta">
+    Vorlage anfordern
+    <span class="arr-stack">
+      <svg class="arr a1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      <svg class="arr a2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+    </span>
+  </a>
+  <button class="fn-burger" type="button"
+          aria-label="Menü"
+          [attr.aria-expanded]="drawerOpen()"
+          aria-controls="navDrawer"
+          (click)="toggleDrawer()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-<!-- Mobile Menu Overlay -->
-<div
-  class="mobile-menu-overlay"
-  [class.is-open]="menuOpen()"
-  (click)="closeMenu()"
-  aria-hidden="true">
-</div>
-
-<!-- Mobile Menu Drawer -->
-<div
-  class="mobile-menu-drawer"
-  [class.is-open]="menuOpen()"
-  role="dialog"
-  aria-label="Mobile Navigation"
-  [attr.aria-hidden]="!menuOpen()">
-
-  <div class="mobile-menu-content">
-    <!-- Nav Links -->
-    <nav class="mobile-menu-links">
-      <a class="mobile-menu-link" routerLink="/projekte"   routerLinkActive="mobile-menu-link-active" (click)="closeMenu()">Projekte</a>
-      <a class="mobile-menu-link" routerLink="/leistungen" routerLinkActive="mobile-menu-link-active" (click)="closeMenu()">Leistungen</a>
-      <a class="mobile-menu-link" routerLink="/ueber-uns"  routerLinkActive="mobile-menu-link-active" (click)="closeMenu()">Über uns</a>
-      <a class="mobile-menu-link" routerLink="/blog"       routerLinkActive="mobile-menu-link-active" (click)="closeMenu()">Blog</a>
-      <a class="mobile-menu-link" routerLink="/kontakt"    routerLinkActive="mobile-menu-link-active" (click)="closeMenu()">Kontakt</a>
-    </nav>
-
-    <!-- CTA -->
-    <a routerLink="/demo" class="mobile-menu-cta" (click)="closeMenu()">
-      Kostenlose Vorlage anfordern
+<!-- Mobile drawer overlay (full-screen). Sits outside both navs so it overlays everything.
+     Tapping the backdrop (anywhere outside the link list) closes the drawer. -->
+<div class="nav-drawer" id="navDrawer"
+     [class.is-open]="drawerOpen()"
+     [attr.aria-hidden]="!drawerOpen()"
+     role="dialog"
+     aria-modal="true"
+     aria-label="Navigation"
+     (click)="closeDrawer()">
+  <div class="nav-drawer-inner" (click)="$event.stopPropagation()">
+    <a routerLink="/projekte"   (click)="closeDrawer()">Projekte<span class="arr">↗</span></a>
+    <a routerLink="/leistungen" (click)="closeDrawer()">Leistungen<span class="arr">↗</span></a>
+    <a routerLink="/ueber-uns"  (click)="closeDrawer()">Über uns<span class="arr">↗</span></a>
+    <a routerLink="/blog"       (click)="closeDrawer()">Blog<span class="arr">↗</span></a>
+    <a routerLink="/kontakt"    (click)="closeDrawer()">Kontakt<span class="arr">↗</span></a>
+    <a routerLink="/demo" class="drawer-cta" (click)="closeDrawer()">
+      Vorlage anfordern
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
     </a>
-
-    <!-- Trust line -->
-    <p class="mobile-menu-trust">100% kostenlos &amp; unverbindlich</p>
   </div>
 </div>

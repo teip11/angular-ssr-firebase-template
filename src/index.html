@@ -30,10 +30,11 @@
   <meta name="theme-color" content="#000000">
 
   <!-- ── Favicons ─────────────────────────────────────────────────────────── -->
-  <link rel="icon"             type="image/png" sizes="1024x1024" href="Favicon.png">
-  <link rel="icon"             type="image/png" sizes="192x192"   href="Favicon.png">
-  <link rel="icon"             type="image/png" sizes="96x96"     href="Favicon.png">
-  <link rel="apple-touch-icon" sizes="180x180"                    href="Favicon.png">
+  <link rel="icon"             type="image/png" sizes="1024x1024" href="Favicon.png?v=2">
+  <link rel="icon"             type="image/png" sizes="192x192"   href="Favicon.png?v=2">
+  <link rel="icon"             type="image/png" sizes="96x96"     href="Favicon.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180"                    href="Favicon.png?v=2">
+  <link rel="shortcut icon"                                       href="Favicon.png?v=2">
 
   <!-- ── Performance: Preconnect ───────────────────────────────────────────── -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -51,16 +52,18 @@
   </style>
 
 
-  <!-- ── Google Fonts: Inter ──────────────────────────────────────────────── -->
+  <!-- ── Google Fonts: Inter/Playfair (legacy) + Manrope/Sacramento (redesign) ── -->
   <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700;800&family=Sacramento&display=swap">
 
   <!-- ── Google Tag Manager — loaded by CookieConsentService after user consent ── -->
   <!-- GTM ID: GTM-PDJGHSSK — injected dynamically via CookieConsentService.loadGTM() -->
   <!-- Pre-initialise dataLayer so events queued before consent are not lost -->
   <script>window.dataLayer = window.dataLayer || [];</script>
 
-  <!-- ── reCAPTCHA v3 — loaded lazily by ContactComponent ─────────────────── -->
+  <!-- ── reCAPTCHA v3 — loaded lazily by src/app/services/recaptcha.service.ts
+       on form-page ngOnInit. Site key is configured inside that service;
+       secret key lives in the EmailJS template's CAPTCHA settings. ─────── -->
 
 </head>
 <body class="bg-background text-on-background font-inter selection:bg-primary/30 antialiased dark">

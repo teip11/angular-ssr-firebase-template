@@ -1,26 +1,109 @@
-import { Component, HostListener, AfterViewInit, OnInit, ElementRef, ViewChild, ViewChildren, QueryList, Inject, PLATFORM_ID, NgZone } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import {
+  Component, AfterViewInit, OnInit, OnDestroy,
+  ElementRef, ViewChild, ViewChildren, QueryList,
+  Inject, PLATFORM_ID, NgZone, HostListener
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../services/seo.service';
+
+interface FaqItem { cat: string; q: string; a: string; }
+interface QuoteWord { t: string; accent?: boolean; period?: boolean; s: number; o: number; }
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, AfterViewInit {
-  hasScrolled = false;
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  // Process section state
-  activeCard = 1;
-  exitCard = 0;
-  enterCard = 0;
+  // ─── Process section state (v2 scroll-stack) ───────────────────────────
+  activeStep = 0;
 
-  @ViewChild('processScroll', { read: ElementRef }) processScroll!: ElementRef<HTMLElement>;
-  @ViewChild('progressFill', { read: ElementRef }) progressFill!: ElementRef<HTMLElement>;
-  @ViewChildren('valueCard', { read: ElementRef }) valueCardEls!: QueryList<ElementRef<HTMLElement>>;
+  @ViewChildren('psCard', { read: ElementRef }) psCards?: QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('psRail',  { read: ElementRef }) psRail?: ElementRef<HTMLElement>;
+
+  // ─── Showcase carousel — JS-driven slow horizontal scroll ─────────────
+  @ViewChild('showTrack', { read: ElementRef }) showTrack?: ElementRef<HTMLElement>;
+  showcasePaused = false;
+  private showcaseRAF: number | null = null;
+
+  // ─── Quote bridge state ────────────────────────────────────────────────
+  quoteRevealed = false;
+  quoteReading = false;
+  quoteWords: QuoteWord[] = [
+    { t: 'Eine',       s: 0, o: 0.12 },
+    { t: 'Website',    s: 0, o: 0.12 },
+    { t: 'verspricht', s: 0, o: 0.12 },
+    { t: 'nichts.',    s: 0, o: 0.12 },
+    { t: 'Sie',        s: 0, o: 0.12, accent: true },
+    { t: 'zeigt',      s: 0, o: 0.12, accent: true, period: true },
+  ];
+  @ViewChild('quoteTrack', { read: ElementRef }) quoteTrack?: ElementRef<HTMLElement>;
+
+  // ─── Honesty section state (sentence reveal + ghost-Q parallax) ────────
+  @ViewChildren('honestSentence', { read: ElementRef }) honestSentences?: QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('honestFinale', { read: ElementRef }) honestFinale?: ElementRef<HTMLElement>;
+  @ViewChild('ghostQ',       { read: ElementRef }) ghostQ?: ElementRef<HTMLElement>;
+
+  // ─── FAQ section state ─────────────────────────────────────────────────
+  openFaq: number | null = 0;
+  faqVisible: boolean[] = [false, false, false, false, false, false];
+  faqHeights: number[] = [];
+  faqRailPercent = 0;
+  faqItems: FaqItem[] = [
+    {
+      cat: 'Preis & Umsetzung',
+      q: 'Was kostet die Umsetzung, wenn mich das Konzept überzeugt?',
+      a: 'Das hängt vom Umfang ab. Nach dem kostenlosen Konzept besprechen wir transparent, welche Funktionen Sie wirklich brauchen — und Sie bekommen einen <em>klaren Festpreis</em>, bevor wir mit der Umsetzung beginnen. <strong>Keine versteckten Kosten, keine Überraschungen.</strong>'
+    },
+    {
+      cat: 'Eigentum & Rechte',
+      q: 'Wem gehört das Design am Ende?',
+      a: '<em>Ihnen.</em> Das fertige Konzept und die fertige Website gehören vollständig Ihnen — inklusive aller Designdateien und des Codes. <strong>Auch dann, wenn Sie sich nach dem kostenlosen Konzept gegen die Umsetzung entscheiden.</strong>'
+    },
+    {
+      cat: 'Zeitrahmen',
+      q: 'Wie lange dauert es, bis ich mein kostenloses Konzept sehe?',
+      a: 'In der Regel innerhalb von <strong>5 bis 7 Werktagen</strong>, nachdem Sie uns die ersten Informationen zu Ihrem Unternehmen geschickt haben.'
+    },
+    {
+      cat: 'Anpassungen',
+      q: 'Wie viele Änderungswünsche sind enthalten?',
+      a: 'Das kostenlose Konzept zeigt Ihnen eine erste Richtung. Während der Umsetzung gehören Anpassungen selbstverständlich zum Prozess — <em>wir arbeiten so lange am Detail, bis Sie wirklich zufrieden sind.</em>'
+    },
+    {
+      cat: 'Hosting & Betrieb',
+      q: 'Was kostet das Hosting und laufender Betrieb?',
+      a: 'Hosting können Sie selbst übernehmen oder über uns laufen lassen — <em>beides möglich.</em> Bei der Umsetzung zeigen wir Ihnen beide Wege transparent, damit Sie wissen, was monatlich auf Sie zukommt.'
+    },
+    {
+      cat: 'Kein Risiko',
+      q: 'Was passiert, wenn mir das Konzept nicht gefällt?',
+      a: '<em>Kein Problem, kein Druck.</em> Sie sind zu nichts verpflichtet — das Konzept gehört Ihnen, auch wenn wir nicht weiter zusammenarbeiten. <strong>So einfach ist das.</strong>'
+    },
+  ];
+  @ViewChildren('faqAnswer', { read: ElementRef }) faqAnswerEls?: QueryList<ElementRef<HTMLElement>>;
+  @ViewChildren('faqItem',   { read: ElementRef }) faqItemEls?: QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('faqList',      { read: ElementRef }) faqList?: ElementRef<HTMLElement>;
+
+  // ─── Final section state ───────────────────────────────────────────────
+  finalVisible = false;
+  @ViewChild('finalHeadline', { read: ElementRef }) finalHeadline?: ElementRef<HTMLElement>;
+  @ViewChild('finalCtaRow',   { read: ElementRef }) finalCtaRow?: ElementRef<HTMLElement>;
+
+  // ─── Leistungen (value) stanzas — per-element scroll-triggered reveals ─
+  // Each animatable element gets its own observer so the choreography
+  // sequences with the reader's scroll position, not in a single burst when
+  // the section enters view.
+  @ViewChild('vhHeadline', { read: ElementRef }) vhHeadline?: ElementRef<HTMLElement>;
+  @ViewChild('vhSub',      { read: ElementRef }) vhSub?:      ElementRef<HTMLElement>;
+  @ViewChildren('valueCardItem', { read: ElementRef }) valueCardItems?: QueryList<ElementRef<HTMLElement>>;
+
+  private observers: IntersectionObserver[] = [];
+  private scrollTicking = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -32,308 +115,283 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.seo.setPageSEO('home');
   }
 
-  // Track last known mouse position (viewport-relative clientX/Y)
-  private _lastMouseClientX = -9999;
-  private _lastMouseClientY = -9999;
-
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    if (window.scrollY > 10 && !this.hasScrolled) {
-      this.hasScrolled = true;
-    }
-    this.updateProcessSection();
-    this.updateShowcaseParallax();
-    // Recalculate glow using last viewport-relative mouse position.
-    // getBoundingClientRect() is also viewport-relative so no scroll offset needed.
-    this._updateValueCardGlow(this._lastMouseClientX, this._lastMouseClientY);
+  ngAfterViewInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    // Defer to ensure layout is settled
+    setTimeout(() => {
+      this.setupValueReveal();
+      this.setupHonestyReveal();
+      this.setupFaqReveal();
+      this.setupFinalReveal();
+      this.measureFaqHeights();
+      this.startShowcaseAutoScroll();
+      this.onScroll(); // initial calculation
+    }, 100);
   }
 
-  ngAfterViewInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      // Energy-flow trigger: wait for the last letter of "Kunden bringen" to finish
-      // animating in, then add the modifier class 700ms later. Fallback timer covers
-      // the case where the element isn't in the DOM yet (shouldn't happen, but cheap).
-      const activateEnergyFlow = () => {
-        setTimeout(() => {
-          document.querySelector('.hero-line2-text')?.classList.add('energy-flow');
-        }, 700);
-      };
-      const lastLetter = document.querySelector('.hero-line2-text .hero-letter:last-child');
-      if (lastLetter) {
-        lastLetter.addEventListener('animationend', activateEnergyFlow, { once: true });
-      } else {
-        setTimeout(activateEnergyFlow, 2100);
+  ngOnDestroy(): void {
+    this.observers.forEach(o => o.disconnect());
+    if (this.showcaseRAF !== null) cancelAnimationFrame(this.showcaseRAF);
+  }
+
+  // ─── Showcase: per-frame scrollLeft nudge for slow auto-scroll. The track
+  // has 12 cards (6 unique + 6 duplicates), so when scrollLeft passes the
+  // halfway mark we wrap back to keep the loop seamless. Hovering pauses
+  // (showcasePaused = true) and native trackpad/touch scrolling still works
+  // because we never block user interaction — we only add to scrollLeft.
+  private startShowcaseAutoScroll(): void {
+    const track = this.showTrack?.nativeElement;
+    if (!track) return;
+    const speed = 0.6; // pixels per frame; ~36 px/s at 60fps
+    const tick = () => {
+      if (!this.showcasePaused) {
+        track.scrollLeft += speed;
       }
-
-      setTimeout(() => {
-        // ── Helper: single-element observer ──────────────────────────────────
-        const observe = (el: Element | null, options: IntersectionObserverInit = {}) => {
-          if (!el) return;
-          const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-              if (e.isIntersecting) {
-                e.target.classList.add('is-visible');
-                obs.unobserve(e.target);
-              }
-            });
-          }, { threshold: 0, ...options });
-          obs.observe(el);
-        };
-
-        // ── Value statement: each element individually ────────────────────────
-        document.querySelectorAll('.value-line1, .value-highlight, .value-supporting, .value-scroll-cue').forEach(el => {
-          observe(el, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
-        });
-
-        // ── Hover hint ────────────────────────────────────────────────────────
-        observe(document.querySelector('.hover-hint-animate'), { threshold: 0, rootMargin: '0px 0px -60px 0px' });
-
-        // ── Value cards: staggered ────────────────────────────────────────────
-        const valueCards = Array.from(document.querySelectorAll('.value-card')) as HTMLElement[];
-        if (valueCards.length) {
-          const vcObs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-              if (e.isIntersecting) {
-                const idx = parseInt((e.target as HTMLElement).dataset['vcIdx'] || '0', 10);
-                setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), idx * 120);
-                vcObs.unobserve(e.target);
-              }
-            });
-          }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-          valueCards.forEach((el, i) => {
-            el.dataset['vcIdx'] = String(i);
-            vcObs.observe(el);
-          });
-        }
-
-        // ── Process section ───────────────────────────────────────────────────
-        observe(document.querySelector('.process-intro'), { threshold: 0, rootMargin: '0px 0px -60px 0px' });
-        observe(document.querySelector('.process-right-animate'), { threshold: 0, rootMargin: '0px 0px -60px 0px' });
-
-        // ── Showcase: header label + headline + CTA ───────────────────────────
-        const showcaseSection = document.querySelector('.showcase-section');
-        if (showcaseSection) {
-          const showcaseSectionObs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-              if (e.isIntersecting) {
-                showcaseSectionObs.disconnect();
-                const header = document.querySelector('.showcase-header');
-                const headline = document.querySelector('.showcase-headline');
-                const cta = document.querySelector('.showcase-cta');
-                if (header) header.classList.add('is-visible');
-                if (headline) setTimeout(() => headline.classList.add('is-visible'), 100);
-                if (cta) setTimeout(() => cta.classList.add('is-visible'), 200);
-              }
-            });
-          }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-          showcaseSectionObs.observe(showcaseSection);
-        }
-
-        // ── Showcase cards: staggered ─────────────────────────────────────────
-        const showcaseCards = Array.from(document.querySelectorAll('.showcase-card-animate'));
-        if (showcaseCards.length) {
-          const grid = showcaseCards[0]?.closest('.grid');
-          if (grid) {
-            const showcaseObs = new IntersectionObserver((entries) => {
-              entries.forEach(e => {
-                if (e.isIntersecting) {
-                  showcaseObs.disconnect();
-                  showcaseCards.forEach((card, i) => {
-                    setTimeout(() => card.classList.add('is-visible'), i * 200);
-                  });
-                }
-              });
-            }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-            showcaseObs.observe(grid);
-          }
-        }
-
-        // ── Testimonials: header + headline + cards staggered ─────────────────
-        const testimonialsSection = document.querySelector('.testimonials-section');
-        if (testimonialsSection) {
-          const testimonialsObs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-              if (e.isIntersecting) {
-                testimonialsObs.disconnect();
-                const header = document.querySelector('.testimonials-header');
-                const headline = document.querySelector('.testimonials-headline');
-                const cards = Array.from(document.querySelectorAll('.testimonial-card'));
-                if (header) header.classList.add('is-visible');
-                if (headline) setTimeout(() => headline.classList.add('is-visible'), 80);
-                cards.forEach((card, i) => {
-                  setTimeout(() => card.classList.add('is-visible'), 120 + i * 130);
-                });
-              }
-            });
-          }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-          testimonialsObs.observe(testimonialsSection);
-        }
-
-        // ── Offer section: headline + buttons ────────────────────────────────
-        const offerSection = document.querySelector('.offer-section');
-        if (offerSection) {
-          const offerObs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-              if (e.isIntersecting) {
-                offerObs.disconnect();
-                const headline = document.querySelector('.offer-headline');
-                const buttons = document.querySelector('.offer-buttons');
-                if (headline) headline.classList.add('is-visible');
-                if (buttons) setTimeout(() => buttons.classList.add('is-visible'), 200);
-              }
-            });
-          }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-          offerObs.observe(offerSection);
-        }
-
-        this.updateProcessSection();
-      }, 150);
-    }
+      const half = track.scrollWidth / 2;
+      if (track.scrollLeft >= half) {
+        track.scrollLeft -= half;
+      }
+      this.showcaseRAF = requestAnimationFrame(tick);
+    };
+    this.showcaseRAF = requestAnimationFrame(tick);
   }
 
-  private _lastCard = 1;
-  private _transitioning = false;
+  // ─── Scroll handling ───────────────────────────────────────────────────
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    if (this.scrollTicking) return;
+    this.scrollTicking = true;
+    window.requestAnimationFrame(() => {
+      this.scrollTicking = false;
+      this.updateProcess();
+      this.updateQuoteBridge();
+      this.updateFaqRail();
+      this.updateGhostQ();
+    });
+  }
 
-  private updateProcessSection(): void {
-    if (!isPlatformBrowser(this.platformId) || !this.processScroll) return;
+  @HostListener('window:resize', [])
+  onResize(): void {
+    this.measureFaqHeights();
+    this.onScroll();
+  }
 
-    const el = this.processScroll.nativeElement;
-    const rect = el.getBoundingClientRect();
-    const totalHeight = el.offsetHeight - window.innerHeight;
+  // ─── Process: sticky-stack rail tracker + post-release rail-follow ──────
+  // Two things in one pass:
+  //   1. Set activeStep to the deepest card whose top has crossed the 45%
+  //      viewport line, so the rail highlights the matching step.
+  //   2. Once card 4 begins releasing (its rect.top drops below its sticky
+  //      visual position at y=180), shift the rail up by 0.85× the card's
+  //      displacement. Rail trails the cards slightly — asymmetric feel —
+  //      and exits the viewport well before .ps-grid's natural sticky-end
+  //      point, cutting the dead-scroll between the last card and the next
+  //      section.
+  private updateProcess(): void {
+    const cards = this.psCards?.toArray();
+    if (!cards || !cards.length) return;
 
-    const scrolled = Math.max(0, Math.min(1, -rect.top / totalHeight));
+    const trigger = window.innerHeight * 0.45;
+    let active = 0;
+    cards.forEach((ref, i) => {
+      const rect = ref.nativeElement.getBoundingClientRect();
+      if (rect.top <= trigger) active = i;
+    });
+    if (active !== this.activeStep) {
+      this.ngZone.run(() => { this.activeStep = active; });
+      // Mobile only: nudge the rail so the active step's neighbours (especially
+      // the not-yet-active next step) become visible. The rail is horizontally
+      // scrollable on phone; on desktop it's a vertical sidebar and this scroll
+      // is a no-op. centerInline keeps the active pill roughly centered.
+      const railEl = this.psRail?.nativeElement;
+      const activeItem = railEl?.children.item(active) as HTMLElement | null;
+      if (railEl && activeItem) {
+        const target = activeItem.offsetLeft + activeItem.offsetWidth / 2 - railEl.clientWidth / 2;
+        railEl.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+      }
+    }
 
-    const barProgress = Math.min(1, scrolled / 0.75);
-    this.updateProgressBar(barProgress);
+    // Rail follow: pulls the rail up at 1:1 with the last card's exit so
+    // the rail "stays above the cards" even as they scroll off — without
+    // this, the rail stays pinned at the top long after the cards have
+    // left, which reads as a stale UI element.
+    //   Desktop: triggers once the card has scrolled up roughly half its
+    //   height (asymmetric, cards lead).
+    //   Mobile: triggers immediately when the card unsticks — card 3 has
+    //   zero dwell on phone, so the rail leaves with it in lockstep.
+    const railEl = this.psRail?.nativeElement;
+    if (!railEl) return;
+    const lastTop = cards[cards.length - 1].nativeElement.getBoundingClientRect().top;
+    const isMobile = window.innerWidth <= 480;
+    const stickyTop = isMobile ? 225 : 160; // mobile: top(185) + translateY(40)
+    const delay = isMobile ? 0 : window.innerHeight * 0.38; // mobile: no asymmetric lag
+    const startPoint = stickyTop - delay;
+    const shift = lastTop < startPoint ? (startPoint - lastTop) : 0;
+    railEl.style.transform = shift > 0 ? `translateY(-${shift}px)` : '';
+  }
 
-    let target: number;
-    if (scrolled < 0.25) target = 1;
-    else if (scrolled < 0.50) target = 2;
-    else if (scrolled < 0.75) target = 3;
-    else target = 4;
+  // ─── Quote bridge: scroll-driven word reveal ───────────────────────────
+  private updateQuoteBridge(): void {
+    const track = this.quoteTrack?.nativeElement;
+    if (!track) return;
+    const rect = track.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const total = rect.height - vh;
+    if (total <= 0) return;
+    const p = Math.max(0, Math.min(1, -rect.top / total));
 
-    if (target !== this._lastCard && !this._transitioning) {
-      this._transitioning = true;
-      const prev = this._lastCard;
-      this._lastCard = target;
+    const startReveal = 0.10;
+    const endReveal = 0.75;
+    const reading = Math.max(0, Math.min(1, (p - startReveal) / (endReveal - startReveal)));
 
+    const n = this.quoteWords.length;
+    const wordWindow = 1 / n;
+    const overlap = 0.45 * wordWindow;
+    let changed = false;
+    this.quoteWords.forEach((w, i) => {
+      const start = i * (wordWindow - overlap / n);
+      const end = start + wordWindow + overlap;
+      const local = Math.max(0, Math.min(1, (reading - start) / (end - start)));
+      const eased = 1 - Math.pow(1 - local, 3);
+      const newS = +eased.toFixed(3);
+      const newO = +(0.12 + eased * 0.88).toFixed(3);
+      if (Math.abs(newS - w.s) > 0.01 || Math.abs(newO - w.o) > 0.01) {
+        w.s = newS;
+        w.o = newO;
+        changed = true;
+      }
+    });
+    const newReading = reading > 0.02 && reading < 0.98;
+    const newRevealed = p > 0.78;
+    if (changed || newReading !== this.quoteReading || newRevealed !== this.quoteRevealed) {
       this.ngZone.run(() => {
-        this.exitCard = prev;
-        this.enterCard = target;
-        this.activeCard = target;
-
-        setTimeout(() => {
-          this.exitCard = 0;
-          this.enterCard = 0;
-          this._transitioning = false;
-        }, 500);
+        this.quoteReading = newReading;
+        this.quoteRevealed = newRevealed;
       });
     }
   }
 
-  private _progressFillEl: HTMLElement | null = null;
+  // ─── Leistungen: per-element observers ─────────────────────────────────
+  // Each element animates as IT enters view (not when the section does), so
+  // the eye is guided down the page beat by beat. Thresholds are tuned per
+  // element: the headline + sub need ~40% visible so the slide-in catches
+  // the eye as the user looks at them; the arrow uses a smaller threshold
+  // because it sits at the section seam and is shorter; the cards are
+  // horizontally aligned so they trigger ~simultaneously, with the L→R
+  // stagger provided by CSS nth-child animation-delays.
+  private setupValueReveal(): void {
+    const observe = (el: Element | undefined | null, threshold: number, rootMargin = '0px') => {
+      if (!el) return;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('has-entered');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold, rootMargin });
+      io.observe(el);
+      this.observers.push(io);
+    };
 
-  private updateProgressBar(scrolled: number): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    if (!this._progressFillEl) {
-      this._progressFillEl =
-        (this.progressFill?.nativeElement as HTMLElement | null) ??
-        document.querySelector<HTMLElement>('.process-progress-fill');
-    }
-    if (!this._progressFillEl) return;
-    const pct = Math.min(100, Math.max(0, scrolled * 100));
-    this._progressFillEl.style.height = `${pct}%`;
-    if (scrolled >= 1) {
-      this._progressFillEl.classList.add('fill-complete');
-    } else {
-      this._progressFillEl.classList.remove('fill-complete');
-    }
+    observe(this.vhHeadline?.nativeElement, 0.55);
+    observe(this.vhSub?.nativeElement,      0.65);
+    this.valueCardItems?.forEach(ref => observe(ref.nativeElement, 0.35));
   }
 
-  private updateShowcaseParallax(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    const el = document.querySelector('.showcase-bg-parallax') as HTMLElement;
-    if (!el) return;
-    const section = el.closest('section') as HTMLElement;
+  // ─── Honesty: IntersectionObserver-driven sentence reveal ──────────────
+  private setupHonestyReveal(): void {
+    const targets: Element[] = [];
+    this.honestSentences?.forEach(ref => targets.push(ref.nativeElement));
+    if (this.honestFinale) targets.push(this.honestFinale.nativeElement);
+    if (!targets.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4, rootMargin: '0px 0px -10% 0px' });
+    targets.forEach(el => io.observe(el));
+    this.observers.push(io);
+  }
+
+  private updateGhostQ(): void {
+    const ghost = this.ghostQ?.nativeElement;
+    if (!ghost) return;
+    const section = ghost.closest('.honest') as HTMLElement | null;
     if (!section) return;
     const rect = section.getBoundingClientRect();
-    const viewH = window.innerHeight;
-    if (rect.bottom < 0 || rect.top > viewH) return;
-    const progress = (viewH - rect.top) / (viewH + rect.height);
-    const offset = (progress - 0.5) * 60;
-    el.style.transform = `translateY(${offset}px)`;
+    const vh = window.innerHeight || 800;
+    const center = (rect.top + rect.bottom) / 2;
+    const p = (center - vh / 2) / vh;
+    const offset = Math.max(-120, Math.min(120, p * -180));
+    ghost.style.setProperty('--gy', `${offset.toFixed(1)}px`);
   }
 
-  // Line 1: animate word by word
-  readonly line1Words = 'Ihre Website sollte Ihnen'.split(' ');
-
-  // Line 2: animate letter by letter
-  readonly line2Letters = 'Kunden bringen'.split('');
-
-  // Timing constants
-  readonly wordDelay   = 60;
-  readonly line1Base   = 100;
-  readonly line2Base   = 500;
-  readonly letterDelay = 25;
-
-  wordAnimDelay(i: number): string {
-    return `${this.line1Base + i * this.wordDelay}ms`;
-  }
-
-  letterAnimDelay(i: number): string {
-    return `${this.line2Base + i * this.letterDelay}ms`;
-  }
-
-  letterGradientPos(i: number): string {
-    const percent = i * (100 / (this.line2Letters.length - 1));
-    return `${percent}% 0`;
-  }
-
-  // ─── Proximity-based border glow for value cards ──────────────────────
-
-  onSectionMouseMove(event: MouseEvent): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    // Store viewport-relative mouse position (clientX/Y)
-    this._lastMouseClientX = event.clientX;
-    this._lastMouseClientY = event.clientY;
-    this._updateValueCardGlow(this._lastMouseClientX, this._lastMouseClientY);
-  }
-
-  private _updateValueCardGlow(mouseX: number, mouseY: number): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    if (!this.valueCardEls) return;
-    if (mouseX === -9999) return; // no mouse position yet
-
-    this.valueCardEls.forEach(cardRef => {
-      const card = cardRef.nativeElement;
-      const glow = card.querySelector('.value-card-glow') as HTMLElement | null;
-      if (!glow) return;
-
-      // getBoundingClientRect is viewport-relative — same coordinate space as clientX/Y
-      const rect = card.getBoundingClientRect();
-
-      const clampedX = Math.max(rect.left, Math.min(mouseX, rect.right));
-      const clampedY = Math.max(rect.top,  Math.min(mouseY, rect.bottom));
-      const distToBorder = Math.sqrt(
-        Math.pow(mouseX - clampedX, 2) +
-        Math.pow(mouseY - clampedY, 2)
-      );
-
-      const triggerDist = 80;
-      const fadeDist = 30;
-      let proximity: number;
-      if (distToBorder <= triggerDist - fadeDist) {
-        proximity = 1;
-      } else {
-        proximity = Math.max(0, 1 - (distToBorder - (triggerDist - fadeDist)) / fadeDist);
-      }
-
-      const relX = ((clampedX - rect.left) / rect.width)  * 100;
-      const relY = ((clampedY - rect.top)  / rect.height) * 100;
-
-      glow.style.setProperty('--glow-x', `${relX}%`);
-      glow.style.setProperty('--glow-y', `${relY}%`);
-      glow.style.opacity = `${proximity}`;
+  // ─── FAQ: accordion + reveal-on-scroll + rail fill ─────────────────────
+  private setupFaqReveal(): void {
+    const items = this.faqItemEls;
+    if (!items) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const idx = Number((e.target as HTMLElement).dataset['i']);
+          this.ngZone.run(() => { if (!isNaN(idx)) this.faqVisible[idx] = true; });
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    items.forEach((ref, idx) => {
+      ref.nativeElement.dataset['i'] = String(idx);
+      io.observe(ref.nativeElement);
     });
+    this.observers.push(io);
+  }
+
+  toggleFaq(i: number): void {
+    this.openFaq = this.openFaq === i ? null : i;
+    this.measureFaqHeights();
+  }
+
+  private measureFaqHeights(): void {
+    if (!this.faqAnswerEls) return;
+    this.faqHeights = this.faqAnswerEls.toArray().map(r => r.nativeElement.scrollHeight);
+  }
+
+  private updateFaqRail(): void {
+    const list = this.faqList?.nativeElement;
+    if (!list) return;
+    const rect = list.getBoundingClientRect();
+    const vh = window.innerHeight;
+    let p: number;
+    if (rect.height <= vh) {
+      p = Math.max(0, Math.min(1, (vh - rect.top) / rect.height));
+    } else {
+      const total = rect.height - vh * 0.6;
+      const scrolled = -rect.top + vh * 0.2;
+      p = Math.max(0, Math.min(1, scrolled / total));
+    }
+    const newPct = p * 100;
+    if (Math.abs(newPct - this.faqRailPercent) > 0.5) {
+      this.ngZone.run(() => { this.faqRailPercent = newPct; });
+    }
+  }
+
+  // ─── Final: IntersectionObserver reveal ────────────────────────────────
+  private setupFinalReveal(): void {
+    const targets = [this.finalHeadline?.nativeElement, this.finalCtaRow?.nativeElement].filter(Boolean) as Element[];
+    if (!targets.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          this.ngZone.run(() => { this.finalVisible = true; });
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    targets.forEach(t => io.observe(t));
+    this.observers.push(io);
   }
 }

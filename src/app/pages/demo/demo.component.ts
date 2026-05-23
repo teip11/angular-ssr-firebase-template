@@ -1,18 +1,29 @@
-import { Component, AfterViewInit, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component, AfterViewInit, OnInit, OnDestroy,
+  Inject, PLATFORM_ID,
+  ViewChild, ViewChildren, ElementRef, QueryList,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { EmailjsService, TEMPLATE_DEMO, TEMPLATE_AUTO_REPLY } from '../../services/emailjs.service';
+import { RecaptchaService } from '../../services/recaptcha.service';
 import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-demo',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule],
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.css']
 })
 export class DemoComponent implements OnInit, AfterViewInit, OnDestroy {
+  // ── Per-element template refs ──────────────────────────────────────────
+  @ViewChild('dmoHeroTitle',  { read: ElementRef }) dmoHeroTitle?:  ElementRef<HTMLElement>;
+  @ViewChild('dmoHeroSub',    { read: ElementRef }) dmoHeroSub?:    ElementRef<HTMLElement>;
+  @ViewChild('dmoFormCard',   { read: ElementRef }) dmoFormCard?:   ElementRef<HTMLElement>;
+  @ViewChildren('dmoStep',    { read: ElementRef }) dmoSteps?:      QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('dmoSubmitArea', { read: ElementRef }) dmoSubmitArea?: ElementRef<HTMLElement>;
+
   private observers: IntersectionObserver[] = [];
 
   sending = false;
@@ -37,68 +48,46 @@ export class DemoComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private emailjs: EmailjsService,
+    private recaptcha: RecaptchaService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private seo: SeoService
+    private seo: SeoService,
   ) {}
 
   ngOnInit(): void {
     this.seo.setPageSEO('demo');
+    this.recaptcha.preload();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.observers.forEach(o => o.disconnect());
+    this.observers = [];
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    setTimeout(() => this.initAnimations(), 150);
+    setTimeout(() => this.setupReveal(), 50);
   }
 
-  private initAnimations() {
-    const observe = (selector: string, options: IntersectionObserverInit = {}) => {
-      const els = Array.from(document.querySelectorAll(selector)) as HTMLElement[];
-      if (!els.length) return;
-      const obs = new IntersectionObserver((entries) => {
+  private setupReveal(): void {
+    const observe = (el: Element | undefined | null, threshold: number, rootMargin = '0px') => {
+      if (!el) return;
+      const io = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
-            (e.target as HTMLElement).classList.add('is-visible');
-            obs.unobserve(e.target);
+            e.target.classList.add('has-entered');
+            io.unobserve(e.target);
           }
         });
-      }, { threshold: 0, ...options });
-      this.observers.push(obs);
-      els.forEach(el => obs.observe(el));
+      }, { threshold, rootMargin });
+      io.observe(el);
+      this.observers.push(io);
     };
 
-    // ── Hero: already in viewport on load ────────────────────────────────────
-    observe('.dmo-hero-label');
-    observe('.dmo-hero-title');
-    observe('.dmo-hero-sub');
-
-    // ── Form card ─────────────────────────────────────────────────────────────
-    observe('.dmo-form-card', { rootMargin: '0px 0px -40px 0px' });
-
-    // ── Form steps: staggered ─────────────────────────────────────────────────
-    const steps = Array.from(document.querySelectorAll('.dmo-form-step')) as HTMLElement[];
-    if (steps.length) {
-      const stepObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const idx = parseInt((e.target as HTMLElement).dataset['idx'] || '0', 10);
-            setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), idx * 120);
-            stepObs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0, rootMargin: '0px 0px -30px 0px' });
-      this.observers.push(stepObs);
-      steps.forEach((el, i) => {
-        el.dataset['idx'] = String(i);
-        stepObs.observe(el);
-      });
-    }
-
-    // ── Submit area ───────────────────────────────────────────────────────────
-    observe('.dmo-submit-area', { rootMargin: '0px 0px -30px 0px' });
+    observe(this.dmoHeroTitle?.nativeElement,  0.1);
+    observe(this.dmoHeroSub?.nativeElement,    0.1);
+    observe(this.dmoFormCard?.nativeElement,   0.15);
+    this.dmoSteps?.forEach(ref => observe(ref.nativeElement, 0.2));
+    observe(this.dmoSubmitArea?.nativeElement, 0.2);
   }
 
   async submit() {
@@ -113,27 +102,36 @@ export class DemoComponent implements OnInit, AfterViewInit, OnDestroy {
     ].filter(Boolean).join(', ') || '–';
 
     try {
+      // reCAPTCHA v3 first — placeholder mode returns '' until site key is set.
+      const token = await this.recaptcha.execute('demo');
+
       await this.emailjs.send(TEMPLATE_DEMO, {
-        from_name:          this.form.name,
-        from_email:         this.form.email,
-        company:            this.form.company,
-        beschreibung:       this.form.description,
-        hat_website:        this.form.hasWebsite ? 'Ja' : 'Nein',
-        ziele:              goalsList,
-        detaillierte_ziele: this.form.detailedGoals,
-        inspiration:        this.form.inspiration,
-        sonstige_wuensche:  this.form.wishes,
-        form_type:          'Demo-Anfrage'
+        from_name:              this.form.name,
+        from_email:             this.form.email,
+        company:                this.form.company,
+        beschreibung:           this.form.description,
+        hat_website:            this.form.hasWebsite ? 'Ja' : 'Nein',
+        ziele:                  goalsList,
+        detaillierte_ziele:     this.form.detailedGoals,
+        inspiration:            this.form.inspiration,
+        sonstige_wuensche:      this.form.wishes,
+        form_type:              'Demo-Anfrage',
+        'g-recaptcha-response': token,
       });
 
       // Send auto-reply to customer (fire-and-forget — don't block success state)
       this.emailjs.send(TEMPLATE_AUTO_REPLY, {
         from_name:  this.form.name,
-        from_email: this.form.email
-      }).catch(() => { /* silently ignore auto-reply failures */ });
+        from_email: this.form.email,
+        to_email:   this.form.email,
+      }).catch(err => console.warn('[demo] auto-reply failed:', err));
 
       this.sent = true;
-    } catch {
+      setTimeout(() => {
+        this.dmoFormCard?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 0);
+    } catch (err) {
+      console.error('[demo] submit failed:', err);
       this.error = true;
     } finally {
       this.sending = false;

@@ -1,174 +1,740 @@
-/* =============================================
-   SCROLL & LOAD ANIMATIONS
-   ============================================= */
+/* ───────────────────────────────────────────────────────────────────────────
+   Demo — redesigned page
 
-/* --- Hero label: fade up first --- */
-.dmo-hero-label {
+   Two sections, each wrapped in `.dmo-X-new` and scoped to it:
+     01 Hero        (dmo-hero-new)   — warm graphite
+     02 Form        (dmo-form-new)   — paper-light, single-column 4-step form
+
+   The TS form contract (ngModel keys, submit handler, sent/error/sending
+   states, TEMPLATE_DEMO payload field names) is preserved verbatim.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §1 Hero — Warm graphite
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dmo-hero-new {
+  --orange: #f26b1f;
+  --orange-soft: #ff8a47;
+  --orange-deep: #d8551a;
+  --bg: #0d0b0a;
+  --bg-2: #15110e;
+  --ink: #f6f1ec;
+  --ink-dim: #a7a09a;
+  --ink-soft: #6a6360;
+  --line: rgba(246, 241, 236, 0.07);
+  --line-strong: rgba(246, 241, 236, 0.14);
+  display: block;
+  font-family: 'Manrope', system-ui, sans-serif;
+}
+.dmo-hero-new .dmo-hero {
+  position: relative;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 140px 0 100px;
+  overflow: hidden;
+}
+.dmo-hero-new .dmo-hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(80% 70% at 50% 30%, rgba(242, 107, 31, 0.16), transparent 60%);
+  pointer-events: none;
+}
+.dmo-hero-new .guides {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.dmo-hero-new .container {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 56px;
+}
+.dmo-hero-new .dmo-hero-stage { max-width: 880px; position: relative; }
+
+.dmo-hero-new .eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--ink-dim);
+  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+.dmo-hero-new .eyebrow .bar { width: 32px; height: 2px; background: var(--orange); flex: none; }
+.dmo-hero-new .eyebrow .num { font-weight: 600; font-size: 14px; color: var(--orange); }
+
+.dmo-hero-new .dmo-hero-title {
+  font-weight: 800;
+  font-size: clamp(48px, 6.4vw, 96px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  margin: 0 0 32px;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.dmo-hero-new .dmo-hero-title .accent {
+  font-family: 'Sacramento', cursive;
+  font-weight: 400;
+  color: var(--orange);
+  font-size: 1.32em;
+  line-height: 0.85;
+  display: inline-block;
+  transform: rotate(-2deg);
+  transform-origin: left center;
+  margin: 0 0 0 4px;
+  padding-right: 0.3em;
+}
+.dmo-hero-new .dmo-hero-sub {
+  color: var(--ink-dim);
+  font-size: clamp(18px, 1.4vw, 22px);
+  line-height: 1.55;
+  font-weight: 400;
+  max-width: 640px;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §2 Form — Paper-light, centered single-column card with 4 steps
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dmo-form-new {
+  --orange: #f26b1f;
+  --orange-soft: #ff8a47;
+  --paper-bg: #f4ede1;
+  --card-bg: #fbf6f0;
+  --ink-h: #1a1612;
+  --ink-h-dim: #635a52;
+  --ink-h-soft: #8a8077;
+  --line-h: rgba(26, 22, 18, 0.10);
+  --line-h-strong: rgba(26, 22, 18, 0.22);
+  --line-h-input: rgba(26, 22, 18, 0.18);
+  --success: #2f7d3a;
+  --success-bg: rgba(47, 125, 58, 0.08);
+  --error: #c4341f;
+  --error-bg: rgba(196, 52, 31, 0.08);
+  display: block;
+  font-family: 'Manrope', system-ui, sans-serif;
+}
+.dmo-form-new .dmo-form {
+  position: relative;
+  background: var(--paper-bg);
+  color: var(--ink-h);
+  padding: 120px 0 160px;
+  overflow: hidden;
+}
+.dmo-form-new .dmo-form::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(70% 60% at 80% 20%, rgba(242, 107, 31, 0.08), transparent 65%);
+  pointer-events: none;
+}
+.dmo-form-new .guides {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(to right, var(--line-h) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.dmo-form-new .container {
+  position: relative;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 56px;
+}
+
+.dmo-form-new .eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--ink-h-dim);
+  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.dmo-form-new .eyebrow .bar { width: 32px; height: 2px; background: var(--orange); flex: none; }
+.dmo-form-new .eyebrow .num { font-weight: 600; font-size: 14px; color: var(--orange); }
+
+/* ── Form card ─────────────────────────────────────────────────────────── */
+.dmo-form-new .dmo-form-card {
+  position: relative;
+  padding: 56px 56px 48px;
+  background: var(--card-bg);
+  border: 1px solid var(--line-h);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px -32px rgba(26, 22, 18, 0.18);
+}
+.dmo-form-new .dmo-form-card h2 {
+  font-weight: 800;
+  font-size: clamp(34px, 3.4vw, 52px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  margin: 0 0 24px;
+  color: var(--ink-h);
+  text-wrap: balance;
+}
+.dmo-form-new .dmo-form-card h2 .accent {
+  font-family: 'Sacramento', cursive;
+  font-weight: 400;
+  color: var(--orange);
+  font-size: 1.32em;
+  line-height: 0.85;
+  display: inline-block;
+  transform: rotate(-2deg);
+  transform-origin: left center;
+  margin: 0 0 0 4px;
+  padding-right: 0.2em;
+}
+.dmo-form-new .dmo-form-lead {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-h-dim);
+  margin: 0 0 48px;
+  text-wrap: pretty;
+  max-width: 620px;
+}
+.dmo-form-new .dmo-form-lead .lead-bar {
+  display: block;
+  width: 28px; height: 2px;
+  background: var(--orange);
+  margin-bottom: 20px;
+}
+
+/* ── Form fields wrapper ───────────────────────────────────────────────── */
+.dmo-form-new .dmo-form-fields {
+  display: flex; flex-direction: column;
+  gap: 56px;
+}
+
+/* ── Step block ────────────────────────────────────────────────────────── */
+.dmo-form-new .dmo-step {
+  display: flex; flex-direction: column;
+  gap: 28px;
+}
+.dmo-form-new .dmo-step-head {
+  display: flex; align-items: center;
+  gap: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line-h);
+}
+.dmo-form-new .dmo-step-num {
+  font-family: 'Sacramento', cursive;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 0.85;
+  color: var(--orange);
+  transform: rotate(-3deg);
+  transform-origin: center;
+  width: fit-content;
+  flex: none;
+}
+.dmo-form-new .dmo-step-title {
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink-h);
+}
+
+/* ── Fields ────────────────────────────────────────────────────────────── */
+.dmo-form-new .dmo-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.dmo-form-new .dmo-field {
+  display: flex; flex-direction: column;
+  gap: 8px;
+}
+.dmo-form-new .dmo-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink-h-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.dmo-form-new .dmo-label-hint {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+  color: var(--ink-h-soft);
+}
+.dmo-form-new .dmo-required { color: var(--orange); }
+.dmo-form-new .dmo-input {
+  appearance: none;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line-h-input);
+  border-radius: 0;
+  padding: 12px 0;
+  font-family: inherit;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--ink-h);
+  transition: border-color .25s ease, box-shadow .25s ease;
+  outline: none;
+}
+.dmo-form-new .dmo-input::placeholder { color: var(--ink-h-soft); }
+.dmo-form-new .dmo-input:hover { border-bottom-color: var(--line-h-strong); }
+.dmo-form-new .dmo-input:focus {
+  border-bottom-color: var(--orange);
+  box-shadow: 0 1px 0 0 var(--orange);
+}
+.dmo-form-new .dmo-textarea {
+  resize: vertical;
+  min-height: 96px;
+  line-height: 1.55;
+}
+
+/* ── Toggle switch (hasWebsite) ────────────────────────────────────────── */
+.dmo-form-new .dmo-toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-h-input);
+}
+.dmo-form-new .dmo-toggle-label {
+  font-size: 15px;
+  color: var(--ink-h);
+  font-weight: 500;
+}
+.dmo-form-new .dmo-toggle {
+  display: inline-flex; align-items: center; gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.dmo-form-new .dmo-toggle-input {
+  position: absolute;
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  width: 0; height: 0;
 }
-.dmo-hero-label.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.dmo-form-new .dmo-toggle-track {
+  position: relative;
+  display: inline-block;
+  width: 44px; height: 24px;
+  background: var(--line-h-strong);
+  border-radius: 999px;
+  transition: background .25s ease;
+}
+.dmo-form-new .dmo-toggle-thumb {
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 20px; height: 20px;
+  background: #fff;
+  border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform .25s cubic-bezier(.3, 1.4, .4, 1);
+}
+.dmo-form-new .dmo-toggle-input:checked + .dmo-toggle-track { background: var(--orange); }
+.dmo-form-new .dmo-toggle-input:checked + .dmo-toggle-track .dmo-toggle-thumb {
+  transform: translateX(20px);
+}
+.dmo-form-new .dmo-toggle-input:focus-visible + .dmo-toggle-track {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+.dmo-form-new .dmo-toggle-state {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-h-dim);
+  min-width: 34px;
 }
 
-/* --- Hero Title: fade up + blur --- */
-.dmo-hero-title {
+/* ── Multi-select pills (Ziele) ────────────────────────────────────────── */
+.dmo-form-new .dmo-pill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.dmo-form-new .dmo-pill {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px;
+  padding: 16px 18px;
+  background: var(--paper-bg);
+  border: 1px solid var(--line-h-input);
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: background .25s ease, border-color .25s ease, transform .2s ease;
+}
+.dmo-form-new .dmo-pill:hover {
+  border-color: var(--line-h-strong);
+  transform: translateY(-1px);
+}
+.dmo-form-new .dmo-pill-input {
+  position: absolute;
   opacity: 0;
-  transform: translateY(40px);
-  filter: blur(6px);
-  transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.1s,
-              transform 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.1s,
-              filter 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+  pointer-events: none;
+  width: 0; height: 0;
 }
-.dmo-hero-title.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
+.dmo-form-new .dmo-pill-check {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px;
+  border-radius: 999px;
+  background: var(--paper-bg);
+  border: 1px solid var(--line-h-strong);
+  color: transparent;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+  flex: none;
 }
-
-/* --- Hero Subtitle: fade up, delayed --- */
-.dmo-hero-sub {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.25s,
-              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+.dmo-form-new .dmo-pill-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-h-dim);
+  transition: color .2s ease;
 }
-.dmo-hero-sub.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.dmo-form-new .dmo-pill.is-active {
+  background: rgba(242, 107, 31, 0.08);
+  border-color: var(--orange);
 }
-
-/* --- Form card: scale up from below + blur --- */
-.dmo-form-card {
-  opacity: 0;
-  transform: translateY(48px) scale(0.97);
-  filter: blur(4px);
-  transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+.dmo-form-new .dmo-pill.is-active .dmo-pill-check {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
 }
-.dmo-form-card.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
+.dmo-form-new .dmo-pill.is-active .dmo-pill-label { color: var(--ink-h); }
+.dmo-form-new .dmo-pill-input:focus-visible + .dmo-pill-check {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
 }
 
-/* --- Form steps: staggered fade up --- */
-.dmo-form-step {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+/* ── reCAPTCHA disclaimer ──────────────────────────────────────────────── */
+.dmo-form-new .dmo-recaptcha-note {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-h-soft);
+  margin: 0;
+  max-width: 480px;
 }
-.dmo-form-step.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.dmo-form-new .dmo-recaptcha-note a {
+  color: var(--ink-h-dim);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.dmo-form-new .dmo-recaptcha-note a:hover { color: var(--orange); }
+
+/* ── Submit area ───────────────────────────────────────────────────────── */
+.dmo-form-new .dmo-submit-area {
+  display: flex; flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding-top: 8px;
 }
 
-/* --- Submit area: fade up last --- */
-.dmo-submit-area {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+/* Primary CTA — shine + arrow send-off, ported from .btn-primary */
+.dmo-form-new .dmo-submit-btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex; align-items: center; gap: 12px;
+  width: 100%;
+  justify-content: center;
+  padding: 20px 30px;
+  background: var(--orange);
+  color: #fff;
+  border: 0;
+  border-radius: 14px;
+  font-family: inherit;
+  font-weight: 600; font-size: 17px;
+  cursor: pointer;
+  box-shadow:
+    0 18px 40px -16px rgba(242, 107, 31, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition:
+    transform .3s cubic-bezier(.3, 1.4, .4, 1),
+    background .25s ease,
+    box-shadow .3s ease,
+    opacity .2s ease;
 }
-.dmo-submit-area.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.dmo-form-new .dmo-submit-btn:hover:not(:disabled) {
+  transform: translateY(-4px);
+  box-shadow:
+    0 30px 60px -16px rgba(242, 107, 31, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+.dmo-form-new .dmo-submit-btn:disabled {
+  cursor: progress;
+  opacity: 0.82;
+}
+.dmo-form-new .dmo-submit-btn::before {
+  content: "";
+  position: absolute; top: 0; left: -120%;
+  width: 60%; height: 100%;
+  background: linear-gradient(115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 100%);
+  transform: skewX(-14deg);
+  transition: left .75s cubic-bezier(.4, 0, .2, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+.dmo-form-new .dmo-submit-btn:hover:not(:disabled)::before { left: 130%; }
+.dmo-form-new .dmo-submit-btn .icon-circ {
+  position: relative; overflow: hidden;
+  width: 28px; height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  flex: none;
+}
+.dmo-form-new .dmo-submit-btn .icon-circ .a {
+  position: absolute;
+  top: 50%; left: 50%;
+  transition: transform .48s cubic-bezier(.55, 0, .25, 1);
+}
+.dmo-form-new .dmo-submit-btn .icon-circ .a.a1 { transform: translate(-50%, -50%); }
+.dmo-form-new .dmo-submit-btn .icon-circ .a.a2 { transform: translate(-150%, 50%); }
+.dmo-form-new .dmo-submit-btn:hover:not(:disabled) .icon-circ .a.a1 { transform: translate(50%, -150%); }
+.dmo-form-new .dmo-submit-btn:hover:not(:disabled) .icon-circ .a.a2 { transform: translate(-50%, -50%); }
+
+/* Sending state */
+.dmo-form-new .dmo-sending {
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.dmo-form-new .dmo-spinner { animation: dmo-spin 0.9s linear infinite; }
+@keyframes dmo-spin { to { transform: rotate(360deg); } }
+
+/* ── Submit caption + trust row ────────────────────────────────────────── */
+.dmo-form-new .dmo-submit-caption {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-h-dim);
+  margin: 0;
+  text-align: center;
+}
+.dmo-form-new .dmo-submit-caption strong {
+  font-weight: 600;
+  color: var(--ink-h);
+}
+.dmo-form-new .dmo-trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 8px;
+}
+.dmo-form-new .dmo-trust {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink-h-soft);
+}
+.dmo-form-new .dmo-trust .bar {
+  display: inline-block;
+  width: 16px; height: 2px;
+  background: var(--orange);
+  flex: none;
 }
 
-/* Respect reduced-motion preference */
+/* ── Success / error states ────────────────────────────────────────────── */
+.dmo-form-new .dmo-state-success {
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
+  gap: 16px;
+  padding: 40px 0 8px;
+}
+.dmo-form-new .dmo-state-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 60px; height: 60px;
+  border-radius: 999px;
+  background: var(--success-bg);
+  color: var(--success);
+}
+.dmo-form-new .dmo-state-title {
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink-h);
+}
+.dmo-form-new .dmo-state-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-h-dim);
+  margin: 0;
+  max-width: 460px;
+}
+.dmo-form-new .dmo-state-error {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px;
+  background: var(--error-bg);
+  border: 1px solid rgba(196, 52, 31, 0.25);
+  border-radius: 12px;
+  color: var(--error);
+  font-size: 14px;
+  line-height: 1.55;
+  margin-bottom: 32px;
+}
+.dmo-form-new .dmo-state-error .dmo-err-icon {
+  flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 999px;
+  background: var(--error);
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1;
+}
+.dmo-form-new .dmo-state-error p { margin: 0; }
+.dmo-form-new .dmo-state-error a {
+  color: var(--error);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §3 Motion — per-element scroll reveals (.has-entered pattern)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dmo-hero-new .dmo-hero-title { opacity: 0; transform: translateY(36px); filter: blur(4px); }
+.dmo-hero-new .dmo-hero-title.has-entered {
+  opacity: 1; transform: none; filter: none;
+  animation: dmo-fade-up .9s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+.dmo-hero-new .dmo-hero-sub { opacity: 0; transform: translateY(24px); }
+.dmo-hero-new .dmo-hero-sub.has-entered {
+  opacity: 1; transform: none;
+  animation: dmo-fade-up .8s cubic-bezier(0.22, 1, 0.36, 1) .2s backwards;
+}
+
+.dmo-form-new .dmo-form-card { opacity: 0; transform: translateY(32px); }
+.dmo-form-new .dmo-form-card.has-entered {
+  opacity: 1; transform: none;
+  animation: dmo-fade-up .8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/* Steps stagger as the user scrolls. Once a step enters, head + fields
+   resolve together — kept tight so the form doesn't feel chatty. */
+.dmo-form-new .dmo-step { opacity: 0; transform: translateY(28px); }
+.dmo-form-new .dmo-step.has-entered {
+  opacity: 1; transform: none;
+  animation: dmo-fade-up .7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.dmo-form-new .dmo-submit-area { opacity: 0; transform: translateY(20px); }
+.dmo-form-new .dmo-submit-area.has-entered {
+  opacity: 1; transform: none;
+  animation: dmo-fade-up .7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+@keyframes dmo-fade-up {
+  from { opacity: 0; transform: translateY(36px); filter: blur(0); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §4 Reduced motion
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @media (prefers-reduced-motion: reduce) {
-  .dmo-hero-label,
-  .dmo-hero-title,
-  .dmo-hero-sub,
-  .dmo-form-card,
-  .dmo-form-step,
-  .dmo-submit-area {
+  .dmo-hero-new .dmo-hero-title,
+  .dmo-hero-new .dmo-hero-sub,
+  .dmo-form-new .dmo-form-card,
+  .dmo-form-new .dmo-step,
+  .dmo-form-new .dmo-submit-area {
     opacity: 1;
     transform: none;
     filter: none;
-    transition: none;
   }
-}
-
-/* ─── Liquid flowing gradient animation ────────────────────────────────── */
-
-@keyframes liquidFlow {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow:
-      0 0 20px rgba(34, 211, 238, 0.22),
-      0 0 48px rgba(103, 232, 249, 0.1),
-      0 4px 16px rgba(34, 211, 238, 0.2);
+  .dmo-hero-new .dmo-hero-title.has-entered,
+  .dmo-hero-new .dmo-hero-sub.has-entered,
+  .dmo-form-new .dmo-form-card.has-entered,
+  .dmo-form-new .dmo-step.has-entered,
+  .dmo-form-new .dmo-submit-area.has-entered {
+    animation: none;
   }
-  50% {
-    box-shadow:
-      0 0 36px rgba(34, 211, 238, 0.42),
-      0 0 72px rgba(103, 232, 249, 0.18),
-      0 6px 24px rgba(34, 211, 238, 0.32);
+  .dmo-form-new .dmo-spinner { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §5 Tablet — tighter padding
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+  .dmo-hero-new .dmo-hero { padding: 120px 0 80px; }
+  .dmo-hero-new .container,
+  .dmo-form-new .container { padding: 0 32px; }
+
+  .dmo-form-new .dmo-form { padding: 96px 0 110px; }
+  .dmo-form-new .dmo-form-card { padding: 44px 36px 40px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §6 Phone (≤480px) — every section prefixed by its .X-new wrapper
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  /* Hero */
+  .dmo-hero-new .dmo-hero { padding: 100px 0 64px; }
+  .dmo-hero-new .container { padding: 0 20px; }
+  .dmo-hero-new .guides { background-size: calc(100% / 6) 100%; opacity: 0.45; }
+  .dmo-hero-new .dmo-hero-title {
+    font-size: clamp(34px, 11vw, 48px);
+    line-height: 1;
+    margin-bottom: 24px;
   }
-}
+  .dmo-hero-new .dmo-hero-title .accent { font-size: 1.28em; }
+  .dmo-hero-new .dmo-hero-sub { font-size: 16px; }
 
-/* Shimmer: travels in one direction only — invisible at both ends,
-   so the loop-reset at 100%→0% happens off-screen with no visible jump */
-@keyframes shimmerSweep {
-  0%   { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
+  /* Form */
+  .dmo-form-new .dmo-form { padding: 72px 0 84px; }
+  .dmo-form-new .container { padding: 0 20px; }
+  .dmo-form-new .guides { background-size: calc(100% / 6) 100%; opacity: 0.45; }
 
-/* ─── Submit button ─────────────────────────────────────────────────────── */
+  .dmo-form-new .dmo-form-card {
+    padding: 32px 24px 28px;
+    border-radius: 16px;
+  }
+  .dmo-form-new .dmo-form-card h2 {
+    font-size: clamp(26px, 8vw, 36px);
+    margin-bottom: 20px;
+  }
+  .dmo-form-new .dmo-form-lead {
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+  .dmo-form-new .dmo-form-fields { gap: 44px; }
 
-.demo-submit-btn {
-  overflow: hidden;
-  background: linear-gradient(
-    270deg,
-    var(--color-accent-primary),
-    var(--color-accent-secondary),
-    var(--color-accent-primary),
-    var(--color-accent-secondary),
-    var(--color-accent-primary)
-  );
-  background-size: 300% 300%;
-  animation:
-    liquidFlow 6s linear infinite,
-    pulseGlow 4s ease-in-out infinite;
-  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
-}
+  .dmo-form-new .dmo-step { gap: 22px; }
+  .dmo-form-new .dmo-step-num { font-size: 36px; }
+  .dmo-form-new .dmo-step-title { font-size: 19px; }
 
-.demo-submit-btn:hover {
-  transform: translateY(-3px) scale(1.015);
-  animation:
-    liquidFlow 3s linear infinite,
-    pulseGlow 2s ease-in-out infinite;
-}
+  .dmo-form-new .dmo-field-row {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .dmo-form-new .dmo-input { font-size: 16px; }
+  .dmo-form-new .dmo-toggle-row { padding: 12px 0; }
+  .dmo-form-new .dmo-toggle-label { font-size: 14px; }
 
-.demo-submit-btn:active {
-  transform: translateY(0) scale(0.978);
-}
+  /* Pills: single column on phone for tap-target comfort */
+  .dmo-form-new .dmo-pill-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .dmo-form-new .dmo-pill { padding: 14px 16px; justify-content: flex-start; }
 
-/* ─── Seamless shimmer sweep ────────────────────────────────────────────── */
-
-.demo-submit-btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    105deg,
-    rgba(255,255,255,0) 30%,
-    rgba(255,255,255,0.26) 50%,
-    rgba(255,255,255,0) 70%
-  );
-  background-size: 200% 100%;
-  animation: shimmerSweep 4s linear infinite;
-  pointer-events: none;
+  /* Submit */
+  .dmo-form-new .dmo-submit-btn { padding: 16px 22px; font-size: 15px; }
+  .dmo-form-new .dmo-trust-row { gap: 16px; }
+  .dmo-form-new .dmo-trust { font-size: 10px; letter-spacing: 0.14em; }
+  .dmo-form-new .dmo-state-error { font-size: 13px; padding: 12px 14px; }
+  .dmo-form-new .dmo-state-title { font-size: 22px; }
+  .dmo-form-new .dmo-state-text { font-size: 15px; }
 }

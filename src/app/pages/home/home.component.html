@@ -1,443 +1,985 @@
-<!-- Hero Section -->
-<section class="hero-section relative z-10 flex flex-col justify-center items-center overflow-hidden">
+<!-- ============================================================
+REDESIGN — full homepage, generated from design-drops/Hero.html
+Each section is wrapped in a `.X-new` class so its scoped CSS
+never leaks into sibling sections.
+============================================================ -->
 
-<!-- Hero extra glow — strongest section -->
-<div class="absolute inset-0 pointer-events-none z-[1] overflow-hidden">
-  <div class="hero-glow-boost"></div>
-</div>
+<!-- ============== 01 HERO ============== -->
+<section class="hero-new">
+  <div class="hero">
+    <div class="guides"></div>
+    <div class="container">
+      <div class="stage">
+        <!-- LEFT: COPY -->
+        <div class="copy">
+          <div class="eyebrow"><span class="bar"></span>Webdesign · Made in Germany</div>
+          <h1 class="headline">
+            <span class="ihre">Ihre Website</span>
+            <span class="ihre">sollte Ihnen</span>
+            <span class="script">Kunden bringen</span>
+          </h1>
+          <p class="subhead">
+            Wir gestalten Websites, die nicht nur gut aussehen — sondern messbar mehr Anfragen liefern. Individuell für Ihr Unternehmen, ohne Risiko.
+          </p>
+          <div class="cta-row">
+            <a routerLink="/demo" class="btn-primary">
+              Kostenlose Website Vorlage anfordern
+              <span class="icon-circ">
+                <svg class="a a1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+                <svg class="a a2" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+              </span>
+            </a>
+            <a routerLink="/projekte" class="btn-ghost">
+              Projekte ansehen
+              <span class="arr">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+              </span>
+            </a>
+          </div>
+          <div class="badge badge--inline">
+            <span class="pulse"></span>
+            <span>Aktuell <strong>2 freie</strong> Plätze · Mai</span>
+          </div>
+          <div class="trust">
+            <span class="item"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Individuell erstellt</span>
+            <span class="sep"></span>
+            <span class="item"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>100% kostenlos</span>
+            <span class="sep"></span>
+            <span class="item"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Unverbindlich</span>
+          </div>
+        </div>
 
-<!-- Content Canvas -->
-<div class="relative z-10 max-w-5xl px-4 sm:px-6 text-center">
-<h1 class="flex flex-col items-center">
-  <!-- Line 1: Word by word reveal -->
-  <span class="text-title text-2xl sm:text-3xl md:text-5xl font-medium tracking-normal mb-1 leading-snug flex flex-wrap justify-center gap-x-[0.3em]">
-    <span class="hero-word" *ngFor="let word of line1Words; let i = index" [style.animation-delay]="wordAnimDelay(i)">{{ word }}</span>
-  </span>
+        <!-- RIGHT: ISOMETRIC EDITORIAL STAGE
+        From design-drops/new-hero.html (variant 08).
+        Three numbered "stages" of the story: 01 Design → 02 Traffic → 03 Anfragen.
+        Decorative vertical "Design · Studio" wordmark runs along the left rail. -->
+        <div class="stage3d">
+          <div class="wordmark">
+            <span class="vtxt">Design</span>
+            <span class="vtxt solid">Studio</span>
+          </div>
 
-  <!-- Line 2: Fluid letter-by-letter cascade -->
-  <span class="font-accent italic text-5xl sm:text-6xl md:text-[7.5rem] leading-[1.05] mt-1 block font-medium relative">
-    <span class="hero-line2-text pb-2 inline-block">
-      <span class="hero-letter" *ngFor="let char of line2Letters; let i = index" [style.animation-delay]="letterAnimDelay(i)" [style.background-position]="letterGradientPos(i)">{{ char }}</span>
-    </span>
-  </span>
-</h1>
+          <!-- 01 — Site frame (typography-driven mockup of trattoria-marconi.de) -->
+          <div class="frame frame--site">
+            <div class="frame-float"><div class="frame-tilt">
+              <div class="inner">
+                <div class="mb">
+                  <i></i><i></i><i></i>
+                  <div class="u">trattoria-marconi.de</div>
+                </div>
+                <div class="ms">
+                  <div class="ms-text">
+                    <div class="ms-eyebrow">Trattoria Marconi · seit 1978</div>
+                    <div class="ms-title">Pasta wie<br />in Bologna</div>
+                    <div class="ms-script">— Buongiorno</div>
+                    <div class="ms-body">Familienrezepte aus drei Generationen, frisch gemacht, jeden Tag.</div>
+                    <div class="ms-cta">Tisch reservieren →</div>
+                  </div>
+                  <div class="ms-art"></div>
+                </div>
+                <div class="cap-strip">
+                  <span class="tag">01 · Design</span>
+                  <span class="desc">unverwechselbar</span>
+                </div>
+              </div>
+            </div></div>
+          </div>
 
-<!-- CTA Section -->
-<div class="hero-cta-block mt-8 sm:mt-10 flex flex-col items-center w-full">
-  <div class="hero-cta-buttons flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full sm:w-auto">
-    <a class="btn-primary hero-shimmer-btn hero-cta-rise px-6 sm:px-10 py-4 w-full sm:w-auto text-center text-sm sm:text-base" routerLink="/demo">
-      Kostenlose Website Vorlage anfordern
-    </a>
-    <a class="btn-secondary flex items-center justify-center gap-2 hero-cta-rise w-full sm:w-auto" routerLink="/projekte">
-      Projekte ansehen
-      <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
-    </a>
-  </div>
+          <!-- 02 — Traffic frame -->
+          <div class="frame frame--card frame--traffic" aria-hidden="true">
+            <div class="frame-float"><div class="frame-tilt">
+              <div class="inner">
+                <div class="tk-traffic">
+                  <div class="tk-h">
+                    <span class="brand"><span class="ga"></span> Analytics</span>
+                    <span class="live"><i></i> Live</span>
+                  </div>
+                  <div class="lbl">Besucher · Diese Woche</div>
+                  <div class="tk-row">
+                    <div>
+                      <span class="val">1,4</span>
+                      <span class="unit">Tsd.</span>
+                    </div>
+                    <span class="trend">+18%</span>
+                  </div>
+                  <svg class="g" viewBox="0 0 220 70" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="hybGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#f26b1f" stop-opacity="0.5"/>
+                        <stop offset="100%" stop-color="#f26b1f" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M0 56 L25 52 L50 44 L75 48 L100 32 L125 24 L150 14 L175 18 L200 7 L220 3 L220 70 L0 70 Z" fill="url(#hybGrad)"/>
+                    <path d="M0 56 L25 52 L50 44 L75 48 L100 32 L125 24 L150 14 L175 18 L200 7 L220 3" stroke="#f26b1f" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="220" cy="3" r="3.5" fill="#f26b1f"/>
+                  </svg>
+                  <div class="axis">
+                    <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
+                  </div>
+                </div>
+                <div class="cap-strip">
+                  <span class="tag">02 · Sichtbarkeit</span>
+                  <span class="desc">messbar</span>
+                </div>
+              </div>
+            </div></div>
+          </div>
 
-  <div class="hero-cta-subheader mt-5 flex items-center justify-center gap-2.5 text-center text-text-muted text-[13px] font-medium tracking-[0.03em]">
-    <span class="hero-cta-stat">Individuell erstellt</span>
-    <span class="hero-cta-divider w-[3px] h-[3px] rounded-full bg-border-main" aria-hidden="true"></span>
-    <span class="hero-cta-stat">100% kostenlos</span>
-    <span class="hero-cta-divider w-[3px] h-[3px] rounded-full bg-border-main" aria-hidden="true"></span>
-    <span class="hero-cta-stat">Unverbindlich</span>
-  </div>
-</div>
-</div>
-
-  <!-- Scroll Indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center hero-scroll-indicator transition-opacity duration-300"
-       [class.opacity-0]="hasScrolled" 
-       [class.pointer-events-none]="hasScrolled">
-    <div class="w-[1px] h-8 relative overflow-hidden" style="background: var(--color-border)">
-      <div class="scroll-dot absolute top-0 left-0 w-full h-[8px] rounded-full" style="background: var(--color-text-muted)"></div>
+          <!-- 03 — Conversions frame -->
+          <div class="frame frame--card frame--konv" aria-hidden="true">
+            <div class="frame-float"><div class="frame-tilt">
+              <div class="inner">
+                <div class="tk-konv">
+                  <div class="tk-h">
+                    <span class="h-title">Anfragen</span>
+                    <span class="h-time">heute · 22.05.</span>
+                  </div>
+                  <div class="feed">
+                    <div class="item">
+                      <span class="ic">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M4 6h16v12H4z"/>
+                          <path d="M4 6l8 7 8-7"/>
+                        </svg>
+                      </span>
+                      <div class="tx">
+                        <div class="nm">Neue Anfrage</div>
+                        <div class="ag">Angebot · Erstgespräch</div>
+                      </div>
+                      <div class="tm">jetzt</div>
+                    </div>
+                    <div class="item">
+                      <span class="ic muted">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M4 6h16v12H4z"/>
+                          <path d="M4 6l8 7 8-7"/>
+                        </svg>
+                      </span>
+                      <div class="tx">
+                        <div class="nm">Anfrage</div>
+                        <div class="ag">Webdesign Paket</div>
+                      </div>
+                      <div class="tm">2h</div>
+                    </div>
+                  </div>
+                  <div class="stat">
+                    <span class="num">24</span>
+                    <span class="stat-lbl">/ Monat</span>
+                  </div>
+                </div>
+                <div class="cap-strip">
+                  <span class="tag">03 · Anfragen</span>
+                  <span class="desc">planbar</span>
+                </div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <span class="hero-scroll-label text-[10px] uppercase tracking-[0.2em] font-medium mt-3" style="color: var(--color-text-muted)">Mehr erfahren</span>
+
+    <div class="container">
+      <div class="strip">
+        <div class="row">
+          <div>Scroll · Mehr erfahren</div>
+          <div class="scroll"><span>01 / Hero</span><span class="line"></span><span>Leistungen</span></div>
+          <div class="glyph"><span class="dot"></span> GEHRKE · STUDIO · 2026</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Value Statement Section -->
-<section class="value-statement-section relative flex flex-col justify-center items-center overflow-hidden py-20 md:py-40"
-       (mousemove)="onSectionMouseMove($event)">
-  <div class="relative z-10 w-full max-w-5xl text-center px-6 mx-auto">
+<!-- ============== 02 VALUE — POSTER BANDS ============== -->
+<!-- Alternating-direction full-width bands (5fr/7fr → 7fr/5fr → 5fr/7fr). Section
+header on top: eyebrow + h2 with cursive "leistet" accent + sub. Each band
+links to /leistungen with the matching anchor so the funnel still flows
+into the detail page. -->
+<section class="value-new value-bands-new">
+  <div class="value">
+    <div class="guides"></div>
+    <div class="container">
 
-    <!-- Header -->
-    <h2 class="value-line1 font-headline font-bold text-text-primary leading-[1.1] tracking-[-0.03em]" style="font-size: clamp(1.6rem, 4vw, 3.25rem);">
-      Wir erstellen <span class="value-highlight font-accent italic font-medium drop-shadow-[0_0_24px_var(--color-accent-primary-glow)]"><span class="bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">komplette Websites</span></span> für Ihr Unternehmen
-    </h2>
+      <header class="value-head">
+        <div #vhHeadline class="vh-headline">
+          <div class="eyebrow"><span class="bar"></span><span class="num">02</span> · Leistungen</div>
+          <h2>Was Ihre Website für Sie <span class="accent">leistet</span></h2>
+        </div>
+        <div #vhSub class="value-sub">
+          <span class="lead-bar"></span>
+          <p class="value-sub-main">Vom Design bis hin zu allem, was nötig ist, damit Sie online Kunden gewinnen.</p>
+          <p class="value-sub-aux">Ein Team, ein Prozess, ein klares Ergebnis.</p>
+        </div>
+      </header>
 
-    <!-- Subheader -->
-    <p class="value-supporting text-body text-base md:text-lg mt-5 max-w-xl mx-auto">
-      Vom Design bis hin zu allem, was nötig ist, damit Sie online Kunden gewinnen.
-    </p>
+      <div class="vband-stack">
 
-    <!-- Value Cards -->
-    <!-- Hover hint -->
-    <div id="hover-hint" class="hover-hint hover-hint-animate mt-16 mb-6 flex items-center justify-center gap-2 relative z-20">
-      <span class="font-body text-[10px] uppercase tracking-[0.2em] font-medium text-text-muted">Mehr erfahren</span>
-      <span class="hover-hint-cursor material-symbols-outlined text-[14px] text-secondary/50">touch_app</span>
+        <!-- BAND 01 — Anfragen & Kunden (text left, visual right) -->
+        <article #valueCardItem class="vband">
+          <div class="vband-text">
+            <span class="num">01</span>
+            <div class="ord-meta"><span>Säule 01 / 03</span><span class="time">Kapitel · Leistungen</span></div>
+            <span class="tag">Anfragen &amp; Kunden</span>
+            <h3>Mehr qualifizierte <span class="accent">Anfragen</span></h3>
+            <p class="brief">Die Website wird zum Vertriebsmitarbeiter — sie filtert, qualifiziert und übergibt. Weniger kalte Leads, mehr passende Kunden.</p>
+            <div class="pillrow">
+              <span class="p">Klare Wege zur Anfrage</span>
+              <span class="p">Texte, die Vertrauen schaffen</span>
+              <span class="p">Echte Interessenten</span>
+            </div>
+            <a class="ansehen" routerLink="/leistungen" fragment="anfragen" aria-label="Mehr zu: Mehr qualifizierte Anfragen">Mehr erfahren
+              <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="vband-visual">
+            <div class="demo">
+              <div class="v-inbox" aria-hidden="true">
+                <div class="msg latest">
+                  <span class="av"></span>
+                  <div class="meta"><strong>Sarah M.</strong><small>Möchte ein Angebot für…</small></div>
+                  <span class="badge">Qualifiziert</span>
+                </div>
+                <div class="msg">
+                  <span class="av av-2"></span>
+                  <div class="meta"><strong>Tobias K.</strong><small>Anfrage Renovierung</small></div>
+                  <span class="time">10:14</span>
+                </div>
+                <div class="msg">
+                  <span class="av av-3"></span>
+                  <div class="meta"><strong>Hannah L.</strong><small>Beratungsanfrage</small></div>
+                  <span class="time">09:22</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- BAND 02 — Abläufe & Automatisierung (visual left, text right) -->
+        <article #valueCardItem class="vband">
+          <div class="vband-text">
+            <span class="num">02</span>
+            <div class="ord-meta"><span>Säule 02 / 03</span><span class="time">Kapitel · Leistungen</span></div>
+            <span class="tag">Abläufe &amp; Automatisierung</span>
+            <h3>Weniger <span class="accent">Aufwand</span> für Sie</h3>
+            <p class="brief">Was sich automatisieren lässt, läuft automatisch. Anfragen landen sortiert, das CRM bleibt sauber, und Wiederkehrendes erledigt sich selbst.</p>
+            <div class="pillrow">
+              <span class="p">Anfragen direkt im Postfach</span>
+              <span class="p">CRM ohne Aufwand</span>
+              <span class="p">Automatische Abläufe</span>
+            </div>
+            <a class="ansehen" routerLink="/leistungen" fragment="ablaeufe" aria-label="Mehr zu: Weniger Aufwand für Sie">Mehr erfahren
+              <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="vband-visual">
+            <div class="demo">
+              <div class="v-flow" aria-hidden="true">
+                <div class="node">
+                  <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+                  <span class="lb">Anfrage</span>
+                </div>
+                <span class="arrow a1"></span>
+                <div class="node">
+                  <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 8l8 5 8-5"/></svg></span>
+                  <span class="lb">Postfach</span>
+                </div>
+                <span class="arrow a2"></span>
+                <div class="node">
+                  <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg></span>
+                  <span class="lb">CRM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- BAND 03 — Sichtbarkeit & Performance (text left, visual right) -->
+        <article #valueCardItem class="vband">
+          <div class="vband-text">
+            <span class="num">03</span>
+            <div class="ord-meta"><span>Säule 03 / 03</span><span class="time">Kapitel · Leistungen</span></div>
+            <span class="tag">Sichtbarkeit &amp; Performance</span>
+            <h3>Online <span class="accent">gefunden</span> werden</h3>
+            <p class="brief">Eine Website nützt nichts, wenn sie niemand findet. Wir bauen Seiten, die schnell laden, in der Google-Suche sichtbar sind und Daten liefern, mit denen Sie wirklich arbeiten können.</p>
+            <div class="pillrow">
+              <span class="p">Schnelle Ladezeiten</span>
+              <span class="p">Sichtbar in Google</span>
+              <span class="p">Echtes Tracking</span>
+            </div>
+            <a class="ansehen" routerLink="/leistungen" fragment="sichtbarkeit" aria-label="Mehr zu: Online gefunden werden">Mehr erfahren
+              <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="vband-visual">
+            <div class="demo">
+              <div class="v-search" aria-hidden="true">
+                <div class="bar">
+                  <svg class="lupe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                  <span class="q">webdesign berlin</span>
+                </div>
+                <div class="result">
+                  <div class="info">
+                    <small>gehrkestudio.de</small>
+                    <strong>Gehrke Studio — Premium Webdesign</strong>
+                  </div>
+                  <span class="speed"><span class="gauge"></span>98</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="vband-foot">
+        <span class="pill"><span class="d"></span>02 · Leistungen</span>
+        <span>Drei Säulen · Drei Demos · Ein Ergebnis</span>
+        <span>Gehrke · Studio</span>
+      </div>
+
     </div>
-
-    <!-- Value Cards -->
-    <div class="value-cards-row mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8">
-
-      <!-- Card 1 -->
-      <div class="value-card" #valueCard>
-        <div class="value-card-glow"></div>
-        <div class="value-card-inner">
-          <!-- Static center group: always centered, never moves -->
-          <div class="value-card-center">
-            <div class="value-card-icon-wrap">
-              <span class="material-symbols-outlined value-card-icon">trending_up</span>
-            </div>
-            <h3 class="value-card-benefit-title">Mehr qualifizierte Anfragen</h3>
-            <p class="value-card-tag">Anfragen & Kunden</p>
-          </div>
-          <!-- Hover reveal: fades in below, absolutely positioned -->
-          <div class="value-card-reveal">
-            <div class="value-card-divider-line"></div>
-            <ul class="value-card-details">
-              <li>Klare Wege zur Anfrage</li>
-              <li>Texte, die Vertrauen schaffen</li>
-              <li>Echte Interessenten statt Klickzahlen</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="value-card" #valueCard>
-        <div class="value-card-glow"></div>
-        <div class="value-card-inner">
-          <div class="value-card-center">
-            <div class="value-card-icon-wrap">
-              <span class="material-symbols-outlined value-card-icon">settings_suggest</span>
-            </div>
-            <h3 class="value-card-benefit-title">Weniger Aufwand für Sie</h3>
-            <p class="value-card-tag">Abläufe & Automatisierung</p>
-          </div>
-          <div class="value-card-reveal">
-            <div class="value-card-divider-line"></div>
-            <ul class="value-card-details">
-              <li>Anfragen direkt im Postfach</li>
-              <li>CRM-Anbindung ohne Aufwand</li>
-              <li>Wiederkehrende Abläufe laufen automatisch</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="value-card" #valueCard>
-        <div class="value-card-glow"></div>
-        <div class="value-card-inner">
-          <div class="value-card-center">
-            <div class="value-card-icon-wrap">
-              <span class="material-symbols-outlined value-card-icon">visibility</span>
-            </div>
-            <h3 class="value-card-benefit-title">Online gefunden werden</h3>
-            <p class="value-card-tag">Sichtbarkeit & Performance</p>
-          </div>
-          <div class="value-card-reveal">
-            <div class="value-card-divider-line"></div>
-            <ul class="value-card-details">
-              <li>Schnelle Ladezeiten</li>
-              <li>Sichtbar in der Google-Suche</li>
-              <li>Tracking, das echte Erkenntnisse liefert</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Scroll cue -->
-    <span class="value-scroll-cue block mt-16 font-body text-sm text-text-muted/50 tracking-wide">
-      So funktioniert's ↓
-    </span>
   </div>
 </section>
 
-<!-- "How it Works" Section -->
-<div #processScroll class="process-scroll-container">
-  <div class="process-sticky">
-    <div class="process-inner max-w-screen-xl mx-auto px-4 sm:px-6 md:px-12">
+<!-- ============== 03 PROCESS — v2 scroll-stack ============== -->
+<section class="process-new">
+  <div class="prozess">
 
-      <!-- Left column -->
-      <div class="process-left process-intro">
-        <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-5">
-          <span class="w-8 h-px bg-secondary/40"></span>
-          SO LÄUFT ES AB
+    <div class="container ps-intro">
+      <div class="head">
+        <div>
+          <div class="eyebrow"><span class="bar"></span>03 · So läuft es ab</div>
+          <h2>Sehen Sie Ihre neue Website, <span class="accent">bevor</span> Sie bezahlen</h2>
         </div>
-
-        <h2 class="font-headline font-bold text-text-primary text-3xl md:text-4xl leading-[1.15] tracking-[-0.02em] max-w-sm">
-          Sehen Sie Ihre neue Website, bevor Sie bezahlen
-        </h2>
-
-        <p class="text-body text-base mt-4">
-          Wir zeigen Ihnen zuerst, wie Ihre Website aussehen könnte – komplett kostenlos. Überzeugt es Sie, machen wir weiter. Wenn nicht, kein Problem.
+        <p class="sub">
+          <span class="lead-bar"></span>
+          Wir zeigen Ihnen zuerst, wie Ihre Website aussehen könnte — komplett kostenlos. Überzeugt es Sie, machen wir weiter. Wenn nicht, kein Problem.
         </p>
+      </div>
+    </div>
 
-        <a routerLink="/demo" class="btn-primary hero-shimmer-btn hero-cta-rise inline-flex items-center gap-2 mt-8 px-7 py-3.5 text-sm">
-          Kostenlose Vorlage anfordern
-          <span class="material-symbols-outlined text-base">arrow_forward</span>
+    <div class="container ps-stage">
+      <div class="ps-grid">
+
+        <aside class="ps-rail" #psRail aria-label="Prozessschritte">
+          <div class="r" [class.is-active]="activeStep === 0" [class.is-done]="activeStep > 0">
+            <span class="ord">01 · Kostenlos</span><span class="lbl">Konzept</span><span class="dur">5–7 Tage</span>
+          </div>
+          <div class="r" [class.is-active]="activeStep === 1" [class.is-done]="activeStep > 1">
+            <span class="ord">02</span><span class="lbl">Umsetzung</span><span class="dur">2–4 Wochen</span>
+          </div>
+          <div class="r" [class.is-active]="activeStep === 2" [class.is-done]="activeStep > 2">
+            <span class="ord">03</span><span class="lbl">Übergabe</span><span class="dur">1 Tag</span>
+          </div>
+        </aside>
+
+        <div class="ps-stack" #psStack>
+
+          <article class="ps-card is-hl" data-i="0" #psCard [class.is-active]="activeStep === 0">
+            <span class="badge"><span></span>Kostenlos</span>
+            <span class="corner" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </span>
+            <div class="meta">
+              <span class="cat">Schritt 01 · 5–7 Tage · kostenlos</span>
+              <h3 class="name">Ihr Konzept<span class="sub">kostenlos</span></h3>
+              <p class="desc">Eine vollständige Designvorschau Ihrer Startseite — komplett gestaltet, mit Stil, Typografie und Farbwelt. Überzeugt Sie das Konzept nicht? Kein Problem — Sie sind zu nichts verpflichtet.</p>
+            </div>
+            <div class="preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">ihre-website.de · konzept</span></div>
+              <div class="ctx">
+                <div class="pvx-site" aria-hidden="true">
+                  <div class="topbar">
+                    <span class="logo"></span>
+                    <span class="links"><i></i><i></i><i></i></span>
+                  </div>
+                  <div class="hero">
+                    <div class="hero-copy">
+                      <span class="hl"></span>
+                      <span class="hl s"></span>
+                      <span class="cta">Anfragen</span>
+                    </div>
+                    <div class="hero-img"></div>
+                  </div>
+                  <div class="rows"><span></span><span></span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="ps-card" data-i="1" #psCard [class.is-active]="activeStep === 1">
+            <span class="corner" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </span>
+            <div class="meta">
+              <span class="cat">Schritt 02 · 2–4 Wochen</span>
+              <h3 class="name">Umsetzung<span class="sub">wir bauen</span></h3>
+              <p class="desc">Sind Sie überzeugt, geht's los. Design, Entwicklung, SEO, Performance, Hosting — Sie wählen, was Sie brauchen. Klarer Festpreis, keine Überraschungen.</p>
+            </div>
+            <div class="preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">build · gehrke.studio</span></div>
+              <div class="ctx">
+                <div class="pvx-code" aria-hidden="true">
+                  <div class="ln"><span class="n">01</span><span class="t o"></span></div>
+                  <div class="ln"><span class="n">02</span><span class="t m"></span></div>
+                  <div class="ln"><span class="n">03</span><span class="t l"></span></div>
+                  <div class="ln"><span class="n">04</span><span class="t s"></span></div>
+                  <div class="ln"><span class="n">05</span><span class="t g"></span></div>
+                  <div class="ln"><span class="n">06</span><span class="t l"></span></div>
+                  <div class="bar"><span class="live">live preview</span><span>Auto-Deploy aktiv</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="ps-card" data-i="2" #psCard [class.is-active]="activeStep === 2">
+            <span class="corner" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </span>
+            <div class="meta">
+              <span class="cat">Schritt 03 · live in 1 Tag</span>
+              <h3 class="name">Übergabe<span class="sub">gehört Ihnen</span></h3>
+              <p class="desc">Wir schalten live, übergeben Zugänge, Code und eine persönliche Anleitung. Sie können alles selbst pflegen — Wartung gibt's nur auf Wunsch.</p>
+            </div>
+            <div class="preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">https:// ihre-domain.de · live</span></div>
+              <div class="ctx">
+                <div class="pvx-live" aria-hidden="true">
+                  <div class="top">
+                    <span class="check">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
+                    </span>
+                    <span class="h">Erfolgreich live geschaltet</span>
+                  </div>
+                  <div class="url"><span class="d"></span>https://ihre-domain.de</div>
+                  <div class="stats">
+                    <div class="stat"><span class="v">1.4s</span><span class="l">Ladezeit</span></div>
+                    <div class="stat"><span class="v">A+</span><span class="l">Lighthouse</span></div>
+                    <div class="stat"><span class="v">100%</span><span class="l">SSL</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <div class="ps-cta" [class.is-revealed]="activeStep === 2">
+        <div class="label">Bereit für Ihre</div>
+        <a routerLink="/demo" class="btn-big">
+          Kostenlose Website Vorlage
+          <span class="ic">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+          </span>
         </a>
+        <div class="micro">Individuell für Ihr Unternehmen erstellt</div>
+      </div>
+    </div>
 
-        <!-- Trust badges -->
-        <div class="mt-6 flex flex-col gap-2">
-          <span class="process-trust-badge">✓ 100% kostenlos</span>
-          <span class="process-trust-badge">✓ Keine Vertragsbindung</span>
-          <span class="process-trust-badge">✓ Völlig unverbindlich</span>
-          <span class="process-trust-badge">✓ Individuell für Sie</span>
+  </div>
+</section>
+
+<!-- ============== 03b BRIDGE QUOTE ============== -->
+<section class="qbridge-new">
+  <div class="quote-bridge" [class.is-revealed]="quoteRevealed">
+    <div class="quote-track" #quoteTrack>
+      <div class="quote-stage" [class.is-reading]="quoteReading">
+        <div class="guides"></div>
+        <div class="laser"></div>
+        <div class="quote-mark" aria-hidden="true">"</div>
+
+        <blockquote class="quote-text">
+          @for (w of quoteWords; track w; let i = $index) {
+            <span class="w" [class.accent]="w.accent" [style.--s]="w.s" [style.--o]="w.o">{{ w.t }}@if (w.period) {
+              <span class="period">.</span>
+            }</span>
+          }
+        </blockquote>
+
+        <div class="quote-attrib">
+          <span class="line"></span>
+          Gehrke · Studio
+          <span class="line"></span>
         </div>
       </div>
-
-      <!-- Center column: vertical progress bar -->
-      <div class="process-progress-col" aria-hidden="true">
-        <div class="process-progress-track">
-          <div class="process-progress-fill" #progressFill></div>
-        </div>
-      </div>
-
-      <!-- Right column -->
-      <div class="process-right process-right-animate">
-        <div class="process-card-track">
-
-          <!-- Card 1 -->
-          <div class="process-card"
-               [class.card-active]="activeCard === 1"
-               [class.card-exit]="exitCard === 1"
-               [class.card-enter]="enterCard === 1">
-            <div class="process-card-num">01</div>
-            <div>
-              <h3 class="text-title text-xl mb-2">Kurz über Ihr Unternehmen berichten</h3>
-              <p class="text-body text-base">Ein paar Fragen zu Ihren Zielen, Ihrer Zielgruppe und Ihrem Stil – das reicht uns als Grundlage.</p>
-            </div>
-          </div>
-
-          <!-- Card 2 — dopamine / glow -->
-          <div class="process-card process-card--highlight"
-               [class.card-active]="activeCard === 2"
-               [class.card-exit]="exitCard === 2"
-               [class.card-enter]="enterCard === 2">
-            <div class="process-card-num process-card-num--highlight">02</div>
-            <div>
-              <h3 class="text-title text-xl mb-2">Ihr Website-Konzept – kostenlos</h3>
-              <p class="text-body text-base leading-7">Wir entwickeln ein maßgeschneidertes Design für Ihr Unternehmen, damit Sie genau sehen, was möglich ist.</p>
-              <span class="process-free-badge mt-3 inline-block">✦ 100% kostenlos</span>
-            </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="process-card process-card--blue"
-               [class.card-active]="activeCard === 3"
-               [class.card-exit]="exitCard === 3"
-               [class.card-enter]="enterCard === 3">
-            <div class="process-card-num process-card-num--blue">03</div>
-            <div>
-              <h3 class="text-title text-xl mb-2">Gemeinsam durchs Konzept</h3>
-              <p class="text-body text-base leading-7">In einem kurzen Gespräch führen wir Sie durch das Design, erklären die Idee dahinter und klären offene Fragen.</p>
-            </div>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="process-card process-card--trust"
-               [class.card-active]="activeCard === 4"
-               [class.card-exit]="exitCard === 4"
-               [class.card-enter]="enterCard === 4">
-            <div class="process-card-num process-card-num--trust">04</div>
-            <div>
-              <h3 class="text-title text-xl mb-2">Sie entscheiden – ohne Druck</h3>
-              <p class="text-body text-base leading-7">Überzeugt das Konzept? Dann legen wir los. Wenn nicht, ist das völlig in Ordnung.</p>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Step dots -->
-        <div class="process-dots">
-          <span class="process-dot" [class.dot-active]="activeCard === 1"></span>
-          <span class="process-dot" [class.dot-active]="activeCard === 2"></span>
-          <span class="process-dot" [class.dot-active]="activeCard === 3"></span>
-          <span class="process-dot" [class.dot-active]="activeCard === 4"></span>
-        </div>
-      </div>
-
     </div>
   </div>
-</div>
+</section>
 
-<!-- Example Websites Showcase -->
-<section class="showcase-section relative px-4 sm:px-6 md:px-12 py-16 sm:py-28 overflow-hidden">
-  <!-- Subtle local glow for portfolio emphasis -->
-  <div class="showcase-glow-local"></div>
+<!-- ============== 04 SHOWCASE ============== -->
+<section class="showcase-new">
+  <div class="showcase">
+    <div class="guides"></div>
+    <div class="container">
+      <header class="showcase-head">
+        <div>
+          <div class="eyebrow"><span class="bar"></span>04 · Beispiele</div>
+          <h2>So <span class="accent">könnte</span> Ihre Website aussehen</h2>
+        </div>
+        <aside class="showcase-aside">
+          <span class="pill"><span class="d"></span>Jede Branche · Ein Maßstab</span>
+          Klare Konzepte, klare Wirkung. Jede Website auf das Ziel zugeschnitten — nicht auf eine Vorlage.
+        </aside>
+      </header>
 
-  <div class="max-w-7xl mx-auto grid gap-14 relative z-10">
-    <div class="max-w-3xl mx-auto text-center showcase-header">
-      <div class="inline-flex items-center justify-center gap-2.5 text-secondary font-body font-semibold tracking-[0.22em] uppercase text-xs mb-6">
-        <span class="w-10 h-px bg-secondary/40"></span>
-        Beispiele
+      <div class="show-carousel" (mouseenter)="showcasePaused = true" (mouseleave)="showcasePaused = false">
+        <div class="show-track" #showTrack>
+
+          <!-- CARD 1 — Trattoria Marconi (existing) -->
+          <a href="/showcase/trattoria-marconi/" target="_blank" rel="noopener" class="show-card">
+            <span class="corner" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            </span>
+            <div class="show-preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">trattoria-marconi.de</span></div>
+              <img class="mock" src="/showcase/trattoria-marconi.png" alt="Restaurant Website Beispiel — Trattoria Marconi" loading="lazy" />
+              <span class="overlay">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg></span>
+            </div>
+            <div class="show-meta">
+              <span class="show-cat">Restaurant &amp; Gastronomie</span>
+              <h3 class="show-name">Trattoria Marconi</h3>
+              <p class="show-desc">Atmosphärisch, reservierungs‑fokussiert — für Restaurants und Bistros, die wiederkehrende Stammgäste statt Laufkundschaft suchen.</p>
+              <div class="show-foot">
+                <span>01</span>
+                <span class="ansehen">Ansehen <span class="arr">→</span></span>
+              </div>
+            </div>
+          </a>
+
+          <!-- CARD 2 — Schreinerei Hollmann (existing) -->
+          <a href="/showcase/schreinerei-hollmann/" target="_blank" rel="noopener" class="show-card">
+            <span class="corner" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            </span>
+            <div class="show-preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">schreinerei-hollmann.de</span></div>
+              <img class="mock" src="/showcase/schreinerei-hollmann.png" alt="Schreinerei Website Beispiel — Schreinerei Hollmann" loading="lazy" />
+              <span class="overlay">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg></span>
+            </div>
+            <div class="show-meta">
+              <span class="show-cat">Handwerk &amp; Innenausbau</span>
+              <h3 class="show-name">Schreinerei Hollmann</h3>
+              <p class="show-desc">Werkschau‑fokussiert, vertrauensbildend — für Schreinereien und Innenausbauer, die hochwertige Projektanfragen statt Preisvergleicher gewinnen wollen.</p>
+              <div class="show-foot">
+                <span>02</span>
+                <span class="ansehen">Ansehen <span class="arr">→</span></span>
+              </div>
+            </div>
+          </a>
+
+          <!-- CARD 3 — Praxis Lindner (existing) -->
+          <a href="/showcase/praxis-lindner/" target="_blank" rel="noopener" class="show-card">
+            <span class="corner" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            </span>
+            <div class="show-preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">praxis-lindner.de</span></div>
+              <img class="mock" src="/showcase/praxis-lindner.png" alt="Physio-Praxis Website Beispiel — Praxis Lindner" loading="lazy" />
+              <span class="overlay">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg></span>
+            </div>
+            <div class="show-meta">
+              <span class="show-cat">Gesundheit &amp; Therapie</span>
+              <h3 class="show-name">Praxis Lindner</h3>
+              <p class="show-desc">Team‑fokussiert, vertrauensbildend — für Physio‑ und Osteopathie‑Praxen, die Wunschtermine im Voraus statt nur kurzfristige Akut‑Anrufe gewinnen wollen.</p>
+              <div class="show-foot">
+                <span>03</span>
+                <span class="ansehen">Ansehen <span class="arr">→</span></span>
+              </div>
+            </div>
+          </a>
+
+          <!-- CARD 4 — Altstahl Velomanufaktur -->
+          <a href="/showcase/altstahl/" target="_blank" rel="noopener" class="show-card">
+            <span class="corner" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            </span>
+            <div class="show-preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">altstahl.de</span></div>
+              <img class="mock" src="/showcase/altstahl.png" alt="Velomanufaktur Website Beispiel — Altstahl Berlin" loading="lazy" />
+              <span class="overlay">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg></span>
+            </div>
+            <div class="show-meta">
+              <span class="show-cat">Manufaktur &amp; Handwerk</span>
+              <h3 class="show-name">Altstahl Velomanufaktur</h3>
+              <p class="show-desc">Kinoartig, produkt­fokussiert — für Manufakturen und Werkstätten, die ihr Handwerk online genauso eindrücklich zeigen wie im Atelier.</p>
+              <div class="show-foot">
+                <span>04</span>
+                <span class="ansehen">Ansehen <span class="arr">→</span></span>
+              </div>
+            </div>
+          </a>
+
+          <!-- CARD 5 — Bredow & Partner -->
+          <a href="/showcase/bredow-partner/" target="_blank" rel="noopener" class="show-card">
+            <span class="corner" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            </span>
+            <div class="show-preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">bredow-partner.de</span></div>
+              <img class="mock" src="/showcase/bredow-partner.png" alt="Steuerberater Website Beispiel — Bredow &amp; Partner Hamburg" loading="lazy" />
+              <span class="overlay">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg></span>
+            </div>
+            <div class="show-meta">
+              <span class="show-cat">Recht &amp; Beratung</span>
+              <h3 class="show-name">Bredow &amp; Partner</h3>
+              <p class="show-desc">Seriös, vertrauensbildend — für Steuerberater und Kanzleien, die Mandanten gewinnen, bevor das erste Gespräch beginnt.</p>
+              <div class="show-foot">
+                <span>05</span>
+                <span class="ansehen">Ansehen <span class="arr">→</span></span>
+              </div>
+            </div>
+          </a>
+
+          <!-- CARD 6 — Werft 11 Brauwerk -->
+          <a href="/showcase/werft-11/" target="_blank" rel="noopener" class="show-card">
+            <span class="corner" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            </span>
+            <div class="show-preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">werft-11.de</span></div>
+              <img class="mock" src="/showcase/werft-11.png" alt="Craft-Brauerei Website Beispiel — Werft 11 Brauwerk Hamburg" loading="lazy" />
+              <span class="overlay">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg></span>
+            </div>
+            <div class="show-meta">
+              <span class="show-cat">Brauerei &amp; Gastronomie</span>
+              <h3 class="show-name">Werft 11 Brauwerk</h3>
+              <p class="show-desc">Laut, charakter­voll — für Brauereien und Manufakturen mit Haltung, die ihr Produkt online genauso direkt vermitteln wie im Tap-Room.</p>
+              <div class="show-foot">
+                <span>06</span>
+                <span class="ansehen">Ansehen <span class="arr">→</span></span>
+              </div>
+            </div>
+          </a>
+
+          <!-- ─── Duplicated set for seamless marquee loop (aria-hidden, not focusable) ─── -->
+
+          <a href="/showcase/trattoria-marconi/" target="_blank" rel="noopener" class="show-card" aria-hidden="true" tabindex="-1">
+            <span class="corner" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            </span>
+            <div class="show-preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">trattoria-marconi.de</span></div>
+              <img class="mock" src="/showcase/trattoria-marconi.png" alt="" loading="lazy" />
+              <span class="overlay">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg></span>
+            </div>
+            <div class="show-meta">
+              <span class="show-cat">Restaurant &amp; Gastronomie</span>
+              <h3 class="show-name">Trattoria Marconi</h3>
+              <p class="show-desc">Atmosphärisch, reservierungs‑fokussiert — für Restaurants und Bistros, die wiederkehrende Stammgäste statt Laufkundschaft suchen.</p>
+              <div class="show-foot">
+                <span>01</span>
+                <span class="ansehen">Ansehen <span class="arr">→</span></span>
+              </div>
+            </div>
+          </a>
+
+          <a href="/showcase/schreinerei-hollmann/" target="_blank" rel="noopener" class="show-card" aria-hidden="true" tabindex="-1">
+            <span class="corner" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            </span>
+            <div class="show-preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">schreinerei-hollmann.de</span></div>
+              <img class="mock" src="/showcase/schreinerei-hollmann.png" alt="" loading="lazy" />
+              <span class="overlay">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg></span>
+            </div>
+            <div class="show-meta">
+              <span class="show-cat">Handwerk &amp; Innenausbau</span>
+              <h3 class="show-name">Schreinerei Hollmann</h3>
+              <p class="show-desc">Werkschau‑fokussiert, vertrauensbildend — für Schreinereien und Innenausbauer, die hochwertige Projektanfragen statt Preisvergleicher gewinnen wollen.</p>
+              <div class="show-foot">
+                <span>02</span>
+                <span class="ansehen">Ansehen <span class="arr">→</span></span>
+              </div>
+            </div>
+          </a>
+
+          <a href="/showcase/praxis-lindner/" target="_blank" rel="noopener" class="show-card" aria-hidden="true" tabindex="-1">
+            <span class="corner" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            </span>
+            <div class="show-preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">praxis-lindner.de</span></div>
+              <img class="mock" src="/showcase/praxis-lindner.png" alt="" loading="lazy" />
+              <span class="overlay">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg></span>
+            </div>
+            <div class="show-meta">
+              <span class="show-cat">Gesundheit &amp; Therapie</span>
+              <h3 class="show-name">Praxis Lindner</h3>
+              <p class="show-desc">Team‑fokussiert, vertrauensbildend — für Physio‑ und Osteopathie‑Praxen, die Wunschtermine im Voraus statt nur kurzfristige Akut‑Anrufe gewinnen wollen.</p>
+              <div class="show-foot">
+                <span>03</span>
+                <span class="ansehen">Ansehen <span class="arr">→</span></span>
+              </div>
+            </div>
+          </a>
+
+          <a href="/showcase/altstahl/" target="_blank" rel="noopener" class="show-card" aria-hidden="true" tabindex="-1">
+            <span class="corner" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            </span>
+            <div class="show-preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">altstahl.de</span></div>
+              <img class="mock" src="/showcase/altstahl.png" alt="" loading="lazy" />
+              <span class="overlay">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg></span>
+            </div>
+            <div class="show-meta">
+              <span class="show-cat">Manufaktur &amp; Handwerk</span>
+              <h3 class="show-name">Altstahl Velomanufaktur</h3>
+              <p class="show-desc">Kinoartig, produkt­fokussiert — für Manufakturen und Werkstätten, die ihr Handwerk online genauso eindrücklich zeigen wie im Atelier.</p>
+              <div class="show-foot">
+                <span>04</span>
+                <span class="ansehen">Ansehen <span class="arr">→</span></span>
+              </div>
+            </div>
+          </a>
+
+          <a href="/showcase/bredow-partner/" target="_blank" rel="noopener" class="show-card" aria-hidden="true" tabindex="-1">
+            <span class="corner" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            </span>
+            <div class="show-preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">bredow-partner.de</span></div>
+              <img class="mock" src="/showcase/bredow-partner.png" alt="" loading="lazy" />
+              <span class="overlay">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg></span>
+            </div>
+            <div class="show-meta">
+              <span class="show-cat">Recht &amp; Beratung</span>
+              <h3 class="show-name">Bredow &amp; Partner</h3>
+              <p class="show-desc">Seriös, vertrauensbildend — für Steuerberater und Kanzleien, die Mandanten gewinnen, bevor das erste Gespräch beginnt.</p>
+              <div class="show-foot">
+                <span>05</span>
+                <span class="ansehen">Ansehen <span class="arr">→</span></span>
+              </div>
+            </div>
+          </a>
+
+          <a href="/showcase/werft-11/" target="_blank" rel="noopener" class="show-card" aria-hidden="true" tabindex="-1">
+            <span class="corner" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+            </span>
+            <div class="show-preview">
+              <div class="chrome"><i></i><i></i><i></i><span class="url">werft-11.de</span></div>
+              <img class="mock" src="/showcase/werft-11.png" alt="" loading="lazy" />
+              <span class="overlay">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg></span>
+            </div>
+            <div class="show-meta">
+              <span class="show-cat">Brauerei &amp; Gastronomie</span>
+              <h3 class="show-name">Werft 11 Brauwerk</h3>
+              <p class="show-desc">Laut, charakter­voll — für Brauereien und Manufakturen mit Haltung, die ihr Produkt online genauso direkt vermitteln wie im Tap-Room.</p>
+              <div class="show-foot">
+                <span>06</span>
+                <span class="ansehen">Ansehen <span class="arr">→</span></span>
+              </div>
+            </div>
+          </a>
+
+        </div>
       </div>
-      <h2 class="showcase-headline text-title text-4xl md:text-5xl leading-[1.05]">
-        So könnte Ihre Website aussehen
+
+      <div class="show-cta">
+        <div class="label">Bereit für Ihre</div>
+        <a routerLink="/demo" class="btn-big">
+          Kostenlose Website Vorlage anfordern
+          <span class="ic">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+        <div class="micro">Individuell für Ihr Unternehmen erstellt</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 05 HONESTY ============== -->
+<section class="honest-new">
+  <div class="honest">
+    <div class="guides"></div>
+    <div class="ghost-q" #ghostQ aria-hidden="true">?</div>
+
+    <div class="container">
+      <header class="honest-head">
+        <div class="eyebrow"><span class="bar"></span>05 · Ehrliche Antwort</div>
+        <h2>
+          Warum
+          <span class="accent">kostenlos?</span>
+        </h2>
+      </header>
+
+      <div class="honest-body">
+        <div class="gutter">
+          <span class="marker">Antwort · 05</span>
+        </div>
+
+        <div class="honest-prose">
+          <div class="lead-row"><span class="l"></span>Ohne Schnörkel · Ohne Haken</div>
+          <span class="s" #honestSentence>Weil unsere Konzepte für sich sprechen — und weil wir lieber <em>einen begeisterten Kunden</em> gewinnen als zehn lauwarme.</span>
+          <span class="s" #honestSentence>Sind Sie überzeugt, besprechen wir die Umsetzung — fair und transparent, mit <em>klarem Festpreis</em>, bevor wir loslegen.</span>
+          <span class="s" #honestSentence>Sind Sie es nicht, war es trotzdem ein wertvolles Konzept.</span>
+          <span class="honest-finale" #honestFinale>
+            <span class="stroke">Gratis<span class="dot">.</span></span> Ohne Haken<span class="dot">.</span>
+          </span>
+        </div>
+
+        <div class="gutter"></div>
+      </div>
+
+      <div class="honest-sig">
+        <div class="sig-meta">
+          <span class="label">Aus Überzeugung</span>
+          <span class="name">Gehrke Studio</span>
+        </div>
+
+        <div class="seal" aria-hidden="true" tabindex="-1">
+          <span class="dot-outer"></span>
+          <span class="dot-inner"></span>
+          <span class="ring">
+            <svg viewBox="0 0 200 200" focusable="false" tabindex="-1">
+              <defs>
+                <path id="sealCircle" d="M 100,100 m -68,0 a 68,68 0 1,1 136,0 a 68,68 0 1,1 -136,0"/>
+              </defs>
+              <text>
+                <textPath href="#sealCircle" startOffset="0">100% KOSTENLOS · OHNE HAKEN · VERSPROCHEN · 100% KOSTENLOS · OHNE HAKEN · VERSPROCHEN · </textPath>
+              </text>
+            </svg>
+          </span>
+          <span class="core">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" focusable="false" tabindex="-1">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <div class="honest-foot">
+        <span class="item"><span class="dot"></span>05 · Ehrliche Antwort</span>
+        <span>Kein Vertrag · Kein Risiko · Kein Kleingedrucktes</span>
+        <span>Gehrke · Studio</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 06 FAQ ============== -->
+<section class="faq-new">
+  <div class="faq">
+    <div class="guides"></div>
+    <div class="container">
+      <header class="faq-head">
+        <div>
+          <div class="eyebrow"><span class="bar"></span>06 · Häufige Fragen</div>
+          <h2>Was Sie wissen möchten, <span class="accent">bevor</span> Sie fragen</h2>
+        </div>
+        <aside class="faq-aside">
+          <span class="pill"><span class="d"></span>6 Fragen · 6 Antworten</span>
+          Alles, was Kunden vor dem ersten Gespräch wissen wollen. Klar, ehrlich, ohne Kleingedrucktes.
+        </aside>
+      </header>
+
+      <div class="faq-list" #faqList [style.--faq-rail.%]="faqRailPercent">
+        <div class="rail"><div class="fill" [style.height.%]="faqRailPercent"></div></div>
+
+        @for (item of faqItems; track item; let i = $index) {
+          <article class="faq-item"
+            [class.is-open]="openFaq === i"
+            [class.is-visible]="faqVisible[i]"
+            #faqItem
+            [style.transition-delay.s]="i * 0.05">
+            <button class="faq-q" type="button" [attr.aria-expanded]="openFaq === i" (click)="toggleFaq(i)">
+              <span class="faq-num">{{ '0' + (i+1) }}</span>
+              <span class="faq-question">
+                <span class="cat">{{ item.cat }}</span>
+                {{ item.q }}
+              </span>
+              <span class="faq-toggle" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+              </span>
+            </button>
+            <div class="faq-a" [style.height.px]="openFaq === i ? (faqHeights[i] || 0) : 0">
+              <div class="faq-a-inner" #faqAnswer>
+                <span class="gutter"></span>
+                <p class="faq-a-body" [innerHTML]="item.a"></p>
+                <span></span>
+              </div>
+            </div>
+          </article>
+        }
+
+      </div>
+
+      <footer class="faq-foot">
+        <div class="more">
+          <strong>Noch eine Frage offen?</strong><br/>
+          Schreiben Sie uns — wir antworten persönlich, meist am gleichen Tag.
+        </div>
+        <a routerLink="/kontakt" class="contact">
+          Frage stellen
+          <span class="ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+      </footer>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 07 FINAL ============== -->
+<section class="final-new">
+  <div class="final">
+    <div class="guides"></div>
+    <div class="aurora" aria-hidden="true">
+      <span class="blob b1"></span>
+      <span class="blob b2"></span>
+      <span class="blob b3"></span>
+    </div>
+    <div class="motes" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+    <div class="ghost-num" aria-hidden="true">07</div>
+
+    <div class="container">
+      <div class="final-eyebrow">
+        <span class="line"></span>
+        <span class="ck">
+          <span class="ck-i">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          Sie sind angekommen
+        </span>
+        <span class="line"></span>
+      </div>
+
+      <h2 #finalHeadline [class.is-visible]="finalVisible">
+        Bereit für digitale
+        <span class="accent">Exzellenz?</span>
       </h2>
-    </div>
 
-    <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-3">
-      <a href="/showcase/trattoria-marconi/" target="_blank" rel="noopener" class="showcase-card showcase-card-animate group overflow-hidden block" style="--card-delay: 0ms">
-        <div class="h-44 sm:h-52 overflow-hidden rounded-t-[1.1rem]">
-          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/showcase/trattoria-marconi.png" alt="Restaurant Website Beispiel — Trattoria Marconi, Hamburg-Eppendorf" loading="lazy" />
-        </div>
-        <div class="p-7">
-          <p class="text-[11px] tracking-[0.24em] uppercase text-secondary/70 font-semibold mb-2">Restaurant & Gastronomie</p>
-          <p class="text-text-secondary text-base leading-7">Atmosphärisch, reservierungs-fokussiert — für Restaurants und Bistros, die wiederkehrende Stammgäste statt Laufkundschaft suchen.</p>
-        </div>
-      </a>
-      <a href="/showcase/schreinerei-hollmann/" target="_blank" rel="noopener" class="showcase-card showcase-card-animate group overflow-hidden block" style="--card-delay: 100ms">
-        <div class="h-44 sm:h-52 overflow-hidden rounded-t-[1.1rem]">
-          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/showcase/schreinerei-hollmann.png" alt="Schreinerei Website Beispiel — Schreinerei Hollmann, Stuttgart-Süd" loading="lazy" />
-        </div>
-        <div class="p-7">
-          <p class="text-[11px] tracking-[0.24em] uppercase text-secondary/70 font-semibold mb-2">Handwerk & Innenausbau</p>
-          <p class="text-text-secondary text-base leading-7">Werkschau-fokussiert, vertrauensbildend — für Schreinereien und Innenausbauer, die hochwertige Projektanfragen statt Preisvergleicher gewinnen wollen.</p>
-        </div>
-      </a>
-      <a href="/showcase/praxis-lindner/" target="_blank" rel="noopener" class="showcase-card showcase-card-animate group overflow-hidden block" style="--card-delay: 200ms">
-        <div class="h-44 sm:h-52 overflow-hidden rounded-t-[1.1rem]">
-          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/showcase/praxis-lindner.png" alt="Physio-Praxis Website Beispiel — Praxis Lindner & Kollegen, Düsseldorf-Pempelfort" loading="lazy" />
-        </div>
-        <div class="p-7">
-          <p class="text-[11px] tracking-[0.24em] uppercase text-secondary/70 font-semibold mb-2">Gesundheit & Therapie</p>
-          <p class="text-text-secondary text-base leading-7">Team-fokussiert, vertrauensbildend — für Physio- und Osteopathie-Praxen, die Wunschtermine im Voraus statt nur kurzfristige Akut-Anrufe gewinnen wollen.</p>
-        </div>
-      </a>
-      <!-- Weitere Beispielkarten folgen, sobald die nächsten Templates fertig sind. -->
-    </div>
-
-    <div class="max-w-3xl mx-auto text-center showcase-cta">
-      <a routerLink="/demo" class="btn-primary hero-shimmer-btn hero-cta-rise inline-flex items-center justify-center px-8 py-4 text-base">
-        Kostenlose Website Vorlage anfordern
-      </a>
-      <p class="text-text-muted text-sm mt-4">Individuell für Ihr Unternehmen erstellt</p>
-    </div>
-  </div>
-</section>
-
-<!-- "Warum kostenlos?" Honesty Block -->
-<section class="honesty-section py-16 sm:py-24 relative overflow-hidden">
-  <div class="max-w-3xl mx-auto px-6 text-center">
-    <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-5">
-      <span class="w-8 h-px bg-secondary/40"></span>
-      Ehrliche Antwort
-      <span class="w-8 h-px bg-secondary/40"></span>
-    </div>
-    <h2 class="font-headline font-bold text-text-primary leading-[1.15] tracking-[-0.02em] mb-6" style="font-size: clamp(1.6rem, 4vw, 2.75rem);">
-      Warum <span class="font-accent italic font-medium bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">kostenlos</span>?
-    </h2>
-    <p class="text-body text-base md:text-lg leading-relaxed">
-      Weil unsere Konzepte für sich sprechen — und weil wir lieber einen begeisterten Kunden gewinnen als zehn lauwarme. Sind Sie überzeugt, besprechen wir die Umsetzung — fair und transparent, mit klarem Festpreis bevor wir loslegen. Sind Sie es nicht, war es trotzdem ein wertvolles Konzept. Gratis. Ohne Haken.
-    </p>
-  </div>
-</section>
-
-<!-- FAQ Section -->
-<section class="faq-section py-16 sm:py-24 relative overflow-hidden">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 md:px-12">
-    <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 text-secondary font-body font-semibold tracking-widest uppercase text-xs mb-5">
-        <span class="w-8 h-px bg-secondary/40"></span>
-        Häufige Fragen
-        <span class="w-8 h-px bg-secondary/40"></span>
+      <div class="final-cta-row" #finalCtaRow [class.is-visible]="finalVisible">
+        <a routerLink="/demo" class="btn primary">
+          Jetzt Ihr Konzept anfordern
+          <span class="ic">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+        <a routerLink="/projekte" class="btn secondary">
+          Portfolio ansehen
+          <span class="ic-out">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+          </span>
+        </a>
       </div>
-      <h2 class="font-headline font-bold text-text-primary text-3xl md:text-4xl leading-[1.15] tracking-[-0.02em]">
-        Was Sie wissen möchten, bevor Sie fragen
-      </h2>
+
+      <div class="final-trust">
+        <span class="item">100% kostenlos</span>
+        <span class="sep">·</span>
+        <span class="item">Keine Vertragsbindung</span>
+        <span class="sep">·</span>
+        <span class="item">Antwort am gleichen Tag</span>
+      </div>
     </div>
 
-    <div class="space-y-4">
-      <details class="faq-item group">
-        <summary class="faq-summary">
-          <span>Was kostet die Umsetzung, wenn mich das Konzept überzeugt?</span>
-          <span class="material-symbols-outlined faq-chevron">expand_more</span>
-        </summary>
-        <div class="faq-answer">
-          Das hängt vom Umfang ab. Nach dem kostenlosen Konzept besprechen wir transparent, welche Funktionen Sie wirklich brauchen — und Sie bekommen einen klaren Festpreis, bevor wir mit der Umsetzung beginnen. Keine versteckten Kosten, keine Überraschungen.
-        </div>
-      </details>
-
-      <details class="faq-item group">
-        <summary class="faq-summary">
-          <span>Wem gehört das Design am Ende?</span>
-          <span class="material-symbols-outlined faq-chevron">expand_more</span>
-        </summary>
-        <div class="faq-answer">
-          Ihnen. Das fertige Konzept und die fertige Website gehören vollständig Ihnen — inklusive aller Designdateien und des Codes. Auch dann, wenn Sie sich nach dem kostenlosen Konzept gegen die Umsetzung entscheiden.
-        </div>
-      </details>
-
-      <details class="faq-item group">
-        <summary class="faq-summary">
-          <span>Wie lange dauert es, bis ich mein kostenloses Konzept sehe?</span>
-          <span class="material-symbols-outlined faq-chevron">expand_more</span>
-        </summary>
-        <div class="faq-answer">
-          In der Regel innerhalb von 5 bis 7 Werktagen, nachdem Sie uns die ersten Informationen zu Ihrem Unternehmen geschickt haben.
-        </div>
-      </details>
-
-      <details class="faq-item group">
-        <summary class="faq-summary">
-          <span>Wie viele Änderungswünsche sind enthalten?</span>
-          <span class="material-symbols-outlined faq-chevron">expand_more</span>
-        </summary>
-        <div class="faq-answer">
-          Das kostenlose Konzept zeigt Ihnen eine erste Richtung. Während der Umsetzung gehören Anpassungen selbstverständlich zum Prozess — wir arbeiten so lange am Detail, bis Sie wirklich zufrieden sind.
-        </div>
-      </details>
-
-      <details class="faq-item group">
-        <summary class="faq-summary">
-          <span>Was kostet das Hosting und laufender Betrieb?</span>
-          <span class="material-symbols-outlined faq-chevron">expand_more</span>
-        </summary>
-        <div class="faq-answer">
-          Hosting können Sie selbst übernehmen oder über uns laufen lassen — beides möglich. Bei der Umsetzung zeigen wir Ihnen beide Wege transparent, damit Sie wissen, was monatlich auf Sie zukommt.
-        </div>
-      </details>
-
-      <details class="faq-item group">
-        <summary class="faq-summary">
-          <span>Was passiert, wenn mir das Konzept nicht gefällt?</span>
-          <span class="material-symbols-outlined faq-chevron">expand_more</span>
-        </summary>
-        <div class="faq-answer">
-          Kein Problem, kein Druck. Sie sind zu nichts verpflichtet — das Konzept gehört Ihnen, auch wenn wir nicht weiter zusammenarbeiten. So einfach ist das.
-        </div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- Offer Section -->
-<section class="offer-section py-20 sm:py-40 relative overflow-hidden">
-  <!-- Local glow boost for CTA emphasis -->
-  <div class="offer-glow-local"></div>
-
-  <div class="max-w-5xl mx-auto px-6 relative z-10 text-center overflow-visible">
-    <h2 class="offer-headline font-headline font-semibold text-3xl sm:text-5xl md:text-[7.5rem] mb-10 sm:mb-16 leading-[1.2] tracking-[-0.02em] text-text-primary overflow-visible">
-      Bereit für digitale <br class="hidden md:block">
-      <span class="offer-exzellenz font-accent italic font-medium drop-shadow-[0_0_40px_var(--color-accent-primary-glow)]">
-        <span class="bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">Exzellenz?</span>
-      </span>
-    </h2>
-
-    <div class="offer-buttons flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-      <a routerLink="/demo" class="btn-primary hero-shimmer-btn hero-cta-rise px-8 sm:px-10 py-4 text-base w-full sm:w-auto text-center">
-        Jetzt Ihr Konzept anfordern
-      </a>
-      <a [routerLink]="['/projekte']" class="btn-secondary flex items-center justify-center gap-2 hero-cta-rise w-full sm:w-auto">
-        Portfolio ansehen
-        <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform duration-300">arrow_forward</span>
-      </a>
+    <div class="final-foot">
+      <span class="brand-mark"><span class="d"></span>Gehrke · Studio · MMXXVI</span>
     </div>
   </div>
 </section>

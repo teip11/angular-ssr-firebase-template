@@ -1,42 +1,43 @@
 @if (visible) {
-  <div class="cookie-banner" role="dialog" aria-modal="true" aria-label="Cookie-Einstellungen">
-    <!-- Backdrop blur layer -->
-    <div class="cookie-backdrop" aria-hidden="true"></div>
-
+  <div class="cookie-new" role="dialog" aria-modal="false" aria-label="Cookie-Einstellungen">
     <div class="cookie-card">
-      <!-- Icon + Header -->
-      <div class="cookie-header">
-        <div class="cookie-icon-wrap" aria-hidden="true">
-          <span class="material-symbols-outlined cookie-icon">cookie</span>
+      <div class="cookie-glow" aria-hidden="true"></div>
+
+      <div class="cookie-head">
+        <div class="cookie-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.598 11.064a1.006 1.006 0 0 0-.854-.172A2.999 2.999 0 0 1 17 8a1 1 0 0 0-1.184-.984 3 3 0 0 1-3.832-3.832A1.001 1.001 0 0 0 11 2a10 10 0 1 0 11 10c0-.345-.018-.687-.05-1.026a1.003 1.003 0 0 0-.352-.91z"/>
+            <circle cx="8" cy="14" r="1"/>
+            <circle cx="13" cy="17" r="1"/>
+            <circle cx="15" cy="10" r="1"/>
+          </svg>
         </div>
-        <div>
-          <h2 class="cookie-title">Cookies &amp; Datenschutz</h2>
-          <p class="cookie-subtitle">Wir respektieren Ihre Privatsphäre</p>
+        <div class="cookie-eyebrow">
+          <span class="bar"></span>
+          Privatsphäre
         </div>
       </div>
 
-      <!-- Divider -->
-      <div class="cookie-divider" aria-hidden="true"></div>
+      <h2 class="cookie-title">
+        Wir respektieren Ihre <span class="accent">Privatsphäre</span>
+      </h2>
 
-      <!-- Body text -->
       <p class="cookie-body">
-        Wir verwenden Cookies und ähnliche Technologien, um die Nutzung unserer Website zu analysieren
-        und unser Angebot zu verbessern. Dazu setzen wir <strong class="cookie-strong">Google Tag Manager</strong>
-        ein, der Analyse-Cookies (Google Analytics) laden kann.
-      </p>
-      <p class="cookie-body cookie-body--sm">
-        Weitere Informationen finden Sie in unserer
-        <a routerLink="/datenschutz" class="cookie-link">Datenschutzerklärung</a>.
-        Sie können Ihre Einwilligung jederzeit widerrufen.
+        Wir verwenden Cookies, um die Nutzung unserer Website zu analysieren und unser Angebot zu verbessern. Dazu setzen wir <strong>Google Tag Manager</strong> ein, der Analyse-Cookies laden kann.
       </p>
 
-      <!-- Actions -->
+      <p class="cookie-sub">
+        Mehr in der <a routerLink="/datenschutz" class="cookie-link">Datenschutzerklärung</a>. Widerruf jederzeit möglich.
+      </p>
+
       <div class="cookie-actions">
-        <button class="cookie-btn cookie-btn--accept" (click)="accept()" type="button">
-          <span class="material-symbols-outlined cookie-btn-icon" aria-hidden="true">check_circle</span>
+        <button class="cookie-btn primary" type="button" (click)="accept()">
           Alle akzeptieren
+          <span class="ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
         </button>
-        <button class="cookie-btn cookie-btn--decline" (click)="decline()" type="button">
+        <button class="cookie-btn ghost" type="button" (click)="decline()">
           Nur notwendige
         </button>
       </div>

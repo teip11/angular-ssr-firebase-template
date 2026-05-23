@@ -1,78 +1,70 @@
-import { Component, AfterViewInit, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component, AfterViewInit, OnInit, OnDestroy,
+  Inject, PLATFORM_ID,
+  ViewChild, ViewChildren, ElementRef, QueryList,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-blog',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.css']
+  styleUrls: ['./blog.component.css'],
 })
 export class BlogComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('blgHeroTitle',       { read: ElementRef }) blgHeroTitle?:       ElementRef<HTMLElement>;
+  @ViewChild('blgHeroSub',         { read: ElementRef }) blgHeroSub?:         ElementRef<HTMLElement>;
+  @ViewChild('blgFeaturedCard',    { read: ElementRef }) blgFeaturedCard?:    ElementRef<HTMLElement>;
+  @ViewChild('blgFeaturedText',    { read: ElementRef }) blgFeaturedText?:    ElementRef<HTMLElement>;
+  @ViewChild('blgArticlesHeader',  { read: ElementRef }) blgArticlesHeader?:  ElementRef<HTMLElement>;
+  @ViewChildren('blgArticle',      { read: ElementRef }) blgArticles?:        QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('blgFinalCard',       { read: ElementRef }) blgFinalCard?:       ElementRef<HTMLElement>;
+
   private observers: IntersectionObserver[] = [];
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private seo: SeoService
+    private seo: SeoService,
   ) {}
 
   ngOnInit(): void {
     this.seo.setPageSEO('blog');
   }
 
-  ngOnDestroy() {
-    this.observers.forEach(o => o.disconnect());
-  }
-
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    setTimeout(() => this.initAnimations(), 150);
+    setTimeout(() => this.setupReveal(), 50);
   }
 
-  private initAnimations() {
-    const observe = (selector: string, options: IntersectionObserverInit = {}) => {
-      const els = Array.from(document.querySelectorAll(selector)) as HTMLElement[];
-      if (!els.length) return;
-      const obs = new IntersectionObserver((entries) => {
+  ngOnDestroy(): void {
+    this.observers.forEach(o => o.disconnect());
+    this.observers = [];
+  }
+
+  private setupReveal(): void {
+    const observe = (el: Element | undefined | null, threshold: number, rootMargin = '0px') => {
+      if (!el) return;
+      const io = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
-            (e.target as HTMLElement).classList.add('is-visible');
-            obs.unobserve(e.target);
+            e.target.classList.add('has-entered');
+            io.unobserve(e.target);
           }
         });
-      }, { threshold: 0, ...options });
-      this.observers.push(obs);
-      els.forEach(el => obs.observe(el));
+      }, { threshold, rootMargin });
+      io.observe(el);
+      this.observers.push(io);
     };
 
-    // ── Hero: already in viewport on load ────────────────────────────────────
-    observe('.blg-hero-title');
-    observe('.blg-hero-sub');
-    observe('.blg-filters');
-
-    // ── Featured article ──────────────────────────────────────────────────────
-    observe('.blg-featured', { rootMargin: '0px 0px -40px 0px' });
-
-    // ── Article grid: staggered ───────────────────────────────────────────────
-    const articles = Array.from(document.querySelectorAll('.blg-article')) as HTMLElement[];
-    if (articles.length) {
-      const artObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const idx = parseInt((e.target as HTMLElement).dataset['idx'] || '0', 10);
-            setTimeout(() => (e.target as HTMLElement).classList.add('is-visible'), idx * 120);
-            artObs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-      this.observers.push(artObs);
-      articles.forEach((el, i) => {
-        el.dataset['idx'] = String(i);
-        artObs.observe(el);
-      });
-    }
-
-    // ── CTA / Newsletter panel ────────────────────────────────────────────────
-    observe('.blg-cta-panel', { rootMargin: '0px 0px -40px 0px' });
+    observe(this.blgHeroTitle?.nativeElement,      0.1);
+    observe(this.blgHeroSub?.nativeElement,        0.1);
+    observe(this.blgFeaturedCard?.nativeElement,   0.3);
+    observe(this.blgFeaturedText?.nativeElement,   0.3);
+    observe(this.blgArticlesHeader?.nativeElement, 0.55);
+    this.blgArticles?.forEach(ref => observe(ref.nativeElement, 0.3));
+    observe(this.blgFinalCard?.nativeElement,      0.3);
   }
 }

@@ -1,393 +1,516 @@
-/* ─── Navbar: outer header wrapper ─────────────────────────────────────── */
-.navbar-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  display: flex;
-  justify-content: center;
-  pointer-events: none;
-  padding: 0;
-  transition: padding 420ms cubic-bezier(0.4, 0, 0.2, 1);
+/* ════════════════════════════════════════════════════════════════════════
+   REDESIGN — Top scroll progress + Floating sticky pill navbar
+   Both globally fixed. Tokens defined on :host so they don't leak.
+   ════════════════════════════════════════════════════════════════════════ */
+:host {
+  --orange: #f26b1f;
+  --orange-soft: #ff8a47;
+  --ink: #f6f1ec;
+  --ink-dim: #a7a09a;
+  display: contents;
+  font-family: 'Manrope', system-ui, sans-serif;
 }
 
-/* Scrolled: float the pill below the top edge */
-.navbar-header.navbar-scrolled {
-  padding: 14px 20px;
+/* ── Static top navbar (overlays page top, scrolls away with the document) ─
+   position: absolute (not fixed) so it scrolls off naturally — the floating
+   pill then takes over after ~80vh. Sits on top of the hero so the dark
+   gradient shows through behind it. */
+.static-nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: transparent;
+  color: var(--ink);
+  pointer-events: none; /* let clicks pass to hero where nav is transparent */
 }
-
-/* ─── Inner nav: the morphing container ─────────────────────────────────── */
-.navbar-inner {
-  pointer-events: all;
+.static-nav .sn-inner,
+.static-nav .sn-brand,
+.static-nav .sn-links,
+.static-nav .sn-links a,
+.static-nav .sn-cta { pointer-events: auto; }
+.static-nav .sn-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 28px 56px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  /* TOP state: wide transparent bar */
-  width: 100%;
-  max-width: 1600px;
-  padding: 20px 20px;
-  border-radius: 0;
-  background: transparent;
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
-  border: 1px solid transparent;
-  box-shadow: none;
-
-  transition:
-    max-width      420ms cubic-bezier(0.4, 0, 0.2, 1),
-    padding        420ms cubic-bezier(0.4, 0, 0.2, 1),
-    border-radius  420ms cubic-bezier(0.4, 0, 0.2, 1),
-    background     420ms cubic-bezier(0.4, 0, 0.2, 1),
-    backdrop-filter 420ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow     420ms cubic-bezier(0.4, 0, 0.2, 1),
-    border-color   420ms cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 24px;
 }
 
-@media (min-width: 768px) {
-  .navbar-inner {
-    padding: 24px 40px;
-  }
-}
-
-/* SCROLLED state: pill-shaped floating container */
-.navbar-inner.navbar-inner-scrolled {
-  max-width: 840px;
-  padding: 10px 14px 10px 24px;
-  border-radius: 9999px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-color: var(--glass-border);
-  box-shadow:
-    0 12px 48px rgba(0, 0, 0, 0.50),
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
-}
-
-/* ─── Logo ──────────────────────────────────────────────────────────────── */
-.navbar-logo {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--color-text-primary);
-  text-decoration: none;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: opacity 200ms ease;
-}
-.navbar-logo:hover {
-  opacity: 0.8;
-}
-
-/* ─── Desktop navigation links ─────────────────────────────────────────── */
-.navbar-links {
-  display: none;
+.static-nav .sn-brand {
+  display: inline-flex;
   align-items: center;
-  flex: 1;
-  justify-content: space-evenly;
-  gap: 0px;
-  transition: gap 420ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@media (min-width: 768px) {
-  .navbar-links {
-    display: flex;
-  }
-}
-
-.navbar-inner-scrolled .navbar-links {
-  gap: 4px;
-}
-
-/* ─── Individual links ──────────────────────────────────────────────────── */
-.navbar-link {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--color-text-secondary);
+  gap: 8px;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
   text-decoration: none;
-  white-space: nowrap;
-  transition: color 350ms ease-out, transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.static-nav .sn-brand .sn-logo {
+  width: 32px; height: 32px;
+  border-radius: 6px;
+  display: block;
+  flex: none;
+}
+.static-nav .sn-brand strong { font-weight: 800; }
+.static-nav .sn-brand .sn-brand-short { display: none; }
+
+.static-nav .sn-links {
+  display: flex;
+  gap: 56px;
+  font-size: 15px;
+  color: var(--ink-dim);
+}
+.static-nav .sn-links a {
   position: relative;
-  padding: 4px 8px;
-  transform: translateY(0);
+  padding: 6px 0;
+  color: var(--ink-dim);
+  text-decoration: none;
+  transition: color .2s ease;
 }
+.static-nav .sn-links a:hover,
+.static-nav .sn-links a.is-active { color: var(--ink); }
 
-.navbar-link:hover {
-  color: var(--color-text-primary);
-  transform: translateY(-3px);
-}
-
-@media (hover: none) {
-  .navbar-link:hover {
-    transform: none;
-  }
-}
-
-.navbar-link-active {
-  color: var(--color-text-primary);
-}
-
-/* ─── CTA Button ────────────────────────────────────────────────────────── */
-.navbar-cta {
-  display: none;
+.static-nav .sn-cta {
   position: relative;
-  overflow: hidden !important;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
+  overflow: hidden;
+  isolation: isolate; /* keep ::before behind content but above background */
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 999px;
   font-weight: 600;
-  color: #ffffff;
+  font-size: 15px;
+  box-shadow:
+    0 10px 30px -10px rgba(242, 107, 31, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform .3s cubic-bezier(.3, 1.4, .4, 1), background .25s ease, box-shadow .3s ease;
   text-decoration: none;
   white-space: nowrap;
-  flex-shrink: 0;
-  margin-left: 16px;
-  
-  background: linear-gradient(to right, var(--color-accent-primary), var(--color-accent-secondary));
-  box-shadow: 0 0 20px var(--color-accent-glow);
-  border-radius: 9999px;
-  padding: 10px 24px;
-
-  transition:
-    box-shadow  350ms ease-out,
-    transform   600ms cubic-bezier(0.4, 0, 0.2, 1),
-    padding     420ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-@media (min-width: 768px) {
-  .navbar-cta {
-    display: block;
-  }
-}
-
-.navbar-cta::after {
-  content: '';
+/* Diagonal shine sweep — a slanted white gradient parks off-screen left
+   and slides across to off-screen right on hover. */
+.static-nav .sn-cta::before {
+  content: "";
   position: absolute;
   top: 0;
-  left: -150%;
-  width: 50%;
+  left: -120%;
+  width: 60%;
   height: 100%;
-  background: linear-gradient(
-    to right, 
-    rgba(255,255,255,0) 0%, 
-    rgba(255,255,255,0.3) 50%, 
-    rgba(255,255,255,0) 100%
-  );
-  transform: skewX(-20deg);
-  transition: left 700ms ease-in-out;
-}
-
-.navbar-cta:hover {
-  box-shadow: 0 0 30px var(--color-accent-primary-glow);
-  transform: translateY(-3px);
-}
-
-.navbar-cta:hover::after {
-  left: 200%;
-  transition: left 700ms ease-in-out;
-}
-
-@media (hover: none) {
-  .navbar-cta:hover {
-    transform: none;
-  }
-  .navbar-cta:active {
-    transform: scale(0.97);
-    box-shadow: 0 0 20px var(--color-accent-glow);
-  }
-}
-
-/* Slightly tighter inside the pill */
-.navbar-inner-scrolled .navbar-cta {
-  padding: 8px 20px;
-  transform: scale(0.95);
-}
-
-.navbar-inner-scrolled .navbar-cta:hover {
-  transform: scale(0.95) translateY(-3px);
-}
-
-/* ─── Hamburger Button ──────────────────────────────────────────────────── */
-.navbar-hamburger {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 44px;
-  height: 44px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  flex-shrink: 0;
-  transition: background 200ms ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.navbar-hamburger:active {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-@media (min-width: 768px) {
-  .navbar-hamburger {
-    display: none;
-  }
-}
-
-.hamburger-line {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--color-text-primary);
-  border-radius: 2px;
-  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 300ms ease;
-  transform-origin: center;
-}
-
-/* Hamburger → X animation */
-.navbar-hamburger.is-open .hamburger-line:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.navbar-hamburger.is-open .hamburger-line:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
-}
-.navbar-hamburger.is-open .hamburger-line:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* ─── Mobile Menu Overlay ───────────────────────────────────────────────── */
-.mobile-menu-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 48;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  opacity: 0;
-  transition: opacity 300ms ease;
+  background: linear-gradient(115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 100%);
+  transform: skewX(-14deg);
+  transition: left .7s cubic-bezier(.4, 0, .2, 1);
   pointer-events: none;
+  z-index: 1;
+}
+.static-nav .sn-cta:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 22px 50px -14px rgba(242, 107, 31, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.static-nav .sn-cta:hover::before { left: 130%; }
+
+/* Arrow send-off stack — original arrow flies out top-right while a duplicate
+   slides in from bottom-left into the centered position. */
+.static-nav .sn-cta .arr-stack {
+  position: relative;
+  overflow: hidden;   /* clip the resting duplicate arrow out of view */
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+.static-nav .sn-cta .arr-stack .arr {
+  position: absolute;
+  inset: 0;
+  width: 16px;
+  height: 16px;
+  transition: transform .45s cubic-bezier(.55, 0, .25, 1);
+}
+.static-nav .sn-cta .arr-stack .a1 { transform: translate(0, 0); }
+.static-nav .sn-cta .arr-stack .a2 { transform: translate(-130%, 130%); }
+.static-nav .sn-cta:hover .arr-stack .a1 { transform: translate(130%, -130%); }
+.static-nav .sn-cta:hover .arr-stack .a2 { transform: translate(0, 0); }
+
+@media (max-width: 1080px) {
+  .static-nav .sn-inner { padding: 24px 24px 12px; }
+  .static-nav .sn-links { display: none; }
 }
 
-.mobile-menu-overlay.is-open {
-  opacity: 1;
-  pointer-events: all;
+/* ── Mobile burger button (shared style for static + floating nav) ─────── */
+.nav-burger,
+.fn-burger {
+  display: none;
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(246, 241, 236, 0.18);
+  background: rgba(246, 241, 236, 0.03);
+  flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  cursor: pointer;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 210; /* above .nav-drawer (200) so the burger-turned-X stays tappable */
+}
+.nav-burger span,
+.fn-burger span {
+  display: block; width: 18px; height: 1.5px;
+  background: var(--ink); border-radius: 1px;
+  transition: transform .28s ease, opacity .2s ease;
+}
+.fn-burger {
+  width: 38px; height: 38px;
+  border-radius: 999px;
+}
+/* Floating-nav burger sits where the CTA does — only swap visibility at the mobile breakpoint */
+.fn-burger { display: none; }
+
+/* Open-state morph (burger → X). Uses :host-context so emulated encapsulation
+   still matches a body-level class. */
+:host-context(body.drawer-open) .nav-burger span:nth-child(1),
+:host-context(body.drawer-open) .fn-burger span:nth-child(1) {
+  transform: translateY(5.5px) rotate(45deg);
+}
+:host-context(body.drawer-open) .nav-burger span:nth-child(2),
+:host-context(body.drawer-open) .fn-burger span:nth-child(2) { opacity: 0; }
+:host-context(body.drawer-open) .nav-burger span:nth-child(3),
+:host-context(body.drawer-open) .fn-burger span:nth-child(3) {
+  transform: translateY(-5.5px) rotate(-45deg);
 }
 
-@media (max-width: 767px) {
-  .mobile-menu-overlay {
-    display: block;
+/* ── Full-screen drawer overlay ────────────────────────────────────────── */
+.nav-drawer {
+  position: fixed; inset: 0;
+  background: rgba(13, 11, 10, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 200;
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s ease;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-drawer.is-open { opacity: 1; pointer-events: auto; }
+
+/* While the drawer is open, raise both navs above the drawer so the
+   burger-turned-X stays tappable. The nav backgrounds are transparent /
+   pointer-events:none, so clicks on empty nav area still fall through and
+   trigger the drawer's backdrop-close handler. */
+:host-context(body.drawer-open) .static-nav,
+:host-context(body.drawer-open) .floating-nav { z-index: 210; }
+.nav-drawer-inner {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 0 32px;
+  width: 100%; max-width: 420px;
+}
+.nav-drawer-inner a {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(246, 241, 236, 0.10);
+  font-size: 24px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--ink);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .4s ease, transform .4s cubic-bezier(.2,.7,.2,1);
+  text-decoration: none;
+}
+.nav-drawer-inner a .arr { color: var(--orange); font-size: 18px; font-weight: 500; }
+.nav-drawer.is-open .nav-drawer-inner a { opacity: 1; transform: translateY(0); }
+.nav-drawer.is-open .nav-drawer-inner a:nth-child(1) { transition-delay: 0.08s; }
+.nav-drawer.is-open .nav-drawer-inner a:nth-child(2) { transition-delay: 0.13s; }
+.nav-drawer.is-open .nav-drawer-inner a:nth-child(3) { transition-delay: 0.18s; }
+.nav-drawer.is-open .nav-drawer-inner a:nth-child(4) { transition-delay: 0.23s; }
+.nav-drawer.is-open .nav-drawer-inner a:nth-child(5) { transition-delay: 0.28s; }
+.nav-drawer.is-open .nav-drawer-inner a:nth-child(6) { transition-delay: 0.33s; }
+.nav-drawer-inner a.drawer-cta {
+  margin-top: 18px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 14px;
+  padding: 18px 22px;
+  font-size: 16px;
+  border-bottom: 0;
+  box-shadow: 0 18px 40px -16px rgba(242, 107, 31, 0.65);
+}
+
+/* ── Mobile (≤ 480px): hide static CTA + show burger; swap CTA → burger in pill ── */
+@media (max-width: 480px) {
+  .static-nav .sn-inner { padding: 16px 20px 6px; gap: 14px; }
+  .static-nav .sn-brand { font-size: 16px; }
+  .static-nav .sn-brand .sn-logo { width: 28px; height: 28px; }
+  .static-nav .sn-cta { display: none; }
+  .nav-burger { display: inline-flex; }
+
+  /* Static nav (hero area) keeps the full "Gehrke Studio" on phones —
+     the CTA is hidden on mobile so there's room for the full brand. */
+
+  /* Floating pill on phones: brand + burger only, near-full viewport
+     width with a small inset. CTA + nav links live inside the burger
+     drawer so the pill doesn't duplicate them. Selectors use the element
+     prefix `nav.` to outrank the base `.floating-nav` rules that appear
+     later in the file (which would otherwise win source order). */
+  nav.floating-nav {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px 8px 18px;
+    transform: translate(0, calc(-100% - 32px)) scale(0.95);
   }
+  nav.floating-nav.is-visible {
+    transform: translate(0, 0) scale(1);
+  }
+  .floating-nav .fn-cta,
+  .floating-nav .fn-sep,
+  .floating-nav .fn-links { display: none; }
+  .fn-burger { display: inline-flex; }
 }
 
-/* ─── Mobile Menu Drawer ────────────────────────────────────────────────── */
-.mobile-menu-drawer {
+/* ── Floating sticky pill navbar ─────────────────────────────────────── */
+.floating-nav {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(320px, 85vw);
-  z-index: 49;
-  background: rgba(8, 8, 12, 0.97);
-  backdrop-filter: blur(32px) saturate(180%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%);
-  border-left: 1px solid var(--color-border);
-  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.6);
-  transform: translateX(100%);
-  transition: transform 380ms cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.mobile-menu-drawer.is-open {
-  transform: translateX(0);
-}
-
-@media (min-width: 768px) {
-  .mobile-menu-drawer {
-    display: none;
-  }
-}
-
-/* ─── Mobile Menu Content ───────────────────────────────────────────────── */
-.mobile-menu-content {
-  display: flex;
-  flex-direction: column;
-  padding: 100px 32px 48px;
-  gap: 0;
-  height: 100%;
-}
-
-/* ─── Mobile Nav Links ──────────────────────────────────────────────────── */
-.mobile-menu-links {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-bottom: 40px;
-}
-
-.mobile-menu-link {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--color-border);
-  transition: color 200ms ease;
-  display: block;
-  min-height: 56px;
-  display: flex;
+  top: 18px;
+  left: 50%;
+  z-index: 150;
+  transform: translate(-50%, calc(-100% - 32px)) scale(0.88);
+  opacity: 0;
+  pointer-events: none;
+  display: inline-flex;
   align-items: center;
-  -webkit-tap-highlight-color: transparent;
+  gap: 18px; /* uniform gap between brand, separator, link group, and CTA */
+  padding: 8px 8px 8px 22px;
+  background: rgba(13, 11, 10, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(246, 241, 236, 0.10);
+  border-radius: 999px;
+  color: var(--ink);
+  box-shadow:
+    0 20px 50px -16px rgba(0, 0, 0, 0.55),
+    0 1px 0 0 rgba(255, 255, 255, 0.06) inset;
+  transition:
+    transform .65s cubic-bezier(.2, .8, .2, 1),
+    opacity .45s ease;
 }
-
-.mobile-menu-link:first-child {
-  border-top: 1px solid var(--color-border);
+.floating-nav.is-visible {
+  transform: translate(-50%, 0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
 }
-
-.mobile-menu-link:active,
-.mobile-menu-link-active {
-  color: var(--color-text-primary);
+.floating-nav::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  background: radial-gradient(50% 60% at 50% 50%, rgba(242, 107, 31, 0.20), transparent 70%);
+  border-radius: 999px;
+  z-index: -1;
+  filter: blur(18px);
+  opacity: 0;
+  transition: opacity .5s ease;
 }
+.floating-nav.is-visible::before { opacity: 1; }
 
-/* ─── Mobile CTA ────────────────────────────────────────────────────────── */
-.mobile-menu-cta {
-  display: flex;
+.fn-brand {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
   font-weight: 700;
-  color: #000;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
   text-decoration: none;
-  background: linear-gradient(to right, var(--color-accent-primary), var(--color-accent-secondary));
-  border-radius: 9999px;
-  padding: 16px 28px;
-  min-height: 56px;
-  box-shadow: 0 0 30px var(--color-accent-primary-glow);
-  transition: transform 200ms ease, box-shadow 200ms ease;
-  -webkit-tap-highlight-color: transparent;
-  margin-bottom: 16px;
+}
+.fn-brand .fn-logo {
+  width: 26px; height: 26px;
+  border-radius: 5px;
+  display: block;
+  flex: none;
+  margin-right: 10px;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity .4s ease .15s, transform .55s cubic-bezier(.4, 1.6, .5, 1) .15s;
+}
+.floating-nav.is-visible .fn-brand .fn-logo { opacity: 1; transform: scale(1); }
+
+.fn-brand .word {
+  display: inline-flex;
+  /* Clip only vertically (to hide chars while they're at translateY(110%)).
+     Horizontal bleed stays open via clip-path's negative inset — Safari was
+     clipping the rightmost glyph when we used overflow:hidden. */
+  clip-path: inset(0 -1em);
+  padding: 0.18em 0;
+  margin-block: -0.18em;
+  line-height: 1.1;
+}
+.fn-brand .word + .word { margin-left: 0.28em; } /* natural word-space, not flex gap */
+.fn-brand .word .char {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform .6s cubic-bezier(.2, .7, .2, 1);
+}
+.floating-nav.is-visible .fn-brand .word .char { transform: translateY(0); }
+
+.fn-sep {
+  width: 1px;
+  height: 18px;
+  background: rgba(246, 241, 236, 0.12);
+  transform: scaleY(0);
+  transition: transform .5s cubic-bezier(.2, .7, .2, 1) .25s;
+}
+.floating-nav.is-visible .fn-sep { transform: scaleY(1); }
+
+.fn-links {
+  display: flex;
+  align-items: center;
+  gap: 18px; /* match the floating-nav top-level gap so links sit at the same rhythm */
+  font-size: 13.5px;
+  color: var(--ink-dim);
+}
+.fn-links a {
+  position: relative;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  color: var(--ink-dim);
+  opacity: 0;
+  transform: translateY(6px);
+  /* Hover-driven props (color, border-color) animate immediately; reveal-driven
+     props (opacity, transform) get a per-link stagger via transition-delay below. */
+  transition:
+    color .2s ease,
+    border-color .25s ease,
+    opacity .4s ease,
+    transform .5s cubic-bezier(.2, .7, .2, 1);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.fn-links a:hover,
+.fn-links a.is-active {
+  color: var(--ink);
+  border-color: var(--orange);
 }
 
-.mobile-menu-cta:active {
-  transform: scale(0.97);
-  box-shadow: 0 0 16px var(--color-accent-primary-glow);
+/* Per-letter wave-flip — two stacked rows of individual letter spans inside a
+   clipped window. Container height includes descender room (1.25em) so glyphs
+   like g/j don't bleed across rows. On hover each character translates up by
+   one row-height, with a small stagger creating a left-to-right wave.
+   Shared by both .fn-links (floating pill) and .sn-links (static top nav). */
+.fn-text {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 1.25em;
+  line-height: 1.25;
+  overflow: hidden;
+}
+.fn-text .row {
+  display: inline-flex;
+  white-space: pre; /* preserve spaces in labels like "Über uns" */
+  flex: none;       /* don't let the column flex shrink each row — would leak row 2 into row 1's area */
+}
+.fn-text .row .ch {
+  display: inline-block;
+  transition: transform .42s cubic-bezier(.7, 0, .2, 1);
+}
+.fn-links a:hover .fn-text .row .ch,
+.sn-links a:hover .fn-text .row .ch { transform: translateY(-100%); }
+
+/* Stagger per character. Selector applies independently within each row, so a
+   given column's top + bottom char share the same delay and move as a pair. */
+.fn-text .row .ch:nth-child(1)  { transition-delay:   0ms; }
+.fn-text .row .ch:nth-child(2)  { transition-delay:  22ms; }
+.fn-text .row .ch:nth-child(3)  { transition-delay:  44ms; }
+.fn-text .row .ch:nth-child(4)  { transition-delay:  66ms; }
+.fn-text .row .ch:nth-child(5)  { transition-delay:  88ms; }
+.fn-text .row .ch:nth-child(6)  { transition-delay: 110ms; }
+.fn-text .row .ch:nth-child(7)  { transition-delay: 132ms; }
+.fn-text .row .ch:nth-child(8)  { transition-delay: 154ms; }
+.fn-text .row .ch:nth-child(9)  { transition-delay: 176ms; }
+.fn-text .row .ch:nth-child(10) { transition-delay: 198ms; }
+
+.floating-nav.is-visible .fn-links a { opacity: 1; transform: translateY(0); }
+/* Delays map to the transition list: color=0s, border-color=0s, opacity=stagger, transform=stagger */
+.floating-nav.is-visible .fn-links a:nth-child(1) { transition-delay: 0s, 0s, 0.28s, 0.28s; }
+.floating-nav.is-visible .fn-links a:nth-child(2) { transition-delay: 0s, 0s, 0.33s, 0.33s; }
+.floating-nav.is-visible .fn-links a:nth-child(3) { transition-delay: 0s, 0s, 0.38s, 0.38s; }
+.floating-nav.is-visible .fn-links a:nth-child(4) { transition-delay: 0s, 0s, 0.43s, 0.43s; }
+.floating-nav.is-visible .fn-links a:nth-child(5) { transition-delay: 0s, 0s, 0.48s, 0.48s; }
+
+.fn-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px -6px rgba(242, 107, 31, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transform: scale(0.85);
+  opacity: 0;
+  transition: background .25s ease, box-shadow .25s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.floating-nav.is-visible .fn-cta {
+  transform: scale(1);
+  opacity: 1;
+  animation: fn-cta-reveal .55s cubic-bezier(.4, 1.5, .5, 1) .5s backwards;
+}
+@keyframes fn-cta-reveal {
+  from { transform: scale(0.85); opacity: 0; }
 }
 
-/* ─── Mobile Trust Line ─────────────────────────────────────────────────── */
-.mobile-menu-trust {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  text-align: center;
-  margin: 0;
+/* Shine sweep */
+.fn-cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 100%);
+  transform: skewX(-14deg);
+  transition: left .65s cubic-bezier(.4, 0, .2, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+.fn-cta:hover::before { left: 130%; }
+
+/* Arrow send-off stack */
+.fn-cta .arr-stack {
+  position: relative;
+  overflow: hidden;   /* clip the resting duplicate arrow out of view */
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+.fn-cta .arr-stack .arr {
+  position: absolute;
+  inset: 0;
+  width: 14px;
+  height: 14px;
+  transition: transform .42s cubic-bezier(.55, 0, .25, 1);
+}
+.fn-cta .arr-stack .a1 { transform: translate(0, 0); }
+.fn-cta .arr-stack .a2 { transform: translate(-130%, 130%); }
+.fn-cta:hover .arr-stack .a1 { transform: translate(130%, -130%); }
+.fn-cta:hover .arr-stack .a2 { transform: translate(0, 0); }
+
+@media (max-width: 760px) {
+  .floating-nav { padding: 6px 6px 6px 18px; }
+  .fn-links, .fn-sep { display: none; }
 }
