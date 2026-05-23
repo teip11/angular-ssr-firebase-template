@@ -1234,18 +1234,6 @@
   50%      { opacity: 0.55; transform: scale(1.4); }
 }
 
-/* Preview content per step */
-.process-new .pvx-form { flex: 1; display: flex; flex-direction: column; gap: 8px; }
-.process-new .pvx-form .row { height: 14px; border-radius: 6px; background: rgba(233, 223, 210, 0.07); width: 80%; }
-.process-new .pvx-form .row.s { width: 54%; }
-.process-new .pvx-form .row.xl { width: 100%; height: 38px; margin-top: 4px; background: rgba(233, 223, 210, 0.12); }
-.process-new .pvx-form .btn {
-  margin-top: auto; align-self: flex-start;
-  padding: 10px 16px; border-radius: 8px;
-  background: var(--orange); color: #fff;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
-}
-
 /* Card 02 visual — mini website mockup. The dark preview background frames
    it like a screenshot inside a browser; the cream canvas with orange CTA
    reads as "your actual website concept" instead of an abstract palette. */
@@ -1600,47 +1588,6 @@
 }
 .showcase-new .show-card:hover .show-preview .overlay { transform: translateY(0); opacity: 1; }
 .showcase-new .show-preview .overlay svg { width: 14px; height: 14px; }
-
-.showcase-new .mock-marconi {
-  background: radial-gradient(80% 60% at 70% 30%, rgba(255, 180, 110, 0.35), transparent 60%), linear-gradient(160deg, #3b1a0c 0%, #1d0a05 100%);
-  color: #f3e3cf; padding: 36px 22px 22px;
-  display: flex; flex-direction: column; justify-content: space-between;
-}
-.showcase-new .mock-marconi .nav { display: flex; justify-content: space-between; align-items: center; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(243, 227, 207, 0.65); }
-.showcase-new .mock-marconi .nav .dot { width: 6px; height: 6px; border-radius: 999px; background: #c0732a; display: inline-block; margin-right: 6px; vertical-align: 1px; }
-.showcase-new .mock-marconi .nav .nav-r { display: flex; gap: 14px; }
-.showcase-new .mock-marconi .est { font-size: 8px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(243, 227, 207, 0.55); margin-bottom: 6px; }
-.showcase-new .mock-marconi h5 { font-family: 'Sacramento', cursive; font-weight: 400; font-size: 42px; line-height: 1; color: #f3e3cf; margin: 0 0 4px; letter-spacing: -0.01em; }
-.showcase-new .mock-marconi .sub { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(243, 227, 207, 0.65); margin-bottom: 14px; }
-.showcase-new .mock-marconi .btn { display: inline-flex; align-self: flex-start; padding: 8px 14px; background: #f3e3cf; color: #3b1a0c; border-radius: 999px; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; }
-.showcase-new .mock-marconi .flourish { position: absolute; right: 14px; bottom: 14px; width: 60px; height: 60px; color: rgba(243, 227, 207, 0.2); }
-
-.showcase-new .mock-hollmann { background: linear-gradient(180deg, #b3895a 0%, #7a5a37 60%, #4a3520 100%); color: #f6efe2; padding: 36px 22px 22px; display: flex; flex-direction: column; }
-.showcase-new .mock-hollmann .nav { display: flex; justify-content: space-between; align-items: center; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(246, 239, 226, 0.78); margin-bottom: 12px; }
-.showcase-new .mock-hollmann .nav .nav-r { display: flex; gap: 12px; }
-.showcase-new .mock-hollmann h5 { font-weight: 800; font-size: 30px; line-height: 1; color: #f6efe2; margin: 0 0 12px; letter-spacing: -0.03em; }
-.showcase-new .mock-hollmann h5 .dot { color: #ffb27a; }
-.showcase-new .mock-hollmann .tagline { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(246,239,226,0.7); margin-bottom: 14px; }
-.showcase-new .mock-hollmann .grid { margin-top: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-.showcase-new .mock-hollmann .grid div { aspect-ratio: 1/1; border-radius: 3px; background: rgba(0,0,0,0.25); position: relative; overflow: hidden; }
-.showcase-new .mock-hollmann .grid div::before { content: ""; position: absolute; inset: 20%; background: repeating-linear-gradient(90deg, rgba(246,239,226,0.18) 0 2px, transparent 2px 4px); }
-.showcase-new .mock-hollmann .grid div:nth-child(2)::before { inset: 25% 30%; background: rgba(246,239,226,0.22); }
-.showcase-new .mock-hollmann .grid div:nth-child(3)::before { inset: 18%; background: linear-gradient(135deg, rgba(246,239,226,0.3), transparent); border-radius: 999px; }
-.showcase-new .mock-hollmann .link { margin-top: 10px; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(246, 239, 226, 0.85); display: inline-flex; align-items: center; gap: 6px; }
-
-.showcase-new .mock-lindner { background: linear-gradient(180deg, #d8d8c8 0%, #b6bfa9 60%, #8c9a82 100%); color: #1f2a23; padding: 36px 22px 22px; display: flex; flex-direction: column; justify-content: space-between; }
-.showcase-new .mock-lindner .nav { display: flex; justify-content: space-between; align-items: center; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(31, 42, 35, 0.7); margin-bottom: 8px; }
-.showcase-new .mock-lindner .nav .dot { width: 6px; height: 6px; border-radius: 999px; background: #1f2a23; display: inline-block; margin-right: 6px; vertical-align: 1px; }
-.showcase-new .mock-lindner .nav .nav-r { display: flex; gap: 12px; }
-.showcase-new .mock-lindner h5 { font-weight: 700; font-size: 22px; line-height: 1.05; color: #1f2a23; margin: 0 0 10px; letter-spacing: -0.02em; }
-.showcase-new .mock-lindner .tagline { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(31, 42, 35, 0.65); margin-bottom: 8px; }
-.showcase-new .mock-lindner .team { display: flex; margin: 8px 0 14px; }
-.showcase-new .mock-lindner .team .av { width: 32px; height: 32px; border-radius: 999px; background: linear-gradient(135deg, #b6bfa9, #8c9a82); border: 2px solid #d8d8c8; margin-left: -8px; position: relative; overflow: hidden; }
-.showcase-new .mock-lindner .team .av:first-child { margin-left: 0; }
-.showcase-new .mock-lindner .team .av::before { content: ""; position: absolute; width: 12px; height: 12px; background: rgba(31,42,35,0.5); border-radius: 999px; top: 7px; left: 50%; transform: translateX(-50%); }
-.showcase-new .mock-lindner .team .av::after  { content: ""; position: absolute; width: 22px; height: 14px; background: rgba(31,42,35,0.5); border-radius: 999px 999px 0 0; bottom: -4px; left: 50%; transform: translateX(-50%); }
-.showcase-new .mock-lindner .btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 8px 14px; background: #1f2a23; color: #d8d8c8; border-radius: 999px; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; }
-.showcase-new .mock-lindner .btn .ic { width: 12px; height: 12px; background: #c0732a; border-radius: 999px; }
 
 .showcase-new .show-meta { padding: 24px 24px 26px; display: flex; flex-direction: column; gap: 10px; }
 .showcase-new .show-cat { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--orange); display: inline-flex; align-items: center; gap: 8px; }
@@ -2275,54 +2222,6 @@
     margin-top: 32px; flex-direction: column; align-items: flex-start;
     gap: 8px; font-size: 10.5px;
   }
-
-  /* === PROCESS === */
-  .process-new .process-stage { padding-top: 64px; padding-bottom: 64px; }
-  .process-new .process-header { gap: 14px; margin-bottom: 12px; }
-  .process-new .process h2 { font-size: 34px; letter-spacing: -0.025em; line-height: 1.04; }
-  .process-new .process h2 .accent { font-size: 1.22em; }
-  .process-new .process-sub { font-size: 14px; line-height: 1.55; }
-  .process-new .process-sub .lead-bar { width: 28px; margin-bottom: 12px; }
-  .process-new .step-rail { flex-direction: row; flex-wrap: wrap; gap: 8px 14px; padding-left: 0; }
-  .process-new .step-rail .r-step { font-size: 10px; gap: 8px; letter-spacing: 0.14em; }
-  .process-new .step-rail .r-step .dot { width: 8px; height: 8px; }
-  .process-new .step-rail::before,
-  .process-new .step-rail .rail-fill { display: none; }
-  .process-new .filmstrip-wrap {
-    mask-image: none; -webkit-mask-image: none;
-    overflow-x: auto; scroll-snap-type: x mandatory;
-  }
-  .process-new .filmstrip { transform: none !important; gap: 14px; padding: 18px 0; }
-  .process-new .p-card {
-    flex: 0 0 82vw;
-    max-width: 320px;
-    max-height: none;
-    aspect-ratio: auto;
-    transform: none; opacity: 1;
-    padding: 22px 20px 22px;
-    border-radius: 16px;
-    scroll-snap-align: start;
-    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.4);
-  }
-  .process-new .p-card .empfohlen { top: 12px; right: 12px; font-size: 9px; padding: 4px 8px; }
-  .process-new .p-card-num { font-size: 38px; }
-  .process-new .p-card-num small { font-size: 10px; margin-top: 4px; }
-  .process-new .p-card-meta { font-size: 9px; }
-  .process-new .p-card h4 { font-size: 17px; line-height: 1.2; }
-  .process-new .p-card p { font-size: 13px; line-height: 1.5; }
-  .process-new .p-vis { margin: 6px 0 16px; }
-
-  .process-new .process-footer { grid-template-columns: 1fr; gap: 16px; padding-top: 18px; }
-  .process-new .progress-meter { max-width: none; }
-  .process-new .trust-row { font-size: 11px; gap: 6px 12px; }
-  .process-new .p-cta { padding: 14px 18px; font-size: 14px; width: 100%; justify-content: space-between; }
-
-  /* Disable ticker entirely on mobile */
-  .process-new .ticker { display: none; }
-
-  /* Hide horizontal scrollbars in mobile filmstrip */
-  .process-new .filmstrip-wrap::-webkit-scrollbar { display: none; }
-  .process-new .filmstrip-wrap { scrollbar-width: none; }
 
   /* === QUOTE BRIDGE === */
   .qbridge-new .quote-stage { min-height: 56vh; padding: 70px 0; }
