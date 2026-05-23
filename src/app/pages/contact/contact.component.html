@@ -29,18 +29,20 @@
 
         <!-- Form card -->
         <div #kntFormCard class="knt-form-card">
-          <div class="eyebrow">
-            <span class="bar"></span>
-            <span class="num">02</span> · Nachricht
-          </div>
-          <h2>
-            Schreiben Sie uns — <span class="accent">unverbindlich.</span>
-          </h2>
-          <p class="knt-form-lead">
-            <span class="lead-bar"></span>
-            Drei Felder, kein Pflicht-Newsletter, keine Account-Anlage.
-            Wir melden uns mit einer ehrlichen Einschätzung zurück.
-          </p>
+          @if (!sent) {
+            <div class="eyebrow">
+              <span class="bar"></span>
+              <span class="num">02</span> · Nachricht
+            </div>
+            <h2>
+              Schreiben Sie uns — <span class="accent">unverbindlich.</span>
+            </h2>
+            <p class="knt-form-lead">
+              <span class="lead-bar"></span>
+              Drei Felder, kein Pflicht-Newsletter, keine Account-Anlage.
+              Wir melden uns mit einer ehrlichen Einschätzung zurück.
+            </p>
+          }
 
           <!-- ✅ Success state -->
           @if (sent) {

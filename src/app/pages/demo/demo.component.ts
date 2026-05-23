@@ -122,11 +122,16 @@ export class DemoComponent implements OnInit, AfterViewInit, OnDestroy {
       // Send auto-reply to customer (fire-and-forget — don't block success state)
       this.emailjs.send(TEMPLATE_AUTO_REPLY, {
         from_name:  this.form.name,
-        from_email: this.form.email
-      }).catch(() => { /* silently ignore auto-reply failures */ });
+        from_email: this.form.email,
+        to_email:   this.form.email,
+      }).catch(err => console.warn('[demo] auto-reply failed:', err));
 
       this.sent = true;
-    } catch {
+      setTimeout(() => {
+        this.dmoFormCard?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 0);
+    } catch (err) {
+      console.error('[demo] submit failed:', err);
       this.error = true;
     } finally {
       this.sending = false;

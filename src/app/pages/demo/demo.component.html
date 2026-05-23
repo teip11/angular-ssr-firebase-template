@@ -28,19 +28,21 @@
     <div class="container">
 
       <div #dmoFormCard class="dmo-form-card">
-        <div class="eyebrow">
-          <span class="bar"></span>
-          <span class="num">02</span> · Anfrage
-        </div>
-        <h2>
-          Ein paar Fragen — und Sie bekommen Ihre <span class="accent">Vorlage.</span>
-        </h2>
-        <p class="dmo-form-lead">
-          <span class="lead-bar"></span>
-          Je mehr wir wissen, desto präziser wird Ihre Vorlage.
-          Pflicht sind nur Name und E-Mail — der Rest hilft uns,
-          etwas zu bauen, das wirklich zu Ihnen passt.
-        </p>
+        @if (!sent) {
+          <div class="eyebrow">
+            <span class="bar"></span>
+            <span class="num">02</span> · Anfrage
+          </div>
+          <h2>
+            Ein paar Fragen — und Sie bekommen Ihre <span class="accent">Vorlage.</span>
+          </h2>
+          <p class="dmo-form-lead">
+            <span class="lead-bar"></span>
+            Je mehr wir wissen, desto präziser wird Ihre Vorlage.
+            Pflicht sind nur Name und E-Mail — der Rest hilft uns,
+            etwas zu bauen, das wirklich zu Ihnen passt.
+          </p>
+        }
 
         <!-- ✅ Success -->
         @if (sent) {

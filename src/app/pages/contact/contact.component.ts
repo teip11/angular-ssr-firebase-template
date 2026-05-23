@@ -102,10 +102,12 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
       this.emailjs.send(TEMPLATE_AUTO_REPLY, {
         from_name:  this.form.name,
         from_email: this.form.email,
-      }).catch(() => { /* silently ignore */ });
+        to_email:   this.form.email,
+      }).catch(err => console.warn('[contact] auto-reply failed:', err));
 
       this.sent = true;
-    } catch {
+    } catch (err) {
+      console.error('[contact] submit failed:', err);
       this.error = true;
     } finally {
       this.sending = false;
