@@ -1969,6 +1969,35 @@
     }
 
   </style>
+  <!-- Gehrke Studio attribution -->
+  <style>
+    .gs-attrib {
+      position: fixed; bottom: 16px; right: 16px; z-index: 9999;
+      display: inline-flex !important; align-items: center; gap: 8px;
+      padding: 8px 14px 8px 12px;
+      background: rgba(13, 11, 10, 0.92);
+      color: #f6f1ec !important;
+      border: 1px solid rgba(246, 241, 236, 0.10);
+      border-radius: 999px;
+      text-decoration: none !important;
+      font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+      font-size: 12px; line-height: 1;
+      letter-spacing: -0.005em;
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px -8px rgba(0,0,0,0.4);
+      transition: transform .25s cubic-bezier(.2,.8,.2,1), background .25s ease;
+    }
+    .gs-attrib:hover { transform: translateY(-2px); background: rgba(13, 11, 10, 1); }
+    .gs-attrib-label {
+      font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 600; color: rgba(246, 241, 236, 0.55);
+    }
+    .gs-attrib-brand { font-weight: 700; color: #f6f1ec; }
+    .gs-attrib-arrow { width: 11px; height: 11px; color: #f26b1f; flex: none; }
+    @media (max-width: 480px) {
+      .gs-attrib { bottom: 12px; right: 12px; padding: 7px 12px 7px 10px; font-size: 11px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -2970,5 +2999,14 @@
     })();
   </script>
 
+  <!-- Gehrke Studio attribution -->
+  <a href="https://gehrkestudio.com" class="gs-attrib" target="_top" rel="noopener" aria-label="Vorlage von Gehrke Studio — zur Studio-Seite">
+    <span class="gs-attrib-label">Vorlage</span>
+    <span class="gs-attrib-brand">Gehrke Studio</span>
+    <svg class="gs-attrib-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M5 3 L11 3 L11 9"/>
+      <path d="M11 3 L3 11"/>
+    </svg>
+  </a>
 </body>
 </html>
