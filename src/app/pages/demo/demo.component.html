@@ -43,238 +43,241 @@
         </p>
 
         <!-- ✅ Success -->
-        <div *ngIf="sent" class="dmo-state-success" role="status" aria-live="polite">
-          <span class="dmo-state-icon" aria-hidden="true">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </span>
-          <h3 class="dmo-state-title">Vorlage angefordert.</h3>
-          <p class="dmo-state-text">
-            Vielen Dank! Wir melden uns innerhalb von 72 Stunden mit
-            Ihrer persönlichen Vorlage zurück.
-          </p>
-        </div>
+        @if (sent) {
+          <div class="dmo-state-success" role="status" aria-live="polite">
+            <span class="dmo-state-icon" aria-hidden="true">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <h3 class="dmo-state-title">Vorlage angefordert.</h3>
+            <p class="dmo-state-text">
+              Vielen Dank! Wir melden uns innerhalb von 72 Stunden mit
+              Ihrer persönlichen Vorlage zurück.
+            </p>
+          </div>
+        }
 
         <!-- ❌ Error -->
-        <div *ngIf="error && !sent" class="dmo-state-error" role="alert">
-          <span class="dmo-err-icon" aria-hidden="true">!</span>
-          <p>
-            Beim Senden ist etwas schiefgelaufen. Bitte versuchen Sie
-            es erneut oder schreiben Sie direkt an
-            <a href="mailto:piet&#64;gehrkestudio.com">piet&#64;gehrkestudio.com</a>.
-          </p>
-        </div>
+        @if (error && !sent) {
+          <div class="dmo-state-error" role="alert">
+            <span class="dmo-err-icon" aria-hidden="true">!</span>
+            <p>
+              Beim Senden ist etwas schiefgelaufen. Bitte versuchen Sie
+              es erneut oder schreiben Sie direkt an
+              <a href="mailto:piet&#64;gehrkestudio.com">piet&#64;gehrkestudio.com</a>.
+            </p>
+          </div>
+        }
 
         <!-- Form -->
-        <form *ngIf="!sent" class="dmo-form-fields" (ngSubmit)="submit()">
-
-          <!-- ── Step 01 — Basis ─────────────────────────────────── -->
-          <div #dmoStep class="dmo-step">
-            <div class="dmo-step-head">
-              <span class="dmo-step-num">01</span>
-              <h3 class="dmo-step-title">Basis-Informationen</h3>
-            </div>
-            <div class="dmo-field-row">
+        @if (!sent) {
+          <form class="dmo-form-fields" (ngSubmit)="submit()">
+            <!-- ── Step 01 — Basis ─────────────────────────────────── -->
+            <div #dmoStep class="dmo-step">
+              <div class="dmo-step-head">
+                <span class="dmo-step-num">01</span>
+                <h3 class="dmo-step-title">Basis-Informationen</h3>
+              </div>
+              <div class="dmo-field-row">
+                <div class="dmo-field">
+                  <label for="dmo-name" class="dmo-label">Name <span class="dmo-required">*</span></label>
+                  <input
+                    id="dmo-name"
+                    type="text"
+                    name="name"
+                    required
+                    [(ngModel)]="form.name"
+                    placeholder="Max Mustermann"
+                    class="dmo-input"
+                    autocomplete="name"
+                    />
+                </div>
+                <div class="dmo-field">
+                  <label for="dmo-email" class="dmo-label">E-Mail <span class="dmo-required">*</span></label>
+                  <input
+                    id="dmo-email"
+                    type="email"
+                    name="email"
+                    required
+                    [(ngModel)]="form.email"
+                    placeholder="max&#64;unternehmen.de"
+                    class="dmo-input"
+                    autocomplete="email"
+                    />
+                </div>
+              </div>
               <div class="dmo-field">
-                <label for="dmo-name" class="dmo-label">Name <span class="dmo-required">*</span></label>
+                <label for="dmo-company" class="dmo-label">Unternehmen</label>
                 <input
-                  id="dmo-name"
+                  id="dmo-company"
                   type="text"
-                  name="name"
-                  required
-                  [(ngModel)]="form.name"
-                  placeholder="Max Mustermann"
+                  name="company"
+                  [(ngModel)]="form.company"
+                  placeholder="Muster GmbH"
                   class="dmo-input"
-                  autocomplete="name"
-                />
+                  autocomplete="organization"
+                  />
+              </div>
+            </div>
+            <!-- ── Step 02 — Ihr Unternehmen ───────────────────────── -->
+            <div #dmoStep class="dmo-step">
+              <div class="dmo-step-head">
+                <span class="dmo-step-num">02</span>
+                <h3 class="dmo-step-title">Ihr Unternehmen</h3>
               </div>
               <div class="dmo-field">
-                <label for="dmo-email" class="dmo-label">E-Mail <span class="dmo-required">*</span></label>
-                <input
-                  id="dmo-email"
-                  type="email"
-                  name="email"
-                  required
-                  [(ngModel)]="form.email"
-                  placeholder="max&#64;unternehmen.de"
-                  class="dmo-input"
-                  autocomplete="email"
-                />
+                <label for="dmo-description" class="dmo-label">Was genau macht Ihr Unternehmen?</label>
+                <textarea
+                  id="dmo-description"
+                  name="description"
+                  [(ngModel)]="form.description"
+                  placeholder="Kurz beschrieben: Dienstleistungen, Produkte, Zielgruppe …"
+                  rows="3"
+                  class="dmo-input dmo-textarea"
+                ></textarea>
               </div>
-            </div>
-            <div class="dmo-field">
-              <label for="dmo-company" class="dmo-label">Unternehmen</label>
-              <input
-                id="dmo-company"
-                type="text"
-                name="company"
-                [(ngModel)]="form.company"
-                placeholder="Muster GmbH"
-                class="dmo-input"
-                autocomplete="organization"
-              />
-            </div>
-          </div>
-
-          <!-- ── Step 02 — Ihr Unternehmen ───────────────────────── -->
-          <div #dmoStep class="dmo-step">
-            <div class="dmo-step-head">
-              <span class="dmo-step-num">02</span>
-              <h3 class="dmo-step-title">Ihr Unternehmen</h3>
-            </div>
-            <div class="dmo-field">
-              <label for="dmo-description" class="dmo-label">Was genau macht Ihr Unternehmen?</label>
-              <textarea
-                id="dmo-description"
-                name="description"
-                [(ngModel)]="form.description"
-                placeholder="Kurz beschrieben: Dienstleistungen, Produkte, Zielgruppe …"
-                rows="3"
-                class="dmo-input dmo-textarea"
-              ></textarea>
-            </div>
-            <div class="dmo-toggle-row">
-              <span class="dmo-toggle-label">Haben Sie bereits eine Website?</span>
-              <label class="dmo-toggle">
-                <input
-                  type="checkbox"
-                  name="hasWebsite"
-                  [(ngModel)]="form.hasWebsite"
-                  class="dmo-toggle-input"
-                />
-                <span class="dmo-toggle-track" aria-hidden="true">
-                  <span class="dmo-toggle-thumb"></span>
-                </span>
-                <span class="dmo-toggle-state">{{ form.hasWebsite ? 'Ja' : 'Nein' }}</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- ── Step 03 — Ziele ─────────────────────────────────── -->
-          <div #dmoStep class="dmo-step">
-            <div class="dmo-step-head">
-              <span class="dmo-step-num">03</span>
-              <h3 class="dmo-step-title">Ihre Ziele</h3>
-            </div>
-            <div class="dmo-field">
-              <span class="dmo-label">Was möchten Sie erreichen? <span class="dmo-label-hint">(Mehrfachwahl)</span></span>
-              <div class="dmo-pill-grid">
-                <label class="dmo-pill" [class.is-active]="form.goals.kunden">
+              <div class="dmo-toggle-row">
+                <span class="dmo-toggle-label">Haben Sie bereits eine Website?</span>
+                <label class="dmo-toggle">
                   <input
                     type="checkbox"
-                    name="goalKunden"
-                    [(ngModel)]="form.goals.kunden"
-                    class="dmo-pill-input"
-                  />
-                  <span class="dmo-pill-check" aria-hidden="true">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    name="hasWebsite"
+                    [(ngModel)]="form.hasWebsite"
+                    class="dmo-toggle-input"
+                    />
+                  <span class="dmo-toggle-track" aria-hidden="true">
+                    <span class="dmo-toggle-thumb"></span>
                   </span>
-                  <span class="dmo-pill-label">Mehr Kunden</span>
-                </label>
-                <label class="dmo-pill" [class.is-active]="form.goals.anfragen">
-                  <input
-                    type="checkbox"
-                    name="goalAnfragen"
-                    [(ngModel)]="form.goals.anfragen"
-                    class="dmo-pill-input"
-                  />
-                  <span class="dmo-pill-check" aria-hidden="true">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                  </span>
-                  <span class="dmo-pill-label">Mehr Anfragen</span>
-                </label>
-                <label class="dmo-pill" [class.is-active]="form.goals.onlinePraesenz">
-                  <input
-                    type="checkbox"
-                    name="goalOnline"
-                    [(ngModel)]="form.goals.onlinePraesenz"
-                    class="dmo-pill-input"
-                  />
-                  <span class="dmo-pill-check" aria-hidden="true">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                  </span>
-                  <span class="dmo-pill-label">Online-Präsenz</span>
+                  <span class="dmo-toggle-state">{{ form.hasWebsite ? 'Ja' : 'Nein' }}</span>
                 </label>
               </div>
             </div>
-            <div class="dmo-field">
-              <label for="dmo-detailed" class="dmo-label">Detaillierte Zielsetzung</label>
-              <textarea
-                id="dmo-detailed"
-                name="detailedGoals"
-                [(ngModel)]="form.detailedGoals"
-                placeholder="Konkrete Kennzahlen oder Ergebnisse, die Sie anstreben?"
-                rows="3"
-                class="dmo-input dmo-textarea"
-              ></textarea>
+            <!-- ── Step 03 — Ziele ─────────────────────────────────── -->
+            <div #dmoStep class="dmo-step">
+              <div class="dmo-step-head">
+                <span class="dmo-step-num">03</span>
+                <h3 class="dmo-step-title">Ihre Ziele</h3>
+              </div>
+              <div class="dmo-field">
+                <span class="dmo-label">Was möchten Sie erreichen? <span class="dmo-label-hint">(Mehrfachwahl)</span></span>
+                <div class="dmo-pill-grid">
+                  <label class="dmo-pill" [class.is-active]="form.goals.kunden">
+                    <input
+                      type="checkbox"
+                      name="goalKunden"
+                      [(ngModel)]="form.goals.kunden"
+                      class="dmo-pill-input"
+                      />
+                    <span class="dmo-pill-check" aria-hidden="true">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    <span class="dmo-pill-label">Mehr Kunden</span>
+                  </label>
+                  <label class="dmo-pill" [class.is-active]="form.goals.anfragen">
+                    <input
+                      type="checkbox"
+                      name="goalAnfragen"
+                      [(ngModel)]="form.goals.anfragen"
+                      class="dmo-pill-input"
+                      />
+                    <span class="dmo-pill-check" aria-hidden="true">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    <span class="dmo-pill-label">Mehr Anfragen</span>
+                  </label>
+                  <label class="dmo-pill" [class.is-active]="form.goals.onlinePraesenz">
+                    <input
+                      type="checkbox"
+                      name="goalOnline"
+                      [(ngModel)]="form.goals.onlinePraesenz"
+                      class="dmo-pill-input"
+                      />
+                    <span class="dmo-pill-check" aria-hidden="true">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    <span class="dmo-pill-label">Online-Präsenz</span>
+                  </label>
+                </div>
+              </div>
+              <div class="dmo-field">
+                <label for="dmo-detailed" class="dmo-label">Detaillierte Zielsetzung</label>
+                <textarea
+                  id="dmo-detailed"
+                  name="detailedGoals"
+                  [(ngModel)]="form.detailedGoals"
+                  placeholder="Konkrete Kennzahlen oder Ergebnisse, die Sie anstreben?"
+                  rows="3"
+                  class="dmo-input dmo-textarea"
+                ></textarea>
+              </div>
             </div>
-          </div>
-
-          <!-- ── Step 04 — Design & Wünsche ──────────────────────── -->
-          <div #dmoStep class="dmo-step">
-            <div class="dmo-step-head">
-              <span class="dmo-step-num">04</span>
-              <h3 class="dmo-step-title">Design &amp; Wünsche</h3>
+            <!-- ── Step 04 — Design & Wünsche ──────────────────────── -->
+            <div #dmoStep class="dmo-step">
+              <div class="dmo-step-head">
+                <span class="dmo-step-num">04</span>
+                <h3 class="dmo-step-title">Design &amp; Wünsche</h3>
+              </div>
+              <div class="dmo-field">
+                <label for="dmo-inspiration" class="dmo-label">Websites, die Ihnen gefallen</label>
+                <textarea
+                  id="dmo-inspiration"
+                  name="inspiration"
+                  [(ngModel)]="form.inspiration"
+                  placeholder="Links zu Websites oder Marken, deren Stil Ihnen zusagt …"
+                  rows="2"
+                  class="dmo-input dmo-textarea"
+                ></textarea>
+              </div>
+              <div class="dmo-field">
+                <label for="dmo-wishes" class="dmo-label">Sonstige Wünsche oder Anmerkungen</label>
+                <textarea
+                  id="dmo-wishes"
+                  name="wishes"
+                  [(ngModel)]="form.wishes"
+                  placeholder="Gibt es noch etwas, das wir wissen sollten?"
+                  rows="2"
+                  class="dmo-input dmo-textarea"
+                ></textarea>
+              </div>
             </div>
-            <div class="dmo-field">
-              <label for="dmo-inspiration" class="dmo-label">Websites, die Ihnen gefallen</label>
-              <textarea
-                id="dmo-inspiration"
-                name="inspiration"
-                [(ngModel)]="form.inspiration"
-                placeholder="Links zu Websites oder Marken, deren Stil Ihnen zusagt …"
-                rows="2"
-                class="dmo-input dmo-textarea"
-              ></textarea>
-            </div>
-            <div class="dmo-field">
-              <label for="dmo-wishes" class="dmo-label">Sonstige Wünsche oder Anmerkungen</label>
-              <textarea
-                id="dmo-wishes"
-                name="wishes"
-                [(ngModel)]="form.wishes"
-                placeholder="Gibt es noch etwas, das wir wissen sollten?"
-                rows="2"
-                class="dmo-input dmo-textarea"
-              ></textarea>
-            </div>
-          </div>
-
-          <!-- reCAPTCHA disclaimer -->
-          <p class="dmo-recaptcha-note">
-            Geschützt durch reCAPTCHA —
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutz</a>
-            &amp;
-            <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Nutzungsbedingungen</a>
-            von Google gelten.
-          </p>
-
-          <!-- Submit -->
-          <div #dmoSubmitArea class="dmo-submit-area">
-            <button type="submit" class="btn-primary dmo-submit-btn" [disabled]="sending">
-              <span class="btn-label" *ngIf="!sending">Kostenlose Vorlage anfordern</span>
-              <span class="btn-label dmo-sending" *ngIf="sending">
-                <svg class="dmo-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9" opacity="0.25"/><path d="M21 12a9 9 0 0 0-9-9"/></svg>
-                Wird gesendet …
-              </span>
-              <span class="icon-circ" aria-hidden="true" *ngIf="!sending">
-                <svg class="a a1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
-                <svg class="a a2" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
-              </span>
-            </button>
-
-            <p class="dmo-submit-caption">
-              Maßgeschneidert für Ihr Unternehmen —
-              <strong>100% kostenlos, kein Vertrag, keine Verpflichtung.</strong>
+            <!-- reCAPTCHA disclaimer -->
+            <p class="dmo-recaptcha-note">
+              Geschützt durch reCAPTCHA —
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutz</a>
+              &amp;
+              <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Nutzungsbedingungen</a>
+              von Google gelten.
             </p>
-
-            <div class="dmo-trust-row" aria-label="Trust-Signale">
-              <span class="dmo-trust"><span class="bar"></span> Antwort innerhalb 72h</span>
-              <span class="dmo-trust"><span class="bar"></span> Keine Verpflichtung</span>
-              <span class="dmo-trust"><span class="bar"></span> 100% Datenschutz</span>
+            <!-- Submit -->
+            <div #dmoSubmitArea class="dmo-submit-area">
+              <button type="submit" class="btn-primary dmo-submit-btn" [disabled]="sending">
+                @if (!sending) {
+                  <span class="btn-label">Kostenlose Vorlage anfordern</span>
+                }
+                @if (sending) {
+                  <span class="btn-label dmo-sending">
+                    <svg class="dmo-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9" opacity="0.25"/><path d="M21 12a9 9 0 0 0-9-9"/></svg>
+                    Wird gesendet …
+                  </span>
+                }
+                @if (!sending) {
+                  <span class="icon-circ" aria-hidden="true">
+                    <svg class="a a1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+                    <svg class="a a2" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+                  </span>
+                }
+              </button>
+              <p class="dmo-submit-caption">
+                Maßgeschneidert für Ihr Unternehmen —
+                <strong>100% kostenlos, kein Vertrag, keine Verpflichtung.</strong>
+              </p>
+              <div class="dmo-trust-row" aria-label="Trust-Signale">
+                <span class="dmo-trust"><span class="bar"></span> Antwort innerhalb 72h</span>
+                <span class="dmo-trust"><span class="bar"></span> Keine Verpflichtung</span>
+                <span class="dmo-trust"><span class="bar"></span> 100% Datenschutz</span>
+              </div>
             </div>
-          </div>
-
-        </form>
+          </form>
+        }
       </div>
 
     </div>

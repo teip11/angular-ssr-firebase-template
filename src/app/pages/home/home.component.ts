@@ -3,7 +3,7 @@ import {
   ElementRef, ViewChild, ViewChildren, QueryList,
   Inject, PLATFORM_ID, NgZone, HostListener
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../services/seo.service';
 
@@ -13,7 +13,7 @@ interface QuoteWord { t: string; accent?: boolean; period?: boolean; s: number; 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

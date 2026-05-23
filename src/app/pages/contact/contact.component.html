@@ -43,90 +43,102 @@
           </p>
 
           <!-- ✅ Success state -->
-          <div *ngIf="sent" class="knt-state knt-state-success" role="status" aria-live="polite">
-            <span class="knt-state-icon" aria-hidden="true">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <h3 class="knt-state-title">Nachricht erhalten.</h3>
-            <p class="knt-state-text">
-              Vielen Dank — wir melden uns innerhalb eines Werktages
-              bei Ihnen zurück.
-            </p>
-          </div>
+          @if (sent) {
+            <div class="knt-state knt-state-success" role="status" aria-live="polite">
+              <span class="knt-state-icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <h3 class="knt-state-title">Nachricht erhalten.</h3>
+              <p class="knt-state-text">
+                Vielen Dank — wir melden uns innerhalb eines Werktages
+                bei Ihnen zurück.
+              </p>
+            </div>
+          }
 
           <!-- ❌ Error banner -->
-          <div *ngIf="error && !sent" class="knt-state-error" role="alert">
-            <span class="knt-err-icon" aria-hidden="true">!</span>
-            <p>
-              Beim Senden ist etwas schiefgelaufen. Bitte versuchen
-              Sie es erneut oder schreiben Sie direkt an
-              <a href="mailto:piet&#64;gehrkestudio.com">piet&#64;gehrkestudio.com</a>.
-            </p>
-          </div>
+          @if (error && !sent) {
+            <div class="knt-state-error" role="alert">
+              <span class="knt-err-icon" aria-hidden="true">!</span>
+              <p>
+                Beim Senden ist etwas schiefgelaufen. Bitte versuchen
+                Sie es erneut oder schreiben Sie direkt an
+                <a href="mailto:piet&#64;gehrkestudio.com">piet&#64;gehrkestudio.com</a>.
+              </p>
+            </div>
+          }
 
           <!-- Form -->
-          <form *ngIf="!sent" class="knt-form-fields" (ngSubmit)="submit()">
-            <div class="knt-field-row">
-              <div class="knt-field">
-                <label for="knt-name" class="knt-label">Name</label>
-                <input
-                  id="knt-name"
-                  type="text"
-                  name="name"
-                  required
-                  [(ngModel)]="form.name"
-                  placeholder="Ihr voller Name"
-                  class="knt-input"
-                  autocomplete="name"
-                />
+          @if (!sent) {
+            <form class="knt-form-fields" (ngSubmit)="submit()">
+              <div class="knt-field-row">
+                <div class="knt-field">
+                  <label for="knt-name" class="knt-label">Name</label>
+                  <input
+                    id="knt-name"
+                    type="text"
+                    name="name"
+                    required
+                    [(ngModel)]="form.name"
+                    placeholder="Ihr voller Name"
+                    class="knt-input"
+                    autocomplete="name"
+                    />
+                </div>
+                <div class="knt-field">
+                  <label for="knt-email" class="knt-label">E-Mail</label>
+                  <input
+                    id="knt-email"
+                    type="email"
+                    name="email"
+                    required
+                    [(ngModel)]="form.email"
+                    placeholder="ihre&#64;mail.de"
+                    class="knt-input"
+                    autocomplete="email"
+                    />
+                </div>
               </div>
               <div class="knt-field">
-                <label for="knt-email" class="knt-label">E-Mail</label>
-                <input
-                  id="knt-email"
-                  type="email"
-                  name="email"
+                <label for="knt-message" class="knt-label">Nachricht</label>
+                <textarea
+                  id="knt-message"
+                  name="message"
                   required
-                  [(ngModel)]="form.email"
-                  placeholder="ihre&#64;mail.de"
-                  class="knt-input"
-                  autocomplete="email"
-                />
+                  [(ngModel)]="form.message"
+                  placeholder="Wie können wir Ihnen helfen?"
+                  rows="5"
+                  class="knt-input knt-textarea"
+                ></textarea>
               </div>
-            </div>
-            <div class="knt-field">
-              <label for="knt-message" class="knt-label">Nachricht</label>
-              <textarea
-                id="knt-message"
-                name="message"
-                required
-                [(ngModel)]="form.message"
-                placeholder="Wie können wir Ihnen helfen?"
-                rows="5"
-                class="knt-input knt-textarea"
-              ></textarea>
-            </div>
-            <p class="knt-recaptcha-note">
-              Geschützt durch reCAPTCHA —
-              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutz</a>
-              &amp;
-              <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Nutzungsbedingungen</a>
-              von Google gelten.
-            </p>
-            <div class="knt-submit-row">
-              <button type="submit" class="btn-primary knt-submit-btn" [disabled]="sending">
-                <span class="btn-label" *ngIf="!sending">Nachricht senden</span>
-                <span class="btn-label knt-sending" *ngIf="sending">
-                  <svg class="knt-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9" opacity="0.25"/><path d="M21 12a9 9 0 0 0-9-9"/></svg>
-                  Wird gesendet …
-                </span>
-                <span class="icon-circ" aria-hidden="true" *ngIf="!sending">
-                  <svg class="a a1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
-                  <svg class="a a2" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
-                </span>
-              </button>
-            </div>
-          </form>
+              <p class="knt-recaptcha-note">
+                Geschützt durch reCAPTCHA —
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutz</a>
+                &amp;
+                <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Nutzungsbedingungen</a>
+                von Google gelten.
+              </p>
+              <div class="knt-submit-row">
+                <button type="submit" class="btn-primary knt-submit-btn" [disabled]="sending">
+                  @if (!sending) {
+                    <span class="btn-label">Nachricht senden</span>
+                  }
+                  @if (sending) {
+                    <span class="btn-label knt-sending">
+                      <svg class="knt-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9" opacity="0.25"/><path d="M21 12a9 9 0 0 0-9-9"/></svg>
+                      Wird gesendet …
+                    </span>
+                  }
+                  @if (!sending) {
+                    <span class="icon-circ" aria-hidden="true">
+                      <svg class="a a1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+                      <svg class="a a2" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+                    </span>
+                  }
+                </button>
+              </div>
+            </form>
+          }
         </div>
 
         <!-- Side: direct email + promise + signature -->

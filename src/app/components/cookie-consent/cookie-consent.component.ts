@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CookieConsentService, ConsentStatus } from '../../services/cookie-consent.service';
@@ -7,7 +7,7 @@ import { CookieConsentService, ConsentStatus } from '../../services/cookie-conse
 @Component({
   selector: 'app-cookie-consent',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   templateUrl: './cookie-consent.component.html',
   styleUrl: './cookie-consent.component.css'
 })

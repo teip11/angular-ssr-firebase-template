@@ -3,7 +3,7 @@ import {
   Inject, PLATFORM_ID,
   ViewChild, ViewChildren, ElementRef, QueryList,
 } from '@angular/core';
-import { isPlatformBrowser, CommonModule } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EmailjsService, TEMPLATE_DEMO, TEMPLATE_AUTO_REPLY } from '../../services/emailjs.service';
 import { RecaptchaService } from '../../services/recaptcha.service';
@@ -12,7 +12,7 @@ import { SeoService } from '../../services/seo.service';
 @Component({
   selector: 'app-demo',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule],
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.css']
 })
