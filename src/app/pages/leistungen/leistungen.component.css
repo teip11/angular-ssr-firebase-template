@@ -852,17 +852,41 @@
   .lst-final-new .container { padding: 0 32px; }
 
   .lst-pillar-new .lst-pillar { padding: 100px 0 110px; }
+  /* Switch from grid to flex on mobile. CSS Grid's track-sizing kept causing
+     subtle width issues on the reverse-grid pillar — flex column has simpler
+     intrinsic sizing (every item is just 100% of the container). */
   .lst-pillar-new .lst-pillar-grid,
   .lst-pillar-new .lst-pillar-grid-reverse {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 48px;
   }
+  .lst-pillar-new .lst-pillar-text,
+  .lst-pillar-new .lst-pillar-visual {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .lst-pillar-new .lst-pillar-text > *,
+  .lst-pillar-new .lst-pillar-visual > * { max-width: 100%; }
   /* Always show text first on tablet, regardless of desktop alternation */
   .lst-pillar-new .lst-pillar-grid-reverse .lst-pillar-text { order: 1; }
   .lst-pillar-new .lst-pillar-grid-reverse .lst-pillar-visual { order: 2; }
-  /* And reset the horizontal entry direction so all pillars come from the left */
-  .lst-pillar-new .lst-pillar-grid-reverse .lst-pillar-text { transform: translateX(-40px); }
-  .lst-pillar-new .lst-pillar-grid-reverse .lst-pillar-visual { transform: translateX(40px); }
+  /* Reset the horizontal entry direction so all pillars come from the left.
+     :not(.has-entered) is required so this rule has higher specificity than
+     the unscoped `.lst-pillar-text.has-entered { transform: none }` rule —
+     otherwise the @media rule (declared later in source order) would override
+     the entered state and leave the text permanently translated. */
+  .lst-pillar-new .lst-pillar-grid-reverse .lst-pillar-text:not(.has-entered)   { transform: translateX(-40px); }
+  .lst-pillar-new .lst-pillar-grid-reverse .lst-pillar-visual:not(.has-entered) { transform: translateX(40px); }
+  /* Belt-and-suspenders: explicitly force the entered state to transform:none
+     for reverse pillars on mobile. The desktop translateX(40px) / (-40px)
+     rules at line 752/753 are unscoped (apply at all breakpoints) and may
+     leak into the entered state via animation interpolation or cascade quirks. */
+  .lst-pillar-new .lst-pillar-grid-reverse .lst-pillar-text.has-entered,
+  .lst-pillar-new .lst-pillar-grid-reverse .lst-pillar-visual.has-entered {
+    transform: none !important;
+  }
 
   .lst-process-new .lst-process { padding: 100px 0 120px; }
   .lst-process-new .lst-process-grid {
@@ -900,10 +924,21 @@
   .lst-hero-new .lst-hero-chip .ch-label br { display: none; }
 
   /* Pillars ────────────────────────────────────────────────────────── */
-  .lst-pillar-new { scroll-margin-top: 72px; }
+  .lst-pillar-new { scroll-margin-top: 72px; overflow-x: clip; }
   .lst-pillar-new .lst-pillar { padding: 72px 0 84px; }
   .lst-pillar-new .container { padding: 0 20px; }
   .lst-pillar-new .guides { background-size: calc(100% / 6) 100%; opacity: 0.45; }
+  /* Allow flex check-item text to shrink below its longest word so long
+     words like "Conversion-optimiert" don't force the column wider than
+     the viewport. */
+  .lst-pillar-new .lst-check-item > div { min-width: 0; overflow-wrap: anywhere; }
+  /* Same protection for the cursive accent — its `width: fit-content` lets
+     it grow as wide as the word; clamp it to the column. */
+  .lst-pillar-new h2 .accent { max-width: 100%; overflow-wrap: anywhere; }
+  /* Lead paragraph: drop `text-wrap: pretty` (can choose line widths wider
+     than the viewport on the reverse-grid pillar for reasons we don't fully
+     understand) and add overflow-wrap as a safety net. */
+  .lst-pillar-new .lst-pillar-lead { text-wrap: auto; overflow-wrap: anywhere; max-width: 100%; }
   .lst-pillar-new .lst-pillar-grid,
   .lst-pillar-new .lst-pillar-grid-reverse { gap: 36px; }
   .lst-pillar-new h2 {
@@ -919,6 +954,30 @@
   .lst-pillar-new .lst-checklist { gap: 14px; }
   .lst-pillar-new .lst-check-item { font-size: 15px; }
   .lst-pillar-new .lst-visual-placeholder { aspect-ratio: 5 / 4; }
+
+  /* Pillar mockup panels — drop the locked 4:5 aspect ratio so the panel
+     grows to fit its content (the rigid ratio was squashing the inbox/flow/
+     rank into a too-tall narrow box). Reduce padding so the mockup itself
+     gets more breathing room within the column. */
+  .lst-pillar-new .lstm-panel {
+    aspect-ratio: auto;
+    padding: 24px 20px;
+    gap: 14px;
+  }
+  /* Tighten internal mockup elements that were sized for desktop width */
+  .lstm-inbox-row { padding: 10px 12px; gap: 10px; }
+  .lstm-avatar { width: 30px; height: 30px; font-size: 10px; }
+  .lstm-row-name { font-size: 12.5px; }
+  .lstm-row-snip { font-size: 11px; }
+  .lstm-pill, .lstm-time { font-size: 9.5px; }
+  .lstm-flow-icon { width: 30px; height: 30px; font-size: 15px; }
+  .lstm-flow-step + .lstm-flow-step::before { left: 14px; }
+  .lstm-rank-result { padding: 12px 14px; }
+  .lstm-rank-name { font-size: 13px; }
+  .lstm-rank-snip { font-size: 11px; }
+  .lstm-rank-chart { padding: 12px; }
+  .lstm-rank-score { font-size: 48px; }
+  .lstm-rank-foot { padding: 12px; }
 
   /* Prozess ────────────────────────────────────────────────────────── */
   .lst-process-new .lst-process { padding: 72px 0 84px; }

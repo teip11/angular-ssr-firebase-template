@@ -2120,12 +2120,15 @@
   .hero-new .stage {
     grid-template-columns: 1fr;
     gap: 36px;
-    padding-top: 28px;
+    /* Clear the floating navbar (top: 18px + ~50px tall ≈ 68px) so the
+       headline doesn't sit behind the "G Studio" pill on phones. */
+    padding-top: 96px;
     padding-bottom: 100px;
     min-height: auto;
   }
-  .hero-new .eyebrow { font-size: 11px; letter-spacing: 0.2em; margin-bottom: 16px; }
-  .hero-new .eyebrow .bar { width: 20px; }
+  /* Hide the "Webdesign · Made in Germany" eyebrow on phone — the floating
+     navbar's "G Studio" brand overlaps it at the top of the page. */
+  .hero-new .copy > .eyebrow { display: none; }
 
   .hero-new .headline { font-size: 52px; line-height: 0.95; letter-spacing: -0.03em; }
   .hero-new .headline .script { font-size: 68px; margin-top: 2px; margin-left: -3px; }
@@ -2172,12 +2175,28 @@
     transform: none;
     transition: none;
   }
-  .hero-new .frame--site { aspect-ratio: 560 / 360; order: 1; }
-  .hero-new .frame--traffic { aspect-ratio: 302 / 240; order: 2; }
-  .hero-new .frame--konv { aspect-ratio: 291 / 260; order: 3; }
-  .hero-new .frame--site .ms { grid-template-columns: 1fr 30%; gap: 18px; padding: 18px 18px 38px; }
+  /* Same aspect-ratio across all three frames on mobile so the stack reads
+     as a uniform vertical column (4:3 accommodates the site mockup's title
+     + art panel, the traffic chart's vertical breathing room, and the konv
+     list's 2–3 items without crowding any of them). */
+  .hero-new .frame--site { aspect-ratio: 4 / 3; order: 1; }
+  .hero-new .frame--traffic { aspect-ratio: 4 / 3; order: 2; }
+  .hero-new .frame--konv { aspect-ratio: 4 / 3; order: 3; }
+  /* Hide the decorative body + CTA on phone so the cap-strip footer
+     ("01 · Design / unverwechselbar") fits inside the 4:3 box. The title +
+     cursive script carry the visual story; the body fluff is desktop-only. */
+  .hero-new .frame--site .ms { grid-template-columns: 1fr 30%; gap: 18px; padding: 18px 18px 18px; min-height: 0; }
   .hero-new .frame--site .ms-title { font-size: 26px; }
   .hero-new .frame--site .ms-script { font-size: 36px; }
+  .hero-new .frame--site .ms-body,
+  .hero-new .frame--site .ms-cta { display: none; }
+  /* Cap-strip footer should be the same size on all three frames on mobile.
+     Desktop gives the site frame a larger cap-strip because it's a wider
+     banner; on mobile where all three are stacked at the same width, the
+     smaller "card" cap-strip styling reads consistently. */
+  .hero-new .frame--site .cap-strip { height: 30px; padding: 6px 12px; }
+  .hero-new .frame--site .cap-strip .tag { font-size: 8.5px; letter-spacing: 0.2em; }
+  .hero-new .frame--site .cap-strip .desc { font-size: 18px; }
   .hero-new .tk-traffic .val { font-size: 30px; }
   .hero-new .badge--inline {
     margin: 14px 0 4px;
@@ -2221,6 +2240,31 @@
   .value-new .vband-foot {
     margin-top: 32px; flex-direction: column; align-items: flex-start;
     gap: 8px; font-size: 10.5px;
+  }
+
+  /* === PROCESS (horizontal scroll on phone) === */
+  /* Override the tablet rule from @media (max-width: 1080px) that stacks the
+     cards vertically. On phone we want a horizontal swipe-through filmstrip:
+     each card is roughly viewport-width, snaps into place, native scroll. */
+  .process-new .ps-stack {
+    flex-direction: row;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 20px 20px;
+    margin: 0 -20px;  /* let the track bleed to the screen edge */
+    scrollbar-width: none;
+  }
+  .process-new .ps-stack::-webkit-scrollbar { display: none; }
+  .process-new .ps-card {
+    flex: 0 0 86vw;
+    max-width: 360px;
+    min-height: 0;
+    scroll-snap-align: start;
+    margin-bottom: 0 !important;
+    /* Reset the tablet rule's min-height: 480px so cards size to content */
   }
 
   /* === QUOTE BRIDGE === */

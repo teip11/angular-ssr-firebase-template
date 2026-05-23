@@ -55,6 +55,7 @@
   flex: none;
 }
 .static-nav .sn-brand strong { font-weight: 800; }
+.static-nav .sn-brand .sn-brand-short { display: none; }
 
 .static-nav .sn-links {
   display: flex;
@@ -245,6 +246,14 @@
   .static-nav .sn-brand .sn-logo { width: 28px; height: 28px; }
   .static-nav .sn-cta { display: none; }
   .nav-burger { display: inline-flex; }
+
+  /* Shorter brand "G Studio" on phones — full name is in the logo's alt text
+     so screen readers still announce "Gehrke Studio" via the image. */
+  .static-nav .sn-brand .sn-brand-full { display: none; }
+  .static-nav .sn-brand .sn-brand-short { display: inline; }
+  /* Floating pill brand: hide all chars of "Gehrke" except the leading G;
+     the per-letter slide-up animation still runs on the visible chars. */
+  .fn-brand .word:first-of-type .char:not(:first-child) { display: none; }
 
   /* Floating pill on phones: brand + burger only */
   .fn-cta { display: none; }
