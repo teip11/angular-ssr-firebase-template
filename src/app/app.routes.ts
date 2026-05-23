@@ -63,12 +63,6 @@ export const routes: Routes = [
       import('./pages/datenschutz/datenschutz.component').then(m => m.DatenschutzComponent),
     title: 'Datenschutzerklärung | Gehrke Studio'
   },
-  {
-    path: 'agb',
-    loadComponent: () =>
-      import('./pages/agb/agb.component').then(m => m.AgbComponent),
-    title: 'AGB | Gehrke Studio'
-  },
 
   // ── 404 ───────────────────────────────────────────────────────────────────
   {

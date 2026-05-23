@@ -99,13 +99,6 @@ const PAGE_SEO: Record<string, SeoConfig> = {
     url: `${BASE_URL}/datenschutz`,
     type: 'website',
   },
-  agb: {
-    title: 'AGB | Gehrke Studio',
-    description: 'Allgemeine Geschäftsbedingungen von Gehrke Studio für die Erbringung von Webdesign- und Webentwicklungs-Leistungen.',
-    keywords: '',
-    url: `${BASE_URL}/agb`,
-    type: 'website',
-  },
   'not-found': {
     title: '404 — Seite nicht gefunden | Gehrke Studio',
     description: 'Die Seite konnte leider nicht gefunden werden. Zurück zur Startseite oder unsere Projekte ansehen.',
