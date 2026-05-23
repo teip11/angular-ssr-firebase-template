@@ -15,6 +15,20 @@ const angularApp = new AngularNodeAppEngine();
 
 const app = express();
 
+// Firebase App Hosting → Cloud Run rewrites the incoming `Host` header to the
+// internal run.app hostname (e.g. `t-…---gehrke-studio-…-ez.a.run.app`), which
+// trips Angular 21's SSRF host-header allowlist. The original public hostname
+// arrives in `X-Forwarded-Host` — promote it to `Host` so the SSR engine sees
+// `gehrkestudio.com` and `allowedHosts` matches.
+app.set('trust proxy', true);
+app.use((req, _res, next) => {
+  const fwdHost = req.headers['x-forwarded-host'];
+  if (fwdHost) {
+    req.headers.host = Array.isArray(fwdHost) ? fwdHost[0] : fwdHost;
+  }
+  next();
+});
+
 // ── Static assets — 1-year immutable cache ───────────────────
 app.use(
   express.static(browserDistFolder, {
