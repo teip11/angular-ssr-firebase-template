@@ -187,6 +187,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.stickyCtaVisible.set(pastHero && !nearBottom);
   }
 
+  // routerLink + scrollPositionRestoration: 'top' should suffice, but mobile
+  // browsers' native history.scrollRestoration occasionally races the router
+  // and lands the user mid-page. Forcing scrollTo on the next frame makes the
+  // top-of-page landing deterministic.
+  onStickyCtaClick(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }));
+  }
+
   @HostListener('window:resize', [])
   onResize(): void {
     this.measureFaqHeights();

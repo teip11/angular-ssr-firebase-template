@@ -986,7 +986,7 @@ into the detail page. -->
 
 <!-- ── Mobile sticky CTA — slides up past 80vh, hides as the final CTA approaches ── -->
 <div class="home-sticky-cta" [class.is-visible]="stickyCtaVisible()">
-  <a routerLink="/demo" class="hsc-btn" [attr.tabindex]="stickyCtaVisible() ? null : -1">
+  <a routerLink="/demo" class="hsc-btn" [attr.tabindex]="stickyCtaVisible() ? null : -1" (click)="onStickyCtaClick()">
     <span class="hsc-label">Kostenlose Vorlage anfordern</span>
     <span class="hsc-arrow" aria-hidden="true">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
