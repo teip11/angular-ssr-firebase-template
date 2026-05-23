@@ -318,35 +318,26 @@ Bundled into the same session:
 
 ## What's still blocking publish
 
-### Visual assets — consolidated checklist (confirmed status as of 2026-05-22)
+### Design sign-off (2026-05-23)
 
-| Area | Item | Status |
-|---|---|---|
-| Hero cluster | All three frames (01 Design / 02 Sichtbarkeit / 03 Anfragen) | ✓ Self-contained — typography mockup + UI mockups, no real images needed |
-| Showcase carousel | Friseur slot → Altstahl Velomanufaktur | ✓ Replaced — screenshot + `/public/showcase/altstahl/index.html` |
-| Showcase carousel | Kanzlei slot → Bredow & Partner | ✓ Replaced — screenshot + `/public/showcase/bredow-partner/index.html` |
-| Showcase carousel | Café slot → Werft 11 Brauwerk | ✓ Replaced — screenshot + `/public/showcase/werft-11/index.html` |
-| Leistungen | 3 pillar visuals (`.lst-visual-placeholder`) | ✗ "Bild folgt" boxes |
-| Projekte | Case study 01 vorher/nachher | ✗ 3:4 placeholder boxes |
-| Projekte | Case study 02 vorher/nachher | ✗ 3:4 placeholder boxes |
-| Projekte | 9 marquee placeholder slots | ✗ "Weitere Projekte folgen" cards |
-| About | Portrait of Piet (`.abt-portrait-placeholder`) | ✗ "Portrait folgt" box |
-| Blog | 6 article covers (`.blg-article-cover`/`.blg-featured-cover`) | ✗ "Cover folgt" gradient placeholders |
-| Site-wide | OG image (`/public/OG_image.png`) | ✓ Confirmed final |
-| Site-wide | Favicon (`/public/Favicon.png`) | ✓ Confirmed final |
+**The user has signed off on the entire site design and copy** — every page, every text, both desktop and mobile. Treat the visual + copy work as **frozen**. Do not suggest design tweaks, copy rewrites, or new visual elements unless the user explicitly asks. This includes:
+- Hero, navbar, value, process, qbridge, showcase, honesty, FAQ, final + footer (homepage)
+- All subpages (Leistungen, Projekte, About, Kontakt, Demo, Blog, Impressum, Datenschutz, AGB, 404)
+- Mobile and desktop layouts for every section
 
-Net new assets needed: ~**3 leistungen visuals + ~10 projekte visuals + 1 portrait + 6 blog covers ≈ 20 net images** (a few may be illustrations rather than photography). The hero is now image-free; the showcase wheel is fully populated with real templates.
+Placeholder visual assets that remain (Projekte case studies, Blog covers) are no longer counted as design blockers — they're content-blocked and will be swapped in when real content lands.
 
-### Blockers (must do)
+### Blockers (must do before launch)
 
-1. **Leistungen visuals are placeholder boxes** — 4:5 "Bild folgt" boxes sit where the pillar visuals should go. Need real product screenshots (lead-form, CRM flow, search results) or designed mockups.
-2. **Projekte case-study visuals are placeholder boxes** — vorher/nachher 3:4 boxes with red/green tag chips on both case studies, plus 9 marquee placeholder cards. Real before/after images don't exist for any of the 3 real showcase sites; either generate mockups or replace case studies with a different structure. **This is the focus of the next session — see "Next session" below.**
-3. **About — portrait of Piet** needs to land at the `.abt-portrait-placeholder` slot. The placeholder already has the right shape (4:5 gradient + "Portrait folgt" label) — drop a real photo into `public/portrait.jpg` and swap the placeholder for an `<img>`.
-4. **Blog — 6 article covers** (`.blg-article-cover` variants 1–6). Until real covers exist, the palette-rotating gradients give visual variety; replace with real cover photography/illustrations when articles are written.
-5. ~~End-to-end test of `/demo` and `/kontakt` forms~~ — **Done 2026-05-23 on localhost.** Both forms verified end-to-end: lead email arrives, customer auto-reply delivers, reCAPTCHA verifies. Required v3 → v2 invisible migration (see "Forms hardening + reCAPTCHA migration" above) because EmailJS only supports v2 server-side. **Re-verify in production after deploy** — one test run produced a duplicate main-template send (one empty payload) that didn't reproduce on retry. Could be a missed-click on the recaptcha challenge popup or a hydration double-fire; worth confirming in the live environment.
-6. **AGB needs lawyer review before publication** — drafted on the Gehrke Studio MVP Agreement framework. Stand-Datum currently `21. Mai 2026`. Specific clauses to confirm with counsel: §7 (payment), §8 (IP split / perpetual non-exclusive license language), §10 (30-day bugfix window vs statutory Gewährleistung), §11 (Auftragswert cap).
-7. **Bild- und Drittanbieter-Nachweise** — once real images, stock photos, or third-party assets land on the site, add a Bildnachweise/Quellen subsection (Impressum or a separate Credits page). Note: the 3 new showcase templates (altstahl, bredow, werft-11) use external Unsplash photography — log credits when this page is created.
-8. **Re-deploy + Search Console re-indexing** — the canonical-tag bug from a prior deployment caused `/demo`, `/kontakt`, `/leistungen`, `/ueber-uns` to be reported as duplicates of `/`. The current build has correct self-canonicals. After the next deploy: URL-Inspection + "Indexierung beantragen" on each of those 4 URLs, plus resubmit the sitemap.
+1. **AGB needs lawyer review before publication** — drafted on the Gehrke Studio MVP Agreement framework. Stand-Datum currently `21. Mai 2026`. Specific clauses to confirm with counsel: §7 (payment), §8 (IP split / perpetual non-exclusive license language), §10 (30-day bugfix window vs statutory Gewährleistung), §11 (Auftragswert cap).
+2. **Re-deploy + Search Console re-indexing** — the canonical-tag bug from a prior deployment caused `/demo`, `/kontakt`, `/leistungen`, `/ueber-uns` to be reported as duplicates of `/`. The current build has correct self-canonicals. After the next deploy: URL-Inspection + "Indexierung beantragen" on each of those 4 URLs, plus resubmit the sitemap.
+3. **Re-verify forms in production** — both forms verified end-to-end on localhost (2026-05-23). One test run produced a duplicate main-template send (one empty payload) that didn't reproduce on retry. Could be a missed-click on the recaptcha challenge popup or a hydration double-fire — worth confirming in the live environment.
+
+### Content-blocked (deferred — user has scratched as launch blockers)
+
+- **Projekte case-study visuals** — vorher/nachher 3:4 placeholder boxes on both case studies + 9 marquee placeholder cards. Real before/after images don't exist; will swap when content lands.
+- **Blog article covers** — 6 palette-rotating gradient placeholders. Will swap when articles are written.
+- **Bildnachweise** — section added to Impressum (2026-05-23) crediting Unsplash for all 6 showcase templates. When real photography/stock lands, expand the section with the new credits.
 
 ### Resolved during the redesign sweep
 
@@ -355,32 +346,30 @@ Net new assets needed: ~**3 leistungen visuals + ~10 projekte visuals + 1 portra
 - ~~404 page~~ → redesigned as `.nf-page-new`.
 - AGB page added (didn't exist before).
 - ~~Hero cluster needs 4 real images~~ → hero rebuilt as `.stage3d` (variant 08). Three frames are self-contained (typography mockup + UI mockups), zero real images required.
-- ~~Showcase carousel 3 placeholder cards (Friseur/Kanzlei/Café)~~ → all three replaced with real templates (Altstahl, Bredow & Partner, Werft 11) from the templates folder. Wheel is now 6 unique real cards, fully populated. See "Showcase wheel — 3 new templates integrated" above for the template-side fixes applied before copying.
+- ~~Showcase carousel 3 placeholder cards (Friseur/Kanzlei/Café)~~ → all three replaced with real templates (Altstahl, Bredow & Partner, Werft 11) from the templates folder. Wheel is now 6 unique real cards, fully populated.
 - ~~Angular 19.2 framework~~ → upgraded to 21.2 via sequential `ng update` schematics (commits `18a9845`, `fa8dc33`). Control-flow migration ran as mandatory in v21.
 - ~~Safari floating-navbar brand clip~~ → fixed via `clip-path: inset(0 -1em)` on `.fn-brand .word`.
+- ~~Leistungen pillar visuals~~ → replaced "Bild folgt" placeholders with HTML/CSS UI mockups (`.lstm-inbox`, `.lstm-flow`, `.lstm-rank`).
+- ~~Portrait of Piet placeholder~~ → removed; bio collapsed to single column with Sacramento signature.
+- ~~End-to-end test of `/demo` and `/kontakt` forms~~ — Done 2026-05-23 on localhost. Required v3 → v2 invisible reCAPTCHA migration (EmailJS only supports v2 server-side). Re-verify in production after deploy.
+- ~~Mobile QA per-section~~ — full site signed off by user on both desktop and mobile, 2026-05-23. Process section in particular got a deep iteration pass (sticky scroll-stack + CTA + smooth-scroll rail).
+- ~~Per-page SEO meta via `SeoService`~~ — all 12 page components call `seo.setPageSEO(...)` in `ngOnInit`.
+- ~~Dead components~~ — `sticky-cta` and `src/app/pages/bundle/` deleted (zero references).
+- ~~Global focus color~~ — `--color-accent-primary` cyan `#22D3EE` → brand orange `#f26b1f`.
+- ~~Dead CSS in `home.component.css`~~ — 101 lines of legacy hero/value/process/FAQ rules removed.
+- ~~Showcase template pages legacy design~~ — kept their own brand designs (they're showcase templates for fictitious clients) but added a small Gehrke Studio attribution pill bottom-right of each so users can navigate back.
 
-### High priority
+### Nice-to-have (not blocking launch)
 
-6. Mobile QA on real devices — hero + nav are reviewed and approved; sections 2–8 (value, process, qbridge, showcase, honest, faq, final) had their mobile @media rules ported from the drop but haven't been visually verified per-section yet. **Next session starts here.**
-7. Cross-browser smoke (Safari ✓ so far, Chrome + Firefox pending; `backdrop-filter` renders differently across engines).
-8. Confirm cookie banner still fires GTM/GA correctly after redesign.
-9. ~~Per-page SEO meta via `SeoService`~~ — **Done.** All 12 page components call `seo.setPageSEO(...)` in `ngOnInit`.
-10. `sticky-cta` component (`src/app/components/sticky-cta/`) — check if still in use or clashes with floating nav.
-11. Mystery `src/app/pages/bundle/` — no route, possibly dead.
+- **Cross-browser smoke** — Safari signed off, Chrome + Firefox unverified.
+- **Cookie banner GTM/GA** — confirm still fires correctly after redesign.
+- **Lighthouse / Performance pass** — never run on the redesign.
+- **DESIGN_SYSTEM.md drift** — new patterns introduced during the sweep that aren't yet documented: `.dmo-toggle`, `.dmo-pill` / `.knt-pill`, `.dmo-trust`, `.recaptcha-note`, `.lstm-*` (Leistungen pillar mockups added 2026-05-23).
 
-### Medium
+### Repository housekeeping (post-merge)
 
-12. **Global focus color is still legacy cyan** (`--color-accent-primary: #22D3EE` in `src/styles.css`). Should be orange `#f26b1f` to match brand. There's already an override for `.honest-new .seal` because of this.
-13. **Dead CSS** in `home.component.css` — old hero/value/process/FAQ styles still in file, hundreds of lines, padding bundle.
-14. **Showcase template pages** (`public/showcase/trattoria-marconi/index.html`, etc.) — static HTML, still legacy design. Click any showcase card → opens these.
-15. Performance / Lighthouse pass.
-
-### Nice to have
-
-- Smooth color transitions between sections (currently hard cuts hero-dark → value-cream → process-terracotta).
-- Polish hero entry animations.
 - Remove `design-drops/` from repo when redesign closes.
-- Cleanup the redesign-active memory files when merged.
+- Cleanup the redesign-active memory files (`redesign-branch-active.md`, `redesign-workflow-design-drops.md`) when merged.
 
 ## Memory files (persist across sessions)
 
@@ -398,9 +387,9 @@ Both are still relevant. Remove once redesign is merged and live.
 3. To preview locally: `npx ng serve --port 4201` (4200 sometimes in use). Open `http://localhost:4201`.
 4. Hot-reload picks up CSS/HTML/TS changes automatically.
 
-## Next session — rework the Projekte showcase
+## Next big task — rework the Projekte showcase (content-gated)
 
-**The page sweep is done. The next focus is making the Projekte page the strongest showcase on the site — clearly better than the homepage showcase.** User direction: "the showcase there should be better than on the homepage".
+**The full site design is signed off (2026-05-23).** The next significant piece of work is making the Projekte page the strongest showcase on the site — clearly better than the homepage carousel. User direction: "the showcase there should be better than on the homepage". This is **deferred until real case-study content (vorher/nachher imagery, real client narratives) is available**; the structural rework can happen now but it'd be working against placeholder content.
 
 Current state of `/projekte` (commit reference: Projekte page redesign, summarised earlier in this file):
 
@@ -435,51 +424,11 @@ Things the home showcase deliberately keeps simple (because it's one section of 
 
 ### Backlog still relevant after the sweep
 
-- **Mobile section-by-section QA** on the homepage (value, process, qbridge, showcase, honest, faq, final) — mobile rules were ported but not visually verified per-section. Re-pick this up once Projekte is settled.
-- **DESIGN_SYSTEM.md doc drift** — the redesign sweep introduced several new patterns that aren't documented yet:
+- **DESIGN_SYSTEM.md doc drift** — the redesign sweep introduced several new patterns that aren't documented yet. Should become new §7 entries when someone gets to it:
   - `.dmo-toggle` (toggle switch on paper-light)
   - `.dmo-pill` / `.knt-pill` (multi-select pill with check badge)
   - `.dmo-trust` (orange-bar + uppercase label trust signal row)
   - `.recaptcha-note` style disclaimer
+  - `.lstm-*` (Leistungen pillar UI mockups added 2026-05-23 — `.lstm-inbox`, `.lstm-flow`, `.lstm-rank` with shared `.lstm-panel` scaffold)
   - per-page hero/header reveal patterns
-  - These should become §7.15 / §7.16 / §7.17 entries when the design feels settled.
-
-### Backlog: mobile section-by-section QA (deferred from prior session)
-
-Hero + navbar mobile are signed off. The other homepage sections (value, process, qbridge, showcase, honest, faq, final) had their mobile @media rules ported from the drop but haven't been visually verified per-section yet. Re-pick this up once the page sweep is further along.
-
-## Currently in progress — mobile process section (2026-05-23)
-
-**What we're doing:** iterating on the mobile version of the homepage `process-new` section. The user wants the desktop sticky-scroll-stack mechanic on phone too (cards pull onto each other as you scroll), with the progress indicator (`.ps-rail`) above and a "Bereit für Ihre Vorlage" CTA after.
-
-**Where the code lives:**
-- HTML: `home.component.html` lines ~345–485 (process section). The new `.ps-cta` block sits inside `.ps-stage` after `.ps-grid`.
-- CSS: `home.component.css`. Mobile rules in `@media (max-width: 480px)` starting around line ~2250. Search for `=== PROCESS (sticky scroll-stack on phone`.
-- TS: `home.component.ts` — `updateProcess()` handles `activeStep` tracking (when a card's `rect.top` crosses 45% of viewport) + smooth-scrolls the rail to center the active step on mobile.
-
-**Current layout state (as of the last iteration):**
-- `.ps-rail` → `position: relative` (in normal flow, scrolls away naturally with the page like the intro text above it). Each step is a text-only chip with a gold underline `::after` bar for the active state. No per-step pill border or background.
-- `.ps-card` → `position: sticky !important; top: 185px !important` for all three. Card 1 has `transform: translateY(20px)`, card 2 has `translateY(40px)` (mirroring desktop staircase peek). `margin-bottom: 20vh` between cards.
-- `.ps-cta` → new CTA block after the cards, "Bereit für Ihre / Kostenlose Website Vorlage anfordern / Individuell für Ihr Unternehmen erstellt". Orange button on the terra orange section. Pattern modeled after `.show-cta` in the showcase section. Appears on desktop too (not gated mobile-only).
-
-**Iteration history (so future-you doesn't repeat what was already tried):**
-- v1: horizontal swipe filmstrip → user wanted desktop sticky-stack mechanic on phone instead.
-- v2: rail sticky at top:78, cards sticky at top:148 → user complained the rail "becomes sticky" and wanted it static.
-- v3: rail static at relative, cards sticky at top:185 → user complained "the viewport doesn't get static in the right place", wanted rail visible during card-stack.
-- v4: rail sticky again → user said "make it behave like the text above it on scroll" (i.e. static).
-- v5 (current): rail static, cards sticky at top:185. User keeps oscillating; commit current state and let them validate.
-
-**Open questions for next session:**
-- The user repeatedly asks for the rail to be both "static" AND "stay visible while cards stack" — these are contradictory with the current document layout (rail above cards in flow → rail must scroll away when cards stick). Worth asking them to clarify which they value more, or proposing an HTML restructure (e.g. nest rail INSIDE `.ps-stack` so they share a release point).
-- Card 3's dwell time was set to 20vh (matching cards 0/1) so it "fully covers card 2" with the same scroll duration, but the user also wants the CTA "pretty close behind card 3" — these are in tension. Current compromise favors card-3 dwell; user may want to tune.
-- The `updateProcess()` JS still applies a `translateY` to the rail for the desktop rail-follow effect — overridden via CSS `transform: none !important` on mobile. If we restructure the layout, this override might need to go.
-
-**Watch out for:**
-- `position: sticky` on `.ps-card` only works because `.ps-stack`'s parent `.ps-grid` has `overflow: visible`. Don't accidentally add `overflow: hidden` anywhere up the tree.
-- The tablet `@media (max-width: 1080px)` rule sets `.ps-card { position: relative; top: 0 !important; margin-bottom: 32px }`. The phone `@media (max-width: 480px)` rule has to use `!important` to override it since both have the same specificity and source order favors the later (phone) rule but the `!important` on top: 0 in the tablet rule is matched by `top: 185px !important` in mobile.
-
-## Open question (kept for reference)
-
-Pick one before final launch:
-- **Ship homepage only** — fastest path, accept that nav links lead to legacy pages.
-- **Redesign all pages first** — bigger lift, consistent UX before launch.
+  - process section's `.ps-cta` "Bereit für Ihre Vorlage" pattern (modeled on `.show-cta`)
