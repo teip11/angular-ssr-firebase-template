@@ -1402,6 +1402,18 @@
   padding: 0 56px;
   text-align: center;
 }
+/* Orange vertical line leading from the card stack down to the CTA — visual
+   connector between the two. Fades transparent → orange so the eye is
+   guided toward the label/button below. Inherits .ps-cta's opacity so it
+   fades in with the rest of the CTA block. */
+.process-new .ps-cta::before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 72px;
+  margin: 0 auto 24px;
+  background: linear-gradient(180deg, transparent 0%, var(--orange) 100%);
+}
 .process-new .ps-cta .label {
   display: flex; justify-content: center; align-items: center; gap: 10px;
   font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
@@ -2341,8 +2353,23 @@
      card does). */
   .process-new .ps-card[data-i="2"] { top: 185px !important; z-index: 3; transform: translateY(40px); }
 
-  /* CTA after the cards — full-width on phone, smaller padding */
-  .process-new .ps-cta { margin-top: 56px; padding: 0 20px; }
+  /* CTA: same vertical stack as desktop (label + button + micro), just
+     pulled closer to the cards. Opacity fades in when card 3 stacks
+     (activeStep === 2). Negative margin-top eats most of card 3's 20vh
+     bottom margin so the CTA sits right under the stacked cards instead
+     of behind a slab of empty terra. */
+  .process-new .ps-cta {
+    margin-top: -16vh;
+    padding: 0 20px;
+    opacity: 0;
+    transition: opacity .5s ease;
+  }
+  .process-new .ps-cta.is-revealed { opacity: 1; }
+  /* Shorter connector line on phone, matching the tighter margin-top. */
+  .process-new .ps-cta::before {
+    height: 48px;
+    margin-bottom: 18px;
+  }
   .process-new .ps-cta .btn-big {
     padding: 16px 22px; font-size: 15px;
     width: 100%; justify-content: space-between;
@@ -2350,10 +2377,21 @@
   .process-new .ps-cta .btn-big .ic { width: 26px; height: 26px; }
 
   /* === QUOTE BRIDGE === */
-  .qbridge-new .quote-stage { min-height: 56vh; padding: 70px 0; }
+  /* Re-enable the scroll-driven word unblur on phone (the tablet rule at
+     ≤1080px disabled it via height:auto + position:relative). 180vh of
+     track gives ~80vh of scroll range for the word-by-word reveal driven
+     by updateQuoteBridge(). */
+  .qbridge-new .quote-track { height: 180vh; }
+  .qbridge-new .quote-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    min-height: 100vh;
+    padding: 0;
+  }
   .qbridge-new .quote-text { padding: 0 22px; font-size: 32px; line-height: 1.1; }
   .qbridge-new .quote-mark { font-size: 130px; top: 5%; }
-  .qbridge-new .quote-attrib { bottom: 9%; font-size: 12px; }
+  .qbridge-new .quote-attrib { bottom: 9%; font-size: 12px; white-space: nowrap; }
 
   /* === SHOWCASE === */
   .showcase-new .showcase { padding: 80px 0 90px !important; }

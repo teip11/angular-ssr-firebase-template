@@ -247,16 +247,29 @@
   .static-nav .sn-cta { display: none; }
   .nav-burger { display: inline-flex; }
 
-  /* Shorter brand "G Studio" on phones — full name is in the logo's alt text
-     so screen readers still announce "Gehrke Studio" via the image. */
-  .static-nav .sn-brand .sn-brand-full { display: none; }
-  .static-nav .sn-brand .sn-brand-short { display: inline; }
-  /* Floating pill brand: hide all chars of "Gehrke" except the leading G;
-     the per-letter slide-up animation still runs on the visible chars. */
-  .fn-brand .word:first-of-type .char:not(:first-child) { display: none; }
+  /* Static nav (hero area) keeps the full "Gehrke Studio" on phones —
+     the CTA is hidden on mobile so there's room for the full brand. */
 
-  /* Floating pill on phones: brand + burger only */
-  .fn-cta { display: none; }
+  /* Floating pill on phones: brand + burger only, near-full viewport
+     width with a small inset. CTA + nav links live inside the burger
+     drawer so the pill doesn't duplicate them. Selectors use the element
+     prefix `nav.` to outrank the base `.floating-nav` rules that appear
+     later in the file (which would otherwise win source order). */
+  nav.floating-nav {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px 8px 18px;
+    transform: translate(0, calc(-100% - 32px)) scale(0.95);
+  }
+  nav.floating-nav.is-visible {
+    transform: translate(0, 0) scale(1);
+  }
+  .floating-nav .fn-cta,
+  .floating-nav .fn-sep,
+  .floating-nav .fn-links { display: none; }
   .fn-burger { display: inline-flex; }
 }
 
