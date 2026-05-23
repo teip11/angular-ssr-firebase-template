@@ -2156,6 +2156,11 @@
    Translated from design-drops/Homepage-Mobile.html, with every selector
    prefixed by its `.X-new` section wrapper to match the scoping convention.
    ════════════════════════════════════════════════════════════════════════ */
+
+/* Mobile-only sticky CTA — hidden by default, surfaced inside the mobile
+   media query below. Driven by `stickyCtaVisible` in home.component.ts. */
+.home-sticky-cta { display: none; }
+
 @media (max-width: 480px) {
 
   /* === GLOBAL (per-section container/guide tweaks) === */
@@ -2471,4 +2476,46 @@
   .final-new .final-trust { margin-top: 28px; font-size: 11.5px; gap: 6px 16px; }
   .final-new .final .ghost-num { font-size: 60vw; }
   .final-new .final-foot { padding: 0 20px; bottom: 16px; font-size: 9px; flex-wrap: wrap; gap: 8px; }
+
+  /* ── Sticky CTA — bottom bar that slides in past the hero ─────────────── */
+  .home-sticky-cta {
+    display: block;
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 150;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom)) 16px;
+    background: rgba(26, 22, 18, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    transform: translateY(110%);
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+    will-change: transform;
+  }
+  .home-sticky-cta.is-visible {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .home-sticky-cta .hsc-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: #f26b1f;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    box-shadow: 0 10px 28px -10px rgba(242, 107, 31, 0.6);
+  }
+  .home-sticky-cta .hsc-arrow {
+    display: inline-flex;
+    transition: transform 0.3s ease;
+  }
+  .home-sticky-cta .hsc-btn:active .hsc-arrow { transform: translateX(3px); }
 }

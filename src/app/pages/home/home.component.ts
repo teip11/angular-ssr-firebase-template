@@ -1,7 +1,7 @@
 import {
   Component, AfterViewInit, OnInit, OnDestroy,
   ElementRef, ViewChild, ViewChildren, QueryList,
-  Inject, PLATFORM_ID, NgZone, HostListener
+  Inject, PLATFORM_ID, NgZone, HostListener, signal
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -102,6 +102,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('vhSub',      { read: ElementRef }) vhSub?:      ElementRef<HTMLElement>;
   @ViewChildren('valueCardItem', { read: ElementRef }) valueCardItems?: QueryList<ElementRef<HTMLElement>>;
 
+  // ─── Mobile sticky CTA (homepage only) ──────────────────────────────────
+  // Slides up once the user has scrolled past the hero (same 80vh threshold
+  // as the floating navbar) and tucks away again as the final-section CTA
+  // approaches so we don't double-stack two "Vorlage anfordern" buttons.
+  stickyCtaVisible = signal(false);
+
   private observers: IntersectionObserver[] = [];
   private scrollTicking = false;
 
@@ -168,7 +174,17 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.updateQuoteBridge();
       this.updateFaqRail();
       this.updateGhostQ();
+      this.updateStickyCta();
     });
+  }
+
+  private updateStickyCta(): void {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const wh = window.innerHeight;
+    const docH = document.documentElement.scrollHeight;
+    const pastHero = scrollTop > wh * 0.80;
+    const nearBottom = scrollTop + wh > docH - wh * 0.6;
+    this.stickyCtaVisible.set(pastHero && !nearBottom);
   }
 
   @HostListener('window:resize', [])
